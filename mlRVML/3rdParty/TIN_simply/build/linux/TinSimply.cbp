@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="TinSimply" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../bin/debug/libTinSimply" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../bin/release/libTinSimply" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions -fPIC" />
+			<Add directory="../../3rdParty/TIN_simply/qslim-2.1/mixkit/src" />
+			<Add directory="../../3rdParty/TIN_simply/qslim-2.1/libgfx/src" />
+			<Add directory="../../3rdParty/TIN_simply/qslim-2.1/libgfx/include" />
+		</Compiler>
+		<Linker>
+			<Add library="../../3rdParty/TIN_simply/qslim-2.1/mixkit/src/libmix.a" />
+			<Add library="../../3rdParty/TIN_simply/qslim-2.1/libgfx/src/libgfx.a" />
+		</Linker>
+		<Unit filename="../../src/cmdline.cxx" />
+		<Unit filename="../../src/main.cxx" />
+		<Unit filename="../../src/output.cxx" />
+		<Unit filename="../../src/qslim.cxx" />
+		<Unit filename="../../src/qslim.h" />
+		<Unit filename="../../../include/mlTinSimply.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

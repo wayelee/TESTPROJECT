@@ -1,0 +1,49 @@
+import QtQuick.tooling 1.1
+
+// This file describes the plugin-supplied types contained in the library.
+// It is used for QML tooling purposes only.
+
+Module {
+    Component {
+        name: "SDateTime"
+        prototype: "QObject"
+        exports: [
+            "DateTime 1.0"
+        ]
+        Enum {
+            name: "TimeUnit"
+            values: {
+                "Hours": 1,
+                "Minutes": 2,
+                "Seconds": 4,
+                "All": 7
+            }
+        }
+        Enum {
+            name: "HourMode"
+            values: {
+                "TwelveHours": 1,
+                "TwentyFourHours": 2
+            }
+        }
+        Method {
+            name: "longMonthName"
+            type: "string"
+            Parameter { name: "month"; type: "int" }
+        }
+        Method {
+            name: "isLeapYear"
+            type: "bool"
+            Parameter { name: "year"; type: "int" }
+        }
+        Method {
+            name: "daysInMonth"
+            type: "int"
+            Parameter { name: "year"; type: "int" }
+            Parameter { name: "month"; type: "int" }
+        }
+        Method { name: "amText"; type: "string" }
+        Method { name: "pmText"; type: "string" }
+        Method { name: "hourMode"; type: "int" }
+    }
+}

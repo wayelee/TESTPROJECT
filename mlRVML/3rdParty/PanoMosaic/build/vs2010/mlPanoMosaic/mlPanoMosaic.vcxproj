@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D731A2E3-AD00-4F28-8492-FDBAB39AEDF4}</ProjectGuid>
+    <RootNamespace>mlPanoMosaic</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../../include/opencv;../../../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MLPANOMOSAIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>../../../../bin/vs2010/debug/opencv_core230d.lib;../../../../bin/vs2010/debug/opencv_imgproc230d.lib;../../../../bin/vs2010/debug/opencv_gpu230d.lib;../../../../bin/vs2010/debug/opencv_features2d230d.lib;../../../../bin/vs2010/debug/opencv_flann230d.lib;../../../../bin/vs2010/debug/opencv_highgui230d.lib;../../../../bin/vs2010/debug/opencv_ml230d.lib;../../../../bin/vs2010/debug/opencv_calib3d230d.lib;../../../../bin/vs2010/debug/mlSiftMatch.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../../bin/vs2010/debug/mlPanoMosaic.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>../../../../bin/vs2010/debug/mlPanoMosaic.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../../../../include/opencv;../../../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MLPANOMOSAIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>../../../../bin/vs2010/release/opencv_core230.lib;../../../../bin/vs2010/release/opencv_imgproc230.lib;../../../../bin/vs2010/release/opencv_gpu230.lib;../../../../bin/vs2010/release/opencv_features2d230.lib;../../../../bin/vs2010/release/opencv_flann230.lib;../../../../bin/vs2010/release/opencv_highgui230.lib;../../../../bin/vs2010/release/opencv_ml230.lib;../../../../bin/vs2010/release/opencv_calib3d230.lib;../../../../bin/vs2010/release/mlSiftMatch.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../../bin/vs2010/release/mlPanoMosaic.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImportLibrary>../../../../bin/vs2010/release/mlPanoMosaic.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\autocalib.cpp" />
+    <ClCompile Include="..\..\..\src\blenders.cpp" />
+    <ClCompile Include="..\..\..\src\dllmain.cpp" />
+    <ClCompile Include="..\..\..\src\exposure_compensate.cpp" />
+    <ClCompile Include="..\..\..\src\matchers.cpp" />
+    <ClCompile Include="..\..\..\src\motion_estimators.cpp" />
+    <ClCompile Include="..\..\..\src\Panorama.cpp" />
+    <ClCompile Include="..\..\..\src\precomp.cpp" />
+    <ClCompile Include="..\..\..\src\seam_finders.cpp" />
+    <ClCompile Include="..\..\..\src\util.cpp" />
+    <ClCompile Include="..\..\..\src\warpers.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\autocalib.hpp" />
+    <ClInclude Include="..\..\..\src\blenders.hpp" />
+    <ClInclude Include="..\..\..\src\exposure_compensate.hpp" />
+    <ClInclude Include="..\..\..\src\gcgraph.hpp" />
+    <ClInclude Include="..\..\..\src\matchers.hpp" />
+    <ClInclude Include="..\..\..\src\motion_estimators.hpp" />
+    <ClInclude Include="..\..\..\src\panodata.h" />
+    <ClInclude Include="..\..\..\..\include\Panorama.h" />
+    <ClInclude Include="..\..\..\src\precomp.hpp" />
+    <ClInclude Include="..\..\..\src\seam_finders.hpp" />
+    <ClInclude Include="..\..\..\src\targetver.h" />
+    <ClInclude Include="..\..\..\src\util.hpp" />
+    <ClInclude Include="..\..\..\src\util_inl.hpp" />
+    <ClInclude Include="..\..\..\src\warpers.hpp" />
+    <ClInclude Include="..\..\..\src\warpers_inl.hpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

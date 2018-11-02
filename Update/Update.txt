@@ -1,0 +1,2 @@
+app|version|release date|url|file
+CERMapping|1.002|2013.12.01|\\ftp://11.10.11.251/%C8%ED%BC%FE%CA%D2/CEMapping_Update/|bin.zip

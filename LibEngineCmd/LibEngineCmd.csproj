@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F26A6A95-E5E2-4CE3-AE6C-A76B54C18FA5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LibEngineCmd</RootNamespace>
+    <AssemblyName>LibEngineCmd</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar2, Version=12.1.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdLib\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.3DAnalyst, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.ADF.Local, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.AxControls, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Carto, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Controls, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.DataSourcesFile, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.DataSourcesRaster, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Display, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.GeoAnalyst, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Output, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.SpatialAnalyst, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.System, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.SystemUI, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClsGlobal.cs" />
+    <Compile Include="ClsSetRasterRegionToDataValue.cs" />
+    <Compile Include="CmdActivMap.cs" />
+    <Compile Include="CmdAddText.cs" />
+    <Compile Include="CmdAddTinLayer.cs" />
+    <Compile Include="CmdAdjust.cs" />
+    <Compile Include="CmdAttributeTable.cs" />
+    <Compile Include="CmdChangeAnnotationSymbol.cs" />
+    <Compile Include="CmdChDataSource.cs" />
+    <Compile Include="CmdClearAllSunAltPts.cs" />
+    <Compile Include="CmdCoordSystem.cs" />
+    <Compile Include="CmdCreateParrallel.cs" />
+    <Compile Include="CmdCreateScene.cs" />
+    <Compile Include="CmdCreateSelectionLayer.cs" />
+    <Compile Include="CmdCutPolygonsEditTask.cs" />
+    <Compile Include="CmdDelectSelElement.cs" />
+    <Compile Include="CmdDeleteControlPoints.cs" />
+    <Compile Include="CmdExportActiveViewFig.cs" />
+    <Compile Include="CmdExportScene.cs" />
+    <Compile Include="CmdExportSHP.cs" />
+    <Compile Include="CmdFeatureExplode.cs" />
+    <Compile Include="CmdFeatureMerge.cs" />
+    <Compile Include="CmdJoinAttribute.cs" />
+    <Compile Include="CmdLabelDesign.cs" />
+    <Compile Include="CmdLayerProperties.cs" />
+    <Compile Include="CmdLayerSelectable.cs" />
+    <Compile Include="CmdLayerSelectableFalse.cs" />
+    <Compile Include="CmdLegend.cs" />
+    <Compile Include="CmdMapGrid.cs" />
+    <Compile Include="CmdMapUnits.cs" />
+    <Compile Include="CmdNeatLine.cs" />
+    <Compile Include="CmdNorthArrow.cs" />
+    <Compile Include="CmdElementAttribute.cs" />
+    <Compile Include="CmdOpenMxdDoc.cs" />
+    <Compile Include="CmdOpenSceneDoc.cs" />
+    <Compile Include="CmdPageSetup.cs" />
+    <Compile Include="CmdPictureElement.cs" />
+    <Compile Include="CmdPrintMap.cs" />
+    <Compile Include="CmdPrintPreview.cs" />
+    <Compile Include="CmdPrintSceneView.cs" />
+    <Compile Include="CmdProfileAnalysis.cs" />
+    <Compile Include="CmdRasterExport.cs" />
+    <Compile Include="CmdRasterFlip.cs" />
+    <Compile Include="CmdRasterMeaAtt.cs" />
+    <Compile Include="CmdRasterMirror.cs" />
+    <Compile Include="CmdRasterMosaic.cs" />
+    <Compile Include="CmdRasterNED2ENU.cs" />
+    <Compile Include="CmdRasterRegister.cs" />
+    <Compile Include="CmdRasterResample.cs" />
+    <Compile Include="CmdRasterRotate.cs" />
+    <Compile Include="CmdRasterShift.cs" />
+    <Compile Include="CmdRasterSubset.cs" />
+    <Compile Include="CmdRasterTransZ.cs" />
+    <Compile Include="CmdRemoveLayer.cs" />
+    <Compile Include="CmdReshapePolylineEditTask.cs" />
+    <Compile Include="CmdSaveAsMxdDoc.cs" />
+    <Compile Include="CmdSaveEditTinLayer.cs" />
+    <Compile Include="CmdSaveMxdDoc.cs" />
+    <Compile Include="CmdSaveSceneDoc.cs" />
+    <Compile Include="CmdScaleBar.cs" />
+    <Compile Include="CmdScaleBarAttribute.cs" />
+    <Compile Include="CmdScaleText.cs" />
+    <Compile Include="CmdScaleThresholds.cs" />
+    <Compile Include="CmdSceneLayerOffset.cs" />
+    <Compile Include="CmdSetAdjustData.cs" />
+    <Compile Include="CmdSetDefaultElemetStyle.cs" />
+    <Compile Include="CmdStartEditTinLayer.cs" />
+    <Compile Include="CmdStopEditTinLayer.cs" />
+    <Compile Include="CmdSunAltProperty.cs" />
+    <Compile Include="CmdSurfaceOp.cs" />
+    <Compile Include="CmdTinSaveAs.cs" />
+    <Compile Include="CmdTurnOffAllLayer.cs" />
+    <Compile Include="CmdTurnOnAllLayer.cs" />
+    <Compile Include="CmdViewLinkTabale.cs" />
+    <Compile Include="CmdViewLinkTable.cs" />
+    <Compile Include="CmdZoomToLayer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolAddControlPoints.cs" />
+    <Compile Include="ToolAddCraterOnTIN.cs" />
+    <Compile Include="ToolAddStone.cs" />
+    <Compile Include="ToolAddTinNode.cs" />
+    <Compile Include="ToolAddTinPlane.cs" />
+    <Compile Include="ToolCreateCircle.cs" />
+    <Compile Include="ToolCreateParallel.cs" />
+    <Compile Include="ToolDeleteNodeByArea.cs" />
+    <Compile Include="ToolDeleteTINNode.cs" />
+    <Compile Include="ToolEditFeatures.cs" />
+    <Compile Include="ToolExtractCraterSample.cs" />
+    <Compile Include="ToolModifyTINNode.cs" />
+    <Compile Include="ToolNewDisplacement.cs" />
+    <Compile Include="ToolRasterEdit.cs" />
+    <Compile Include="ToolRasterShift.cs" />
+    <Compile Include="ToolSplitLine.cs" />
+    <Compile Include="ToolSunAltCheckState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CmdZoomToLayer.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CmdNorthArrow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibCerMap\LibCerMap.csproj">
+      <Project>{8BBE018B-8262-479A-B478-A50C450A5FF1}</Project>
+      <Name>LibCerMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelGen\LibModelGen.csproj">
+      <Project>{11B6CA0A-D5E8-40EF-BA2E-6D7751073074}</Project>
+      <Name>LibModelGen</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CmdScaleBar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CmdStartEditTinLayer.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CmdStopEditTinLayer.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CmdSaveEditTinLayer.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolAddTinNode.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolAddTinNode.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolDeleteTINNode.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolDeleteTINNode.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolModifyTINNode.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolModifyTINNode.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolAddTinPlane.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolAddTinPlane.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolDeleteNodeByArea.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolDeleteNodeByArea.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolRasterEdit.cur" />
+    <EmbeddedResource Include="ToolRasterEdit.bmp" />
+    <EmbeddedResource Include="ToolCreateParallel.cur" />
+    <EmbeddedResource Include="ToolCreateParallel.bmp" />
+    <EmbeddedResource Include="ToolCreateCircle.cur" />
+    <EmbeddedResource Include="ToolCreateCircle.bmp" />
+    <EmbeddedResource Include="ToolSplitLine.cur" />
+    <EmbeddedResource Include="ToolSplitLine.bmp" />
+    <EmbeddedResource Include="CmdCreateSelectionLayer.bmp" />
+    <EmbeddedResource Include="CmdRemoveLayer.bmp" />
+    <EmbeddedResource Include="CmdScaleThresholds.bmp" />
+    <EmbeddedResource Include="CmdCreateParrallel.bmp" />
+    <EmbeddedResource Include="CmdLayerProperties.bmp" />
+    <EmbeddedResource Include="CmdFeatureMerge.bmp" />
+    <EmbeddedResource Include="CmdFeatureExplode.bmp" />
+    <EmbeddedResource Include="CmdChangeAnnotationSymbol.bmp" />
+    <Content Include="CmdSceneLayerOffset.bmp" />
+    <EmbeddedResource Include="CmdTurnOffAllLayer.bmp" />
+    <EmbeddedResource Include="CmdTurnOnAllLayer.bmp" />
+    <EmbeddedResource Include="ToolExtractCraterSample.cur" />
+    <EmbeddedResource Include="ToolExtractCraterSample.bmp" />
+    <EmbeddedResource Include="CmdSurfaceOp.bmp" />
+    <EmbeddedResource Include="CmdSunAltProperty.bmp" />
+    <EmbeddedResource Include="ToolSunAltCheckState.cur" />
+    <EmbeddedResource Include="ToolSunAltCheckState.bmp" />
+    <EmbeddedResource Include="CmdSetDefaultElemetStyle.bmp" />
+    <EmbeddedResource Include="CmdSetAdjustData.bmp" />
+    <EmbeddedResource Include="CmdViewLinkTable.bmp" />
+    <EmbeddedResource Include="ToolNewDisplacement.cur" />
+    <EmbeddedResource Include="ToolNewDisplacement.bmp" />
+    <EmbeddedResource Include="CmdViewLinkTabale.bmp" />
+    <EmbeddedResource Include="ToolAddControlPoints.cur" />
+    <EmbeddedResource Include="ToolAddControlPoints.bmp" />
+    <EmbeddedResource Include="ToolRasterShift.cur" />
+    <EmbeddedResource Include="ToolRasterShift.bmp" />
+    <EmbeddedResource Include="CmdTinSaveAs.bmp" />
+    <EmbeddedResource Include="ToolEditFeatures.cur" />
+    <EmbeddedResource Include="ToolEditFeatures.bmp" />
+    <EmbeddedResource Include="ToolAddCraterOnTIN.cur" />
+    <EmbeddedResource Include="ToolAddCraterOnTIN.bmp" />
+    <EmbeddedResource Include="ToolAddStone.cur" />
+    <EmbeddedResource Include="ToolAddStone.bmp" />
+    <EmbeddedResource Include="CmdAddTinLayer.bmp" />
+    <EmbeddedResource Include="CmdAddText.bmp" />
+    <EmbeddedResource Include="CmdAdjust.bmp" />
+    <Content Include="CmdAttributeTable.bmp" />
+    <EmbeddedResource Include="CmdExportScene.bmp" />
+    <EmbeddedResource Include="CmdLegend.bmp" />
+    <EmbeddedResource Include="CmdElementAttribute.bmp" />
+    <EmbeddedResource Include="CmdScaleBarAttribute.bmp" />
+    <EmbeddedResource Include="CmdMapGrid.bmp" />
+    <EmbeddedResource Include="CmdNeatLine.bmp" />
+    <EmbeddedResource Include="CmdPageSetup.bmp" />
+    <EmbeddedResource Include="CmdPrintPreview.bmp" />
+    <EmbeddedResource Include="CmdPrintMap.bmp" />
+    <EmbeddedResource Include="CmdDeleteControlPoints.bmp" />
+    <EmbeddedResource Include="CmdDelectSelElement.bmp" />
+    <EmbeddedResource Include="CmdLabelDesign.bmp" />
+    <EmbeddedResource Include="CmdExportActiveViewFig.bmp" />
+    <EmbeddedResource Include="CmdExportSHP.bmp" />
+    <EmbeddedResource Include="CmdOpenMxdDoc.bmp" />
+    <EmbeddedResource Include="CmdPrintSceneView.bmp" />
+    <EmbeddedResource Include="CmdSaveSceneDoc.bmp" />
+    <EmbeddedResource Include="CmdOpenSceneDoc.bmp" />
+    <EmbeddedResource Include="CmdCreateScene.bmp" />
+    <EmbeddedResource Include="CmdSaveAsMxdDoc.bmp" />
+    <EmbeddedResource Include="CmdSaveMxdDoc.bmp" />
+    <EmbeddedResource Include="CmdClearAllSunAltPts.bmp" />
+    <EmbeddedResource Include="CmdJoinAttribute.bmp" />
+    <EmbeddedResource Include="CmdRasterFlip.bmp" />
+    <EmbeddedResource Include="CmdRasterMirror.bmp" />
+    <EmbeddedResource Include="CmdRasterRotate.bmp" />
+    <EmbeddedResource Include="CmdRasterShift.bmp" />
+    <EmbeddedResource Include="CmdRasterTransZ.bmp" />
+    <EmbeddedResource Include="CmdRasterExport.bmp" />
+    <EmbeddedResource Include="CmdRasterResample.bmp" />
+    <EmbeddedResource Include="CmdChDataSource.bmp" />
+    <EmbeddedResource Include="CmdRasterMosaic.bmp" />
+    <EmbeddedResource Include="CmdRasterSubset.bmp" />
+    <EmbeddedResource Include="CmdProfileAnalysis.bmp" />
+    <EmbeddedResource Include="CmdRasterNED2ENU.bmp" />
+    <EmbeddedResource Include="CmdMapUnits.bmp" />
+    <EmbeddedResource Include="CmdRasterMeaAtt.bmp" />
+    <EmbeddedResource Include="CmdLayerSelectable.bmp" />
+    <EmbeddedResource Include="CmdCoordSystem.bmp" />
+    <EmbeddedResource Include="CmdLayerSelectableFalse.bmp" />
+    <EmbeddedResource Include="CmdPictureElement.bmp" />
+    <EmbeddedResource Include="CmdRasterRegister.bmp" />
+    <EmbeddedResource Include="CmdScaleText.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CmdActivMap.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.-->
+  <Target Name="BeforeClean">
+    <Exec WorkingDirectory="$(CommonProgramFiles)\ArcGIS\bin" Command="esriRegasm.exe &quot;$(TargetPath)&quot; /p:Engine /u /s" Condition="Exists('$(TargetPath)')" ContinueOnError="true" />
+    <!--Exec
+      WorkingDirectory="$(CommonProgramFiles)\ArcGIS\bin"
+      Command="esriRegasm.exe &quot;$(TargetPath)&quot; /p:Desktop /u /s"
+      Condition="Exists('$(TargetPath)')"
+      ContinueOnError="true"/-->
+  </Target>
+  <Target Name="AfterBuild">
+    <Exec ContinueOnError="true" WorkingDirectory="$(CommonProgramFiles)\ArcGIS\bin" Command="esriRegasm.exe &quot;$(TargetPath)&quot; /p:Engine /s" />
+    <!--Exec
+      ContinueOnError="true"
+      WorkingDirectory="$(CommonProgramFiles)\ArcGIS\bin"
+      Command="esriRegasm.exe &quot;$(TargetPath)&quot; /p:Desktop /s"/>-->
+  </Target>
+</Project>

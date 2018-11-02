@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="RvmlDemo" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Header/;Src/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="debug/RvmlDemo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../RvmlDemo" />
+				</Compiler>
+				<Linker>
+					<Add library="../../../3rdParty/bin/linux/debug/libASift.so" />
+					<Add library="../../../3rdParty/bin/linux/debug/libPanoMosaic.so" />
+					<Add library="../../../3rdParty/bin/linux/debug/libRANSAC.so" />
+					<Add library="../../../3rdParty/bin/linux/debug/libSiftMatch.so" />
+					<Add library="../../../3rdParty/bin/linux/debug/libTinSimply.so" />
+					<Add library="../../../3rdParty/bin/linux/debug/libCSparseLib.so" />
+					<Add library="../../../bin/linux/debug/libmlRVML.so" />
+					<Add directory="../../../debug/linux" />
+					<Add directory="../../../3rdParty/PanoMosaic/linux/debug" />
+				</Linker>
+				<MakeCommands>
+					<Build command="$make -f $makefile $target" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile $target -clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -s -f $makefile $target" />
+				</MakeCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="Release/RvmlDemo" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="../RvmlDemo" />
+					<Add directory="../../../3rdParty/gdal1.8.1" />
+					<Add directory="../../../3rdParty/gdal1.8.1/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="../../../3rdParty/bin/linux/release/libASift.so" />
+					<Add library="../../../3rdParty/bin/linux/release/libPanoMosaic.so" />
+					<Add library="../../../3rdParty/bin/linux/release/libRANSAC.so" />
+					<Add library="../../../3rdParty/bin/linux/release/libSiftMatch.so" />
+					<Add library="../../../3rdParty/bin/linux/release/libTinSimply.so" />
+					<Add library="../../../3rdParty/bin/linux/release/libCSparseLib.so" />
+					<Add library="../../../bin/linux/release/libmlRVML.so" />
+					<Add directory="../../../3rdParty/gdal1.8.1/linux/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="../../../3rdParty/Qt4/include/QtGui" />
+			<Add directory="../../../3rdParty/Qt4/include" />
+			<Add directory="../../../3rdParty/include" />
+			<Add directory="../../../3rdParty/include/opencv" />
+			<Add directory="../../../include" />
+		</Compiler>
+		<Linker>
+			<Add library="../../../3rdParty/bin/linux/libgdal.so" />
+			<Add library="../../../3rdParty/Qt4/lib/libQtCore.so" />
+			<Add library="../../../3rdParty/Qt4/lib/libQtGui.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_video.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_ts.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_objdetect.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_ml.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_legacy.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_imgproc.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_highgui.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_gpu.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_flann.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_features2d.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_core.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_contrib.so" />
+			<Add library="../../../3rdParty/bin/linux/libopencv_calib3d.so" />
+			<Add directory="../../../3rdParty/gdal1.8.1/linux/lib" />
+			<Add directory="../../../3rdParty/opencv2.3/linux/lib" />
+		</Linker>
+		<Unit filename="../../../src/RvmlDemo/CmlRasterBand.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/CmlRasterBand.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/CmlRasterDataset.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/CmlRasterDataset.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/CustomScroll.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/CustomScroll.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/DrawLabel.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/DrawLabel.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/GISTool.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/GISTool.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ImgPtDataSet.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ImgPtDataSet.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/PtFilesRW.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/PtFilesRW.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/PtsFileManage.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/PtsFileManage.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/SatMapProj.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/SatMapProj.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/Sitemapproj.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/Sitemapproj.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/camCalibIO.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/camCalibIO.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/computecontourline.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/computecontourline.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/contourdialog.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/contourdialog.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/contourline.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/contourline.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogcamera.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogcamera.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogcamerasurvey.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogcamerasurvey.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogcoordtrans.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogcoordtrans.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogdemdomprocess.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogdemdomprocess.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogdemmosaic.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogdemmosaic.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogdensematch.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogdensematch.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogdisparitymap.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogdisparitymap.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogepipolarimage.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogepipolarimage.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialoglandlocate.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialoglandlocate.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialoglandlocateinter.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialoglandlocateinter.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialoglandlocatematch.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialoglandlocatematch.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogmultsitedemmosaic.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogmultsitedemmosaic.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogopenmatchpts.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogopenmatchpts.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogorbitimagedem.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogorbitimagedem.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogpanomosaic.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogpanomosaic.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogpersimagecreate.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogpersimagecreate.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogpointcoord.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogpointcoord.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogrelativeorientation.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogrelativeorientation.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogroverlocate.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogroverlocate.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogroverlocatelander.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogroverlocatelander.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogsavepttofile.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogsavepttofile.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogsitedemmosaic.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogsitedemmosaic.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogtinsimplify.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogtinsimplify.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogvisualimage.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogvisualimage.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogwidebaseanalysis.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogwidebaseanalysis.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogwidebaselinemap.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/dialogwidebaselinemap.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/imageviewer.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/imageviewer.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/main.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_CustomScroll.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_DrawLabel.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_contourdialog.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogcamera.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogcamerasurvey.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogcoordtrans.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogdemdomprocess.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogdemmosaic.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogdensematch.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogdisparitymap.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogepipolarimage.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialoglandlocate.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialoglandlocateinter.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialoglandlocatematch.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogmultsitedemmosaic.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogopenmatchpts.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogorbitimagedem.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogpanomosaic.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogpersimagecreate.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogpointcoord.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogrelativeorientation.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogroverlocate.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogroverlocatelander.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogsavepttofile.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogsitedemmosaic.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogtinsimplify.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogvisualimage.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogwidebaseanalysis.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_dialogwidebaselinemap.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_imageviewer.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_obstacledialog.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_slopedialog.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/moc_viewsheddialog.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/obstacledialog.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/obstacledialog.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/slopedialog.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/slopedialog.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_contourdialog.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogcamera.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogcamerasurvey.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogcoordtrans.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogdemdomprocess.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogdemmosaic.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogdensematch.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogdisparitymap.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogepipolarimage.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialoglandlocate.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialoglandlocateinter.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialoglandlocatematch.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogmultsitedemmosaic.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogopenmatchpts.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogorbitimagedem.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogpanomosaic.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogpersimagecreate.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogpointcoord.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogrelativeorientation.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogroverlocate.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogroverlocatelander.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogsavepttofile.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogsitedemmosaic.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogtinsimplify.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogvisualimage.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogwidebaseanalysis.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_dialogwidebaselinemap.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_obstacledialog.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/ui_viewsheddialog.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/viewsheddialog.cpp">
+			<Option virtualFolder="Src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/viewsheddialog.h">
+			<Option virtualFolder="Header/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

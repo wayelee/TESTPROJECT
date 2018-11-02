@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="../../../src/RvmlDemo/camCalibIO.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="75" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/PtsFileManage.h" open="1" top="0" tabpos="25">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/SatMapProj.h" open="1" top="0" tabpos="26">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/Sitemapproj.cpp" open="1" top="0" tabpos="24">
+		<Cursor position="65" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/Sitemapproj.h" open="1" top="0" tabpos="14">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestBase.h" open="1" top="0" tabpos="27">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestBlockCalculation.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="2821" topLine="96" />
+	</File>
+	<File name="../../../src/RvmlTest/TestBlockCalculation.h" open="1" top="0" tabpos="17">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestCamCalib.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="3642" topLine="18" />
+	</File>
+	<File name="../../../src/RvmlTest/TestCamCalib.h" open="1" top="0" tabpos="22">
+		<Cursor position="145" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestCoordTrans.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="308" topLine="15" />
+	</File>
+	<File name="../../../src/RvmlTest/TestCoordTrans.h" open="1" top="0" tabpos="15">
+		<Cursor position="721" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestDemAnalyse.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="14803" topLine="385" />
+	</File>
+	<File name="../../../src/RvmlTest/TestDemAnalyse.h" open="1" top="1" tabpos="19">
+		<Cursor position="0" topLine="226" />
+	</File>
+	<File name="../../../src/RvmlTest/TestDemProc.cpp" open="1" top="0" tabpos="20">
+		<Cursor position="11517" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestDemProc.h" open="1" top="0" tabpos="13">
+		<Cursor position="890" topLine="4" />
+	</File>
+	<File name="../../../src/RvmlTest/TestFileRaster.cpp" open="1" top="0" tabpos="38">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestFileRaster.h" open="1" top="0" tabpos="28">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestFrameImage.cpp" open="1" top="0" tabpos="23">
+		<Cursor position="8551" topLine="261" />
+	</File>
+	<File name="../../../src/RvmlTest/TestFrameImage.h" open="1" top="0" tabpos="18">
+		<Cursor position="946" topLine="4" />
+	</File>
+	<File name="../../../src/RvmlTest/TestGdalDataset.cpp" open="1" top="0" tabpos="39">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestGdalDataset.h" open="1" top="0" tabpos="29">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestGeoRaster.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestGeoRaster.h" open="1" top="0" tabpos="16">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestImgProc.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestImgProc.h" open="1" top="0" tabpos="30">
+		<Cursor position="0" topLine="42" />
+	</File>
+	<File name="../../../src/RvmlTest/TestKringing.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestKringing.h" open="1" top="0" tabpos="32">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestLinearImage.cpp" open="1" top="0" tabpos="21">
+		<Cursor position="651" topLine="1" />
+	</File>
+	<File name="../../../src/RvmlTest/TestLinearImage.h" open="1" top="0" tabpos="31">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestRasterBlock.h" open="1" top="0" tabpos="33">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestSatMapping.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="2847" topLine="94" />
+	</File>
+	<File name="../../../src/RvmlTest/TestSatMapping.h" open="1" top="0" tabpos="34">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestSiteMapping.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestSiteMapping.h" open="1" top="0" tabpos="35">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestStereoProc.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestStereoProc.h" open="1" top="0" tabpos="36">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestTypeConvert.h" open="1" top="0" tabpos="37">
+		<Cursor position="1" topLine="0" />
+	</File>
+	<File name="../../../src/RvmlTest/TestWBaseProc.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="7181" topLine="266" />
+	</File>
+	<File name="../../../src/RvmlTest/main.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="572" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

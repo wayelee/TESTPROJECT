@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22F7F4EE-CC58-4632-AF48-392AAC920BC0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CERMapping</RootNamespace>
+    <AssemblyName>CERMapping</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>..\bin\CERMapping.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\开发软件\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;D:\开发软件\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>..\bin\CERMapping.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\开发软件\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;D:\开发软件\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ArcMap_MXD_File.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=11.0.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+      <HintPath>..\ThirdLib\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=11.0.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\development\DotNetBar for Windows Forms\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.Instrumentation, Version=11.0.0.0, Culture=neutral, PublicKeyToken=bc4a9d761ea44ef0, processorArchitecture=MSIL">
+      <HintPath>..\ThirdLib\DevComponents.Instrumentation.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.TreeGX, Version=11.0.0.0, Culture=neutral, PublicKeyToken=cfcbd7476b2389d1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files\DotNetBar for Windows Forms\DevComponents.TreeGX.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.3DAnalyst, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.ADF.Local, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.AxControls, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Carto, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Controls, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.DataSourcesFile, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.DataSourcesGDB, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.DataSourcesRaster, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Display, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geometry, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Geoprocessing, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Output, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.System, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.SystemUI, Version=10.1.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Version" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LicenseInitializer.cs" />
+    <Compile Include="LicenseInitializer.Designer.cs">
+      <DependentUpon>LicenseInitializer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArcMap16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AttributesWindow16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CADFeatureClassAnnotation16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CADFeatureClassLine16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CADFeatureClassMultiPatch16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CADFeatureClassPoint16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CADFeatureClassPolygon16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ElementCircle16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ElementLine16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ElementPolygon16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ElementRectangle16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ElementSelectTool16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FileRasterGrid16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlackAdd16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlackArrowDown16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlackArrowLeft16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlackArrowRight16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlackArrowUp16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlueAdd16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlueLeftArrowNoTail16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlueLightLeftArrow16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlueLightRightArrow16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericBlueRightArrowNoTail16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericDeleteBlack16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericDeleteRed16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericDocument16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericFeatureClassEmpty16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericFeatureClassEmptyBlue316.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericPencil16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericPencilArea16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericPencilLine16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericPencilTarget16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericProperties16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericSearch22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericYellowDownArrow16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericYellowLeftArrow16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericYellowRightArrow16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericYellowUpArrow16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GeodatabaseConnection16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LayerExportDataToCatalog16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LayerGroup16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ScreenPosition16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableStandalone16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableVPF16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VPFFeatureClassAnnotation16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VPFFeatureClassEmpty16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VPFFeatureClassLine16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VPFFeatureClassPolygon16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomGeneric_B_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibCerMap\LibCerMap.csproj">
+      <Project>{8BBE018B-8262-479A-B478-A50C450A5FF1}</Project>
+      <Name>LibCerMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibCheckUpdate\LibCheckUpdate.csproj">
+      <Project>{85832C1E-DAA3-4816-A8D1-0043D210FC14}</Project>
+      <Name>LibCheckUpdate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibEngineCmd\LibEngineCmd.csproj">
+      <Project>{F26A6A95-E5E2-4CE3-AE6C-A76B54C18FA5}</Project>
+      <Name>LibEngineCmd</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelGen\LibModelGen.csproj">
+      <Project>{11B6CA0A-D5E8-40EF-BA2E-6D7751073074}</Project>
+      <Name>LibModelGen</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RulerControl\RulerControl.csproj">
+      <Project>{A6A2F3F6-DB6E-4D05-9C6E-BE823C17FF19}</Project>
+      <Name>RulerControl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Legend_B_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomFixedZoomIn_B_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomFixedZoomOut_B_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RotatingGlobe14-10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PanTool16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomOutTool_B_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZoomInTool_B_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectionReselectHighlighted16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableShowAllRecords16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TableShowSelectedRecords16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GenericCalculator16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ArcMap_MXD_File.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

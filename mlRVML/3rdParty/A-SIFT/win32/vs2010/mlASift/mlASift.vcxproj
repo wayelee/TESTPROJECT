@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5DA36D1F-B6FB-4202-A857-E6CA2D55937B}</ProjectGuid>
+    <RootNamespace>mlASift</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../src;../../../src/io_png/libs/png;../../../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MLASIFT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <OutputFile>../../../../bin/vs2010/debug/mlASift.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>../../../../bin/vs2010/debug/mlASift.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../../../src;../../../src/io_png/libs/png;../../../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MLASIFT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <OutputFile>../../../../bin/vs2010/release/mlASift.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>../../../../bin/vs2010/release/mlASift.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\io_png\libs\png\example.c" />
+    <ClCompile Include="..\..\..\src\io_png\io_png.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\png.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngerror.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pnggccrd.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngget.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngmem.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngpread.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngread.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngrio.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngrtran.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngrutil.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngset.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngtrans.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngvcrd.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngwio.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngwrite.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngwtran.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\png\pngwutil.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\adler32.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\compress.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\crc32.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\deflate.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\gzio.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\infback.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\inffast.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\inflate.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\inftrees.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\trees.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\uncompr.c" />
+    <ClCompile Include="..\..\..\src\io_png\libs\zlib\zutil.c" />
+    <ClCompile Include="..\..\..\src\asift.cpp" />
+    <ClCompile Include="..\..\..\src\compute_asift_keypoints.cpp" />
+    <ClCompile Include="..\..\..\src\compute_asift_matches.cpp" />
+    <ClCompile Include="..\..\..\src\demo_lib_sift.cpp" />
+    <ClCompile Include="..\..\..\src\dllmain.cpp" />
+    <ClCompile Include="..\..\..\src\domain.cpp" />
+    <ClCompile Include="..\..\..\src\filter.cpp" />
+    <ClCompile Include="..\..\..\src\flimage.cpp" />
+    <ClCompile Include="..\..\..\src\fproj.cpp" />
+    <ClCompile Include="..\..\..\src\frot.cpp" />
+    <ClCompile Include="..\..\..\src\library.cpp" />
+    <ClCompile Include="..\..\..\src\numerics1.cpp" />
+    <ClCompile Include="..\..\..\src\orsa.cpp" />
+    <ClCompile Include="..\..\..\src\splines.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\io_png\io_png.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\png\png.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\png\pngconf.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\crc32.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\deflate.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\inffast.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\inffixed.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\inflate.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\inftrees.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\trees.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\zconf.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\zconf.in.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\zlib.h" />
+    <ClInclude Include="..\..\..\src\io_png\libs\zlib\zutil.h" />
+    <ClInclude Include="..\..\..\..\include\ASift.h" />
+    <ClInclude Include="..\..\..\src\compute_asift_keypoints.h" />
+    <ClInclude Include="..\..\..\src\compute_asift_matches.h" />
+    <ClInclude Include="..\..\..\src\demo_lib_sift.h" />
+    <ClInclude Include="..\..\..\src\domain.h" />
+    <ClInclude Include="..\..\..\src\filter.h" />
+    <ClInclude Include="..\..\..\src\flimage.h" />
+    <ClInclude Include="..\..\..\src\fproj.h" />
+    <ClInclude Include="..\..\..\src\frot.h" />
+    <ClInclude Include="..\..\..\src\library.h" />
+    <ClInclude Include="..\..\..\src\numerics1.h" />
+    <ClInclude Include="..\..\..\src\orsa.h" />
+    <ClInclude Include="..\..\..\src\splines.h" />
+    <ClInclude Include="..\..\..\src\targetver.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

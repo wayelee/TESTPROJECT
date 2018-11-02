@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ASift" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="headers/;src/;A-SIFT/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ASift" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ASift" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../asift" />
+		</Compiler>
+		<Unit filename="ASift.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Unit filename="asift.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="compute_asift_keypoints.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="compute_asift_keypoints.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="compute_asift_matches.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="compute_asift_matches.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="demo_ASIFT.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="demo_lib_sift.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="demo_lib_sift.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="domain.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="domain.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="filter.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="filter.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="flimage.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="flimage.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="fproj.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="fproj.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="frot.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="frot.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="library.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="library.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="numerics1.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="numerics1.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="orsa.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="orsa.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="splines.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="splines.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

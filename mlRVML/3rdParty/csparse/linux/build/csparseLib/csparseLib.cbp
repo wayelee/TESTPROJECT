@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="csparseLib" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../../bin/linux/debug/libCSparseLib" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../../bin/linux/release/libCSparseLib" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions -fPIC" />
+			<Add directory="../../../../include" />
+		</Compiler>
+		<Unit filename="../../../src/Source/cs_add.cpp" />
+		<Unit filename="../../../src/Source/cs_amd.cpp" />
+		<Unit filename="../../../src/Source/cs_chol.cpp" />
+		<Unit filename="../../../src/Source/cs_cholsol.cpp" />
+		<Unit filename="../../../src/Source/cs_compress.cpp" />
+		<Unit filename="../../../src/Source/cs_counts.cpp" />
+		<Unit filename="../../../src/Source/cs_cumsum.cpp" />
+		<Unit filename="../../../src/Source/cs_dfs.cpp" />
+		<Unit filename="../../../src/Source/cs_dmperm.cpp" />
+		<Unit filename="../../../src/Source/cs_droptol.cpp" />
+		<Unit filename="../../../src/Source/cs_dropzeros.cpp" />
+		<Unit filename="../../../src/Source/cs_dupl.cpp" />
+		<Unit filename="../../../src/Source/cs_entry.cpp" />
+		<Unit filename="../../../src/Source/cs_ereach.cpp" />
+		<Unit filename="../../../src/Source/cs_etree.cpp" />
+		<Unit filename="../../../src/Source/cs_fkeep.cpp" />
+		<Unit filename="../../../src/Source/cs_gaxpy.cpp" />
+		<Unit filename="../../../src/Source/cs_happly.cpp" />
+		<Unit filename="../../../src/Source/cs_house.cpp" />
+		<Unit filename="../../../src/Source/cs_ipvec.cpp" />
+		<Unit filename="../../../src/Source/cs_leaf.cpp" />
+		<Unit filename="../../../src/Source/cs_load.cpp" />
+		<Unit filename="../../../src/Source/cs_lsolve.cpp" />
+		<Unit filename="../../../src/Source/cs_ltsolve.cpp" />
+		<Unit filename="../../../src/Source/cs_lu.cpp" />
+		<Unit filename="../../../src/Source/cs_lusol.cpp" />
+		<Unit filename="../../../src/Source/cs_malloc.cpp" />
+		<Unit filename="../../../src/Source/cs_maxtrans.cpp" />
+		<Unit filename="../../../src/Source/cs_multiply.cpp" />
+		<Unit filename="../../../src/Source/cs_norm.cpp" />
+		<Unit filename="../../../src/Source/cs_permute.cpp" />
+		<Unit filename="../../../src/Source/cs_pinv.cpp" />
+		<Unit filename="../../../src/Source/cs_post.cpp" />
+		<Unit filename="../../../src/Source/cs_print.cpp" />
+		<Unit filename="../../../src/Source/cs_pvec.cpp" />
+		<Unit filename="../../../src/Source/cs_qr.cpp" />
+		<Unit filename="../../../src/Source/cs_qrsol.cpp" />
+		<Unit filename="../../../src/Source/cs_randperm.cpp" />
+		<Unit filename="../../../src/Source/cs_reach.cpp" />
+		<Unit filename="../../../src/Source/cs_scatter.cpp" />
+		<Unit filename="../../../src/Source/cs_scc.cpp" />
+		<Unit filename="../../../src/Source/cs_schol.cpp" />
+		<Unit filename="../../../src/Source/cs_spsolve.cpp" />
+		<Unit filename="../../../src/Source/cs_sqr.cpp" />
+		<Unit filename="../../../src/Source/cs_symperm.cpp" />
+		<Unit filename="../../../src/Source/cs_tdfs.cpp" />
+		<Unit filename="../../../src/Source/cs_transpose.cpp" />
+		<Unit filename="../../../src/Source/cs_updown.cpp" />
+		<Unit filename="../../../src/Source/cs_usolve.cpp" />
+		<Unit filename="../../../src/Source/cs_util.cpp" />
+		<Unit filename="../../../src/Source/cs_utsolve.cpp" />
+		<Unit filename="../../../../include/cs.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

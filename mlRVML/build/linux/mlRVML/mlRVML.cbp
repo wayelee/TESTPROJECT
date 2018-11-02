@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="mlRVML" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="mlComponent/;mlBase/;mlBase/header/;mlBase/src/;mlExport/;mlComponent/src/;mlComponent/header/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../bin/linux/debug/libmlRVML" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../bin/linux/release/libmlRVML" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions  -fPIC" />
+			<Add directory="../../../3rdParty/include" />
+			<Add directory="../../../3rdParty/include/opencv" />
+			<Add directory="../../../include" />
+		</Compiler>
+		<Unit filename="../../../include/mlRVML.h">
+			<Option virtualFolder="mlExport/" />
+		</Unit>
+		<Unit filename="../../../include/mlTypes.h">
+			<Option virtualFolder="mlExport/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/Triangle.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/Triangle.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlBA.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlBA.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlBase.cpp">
+			<Option virtualFolder="mlBase/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlBase.h">
+			<Option virtualFolder="mlBase/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlBlockCalculation.cpp">
+			<Option virtualFolder="mlBase/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlBlockCalculation.h">
+			<Option virtualFolder="mlBase/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlCamCalib.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlCamCalib.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlCoordTrans.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlCoordTrans.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlDemAnalyse.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlDemAnalyse.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlDemProc.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlDemProc.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlDomProc.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlDomProc.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlFileRaster.cpp">
+			<Option virtualFolder="mlBase/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlFileRaster.h">
+			<Option virtualFolder="mlBase/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlFrameImage.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlFrameImage.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlGdalDataset.cpp">
+			<Option virtualFolder="mlBase/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlGdalDataset.h">
+			<Option virtualFolder="mlBase/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlGeoRaster.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlGeoRaster.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlGpc.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlGpc.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlKringing.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlKringing.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlLinearImage.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlLinearImage.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlLocalization.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlLocalization.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlMat.cpp">
+			<Option virtualFolder="mlBase/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlMat.h">
+			<Option virtualFolder="mlBase/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlPhgProc.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlPhgProc.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlPtsManage.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlPtsManage.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlRVML.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlRasterBlock.cpp">
+			<Option virtualFolder="mlBase/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlRasterBlock.h">
+			<Option virtualFolder="mlBase/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlRasterMosaic.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlRasterMosaic.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlSatMapping.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlSatMapping.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlSiteMapping.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlSiteMapping.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlSparseMat.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlSparseMat.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlStereoProc.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlStereoProc.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlTIN.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlTIN.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlTypeConvert.cpp">
+			<Option virtualFolder="mlBase/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlTypeConvert.h">
+			<Option virtualFolder="mlBase/header/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlWBaseProc.cpp">
+			<Option virtualFolder="mlComponent/src/" />
+		</Unit>
+		<Unit filename="../../../src/mlRVML/mlWBaseProc.h">
+			<Option virtualFolder="mlComponent/header/" />
+		</Unit>
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

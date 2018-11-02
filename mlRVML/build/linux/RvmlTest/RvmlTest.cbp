@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="RvmlTest" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="header/;src/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/RvmlTest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../../../3rdParty/A-SIFT/linux/debug" />
+				</Compiler>
+				<Linker>
+					<Add library="../../../bin/linux/debug/libmlRVML.so" />
+					<Add library="../../../3rdParty/mlSiftMatch/linux/Debug/libSiftMatch.so" />
+					<Add library="../../../3rdParty/TIN_simply/linux/lib/debug/libTinSimply.so" />
+					<Add library="../../../3rdParty/A-SIFT/linux/debug/libASift.so" />
+					<Add library="../../../3rdParty/PanoMosaic/linux/debug/libPanoMosaic.so" />
+					<Add library="../../../3rdParty/RANSAC/linux/debug/libRANSAC.so" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/RvmlTest" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../../../3rdParty/opencv2.3/include" />
+			<Add directory="/usr/include" />
+			<Add directory="../../../src/RvmlDemo" />
+		</Compiler>
+		<Linker>
+			<Add library="../../../3rdParty/gdal1.8.1/linux/lib/libgdal.so" />
+			<Add library="../../../3rdParty/gdal1.8.1/linux/lib/libgdal.so.1" />
+			<Add library="../../../3rdParty/gdal1.8.1/linux/lib/libgdal.so.1.15.1" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_calib3d.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_contrib.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_core.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_features2d.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_flann.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_gpu.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_highgui.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_imgproc.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_legacy.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_ml.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_objdetect.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_ts.so" />
+			<Add library="../../../3rdParty/opencv2.3/linux/lib/libopencv_video.so" />
+			<Add library="/usr/lib/libcppunit.so" />
+			<Add directory="../../../3rdParty/gdal1.8.1/linux/lib" />
+			<Add directory="../../../3rdParty/opencv2.3/linux/lib" />
+		</Linker>
+		<Unit filename="../../../src/RvmlDemo/camCalibIO.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlDemo/camCalibIO.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/PtFilesRW.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/PtFilesRW.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/PtsFileManage.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/PtsFileManage.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/SatMapProj.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/SatMapProj.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/Sitemapproj.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/Sitemapproj.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestBase.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestBase.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestBlockCalculation.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestBlockCalculation.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestCamCalib.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestCamCalib.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestCoordTrans.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestCoordTrans.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestDemAnalyse.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestDemAnalyse.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestDemProc.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestDemProc.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestFileRaster.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestFileRaster.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestFrameImage.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestFrameImage.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestGdalDataset.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestGdalDataset.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestGeoRaster.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestGeoRaster.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestImgProc.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestImgProc.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestKringing.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestKringing.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestLinearImage.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestLinearImage.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestLocalization.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestLocalization.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestMat.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestMat.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestRasterBlock.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestRasterBlock.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestSatMapping.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestSatMapping.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestSiteMapping.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestSiteMapping.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestStereoProc.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestStereoProc.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestTypeConvert.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestTypeConvert.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestWBaseProc.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/TestWBaseProc.h">
+			<Option virtualFolder="header/" />
+		</Unit>
+		<Unit filename="../../../src/RvmlTest/main.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

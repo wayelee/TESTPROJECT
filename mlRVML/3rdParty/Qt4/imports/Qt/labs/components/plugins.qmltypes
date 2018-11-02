@@ -1,0 +1,96 @@
+import QtQuick.tooling 1.1
+
+// This file describes the plugin-supplied types contained in the library.
+// It is used for QML tooling purposes only.
+
+Module {
+    Component {
+        name: "QGlobals"
+        prototype: "QObject"
+        exports: [
+            "Globals 1.0"
+        ]
+        Enum {
+            name: "Globals"
+            values: {
+                "Undefined": -1
+            }
+        }
+        Enum {
+            name: "Position"
+            values: {
+                "Left": 0,
+                "Top": 1,
+                "Right": 2,
+                "Bottom": 3
+            }
+        }
+    }
+    Component {
+        name: "QRangeModel"
+        prototype: "QObject"
+        exports: [
+            "RangeModel 1.0"
+        ]
+        Property { name: "value"; type: "qreal" }
+        Property { name: "minimumValue"; type: "qreal" }
+        Property { name: "maximumValue"; type: "qreal" }
+        Property { name: "stepSize"; type: "qreal" }
+        Property { name: "position"; type: "qreal" }
+        Property { name: "positionAtMinimum"; type: "qreal" }
+        Property { name: "positionAtMaximum"; type: "qreal" }
+        Property { name: "inverted"; type: "bool" }
+        Signal {
+            name: "valueChanged"
+            Parameter { name: "value"; type: "qreal" }
+        }
+        Signal {
+            name: "positionChanged"
+            Parameter { name: "position"; type: "qreal" }
+        }
+        Signal {
+            name: "stepSizeChanged"
+            Parameter { name: "stepSize"; type: "qreal" }
+        }
+        Signal {
+            name: "invertedChanged"
+            Parameter { name: "inverted"; type: "bool" }
+        }
+        Signal {
+            name: "minimumChanged"
+            Parameter { name: "min"; type: "qreal" }
+        }
+        Signal {
+            name: "maximumChanged"
+            Parameter { name: "max"; type: "qreal" }
+        }
+        Signal {
+            name: "positionAtMinimumChanged"
+            Parameter { name: "min"; type: "qreal" }
+        }
+        Signal {
+            name: "positionAtMaximumChanged"
+            Parameter { name: "max"; type: "qreal" }
+        }
+        Method { name: "toMinimum" }
+        Method { name: "toMaximum" }
+        Method {
+            name: "setValue"
+            Parameter { name: "value"; type: "qreal" }
+        }
+        Method {
+            name: "setPosition"
+            Parameter { name: "position"; type: "qreal" }
+        }
+        Method {
+            name: "valueForPosition"
+            type: "qreal"
+            Parameter { name: "position"; type: "qreal" }
+        }
+        Method {
+            name: "positionForValue"
+            type: "qreal"
+            Parameter { name: "value"; type: "qreal" }
+        }
+    }
+}

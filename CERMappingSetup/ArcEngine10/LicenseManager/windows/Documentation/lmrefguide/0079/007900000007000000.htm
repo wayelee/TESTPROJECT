@@ -1,0 +1,30 @@
+<html><head>
+<META http-equiv="Content-Type" content="text/html">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><META name="description" content="This topic describes how to start and stop the license manager."><link href="rsrc/htmlhelp.css" rel="stylesheet" type="text/css"><title> Starting and stopping the License Manager </title><script type="text/javascript" language="JavaScript">
+                    var pathL  = self.location.pathname.split ("/");
+                    var fname = pathL[pathL.length-1];
+                    var i = fname.lastIndexOf (".html");
+                    if (i>=0) {
+                    fname = fname.substring (0, i)
+                    } else {
+                    //??
+                    }
+                    self.location.href = "../index.html#//" + fname;
+                </script></head><!--Publication GUID: [GUID-BC990B43-3F11-4C46-9757-E4A61209745C]--><!--Topic GUID: [GUID-DCD196E9-3EEF-4EC8-9244-0131858D1267]--><body><div id="content"><div class="header"><h1> Starting and stopping the License Manager </h1><div id="breadcrumb"></div></div>
+		<ol purpose="ol" id="OL_D56CF1FD94E74DE4A078B31434C46F21">
+			<li purpose="li" id="LI_CFE839A931A547ECBD7CA1FEE54C684F"> Launch the ArcGIS License Server Administrator from Start &gt; Programs &gt; ArcGIS &gt; License Manager &gt; License Server Administrator.</li>
+			<li purpose="li" id="LI_A9DDB84DB2E7404DBA6CCA9C975702C2">Select Start/Stop License Service in the table of contents using the Start, Stop, or Restart buttons to manage the license service.</li>
+		</ol>
+		<p id="GUID-B084672C-A129-40F6-9613-61C7DE2217C8">From the command line, switch to the License Manager installation location (the default installation location is c:\program files\arcgis\license10.0\bin) and run the following commands:</p>
+		<p id="GUID-32334B4C-AD41-40B3-916E-34BA9D9C030B">
+			<ul purpose="ul" id="UL_A064580E71AB4E6B8D059ECD8B5A4645">
+				<li purpose="li" id="LI_A179942C87C74DA0B7A44915FD1E99D9">To start the License Manager:<pre purpose="pre" id="GUID-F08C9A72-155D-445F-87A5-39575110070A">c:\program files\arcgis\license10.0\bin&gt; lmgrd -z -c service.txt</pre></li>
+			</ul>
+		</p>
+		<p id="GUID-ABC95D56-EF25-4CD3-BDEC-057DD9559BCC">
+			<ul purpose="ul" id="UL_CFB96EE4E84C4175AF9EF919CA7F6FBE">
+				<li purpose="li" id="LI_E49B63D7FBBC42EDA9D686F9F177C47F">To stop the License Manager:<pre purpose="pre" id="GUID-E2D007EE-226A-4001-871A-C9C104BC7E72">c:\program files\arcgis\license10.0\bin&gt; lmutil lmdown -c service.txt</pre></li>
+			</ul>
+		</p>
+		<p id="GUID-EA440368-771B-4BC0-B59B-FA060F835695"></p>
+	<br><div class="footer"> Copyright © 1995-2010 ESRI, Inc. All rights reserved. </div></div></body></html>

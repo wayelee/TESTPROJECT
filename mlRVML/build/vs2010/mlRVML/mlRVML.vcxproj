@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug Staticlib|Win32">
+      <Configuration>Debug Staticlib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release StaticLib|Win32">
+      <Configuration>Release StaticLib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6B503833-61D7-4A58-9A72-6EC5C46DCB84}</ProjectGuid>
+    <RootNamespace>mlRVML</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release StaticLib|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Staticlib|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release StaticLib|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Staticlib|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../../../../Bin/Debug/</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../../../../Bin/Release/</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug Staticlib|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug Staticlib|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release StaticLib|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release StaticLib|Win32'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug Staticlib|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug Staticlib|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug Staticlib|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release StaticLib|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release StaticLib|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release StaticLib|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mlRVML</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mlRVML</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../include;../../../3rdParty/include;../../../3rdParty/opencv2.3/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MLRVML_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>../../../3rdParty/bin/vs2010/gdal_i.lib;../../../3rdParty/bin/vs2010/debug/opencv_core230d.lib;../../../3rdParty/bin/vs2010/debug/opencv_imgproc230d.lib;../../../3rdParty/bin/vs2010/debug/opencv_highgui230d.lib;../../../3rdParty/bin/vs2010/debug/opencv_calib3d230d.lib;../../../3rdParty/bin/vs2010/debug/opencv_legacy230d.lib;../../../3rdParty/bin/vs2010/debug/mlASift.lib;../../../3rdParty/bin/vs2010/debug/ransac.lib;../../../3rdParty/bin/vs2010/debug/mlPanoMosaic.lib;../../../3rdParty/bin/vs2010/debug/mlSiftMatch.lib;../../../3rdParty/bin/vs2010/debug/csparse.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../../Bin/Debug/mlRVML.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImportLibrary>../../../../Bin/Debug/mlRVML.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../../../include;../../../3rdParty/include;../../../3rdParty/opencv2.3/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MLRVML_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>../../../3rdParty/bin/vs2010/gdal_i.lib;../../../3rdParty/bin/vs2010/release/opencv_core230.lib;../../../3rdParty/bin/vs2010/release/opencv_imgproc230.lib;../../../3rdParty/bin/vs2010/release/opencv_highgui230.lib;../../../3rdParty/bin/vs2010/release/opencv_calib3d230.lib;../../../3rdParty/bin/vs2010/release/opencv_legacy230.lib;../../../3rdParty/bin/vs2010/release/mlASift.lib;../../../3rdParty/bin/vs2010/release/ransac.lib;../../../3rdParty/bin/vs2010/release/mlPanoMosaic.lib;../../../3rdParty/bin/vs2010/release/mlSiftMatch.lib;../../../3rdParty/bin/vs2010/release/csparse.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../../../Bin/Release/mlRVML.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImportLibrary>../../../../Bin/Release/mlRVML.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Staticlib|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../../include;../../../3rdParty/include;../../../3rdParty/opencv2.3/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MLRVML_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>../../../bin/vs2008/debug/mlRVML_Static.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release StaticLib|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../../../include;../../../3rdParty/include;../../../3rdParty/opencv2.3/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MLRVML_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>../../../bin/vs2008/release/mlRVML_Static.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\mlRVML\dllmain.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlBA.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlBase.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlBlockCalculation.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlCamCalib.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlCoordTrans.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlDem.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlDemAnalyse.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlDemProc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlDomProc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlFileRaster.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlFrameImage.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlGdalDataset.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlGeoRaster.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlGpc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlImgProc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlKringing.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlLinearImage.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlLocalization.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlMat.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlPhgProc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlProjManage.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlPtsManage.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlRasterBlock.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlRasterMosaic.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlRasterProc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlRVML.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlSatImgProc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlSatMapping.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlSiteMapping.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlSparseMat.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlStereoProc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlTIN.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlTypeConvert.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\mlWBaseProc.cpp" />
+    <ClCompile Include="..\..\..\src\mlRVML\Triangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\mlRVML\mlBA.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlBase.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlBlockCalculation.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlCamCalib.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlCoordTrans.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlDem.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlDemAnalyse.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlDemProc.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlDomProc.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlFileRaster.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlFrameImage.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlGdalDataset.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlGeoRaster.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlGpc.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlImgProc.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlKringing.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlLinearImage.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlLocalization.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlMat.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlPhgProc.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlProjManage.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlPtsManage.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlRasterBlock.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlRasterMosaic.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlRasterProc.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlSatImgProc.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlSatMapping.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlSiteMapping.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlSparseMat.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlStereoProc.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlTIN.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlTypeConvert.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\mlWBaseProc.h" />
+    <ClInclude Include="..\..\..\include\targetver.h" />
+    <ClInclude Include="..\..\..\src\mlRVML\Triangle.h" />
+    <ClInclude Include="..\..\..\include\mlRVML.h" />
+    <ClInclude Include="..\..\..\include\mlTypes.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

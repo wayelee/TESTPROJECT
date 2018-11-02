@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mlRVML", "mlRVML.vcxproj", "{6B503833-61D7-4A58-9A72-6EC5C46DCB84}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testRVML", "..\..\..\..\testRVML\testRVML.vcxproj", "{47A408CF-C37C-4974-9D0A-115202127641}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mlSiftMatch", "..\..\..\3rdParty\mlSiftMatch\build\vs2010\mlSiftMatch\mlSiftMatch.vcxproj", "{3447C7EF-6FA6-45AD-BEA9-F14C030F3441}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RANSAC", "..\..\..\3rdParty\RANSAC\build\vs2008\RANSAC\RANSAC.vcxproj", "{B616BD8C-F265-4F59-90CB-9B9F51015FBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B503833-61D7-4A58-9A72-6EC5C46DCB84}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6B503833-61D7-4A58-9A72-6EC5C46DCB84}.Debug|Win32.Build.0 = Debug|Win32
+		{6B503833-61D7-4A58-9A72-6EC5C46DCB84}.Release|Win32.ActiveCfg = Release|Win32
+		{6B503833-61D7-4A58-9A72-6EC5C46DCB84}.Release|Win32.Build.0 = Release|Win32
+		{47A408CF-C37C-4974-9D0A-115202127641}.Debug|Win32.ActiveCfg = Debug|Win32
+		{47A408CF-C37C-4974-9D0A-115202127641}.Debug|Win32.Build.0 = Debug|Win32
+		{47A408CF-C37C-4974-9D0A-115202127641}.Release|Win32.ActiveCfg = Release|Win32
+		{47A408CF-C37C-4974-9D0A-115202127641}.Release|Win32.Build.0 = Release|Win32
+		{3447C7EF-6FA6-45AD-BEA9-F14C030F3441}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3447C7EF-6FA6-45AD-BEA9-F14C030F3441}.Debug|Win32.Build.0 = Debug|Win32
+		{3447C7EF-6FA6-45AD-BEA9-F14C030F3441}.Release|Win32.ActiveCfg = Release|Win32
+		{3447C7EF-6FA6-45AD-BEA9-F14C030F3441}.Release|Win32.Build.0 = Release|Win32
+		{B616BD8C-F265-4F59-90CB-9B9F51015FBA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B616BD8C-F265-4F59-90CB-9B9F51015FBA}.Debug|Win32.Build.0 = Debug|Win32
+		{B616BD8C-F265-4F59-90CB-9B9F51015FBA}.Release|Win32.ActiveCfg = Release|Win32
+		{B616BD8C-F265-4F59-90CB-9B9F51015FBA}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

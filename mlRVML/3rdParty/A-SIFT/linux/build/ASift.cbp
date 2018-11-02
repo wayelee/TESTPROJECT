@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ASift" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="headers/;src/;A-SIFT/PNG/;A-SIFT/PNG/zlib/;A-SIFT/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../bin/linux/debug/libASift" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../bin/linux/release/libASift" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions -fopenmp -fPIC" />
+			<Add directory="../../src" />
+			<Add directory="../../../include" />
+		</Compiler>
+		<Linker>
+			<Add option="-fopenmp" />
+		</Linker>
+		<Unit filename="../../src/asift.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../../src/compute_asift_keypoints.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/compute_asift_keypoints.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/compute_asift_matches.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/compute_asift_matches.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/demo_ASIFT.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/demo_lib_sift.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/demo_lib_sift.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/domain.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/domain.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/filter.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/filter.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/flimage.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/flimage.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/fproj.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/fproj.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/frot.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/frot.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/io_png/io_png.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/" />
+		</Unit>
+		<Unit filename="../../src/io_png/io_png.h">
+			<Option virtualFolder="A-SIFT/PNG/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/adler32.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/compress.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/crc32.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/crc32.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/deflate.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/deflate.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/gzio.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/infback.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/inffast.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/inffast.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/inffixed.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/inflate.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/inflate.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/inftrees.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/inftrees.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/trees.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/trees.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/uncompr.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/zconf.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/zconf.in.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/zlib.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/zutil.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/io_png/libs/zlib/zutil.h">
+			<Option virtualFolder="A-SIFT/PNG/zlib/" />
+		</Unit>
+		<Unit filename="../../src/library.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/library.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/numerics1.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/numerics1.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/orsa.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/orsa.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/splines.cpp">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../src/splines.h">
+			<Option virtualFolder="A-SIFT/" />
+		</Unit>
+		<Unit filename="../../../include/ASift.h">
+			<Option virtualFolder="headers/" />
+		</Unit>
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<lib_finder disable_auto="1" />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

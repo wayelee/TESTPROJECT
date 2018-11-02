@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="mlRVML/mlRVML.cbp" />
+		<Project filename="RvmlDemo/RvmlDemo.cbp" active="1">
+			<Depends filename="mlRVML/mlRVML.cbp" />
+		</Project>
+	</Workspace>
+</CodeBlocks_workspace_file>

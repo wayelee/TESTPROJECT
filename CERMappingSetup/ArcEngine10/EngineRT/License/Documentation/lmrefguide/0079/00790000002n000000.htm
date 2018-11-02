@@ -1,0 +1,45 @@
+<html><head>
+<META http-equiv="Content-Type" content="text/html">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><META name="description" content="Both concurrent use and single use versions of the ArcGIS Desktop and ArcGIS Engine software can be deployed in an enterprise environment by setting up License Managers that can host concurrent use and enterprise single use licenses."><link href="rsrc/htmlhelp.css" rel="stylesheet" type="text/css"><title>
+		 Enterprise deployment of the ArcGIS Desktop or ArcGIS Engine licenses
+	</title><script type="text/javascript" language="JavaScript">
+                    var pathL  = self.location.pathname.split ("/");
+                    var fname = pathL[pathL.length-1];
+                    var i = fname.lastIndexOf (".html");
+                    if (i>=0) {
+                    fname = fname.substring (0, i)
+                    } else {
+                    //??
+                    }
+                    self.location.href = "../index.html#//" + fname;
+                </script></head><!--Publication GUID: [GUID-BC990B43-3F11-4C46-9757-E4A61209745C]--><!--Topic GUID: [GUID-14FB0C7D-74D1-46E7-A08E-5FC4372E7343]--><body><div id="content"><div class="header"><h1>
+		 Enterprise deployment of the ArcGIS Desktop or ArcGIS Engine licenses
+	</h1><div id="breadcrumb"></div></div>
+		<p id="GUID-53EF4D35-2B40-4C5B-A0DE-0530EFFFFA4C">Both concurrent use and single use versions of the ArcGIS Desktop and ArcGIS Engine software can be deployed in an enterprise environment by setting up License Managers that can host concurrent use and enterprise single use licenses.</p><p id="GUID-08929581-F487-404A-9B9F-A9A73CF14173">
+ The following examples describe how ArcGIS Desktop and ArcGIS Engine licenses can be deployed:
+</p>
+		<div class="section1" id="GUID-0FA59017-FBC2-4F0C-8B3A-2E7D636114A5" purpose="section1"><h2></h2><p id="GUID-D9F29EA7-100A-4B03-AFBF-74050B800D65"><b>I. Concurrent use:</b></p><p id="GUID-A5E1EA28-0084-4E29-971D-C2E27B0AAE6C">
+Enterprise A has purchased 10,000 concurrent use ArcInfo licenses
+and needs to divide the licenses between three separate license
+managers for use in three different departments.</p><p id="GUID-E6210D14-B297-42CD-8659-A937DEFBEE7E">
+				<ol purpose="ol" id="OL_1170291E01D84929BB0528C3B196375A">
+					<li purpose="li" id="LI_824EC252038845289055B48416A51968"> The entire 10,000 licenses
+need be authorized on license manager 1. See the <a class="xref" rel="0079/007900000005000000.htm" href="0079/007900000005000000.htm">License Manager installation and startup</a> section for details on this process.</li>
+					<li purpose="li" id="LI_C69E2CCF010C4E5FBA779DCAB9202CB7"> Install the License Manager
+software on machines 2 and 3. <a class="xref" rel="0079/00790000002p000000.htm" href="0079/00790000002p000000.htm">Transfer</a> the required number of
+licenses to these License Managers. </li>
+					<li purpose="li" id="LI_65C8214F1DF84B518D7F902E5BCF954D"> Install the ArcGIS
+software on client machines and point the machines to the required
+License Manager.</li>
+				</ol>
+			</p><p id="GUID-43C831B9-7E84-44B9-9AC1-DD5E43836574"><b>II. Single use:</b></p><p id="GUID-0E80A906-6317-4B5F-BEE9-C5FFC40AE561">Enterprise B has purchased 10,000 enterprise single use ArcInfo licenses and
+needs to authorize end-user machines from within the organization instead of authorizing each end-user machine against ESRI Customer Service.</p><p id="GUID-45D78124-5184-43D5-A702-056B1DB154D4">
+				<ol purpose="ol" id="OL_C7836970BD9D4EF48637D0D0DCC2E90C">
+					<li purpose="li" id="LI_367FF53973494A3C879C9A9E3D2B682B"> The entire 10,000 licenses
+need to be authorized on a license manager. See the <a class="xref" rel="0079/007900000005000000.htm" href="0079/007900000005000000.htm">License Manager installation and startup</a> section for details on this process.</li>
+					<li purpose="li" id="LI_5B1E6812C5C24C289600DF014DCEC7FE"> Install the ArcGIS
+software on the individual end-user machines and authorize the software from
+the license manager setup in Step 1:<ul purpose="ul" id="UL_755AC68153604C9A813EE6425C61659C"><li purpose="li" id="LI_5A27E5434E1F48909B39D770091DDC9F"><b>Authorizing end-user machines using a provisioning file:</b>  A provisioning file allows a license administrator to quickly authorize the ArcGIS Software on end-user machines.  See the topic on <a class="xref" rel="0079/00790000002s000000.htm" href="0079/00790000002s000000.htm">Provisioning Files</a> for help on creating and using provisioning files.</li></ul><ul purpose="ul" id="UL_CC93921DD557416D8623FC01EC27E2B7"><li purpose="li" id="LI_7FD94AE626BA496183F2EEFF58D48D26"><b>Authorizing end-user machines manually:</b></li><li purpose="li" id="LI_5DFA9BA204984C1E894FD853D4DE3155">In the ArcGIS Administrator Wizard dialog box that appears immediately after the installation, select the appropriate Single Use product and click the Authorize Now button.  If you would like to run the authorization at a later time, go to Start &gt; Programs &gt; ArcGIS &gt; ArcGIS Administrator.  Select the product you want to authorize from the table of contents, select the appropriate single use product, then click Authorize Now.</li><li purpose="li" id="LI_DCDA00A4F9824DFFB11D4EBEDBE3623C">Select the default option I have installed my software and need to authorize it.</li><li purpose="li" id="LI_79C3825F94ED48A8B0362D5BA24DCAD4">On the next dialog box, select the option Authorize your software from a local license server.</li><li purpose="li" id="LI_3E187319DC3D43D6A0899DC4B00881F4">Specify a license server.</li><li purpose="li" id="LI_C5746BF179D04D2D946240C0D039B202">Enter the authorization number for the core product.  This is the same authorization number (EEAxxxxxxxxx) you used when authorizing the licenses on the License Manager.</li><li purpose="li" id="LI_44E2CA9984A445D8A8E8A7B5D251B570">Enter authorization numbers for any extensions that you wish to authorize on that machine and complete the authorization process.</li></ul></li>
+				</ol>
+			</p></div>
+	<br><div class="footer"> Copyright © 1995-2010 ESRI, Inc. All rights reserved. </div></div></body></html>
