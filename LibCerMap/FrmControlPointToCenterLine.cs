@@ -182,6 +182,8 @@ namespace LibCerMap
                 //将连接成的线添加到线图层中
                 AddFeature(Polyline as IGeometry);
 
+                MessageBox.Show("成功生成中线");
+
                 this.Close();
             }
             catch(Exception ex)
@@ -217,10 +219,20 @@ namespace LibCerMap
             //DataTable dt = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pFeatureLayer.FeatureClass as ITable, "");
             //DataAlignment.DataAlignment.CanlculateDistanceInMiddlePointTable(dt);
 
+            CustomizedControls.StatusForm progressBar = new CustomizedControls.StatusForm();
+            progressBar.StartPosition = FormStartPosition.CenterScreen;
+            progressBar.Show();
+            
+
+               
+               
+
             IPointCollection pPointCollection = new MultipointClass();
             IPoint PrevPT = null;
             for (int i = 0; i < number; i++)
             {
+                Application.DoEvents();
+                progressBar.Status = "处理点 " + i.ToString() +  "/ " + number.ToString();
                 IGeometry pGeometry = pFeature.Shape as IGeometry;
                 IPoint pt = pGeometry as IPoint;               
                 IPoint pPoint = new PointClass();
@@ -250,9 +262,12 @@ namespace LibCerMap
                 pFeature.Value[pFeature.Fields.FindField("里程（m）")] = pPoint.M;
                 pFeature.Store();
 
+                progressBar.Progress = Convert.ToInt16(Convert.ToDouble(i) / Convert.ToDouble(number) * 100);
+
                 pFeature = pFeatureCursor.NextFeature();
             }
 
+            progressBar.Close();
             return pPointCollection;
         }
        
