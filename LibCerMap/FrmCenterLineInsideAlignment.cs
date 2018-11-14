@@ -54,6 +54,10 @@ namespace LibCerMap
                     {
                         comboBoxExCenterlineLayer.Items.Add(pLayer.Name);
                     }
+                    if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPolyline)
+                    {
+                        comboBoxExCenterlineLinearLayer.Items.Add(pLayer.Name);
+                    }
                 }
             }
             if (cboBoxPointLayer.Items.Count > 0)
@@ -144,8 +148,11 @@ namespace LibCerMap
                 dv.Sort = "记录距离__ ASC";
                 IMUTable = dv.ToTable();
                 double centerlineLength = endM - beginM;
-                IMUTable.Columns.Add("特征点里程差");
-                IMUTable.Columns.Add("对齐里程");
+                IMUTable.Columns.Add("X",System.Type.GetType("System.Double"));
+                IMUTable.Columns.Add("Y",System.Type.GetType("System.Double"));
+                IMUTable.Columns.Add("Z",System.Type.GetType("System.Double"));
+                IMUTable.Columns.Add("特征点里程差", System.Type.GetType("System.Double"));
+                IMUTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
                 
                 double endIMUM = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1]["记录距离__"]);
                 double beginIMUM = Convert.ToDouble(IMUTable.Rows[0]["记录距离__"]);
@@ -231,10 +238,8 @@ namespace LibCerMap
                         double BeginAM = Convert.ToDouble(PrevRowWithM["对齐里程"]);
                         double endAM = Convert.ToDouble(NextRowWithM["对齐里程"]);
                         double currentJiluM = Convert.ToDouble(r["记录距离__"]);
-                        r["对齐里程"] = (currentJiluM - BeginJiluM) * (endAM - BeginAM) / (endJiluM - BeginJiluM) + BeginAM;
-                    
+                        r["对齐里程"] = (currentJiluM - BeginJiluM) * (endAM - BeginAM) / (endJiluM - BeginJiluM) + BeginAM;                    
                     }
-                     
                 }
                 
                     //for (int i = 0; i < CenterlinePointTable.Rows.Count; i++)
@@ -256,6 +261,42 @@ namespace LibCerMap
 
                     //    }
                     //}
+                IFeatureLayer pLinearlayer = null;
+                string pCenterlineLinearName = comboBoxExCenterlineLinearLayer.SelectedItem.ToString();
+                 for (int i = 0; i < pMapcontrol.LayerCount; i++)
+                {                     
+                    if (pCenterlineLinearName == pMapcontrol.get_Layer(i).Name)
+                    {
+                        pLinearlayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
+                    }
+                }
+                IFeatureCursor pcursor = pLinearlayer.FeatureClass.Search(null,false);
+                IFeature pFeature = pcursor.NextFeature();
+                IPolyline pline = pFeature.Shape as IPolyline;
+                IMSegmentation mSegment = pline as IMSegmentation;
+                double maxM = mSegment.MMax;
+                double minM = mSegment.MMin;
+
+                if (beginM > maxM || beginM < minM || endM > maxM || endM < minM)
+                {
+                    MessageBox.Show("输入的起始或终点里程值超出中线里程范围!");
+                    return;
+                }
+
+                for (int i = 0; i < IMUTable.Rows.Count; i++)
+                {
+                    DataRow r = IMUTable.Rows[i];
+                    double M = Convert.ToDouble(r["对齐里程"]);
+                     
+                    IGeometryCollection ptcollection = mSegment.GetPointsAtM(M, 0);
+                    IPoint pt = ptcollection.get_Geometry(0) as IPoint;
+                    r["X"] = pt.X;
+                    r["Y"] = pt.Y;
+                    r["Z"] = pt.Z;
+                    
+                }
+                
+
                 FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(IMUTable);
                 frm.ShowDialog();
 

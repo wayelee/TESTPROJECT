@@ -49,11 +49,13 @@
     <Reference Include="CustomizedControls">
       <HintPath>..\ThirdLib\CustomizedControls.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.DotNetBar.Keyboard, Version=11.0.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+    <Reference Include="DevComponents.DotNetBar.Keyboard, Version=12.1.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdLib\DevComponents.DotNetBar.Keyboard.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.DotNetBar.Schedule, Version=11.0.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
+    <Reference Include="DevComponents.DotNetBar.Schedule, Version=12.1.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdLib\DevComponents.DotNetBar.Schedule.dll</HintPath>
     </Reference>
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.1.0.0, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -67,8 +69,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ThirdLib\DevComponents.Instrumentation.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.TreeGX, Version=11.0.0.0, Culture=neutral, PublicKeyToken=cfcbd7476b2389d1, processorArchitecture=MSIL">
+    <Reference Include="DevComponents.TreeGX, Version=12.1.0.0, Culture=neutral, PublicKeyToken=cfcbd7476b2389d1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdLib\DevComponents.TreeGX.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
