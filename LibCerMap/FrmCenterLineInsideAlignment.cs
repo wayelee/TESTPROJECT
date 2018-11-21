@@ -148,11 +148,16 @@ namespace LibCerMap
                 dv.Sort = "记录距离__ ASC";
                 IMUTable = dv.ToTable();
                 double centerlineLength = endM - beginM;
-                IMUTable.Columns.Add("X",System.Type.GetType("System.Double"));
-                IMUTable.Columns.Add("Y",System.Type.GetType("System.Double"));
-                IMUTable.Columns.Add("Z",System.Type.GetType("System.Double"));
-                IMUTable.Columns.Add("特征点里程差", System.Type.GetType("System.Double"));
-                IMUTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("X"))
+                    IMUTable.Columns.Add("X",System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("Y"))
+                    IMUTable.Columns.Add("Y",System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("Z"))
+                    IMUTable.Columns.Add("Z",System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("里程差"))
+                    IMUTable.Columns.Add("里程差", System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("对齐里程"))
+                    IMUTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
                 
                 double endIMUM = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1]["记录距离__"]);
                 double beginIMUM = Convert.ToDouble(IMUTable.Rows[0]["记录距离__"]);
@@ -178,7 +183,7 @@ namespace LibCerMap
                         DataRow NearestR = Featurerow[0];
                         if (MatchedDataRowPair.Values.Contains(NearestR) == false)
                         {
-                            IMUr["特征点里程差"] = Convert.ToDouble(NearestR["里程（m）"]) - ActionIMUM;
+                            IMUr["里程差"] = Convert.ToDouble(NearestR["里程（m）"]) - ActionIMUM;
                             MatchedDataRowPair.Add(IMUr, NearestR);
                         }
                         else
@@ -187,11 +192,11 @@ namespace LibCerMap
                                                  where MatchedDataRowPair[k].Equals(NearestR)
                                                  select k).ToList().First();
                            double dis = Math.Abs(Convert.ToDouble(NearestR["里程（m）"]) - ActionIMUM);
-                           double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["特征点里程差"]));
+                           double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
                            if (dis < olddis)
                            {
                                MatchedDataRowPair.Remove(mathcedIMUr);
-                               IMUr["特征点里程差"] = Convert.ToDouble(NearestR["里程（m）"]) - ActionIMUM;
+                               IMUr["里程差"] = Convert.ToDouble(NearestR["里程（m）"]) - ActionIMUM;
                                MatchedDataRowPair.Add(IMUr, NearestR);
                            }
                            else

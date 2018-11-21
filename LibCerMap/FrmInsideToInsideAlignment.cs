@@ -148,7 +148,7 @@ namespace LibCerMap
                 alignmentPointTable = dv.ToTable();
 
                 double centerlineLength = endM - beginM;
-                alignmentPointTable.Columns.Add("特征点里程差");
+                alignmentPointTable.Columns.Add("里程差");
                 alignmentPointTable.Columns.Add("对齐里程");
 
                 double endIMUM = Convert.ToDouble(alignmentPointTable.Rows[alignmentPointTable.Rows.Count - 1][AlingMeasureColumn]);
@@ -175,7 +175,7 @@ namespace LibCerMap
                         DataRow NearestR = Featurerow[0];
                         if (MatchedDataRowPair.Values.Contains(NearestR) == false)
                         {
-                            IMUr["特征点里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
+                            IMUr["里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
                             MatchedDataRowPair.Add(IMUr, NearestR);
                         }
                         else
@@ -184,11 +184,11 @@ namespace LibCerMap
                                                  where MatchedDataRowPair[k].Equals(NearestR)
                                                  select k).ToList().First();
                            double dis = Math.Abs(Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM);
-                           double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["特征点里程差"]));
+                           double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
                            if (dis < olddis)
                            {
                                MatchedDataRowPair.Remove(mathcedIMUr);
-                               IMUr["特征点里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
+                               IMUr["里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
                                MatchedDataRowPair.Add(IMUr, NearestR);
                            }
                            else

@@ -219,9 +219,9 @@ namespace LibCerMap
             //DataTable dt = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pFeatureLayer.FeatureClass as ITable, "");
             //DataAlignment.DataAlignment.CanlculateDistanceInMiddlePointTable(dt);
 
-            CustomizedControls.StatusForm progressBar = new CustomizedControls.StatusForm();
-            progressBar.StartPosition = FormStartPosition.CenterScreen;
-            progressBar.Show();
+            CustomizedControls.StatusForm frm = new CustomizedControls.StatusForm();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.Show();
             
 
                
@@ -232,7 +232,7 @@ namespace LibCerMap
             for (int i = 0; i < number; i++)
             {
                 Application.DoEvents();
-                progressBar.Status = "处理点 " + i.ToString() +  "/ " + number.ToString();
+                frm.Status = "处理点 " + i.ToString() + "/ " + number.ToString();
                 IGeometry pGeometry = pFeature.Shape as IGeometry;
                 IPoint pt = pGeometry as IPoint;               
                 IPoint pPoint = new PointClass();
@@ -262,12 +262,12 @@ namespace LibCerMap
                 pFeature.Value[pFeature.Fields.FindField("里程（m）")] = pPoint.M;
                 pFeature.Store();
 
-                progressBar.Progress = Convert.ToInt16(Convert.ToDouble(i) / Convert.ToDouble(number) * 100);
+                frm.Progress = Convert.ToInt16(Convert.ToDouble(i) / Convert.ToDouble(number) * 100);
 
                 pFeature = pFeatureCursor.NextFeature();
             }
 
-            progressBar.Close();
+            frm.Close();
             return pPointCollection;
         }
        
