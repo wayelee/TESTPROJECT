@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView4 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView5 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView6 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY1 = new DevExpress.XtraCharts.SecondaryAxisY();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView3 = new DevExpress.XtraCharts.LineSeriesView();
             this.btOK = new DevComponents.DotNetBar.ButtonX();
             this.btCancel = new DevComponents.DotNetBar.ButtonX();
             this.gPanelLine = new DevComponents.DotNetBar.Controls.GroupPanel();
@@ -44,12 +45,13 @@
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).BeginInit();
             this.SuspendLayout();
             // 
             // btOK
@@ -182,21 +184,32 @@
             // 
             // chartControl1
             // 
-            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
-            this.chartControl1.Diagram = xyDiagram2;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram1.Margins.Bottom = 0;
+            xyDiagram1.Margins.Left = 0;
+            xyDiagram1.Margins.Right = 0;
+            xyDiagram1.Margins.Top = 0;
+            xyDiagram1.PaneDistance = 0;
+            secondaryAxisY1.AxisID = 0;
+            secondaryAxisY1.Name = "Secondary AxisY 1";
+            secondaryAxisY1.VisibleInPanesSerializable = "-1";
+            xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
+            secondaryAxisY1});
+            this.chartControl1.Diagram = xyDiagram1;
+            this.chartControl1.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Center;
             this.chartControl1.Legend.Name = "Default Legend";
-            this.chartControl1.Location = new System.Drawing.Point(12, 220);
+            this.chartControl1.Location = new System.Drawing.Point(8, 307);
             this.chartControl1.Name = "chartControl1";
-            series3.Name = "Series 1";
-            series3.View = lineSeriesView4;
-            series4.Name = "Series 2";
-            series4.View = lineSeriesView5;
+            series1.Name = "Series 1";
+            series1.View = lineSeriesView1;
+            series2.Name = "Series 2";
+            series2.View = lineSeriesView2;
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series3,
-        series4};
-            this.chartControl1.SeriesTemplate.View = lineSeriesView6;
-            this.chartControl1.Size = new System.Drawing.Size(278, 50);
+        series1,
+        series2};
+            this.chartControl1.SeriesTemplate.View = lineSeriesView3;
+            this.chartControl1.Size = new System.Drawing.Size(369, 179);
             this.chartControl1.TabIndex = 5;
             this.chartControl1.Visible = false;
             // 
@@ -204,7 +217,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 312);
+            this.ClientSize = new System.Drawing.Size(400, 520);
             this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.gPanelLine);
             this.Controls.Add(this.btCancel);
@@ -221,12 +234,13 @@
             this.Load += new System.EventHandler(this.FrmPointToLine_Load);
             this.gPanelLine.ResumeLayout(false);
             this.gPanelPoint.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             this.ResumeLayout(false);
 

@@ -195,6 +195,9 @@ namespace LibCerMap
             MessageBox.Show("Export finished.");
             #endregion
 
+            System.Drawing.Point LastBottomLeftPoint = new System.Drawing.Point();
+            int bandwidth = 0;
+            PdfGraphics pGraphics = null;
 
             #region export chartcontrol
             IGraphicsContainer pGC = _PageLayout as IGraphicsContainer;
@@ -204,18 +207,19 @@ namespace LibCerMap
             {
                 if (pE is IMapFrame)
                 {
-
                     // framgeo related to _PageLayout.Page pagesize, 8.5 x 11, inch
                     IEnvelope framgeo = pE.Geometry.Envelope as IEnvelope;
                     float defaultDPI = PdfGraphics.DefaultDpi;
                     double x = defaultDPI * framgeo.LowerLeft.X * pageUnitToInchUnitScale;
-                    double y = defaultDPI * (layerOutPageSize.Height - framgeo.LowerLeft.Y) * pageUnitToInchUnitScale;
+                    double y = defaultDPI * (layerOutPageSize.Height - framgeo.LowerLeft.Y) * pageUnitToInchUnitScale + 1;
+
+                    bandwidth =(int) (defaultDPI * (framgeo.Width * pageUnitToInchUnitScale));
+
+                    LastBottomLeftPoint.X = (int)x;
+                    LastBottomLeftPoint.Y = (int)y;
 
                     chartControl1.Size = new System.Drawing.Size((int)(framgeo.Width * pageUnitToInchUnitScale * defaultDPI), (int)(framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
-                    // chartControl1.Size = new System.Drawing.Size((int)(framgeo.Width * 300), (int)(framgeo.Height * 300));
-
-                    // PdfGraphics.defaultpageDPI
-
+                  
                     Image img = null;
                     Bitmap bmp = null;
                     // Create an image of the chart.
@@ -228,38 +232,53 @@ namespace LibCerMap
                         bmp.SetResolution(300, 300);
                     }
 
-                    //pictureBox1.Image = img;
-                    //pictureBox1.Refresh();
-
                     using (PdfDocumentProcessor processor = new PdfDocumentProcessor())
                     {
-
                         processor.LoadDocument(outFile);
                         PdfDocument pd = processor.Document;
                         PdfPage page = pd.Pages[0];
                         PdfRectangle pdfrec = page.MediaBox;
-                        RectangleF rf = new RectangleF(0, 0, Convert.ToSingle(pdfrec.Width) * 96 / 72, Convert.ToSingle(pdfrec.Height) * 96 / 72);
+                       // RectangleF rf = new RectangleF(0, 0, Convert.ToSingle(pdfrec.Width) * 96 / 72, Convert.ToSingle(pdfrec.Height) * 96 / 72);
                         // Create and draw PDF graphics.
-                        using (PdfGraphics graph = processor.CreateGraphics())
+                        using (pGraphics = processor.CreateGraphics())
                         {
+                            PdfGraphics graph = pGraphics;
                             //  graph.DrawImage(img, new RectangleF((float)x, (float)y, (float)framgeo.Width * 96, (float)framgeo.Height*96));
                             graph.DrawImage(bmp, new RectangleF((float)x, (float)y, (float)framgeo.Width * pageUnitToInchUnitScale * defaultDPI, (float)framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
                          //   graph.DrawImage(bmp, new RectangleF((float)x, 0, (float)500, 500));
 
-                            // graph.DrawImage(img, rf);
-                            graph.AddToPageForeground(page, defaultDPI, defaultDPI);
-                            // Render a page with graphics.
 
-                            processor.RenderNewPage(PdfPaperSize.Letter, graph);
+                            LastBottomLeftPoint.Y = (int)(LastBottomLeftPoint.Y + (float)framgeo.Height * pageUnitToInchUnitScale * defaultDPI);
+
+
+                            for (int i = 0; i < 5; i++)
+                            {
+                                band b = new band();
+                                b.pdfGC = pGraphics;
+                                b.BandWidth = (int)bandwidth;
+                                System.Drawing.Point pt = new System.Drawing.Point();
+                                pt.X = LastBottomLeftPoint.X;
+                                pt.Y = LastBottomLeftPoint.Y;
+                                b.BandTopLeftLocation = pt;
+                                b.Draw();
+                                LastBottomLeftPoint.Y += (int)b.BandHight ;
+                            }
+
+                            // graph.DrawImage(img, rf);
+                            graph.AddToPageForeground(page);
+                            // Render a page with graphics.
+                            //processor.RenderNewPage(PdfPaperSize.Letter, graph);
                             processor.SaveDocument(outFile);
                         }
                     }
-
                     break;
                 }
                 pE = pGC.Next();
             }
             #endregion
+
+          
+            
          
         }
 
@@ -286,4 +305,61 @@ namespace LibCerMap
         }
 
     }
+
+    public class band
+    {
+        // all the info should be in device unit. head is in left of band
+        public System.Drawing.Point BandTopLeftLocation;       
+        public double BandWidth;
+        public double BandHight = 50;
+        public double BandHeadWidth = 40;
+
+        public string BandName;
+        public double BeginM;
+        public double EndM;
+        public PdfGraphics pdfGC;
+
+        public List<Tuple<double, string>> bandData;
+
+        //private Pen p = Pens.Black;
+        public band()
+        {
+        }
+
+        public void Draw()
+        {
+            DrawBandHead();
+            DrawBandBorder();
+            DrawBandHead();
+        }
+        public void DrawBandHead()
+        {
+            Pen pPen = new Pen(Color.Black);
+            pPen.Width = 1;
+            pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)(BandTopLeftLocation.Y + BandHight));
+
+            pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y + BandHight));
+            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y);
+
+            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y);
+      
+        }
+        public void DrawBandBorder()
+        {
+            Pen pPen = new Pen(Color.Black);
+            pPen.Width = 1;
+            pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y ));
+
+            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y), (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y + BandHight));
+            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X), (float)(BandTopLeftLocation.Y + BandHight));
+
+            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X), (float)(BandTopLeftLocation.Y + BandHight), (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y);
+      
+            
+        }
+        public void DrawBandContent()
+        {
+        }
+    }
+
 }
