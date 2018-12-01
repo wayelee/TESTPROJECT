@@ -8652,6 +8652,15 @@ namespace CERMapping
             IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
             FrmCenterLineInsideAlignment frm = new FrmCenterLineInsideAlignment(pMapcontrol);
             frm.ShowDialog();
+        }
+
+        private void buttonItemGeneratePDFReport_Click(object sender, EventArgs e)
+        {
+            IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
+            IPageLayoutControl pPagelayoutControl = axPageLayoutCtlMain.Object as IPageLayoutControl;
+            FrmGeneratePDFReport frm = new FrmGeneratePDFReport(pMapcontrol, pPagelayoutControl);
+            frm.ShowDialog();
+        
         }       
 
    
