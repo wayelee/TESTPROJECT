@@ -255,7 +255,8 @@ namespace LibCerMap
                             {
                                 band b = new band();
                                 b.pdfGC = pGraphics;
-                                b.BandWidth = (int)bandwidth;
+                                b.BandWidth = (int)bandwidth;                                
+                                b.textfont = this.Font;
                                 System.Drawing.Point pt = new System.Drawing.Point();
                                 pt.X = LastBottomLeftPoint.X;
                                 pt.Y = LastBottomLeftPoint.Y;
@@ -263,7 +264,6 @@ namespace LibCerMap
                                 b.Draw();
                                 LastBottomLeftPoint.Y += (int)b.BandHight ;
                             }
-
                             // graph.DrawImage(img, rf);
                             graph.AddToPageForeground(page);
                             // Render a page with graphics.
@@ -314,10 +314,11 @@ namespace LibCerMap
         public double BandHight = 50;
         public double BandHeadWidth = 40;
 
-        public string BandName;
+        public string BandName = "Default";
         public double BeginM;
         public double EndM;
         public PdfGraphics pdfGC;
+        public System.Drawing.Font textfont;
 
         public List<Tuple<double, string>> bandData;
 
@@ -342,7 +343,22 @@ namespace LibCerMap
             pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y);
 
             pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y);
-      
+
+          //  RectangleF rF = new RectangleF((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y), (float)BandHeadWidth, (float)BandHight);
+            RectangleF rF = new RectangleF(0, 0, (float)BandHeadWidth, (float)BandHight);
+           
+            PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
+            psf.Alignment = PdfStringAlignment.Center;
+            psf.LineAlignment = PdfStringAlignment.Center;
+           // pdfGC.DrawString(BandName, textfont, Brushes.Black, rF, psf);
+
+            pdfGC.SaveGraphicsState();
+            pdfGC.TranslateTransform((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y+ BandHight));
+         //   pdfGC.TranslateTransform((float)(BandTopLeftLocation.X - 0.5 * BandHeadWidth), (float)(BandTopLeftLocation.Y + 0.5 * BandHight));
+          
+            pdfGC.RotateTransform(270);
+            pdfGC.DrawString(BandName, textfont, new SolidBrush(Color.Black),rF,psf);
+            pdfGC.RestoreGraphicsState();
         }
         public void DrawBandBorder()
         {
