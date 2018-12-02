@@ -257,11 +257,24 @@ namespace LibCerMap
                                 b.pdfGC = pGraphics;
                                 b.BandWidth = (int)bandwidth;                                
                                 b.textfont = this.Font;
+                                b.textfont = new System.Drawing.Font("仿宋",6F);
                                 System.Drawing.Point pt = new System.Drawing.Point();
                                 pt.X = LastBottomLeftPoint.X;
                                 pt.Y = LastBottomLeftPoint.Y;
                                 b.BandTopLeftLocation = pt;
-                                b.Draw();
+
+                                b.BeginM = 0;
+                                b.EndM = 7300;
+                                b.bandData = new List<Tuple<double, string>>();
+                                for (int j = 0; j < 6; j++)
+                                {
+                                    double m = j * 500;
+                                    string txt = "异常2";
+                                    Tuple<double, string> t = new Tuple<double, string>(m,txt);
+                                    b.bandData.Add(t);
+                                }
+
+                                    b.Draw();
                                 LastBottomLeftPoint.Y += (int)b.BandHight ;
                             }
                             // graph.DrawImage(img, rf);
@@ -314,13 +327,14 @@ namespace LibCerMap
         public double BandHight = 50;
         public double BandHeadWidth = 40;
 
-        public string BandName = "Default";
+        public string BandName = "属性";
         public double BeginM;
         public double EndM;
         public PdfGraphics pdfGC;
         public System.Drawing.Font textfont;
-
-        public List<Tuple<double, string>> bandData;
+        public Pen pPen = new Pen(Color.Black);
+        // item1 measure, item2 text
+        public List<Tuple<double, string>> bandData = new List<Tuple<double,string>>();
 
         //private Pen p = Pens.Black;
         public band()
@@ -331,11 +345,10 @@ namespace LibCerMap
         {
             DrawBandHead();
             DrawBandBorder();
-            DrawBandHead();
+            DrawBandContent();
         }
         public void DrawBandHead()
         {
-            Pen pPen = new Pen(Color.Black);
             pPen.Width = 1;
             pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)(BandTopLeftLocation.Y + BandHight));
 
@@ -353,9 +366,8 @@ namespace LibCerMap
            // pdfGC.DrawString(BandName, textfont, Brushes.Black, rF, psf);
 
             pdfGC.SaveGraphicsState();
-            pdfGC.TranslateTransform((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y+ BandHight));
-         //   pdfGC.TranslateTransform((float)(BandTopLeftLocation.X - 0.5 * BandHeadWidth), (float)(BandTopLeftLocation.Y + 0.5 * BandHight));
-          
+            // head box 的左下角
+            pdfGC.TranslateTransform((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y+ BandHight));          
             pdfGC.RotateTransform(270);
             pdfGC.DrawString(BandName, textfont, new SolidBrush(Color.Black),rF,psf);
             pdfGC.RestoreGraphicsState();
@@ -375,6 +387,37 @@ namespace LibCerMap
         }
         public void DrawBandContent()
         {
+            double beginXInDC = BandTopLeftLocation.X;
+            double endXInDC = BandTopLeftLocation.X + BandWidth;
+            double bottomYInDC = BandTopLeftLocation.Y + BandHight;
+            int indicatorLinelength = 4;
+
+            int contentTextBoxWidth = 50;
+            for (int i = 0; i < bandData.Count; i++)
+            {
+                double m = bandData[i].Item1;
+                string Txt = bandData[i].Item2;
+
+                Double XInDC = (m - BeginM) * (endXInDC - beginXInDC) / (EndM - BeginM) + beginXInDC;
+                //指示线
+                pdfGC.DrawLine(pPen, (float)XInDC, (float)bottomYInDC, (float)XInDC, (float)bottomYInDC - indicatorLinelength);
+
+                RectangleF rF = new RectangleF(0, 0, (float)contentTextBoxWidth, (float)BandHight - indicatorLinelength);
+
+                PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
+                psf.Alignment = PdfStringAlignment.Near;
+                psf.LineAlignment = PdfStringAlignment.Near;
+
+                pdfGC.SaveGraphicsState();
+                // head box 的左下角
+                pdfGC.TranslateTransform((float)(XInDC), (float)bottomYInDC - indicatorLinelength -2);
+              //  pdfGC.TranslateTransform((float)(XInDC), (float)(BandTopLeftLocation.Y - BandHight - 2));
+              //  pdfGC.TranslateTransform((float)(XInDC), (float)(BandTopLeftLocation.Y - BandHight -2));
+                pdfGC.RotateTransform(270);
+                pdfGC.DrawString(Txt, textfont, new SolidBrush(Color.Black), rF, psf);
+                pdfGC.RestoreGraphicsState();
+            }
+
         }
     }
 
