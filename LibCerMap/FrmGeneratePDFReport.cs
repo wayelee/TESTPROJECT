@@ -24,6 +24,7 @@ using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
 using DevExpress.Pdf;
 using DevExpress.Pdf.Drawing;
+using DevExpress.XtraCharts;
 
 namespace LibCerMap
 {
@@ -198,6 +199,45 @@ namespace LibCerMap
             System.Drawing.Point LastBottomLeftPoint = new System.Drawing.Point();
             int bandwidth = 0;
             PdfGraphics pGraphics = null;
+
+            IFeatureLayer pCenterlinePointLayer = null;
+            string centerlinePointnName = cboBoxPointLayer.SelectedItem.ToString();
+             
+            for (int i = 0; i < pMapcontrol.LayerCount; i++)
+            {
+                if (centerlinePointnName == pMapcontrol.get_Layer(i).Name)
+                {
+                    pCenterlinePointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
+                }
+            }
+            IQueryFilter pQF = null;
+            DataTable centerlinePointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pCenterlinePointLayer.FeatureClass as ITable, pQF);
+            chartControl1.Series.Clear();
+            Series series = new Series("高程", ViewType.Line);
+            Series series2 = new Series("埋深", ViewType.Line);
+            SecondaryAxisY myAxisY = new SecondaryAxisY("埋深");
+           
+            foreach (DataRow r in centerlinePointTable.Rows)
+            {
+                double m; double z; double underz;
+                if (r["里程（m）"]!= DBNull.Value && r["Z_高程（米"]!= DBNull.Value )
+                {
+                    m = Convert.ToDouble( r["里程（m）"]);
+                    z = Convert.ToDouble( r["Z_高程（米"]);
+                      series.Points.Add(new SeriesPoint(m, z));
+                }
+                if (r["里程（m）"] != DBNull.Value && r["管道埋深（"] != DBNull.Value)
+                {
+                    m = Convert.ToDouble( r["里程（m）"]);
+                    z = Convert.ToDouble( r["管道埋深（"]);
+                    series2.Points.Add(new SeriesPoint(m, z));
+                }
+            }
+            chartControl1.Series.Add(series);
+            chartControl1.Series.Add(series2);
+            ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+            ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Add(myAxisY);
+            ((LineSeriesView)series2.View).AxisY = myAxisY;
 
             #region export chartcontrol
             IGraphicsContainer pGC = _PageLayout as IGraphicsContainer;
