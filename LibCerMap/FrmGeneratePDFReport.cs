@@ -152,6 +152,7 @@ namespace LibCerMap
 
             var layerOutPageSize = m_PageSize;
             var outputDPI = 300;
+            int BandHeadWidth = 40;
 
             var originalActiveView = _PageLayout as IActiveView;
             var activeView = _PageLayout as IActiveView;
@@ -283,12 +284,49 @@ namespace LibCerMap
                         using (pGraphics = processor.CreateGraphics())
                         {
                             PdfGraphics graph = pGraphics;
-                            //  graph.DrawImage(img, new RectangleF((float)x, (float)y, (float)framgeo.Width * 96, (float)framgeo.Height*96));
+
+                            Pen defaultPen = new Pen(Color.Black);
+                            defaultPen.Width = 1;
                             graph.DrawImage(bmp, new RectangleF((float)x, (float)y, (float)framgeo.Width * pageUnitToInchUnitScale * defaultDPI, (float)framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
-                         //   graph.DrawImage(bmp, new RectangleF((float)x, 0, (float)500, 500));
+
+                            // draw map head.
+                            RectangleF MapheadRect = new RectangleF((float)(int)(defaultDPI *  framgeo.XMin * pageUnitToInchUnitScale - BandHeadWidth ),
+                                (float)(int)(defaultDPI * (layerOutPageSize.Height - framgeo.UpperLeft.Y) * pageUnitToInchUnitScale),
+                               (float)(int)(BandHeadWidth),
+                               (float)(int)(defaultDPI * framgeo.Height * pageUnitToInchUnitScale));
+                            graph.DrawRectangle(defaultPen, MapheadRect);
+                               //draw head text
+                            RectangleF rF = new RectangleF(0, 0,  (float)MapheadRect.Height, (float)BandHeadWidth);
+                            PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
+                            psf.Alignment = PdfStringAlignment.Center;
+                            psf.LineAlignment = PdfStringAlignment.Center;
+                            graph.SaveGraphicsState();
+                            // head box 的左下角
+                            System.Drawing.Font textfont = new System.Drawing.Font("仿宋",6F);
+                            graph.TranslateTransform((float)(MapheadRect.Left), (float)(MapheadRect.Bottom));
+                            graph.RotateTransform(270);
+                            graph.DrawString("地图", textfont, new SolidBrush(Color.Black), rF, psf);
+                            graph.RestoreGraphicsState();
 
 
-                            LastBottomLeftPoint.Y = (int)(LastBottomLeftPoint.Y + (float)framgeo.Height * pageUnitToInchUnitScale * defaultDPI);
+                            // draw chart head
+                            RectangleF ChartheadRect = new RectangleF((float)(int)(defaultDPI * framgeo.XMin * pageUnitToInchUnitScale - BandHeadWidth),
+                              (float)(int)(defaultDPI * (layerOutPageSize.Height - framgeo.LowerLeft.Y) * pageUnitToInchUnitScale + 1),
+                             (float)(int)(BandHeadWidth),
+                             (float)(int)(defaultDPI * framgeo.Height * pageUnitToInchUnitScale));
+                            graph.DrawRectangle(defaultPen, ChartheadRect);
+                              //draw head text
+                            rF = new RectangleF(0, 0, (float)ChartheadRect.Height, (float)BandHeadWidth);                            
+                            graph.SaveGraphicsState();
+                            // head box 的左下角                           
+                            graph.TranslateTransform((float)(ChartheadRect.Left), (float)(ChartheadRect.Bottom));
+                            graph.RotateTransform(270);
+                            graph.DrawString("剖面图", textfont, new SolidBrush(Color.Black), rF, psf);
+                            graph.RestoreGraphicsState();
+
+
+                            LastBottomLeftPoint.Y =(int) ChartheadRect.Bottom;
+
 
 
                             for (int i = 0; i < 5; i++)
@@ -327,10 +365,15 @@ namespace LibCerMap
                     break;
                 }
                 pE = pGC.Next();
+
+
+                // draw map head
+              
+
             }
             #endregion
 
-          
+
             
          
         }
@@ -398,7 +441,7 @@ namespace LibCerMap
             pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y);
 
           //  RectangleF rF = new RectangleF((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y), (float)BandHeadWidth, (float)BandHight);
-            RectangleF rF = new RectangleF(0, 0, (float)BandHeadWidth, (float)BandHight);
+            RectangleF rF = new RectangleF(0, 0, (float)BandHight,(float)BandHeadWidth);
            
             PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
             psf.Alignment = PdfStringAlignment.Center;
@@ -430,9 +473,9 @@ namespace LibCerMap
             double beginXInDC = BandTopLeftLocation.X;
             double endXInDC = BandTopLeftLocation.X + BandWidth;
             double bottomYInDC = BandTopLeftLocation.Y + BandHight;
-            int indicatorLinelength = 4;
+            int indicatorLinelength =4;
 
-            int contentTextBoxWidth = 50;
+            int contentTextBoxWidth = 20;
             for (int i = 0; i < bandData.Count; i++)
             {
                 double m = bandData[i].Item1;
@@ -442,7 +485,7 @@ namespace LibCerMap
                 //指示线
                 pdfGC.DrawLine(pPen, (float)XInDC, (float)bottomYInDC, (float)XInDC, (float)bottomYInDC - indicatorLinelength);
 
-                RectangleF rF = new RectangleF(0, 0, (float)contentTextBoxWidth, (float)BandHight - indicatorLinelength);
+                RectangleF rF = new RectangleF(0, 0, (float)BandHight - indicatorLinelength, (float)contentTextBoxWidth);
 
                 PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
                 psf.Alignment = PdfStringAlignment.Near;
