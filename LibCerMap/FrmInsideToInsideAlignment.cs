@@ -162,6 +162,7 @@ namespace LibCerMap
                                                    where r["类型"].ToString().Contains("弯头")
                                                    select r).ToList();
 
+                #region //匹配弯头作为特征点
                 Dictionary<DataRow, DataRow> MatchedDataRowPair = new Dictionary<DataRow, DataRow>();
                 for (int i = 0; i < WantouPointList.Count; i++)
                 {
@@ -198,6 +199,9 @@ namespace LibCerMap
                         }
                     }
                 }
+                #endregion
+
+                #region //计算未匹配的点的对齐里程
                 foreach (DataRow r in MatchedDataRowPair.Keys)
                 {
                     r["对齐里程"] = MatchedDataRowPair[r][baseMeasureColumn];
@@ -237,8 +241,10 @@ namespace LibCerMap
                         r["对齐里程"] = (currentJiluM - BeginJiluM) * (endAM - BeginAM) / (endJiluM - BeginJiluM) + BeginAM;
                     }
                 }
+                #endregion
 
 
+                #region //对齐里程后，将焊缝加入特征点继续匹配
                 MatchedDataRowPair.Clear();
                 alignmentPointTable.Columns.Add("对齐基准点里程");
                 alignmentPointTable.Columns.Add("对齐基准点里程差");
@@ -246,13 +252,23 @@ namespace LibCerMap
 
                 foreach (DataRow IMUr in alignmentPointTable.Rows)
                 {
+                    if (!IMUr["类型"].ToString().Contains("弯头") && !IMUr["类型"].ToString().Contains("环向焊缝"))
+                    {
+                        continue;
+                    }
+
                     double ActionIMUM = Convert.ToDouble(IMUr["对齐里程"]);
 
+                    //List<DataRow> Featurerow = (from DataRow r in baseTable.Rows
+                    //                            where Math.Abs(Convert.ToDouble(r[baseMeasureColumn]) - ActionIMUM) < Convert.ToDouble(numericUpDown3.Value) &&
+                    //                           ( ( r["类型"].ToString().Contains("弯头") && IMUr["类型"].ToString().Contains("弯头") )  ||
+                    //                          ( r["类型"].ToString().Contains("异常") && IMUr["类型"].ToString().Contains("异常") ))
+                    //                            select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[baseMeasureColumn]) - ActionIMUM)).ToList();
                     List<DataRow> Featurerow = (from DataRow r in baseTable.Rows
                                                 where Math.Abs(Convert.ToDouble(r[baseMeasureColumn]) - ActionIMUM) < Convert.ToDouble(numericUpDown3.Value) &&
-                                               ( ( r["类型"].ToString().Contains("弯头") && IMUr["类型"].ToString().Contains("弯头") )  ||
-                                              ( r["类型"].ToString().Contains("异常") && IMUr["类型"].ToString().Contains("异常") ))
-                                                select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[baseMeasureColumn]) - ActionIMUM)).ToList();
+                                               ((r["类型"].ToString().Contains("弯头") && IMUr["类型"].ToString().Contains("弯头")) ||                                              
+                                              (r["类型"].ToString().Contains("环向焊缝") && IMUr["类型"].ToString().Contains("环向焊缝"))
+                                              ) select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[baseMeasureColumn]) - ActionIMUM)).ToList();
                     if (Featurerow.Count > 0)
                     {
                         DataRow NearestR = Featurerow[0];
@@ -285,9 +301,123 @@ namespace LibCerMap
                         }
                     }
                 }
-                
+                #endregion
 
-                   
+                #region // 根据匹配的特征点重算
+
+                foreach (DataRow r in MatchedDataRowPair.Keys)
+                {
+                    r["对齐里程"] = MatchedDataRowPair[r][baseMeasureColumn];
+                }
+                alignmentPointTable.Rows[0]["对齐里程"] = beginM;
+                alignmentPointTable.Rows[alignmentPointTable.Rows.Count - 1]["对齐里程"] = endM;
+               
+                //未匹配上的点里程设置为null
+                for (int i = 0; i < alignmentPointTable.Rows.Count; i++)
+                {
+                     DataRow r = alignmentPointTable.Rows[i];
+                     if (!MatchedDataRowPair.Keys.Contains(r))
+                     {
+                         r["对齐里程"] = DBNull.Value;
+                     }
+                }
+                PrevRowWithM = null;
+                for (int i = 0; i < alignmentPointTable.Rows.Count; i++)
+                {
+                    DataRow r = alignmentPointTable.Rows[i];
+                    if (r["对齐里程"] != DBNull.Value)
+                    {
+                        PrevRowWithM = r;
+                    }
+                    else
+                    {
+                        DataRow NextRowWithM = null;
+                        for (int j = i + 1; j < alignmentPointTable.Rows.Count; j++)
+                        {
+                            DataRow r2 = alignmentPointTable.Rows[j];
+                            if (r2["对齐里程"] != DBNull.Value)
+                            {
+                                NextRowWithM = r2;
+                                break;
+                            }
+                        }
+                        if (PrevRowWithM == null || NextRowWithM == null)
+                        {
+                            break;
+                        }
+                        double BeginJiluM = Convert.ToDouble(PrevRowWithM[AlingMeasureColumn]);
+                        double endJiluM = Convert.ToDouble(NextRowWithM[AlingMeasureColumn]);
+                        double BeginAM = Convert.ToDouble(PrevRowWithM["对齐里程"]);
+                        double endAM = Convert.ToDouble(NextRowWithM["对齐里程"]);
+                        double currentJiluM = Convert.ToDouble(r[AlingMeasureColumn]);
+                        r["对齐里程"] = (currentJiluM - BeginJiluM) * (endAM - BeginAM) / (endJiluM - BeginJiluM) + BeginAM;
+                    }
+                }
+             
+                #endregion
+
+                #region //匹配异常
+
+                List<DataRow> AlimAnomany = (from DataRow r in alignmentPointTable.Rows
+                                                 where r["类型"].ToString().Contains("异常")
+                                                 select r).ToList();
+                List<DataRow> BaseAnomany = (from DataRow r in baseTable.Rows
+                                                   where r["类型"].ToString().Contains("异常")
+                                                   select r).ToList();
+                MatchedDataRowPair.Clear();
+                for (int i = 0; i < AlimAnomany.Count; i++)
+                {
+                    DataRow IMUr = AlimAnomany[i];
+                    double ActionIMUM = Convert.ToDouble(IMUr["对齐里程"]);
+                    List<DataRow> Featurerow = (from r in BaseAnomany
+                                                where Math.Abs(Convert.ToDouble(r[baseMeasureColumn]) - ActionIMUM) < Convert.ToDouble(numericUpDown3.Value)
+                                                select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[baseMeasureColumn]) - ActionIMUM)).ToList();
+                    if (Featurerow.Count > 0)
+                    {
+                        DataRow NearestR = Featurerow[0];
+                        if (MatchedDataRowPair.Values.Contains(NearestR) == false)
+                        {
+                            IMUr["里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
+                            MatchedDataRowPair.Add(IMUr, NearestR);
+                        }
+                        else
+                        {
+                            DataRow mathcedIMUr = (from DataRow k in MatchedDataRowPair.Keys
+                                                   where MatchedDataRowPair[k].Equals(NearestR)
+                                                   select k).ToList().First();
+                            double dis = Math.Abs(Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM);
+                            double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
+                            if (dis < olddis)
+                            {
+                                MatchedDataRowPair.Remove(mathcedIMUr);
+                                IMUr["里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
+                                MatchedDataRowPair.Add(IMUr, NearestR);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+                alignmentPointTable.Columns.Add("壁厚变化");
+                #region // 异常增长计算
+                for (int i = 0; i < MatchedDataRowPair.Count; i++)
+                {
+                    DataRow IMUr = MatchedDataRowPair.Keys.ElementAt(i);
+                    DataRow BaseRow = MatchedDataRowPair.Values.ElementAt(i);
+                    try
+                    {
+                        IMUr["壁厚变化"] = Convert.ToDouble(IMUr["壁厚__mm_"]) - Convert.ToDouble(BaseRow["壁厚__mm_"]); 
+                    }
+                    catch
+                    {
+                    }                   
+                }
+
+                #endregion
                 FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
                 frm.ShowDialog();
 

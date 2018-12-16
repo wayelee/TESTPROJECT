@@ -31,8 +31,12 @@
             this.btOK = new DevComponents.DotNetBar.ButtonX();
             this.btCancel = new DevComponents.DotNetBar.ButtonX();
             this.gPanelLine = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.label5 = new System.Windows.Forms.Label();
             this.comboBoxExCenterlineLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.comboBoxMeasureField = new System.Windows.Forms.ComboBox();
             this.gPanelPoint = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBoxBaseMeasureField = new System.Windows.Forms.ComboBox();
             this.cboBoxPointLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,10 +44,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxBaseMeasureField = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBoxMeasureField = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -83,7 +83,7 @@
             this.gPanelLine.Controls.Add(this.label5);
             this.gPanelLine.Controls.Add(this.comboBoxExCenterlineLayer);
             this.gPanelLine.Controls.Add(this.comboBoxMeasureField);
-            //this.gPanelLine.DisabledBackColor = System.Drawing.Color.Empty;
+            this.gPanelLine.DisabledBackColor = System.Drawing.Color.Empty;
             this.gPanelLine.Location = new System.Drawing.Point(12, 116);
             this.gPanelLine.Name = "gPanelLine";
             this.gPanelLine.Size = new System.Drawing.Size(369, 98);
@@ -116,6 +116,15 @@
             this.gPanelLine.TabIndex = 3;
             this.gPanelLine.Text = "选择对齐内检测点图层";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(19, 55);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(127, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "对齐内检测点里程字段";
+            // 
             // comboBoxExCenterlineLayer
             // 
             this.comboBoxExCenterlineLayer.DisplayMember = "Text";
@@ -130,6 +139,14 @@
             this.comboBoxExCenterlineLayer.TabIndex = 1;
             this.comboBoxExCenterlineLayer.SelectedIndexChanged += new System.EventHandler(this.comboBoxExCenterlineLayer_SelectedIndexChanged);
             // 
+            // comboBoxMeasureField
+            // 
+            this.comboBoxMeasureField.FormattingEnabled = true;
+            this.comboBoxMeasureField.Location = new System.Drawing.Point(161, 52);
+            this.comboBoxMeasureField.Name = "comboBoxMeasureField";
+            this.comboBoxMeasureField.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxMeasureField.TabIndex = 7;
+            // 
             // gPanelPoint
             // 
             this.gPanelPoint.BackColor = System.Drawing.Color.Transparent;
@@ -138,7 +155,7 @@
             this.gPanelPoint.Controls.Add(this.label4);
             this.gPanelPoint.Controls.Add(this.comboBoxBaseMeasureField);
             this.gPanelPoint.Controls.Add(this.cboBoxPointLayer);
-            //this.gPanelPoint.DisabledBackColor = System.Drawing.Color.Empty;
+            this.gPanelPoint.DisabledBackColor = System.Drawing.Color.Empty;
             this.gPanelPoint.Location = new System.Drawing.Point(12, 13);
             this.gPanelPoint.Name = "gPanelPoint";
             this.gPanelPoint.Size = new System.Drawing.Size(369, 97);
@@ -170,6 +187,23 @@
             this.gPanelPoint.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.gPanelPoint.TabIndex = 2;
             this.gPanelPoint.Text = "选择基准内检测点图层";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(127, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "基准内检测点里程字段";
+            // 
+            // comboBoxBaseMeasureField
+            // 
+            this.comboBoxBaseMeasureField.FormattingEnabled = true;
+            this.comboBoxBaseMeasureField.Location = new System.Drawing.Point(161, 48);
+            this.comboBoxBaseMeasureField.Name = "comboBoxBaseMeasureField";
+            this.comboBoxBaseMeasureField.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxBaseMeasureField.TabIndex = 7;
             // 
             // cboBoxPointLayer
             // 
@@ -253,45 +287,11 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "误差容限";
             // 
-            // comboBoxBaseMeasureField
-            // 
-            this.comboBoxBaseMeasureField.FormattingEnabled = true;
-            this.comboBoxBaseMeasureField.Location = new System.Drawing.Point(161, 48);
-            this.comboBoxBaseMeasureField.Name = "comboBoxBaseMeasureField";
-            this.comboBoxBaseMeasureField.Size = new System.Drawing.Size(124, 21);
-            this.comboBoxBaseMeasureField.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 51);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(127, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "基准内检测点里程字段";
-            // 
-            // comboBoxMeasureField
-            // 
-            this.comboBoxMeasureField.FormattingEnabled = true;
-            this.comboBoxMeasureField.Location = new System.Drawing.Point(161, 52);
-            this.comboBoxMeasureField.Name = "comboBoxMeasureField";
-            this.comboBoxMeasureField.Size = new System.Drawing.Size(124, 21);
-            this.comboBoxMeasureField.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 55);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(127, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "对齐内检测点里程字段";
-            // 
             // FrmInsideToInsideAlignment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 312);
+            this.ClientSize = new System.Drawing.Size(392, 332);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
