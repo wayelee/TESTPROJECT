@@ -44,18 +44,22 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.checkBoxFixInputValue = new System.Windows.Forms.CheckBox();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.SuspendLayout();
             // 
             // btOK
             // 
             this.btOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btOK.Location = new System.Drawing.Point(196, 276);
+            this.btOK.Location = new System.Drawing.Point(225, 315);
             this.btOK.Name = "btOK";
             this.btOK.Size = new System.Drawing.Size(75, 25);
             this.btOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -67,7 +71,7 @@
             // 
             this.btCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btCancel.Location = new System.Drawing.Point(277, 276);
+            this.btCancel.Location = new System.Drawing.Point(306, 315);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 25);
             this.btCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -277,25 +281,64 @@
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(106, 20);
             this.numericUpDown3.TabIndex = 5;
+            this.numericUpDown3.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 259);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 6;
-            this.label3.Text = "误差容限";
+            this.label3.Text = "粗对齐误差容限";
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Location = new System.Drawing.Point(148, 276);
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(106, 20);
+            this.numericUpDown4.TabIndex = 5;
+            this.numericUpDown4.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(145, 259);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(91, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "精对齐误差容限";
+            // 
+            // checkBoxFixInputValue
+            // 
+            this.checkBoxFixInputValue.AutoSize = true;
+            this.checkBoxFixInputValue.Location = new System.Drawing.Point(271, 237);
+            this.checkBoxFixInputValue.Name = "checkBoxFixInputValue";
+            this.checkBoxFixInputValue.Size = new System.Drawing.Size(110, 17);
+            this.checkBoxFixInputValue.TabIndex = 7;
+            this.checkBoxFixInputValue.Text = "固定输入里程值";
+            this.checkBoxFixInputValue.UseVisualStyleBackColor = true;
             // 
             // FrmInsideToInsideAlignment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 332);
+            this.ClientSize = new System.Drawing.Size(392, 352);
+            this.Controls.Add(this.checkBoxFixInputValue);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.numericUpDown4);
             this.Controls.Add(this.numericUpDown3);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.gPanelLine);
@@ -318,6 +361,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -341,5 +385,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxMeasureField;
+        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox checkBoxFixInputValue;
     }
 }
