@@ -38,10 +38,16 @@
             this.btOK = new DevComponents.DotNetBar.ButtonX();
             this.btCancel = new DevComponents.DotNetBar.ButtonX();
             this.gPanelLine = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.comboBoxExCenterlineLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.comboBoxExIMULayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.gPanelPoint = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.cboBoxPointLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.buttonXAdd = new DevComponents.DotNetBar.ButtonX();
+            this.buttonXRemove = new DevComponents.DotNetBar.ButtonX();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.listBoxFields = new System.Windows.Forms.ListBox();
+            this.listBoxDrawBandFields = new System.Windows.Forms.ListBox();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
@@ -58,7 +64,7 @@
             // 
             this.btOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btOK.Location = new System.Drawing.Point(196, 276);
+            this.btOK.Location = new System.Drawing.Point(611, 483);
             this.btOK.Name = "btOK";
             this.btOK.Size = new System.Drawing.Size(75, 25);
             this.btOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -70,7 +76,7 @@
             // 
             this.btCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btCancel.Location = new System.Drawing.Point(277, 276);
+            this.btCancel.Location = new System.Drawing.Point(692, 483);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 25);
             this.btCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -83,7 +89,7 @@
             this.gPanelLine.BackColor = System.Drawing.Color.Transparent;
             this.gPanelLine.CanvasColor = System.Drawing.SystemColors.Control;
             this.gPanelLine.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.gPanelLine.Controls.Add(this.comboBoxExCenterlineLayer);
+            this.gPanelLine.Controls.Add(this.comboBoxExIMULayer);
             this.gPanelLine.DisabledBackColor = System.Drawing.Color.Empty;
             this.gPanelLine.Location = new System.Drawing.Point(12, 116);
             this.gPanelLine.Name = "gPanelLine";
@@ -117,18 +123,19 @@
             this.gPanelLine.TabIndex = 3;
             this.gPanelLine.Text = "选择内检测点图层";
             // 
-            // comboBoxExCenterlineLayer
+            // comboBoxExIMULayer
             // 
-            this.comboBoxExCenterlineLayer.DisplayMember = "Text";
-            this.comboBoxExCenterlineLayer.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBoxExCenterlineLayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxExCenterlineLayer.FormattingEnabled = true;
-            this.comboBoxExCenterlineLayer.ItemHeight = 14;
-            this.comboBoxExCenterlineLayer.Location = new System.Drawing.Point(22, 19);
-            this.comboBoxExCenterlineLayer.Name = "comboBoxExCenterlineLayer";
-            this.comboBoxExCenterlineLayer.Size = new System.Drawing.Size(314, 20);
-            this.comboBoxExCenterlineLayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.comboBoxExCenterlineLayer.TabIndex = 1;
+            this.comboBoxExIMULayer.DisplayMember = "Text";
+            this.comboBoxExIMULayer.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxExIMULayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxExIMULayer.FormattingEnabled = true;
+            this.comboBoxExIMULayer.ItemHeight = 14;
+            this.comboBoxExIMULayer.Location = new System.Drawing.Point(22, 19);
+            this.comboBoxExIMULayer.Name = "comboBoxExIMULayer";
+            this.comboBoxExIMULayer.Size = new System.Drawing.Size(314, 20);
+            this.comboBoxExIMULayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.comboBoxExIMULayer.TabIndex = 1;
+            this.comboBoxExIMULayer.SelectedIndexChanged += new System.EventHandler(this.comboBoxExIMULayer_SelectedIndexChanged);
             // 
             // gPanelPoint
             // 
@@ -181,6 +188,7 @@
             this.cboBoxPointLayer.Size = new System.Drawing.Size(314, 20);
             this.cboBoxPointLayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboBoxPointLayer.TabIndex = 1;
+            this.cboBoxPointLayer.SelectedIndexChanged += new System.EventHandler(this.cboBoxPointLayer_SelectedIndexChanged);
             // 
             // chartControl1
             // 
@@ -199,7 +207,7 @@
             this.chartControl1.Diagram = xyDiagram1;
             this.chartControl1.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Center;
             this.chartControl1.Legend.Name = "Default Legend";
-            this.chartControl1.Location = new System.Drawing.Point(8, 307);
+            this.chartControl1.Location = new System.Drawing.Point(421, 276);
             this.chartControl1.Name = "chartControl1";
             series1.Name = "Series 1";
             series1.View = lineSeriesView1;
@@ -213,11 +221,75 @@
             this.chartControl1.TabIndex = 5;
             this.chartControl1.Visible = false;
             // 
+            // buttonXAdd
+            // 
+            this.buttonXAdd.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXAdd.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXAdd.Location = new System.Drawing.Point(176, 313);
+            this.buttonXAdd.Name = "buttonXAdd";
+            this.buttonXAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonXAdd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXAdd.TabIndex = 8;
+            this.buttonXAdd.Text = "添加>>";
+            this.buttonXAdd.Click += new System.EventHandler(this.buttonXAdd_Click);
+            // 
+            // buttonXRemove
+            // 
+            this.buttonXRemove.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXRemove.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXRemove.Location = new System.Drawing.Point(176, 342);
+            this.buttonXRemove.Name = "buttonXRemove";
+            this.buttonXRemove.Size = new System.Drawing.Size(75, 23);
+            this.buttonXRemove.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXRemove.TabIndex = 8;
+            this.buttonXRemove.Text = "移除<<";
+            this.buttonXRemove.Click += new System.EventHandler(this.buttonXRemove_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 227);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "内检测字段";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(253, 227);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "生成报告字段";
+            // 
+            // listBoxFields
+            // 
+            this.listBoxFields.FormattingEnabled = true;
+            this.listBoxFields.Location = new System.Drawing.Point(15, 250);
+            this.listBoxFields.Name = "listBoxFields";
+            this.listBoxFields.Size = new System.Drawing.Size(155, 251);
+            this.listBoxFields.TabIndex = 10;
+            // 
+            // listBoxDrawBandFields
+            // 
+            this.listBoxDrawBandFields.FormattingEnabled = true;
+            this.listBoxDrawBandFields.Location = new System.Drawing.Point(256, 257);
+            this.listBoxDrawBandFields.Name = "listBoxDrawBandFields";
+            this.listBoxDrawBandFields.Size = new System.Drawing.Size(155, 251);
+            this.listBoxDrawBandFields.TabIndex = 10;
+            // 
             // FrmGeneratePDFReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 520);
+            this.ClientSize = new System.Drawing.Size(802, 520);
+            this.Controls.Add(this.listBoxDrawBandFields);
+            this.Controls.Add(this.listBoxFields);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonXRemove);
+            this.Controls.Add(this.buttonXAdd);
             this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.gPanelLine);
             this.Controls.Add(this.btCancel);
@@ -230,7 +302,7 @@
             this.Name = "FrmGeneratePDFReport";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "两次内检测对齐图层选择";
+            this.Text = "图层选择";
             this.Load += new System.EventHandler(this.FrmPointToLine_Load);
             this.gPanelLine.ResumeLayout(false);
             this.gPanelPoint.ResumeLayout(false);
@@ -243,6 +315,7 @@
             ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -253,7 +326,13 @@
         private DevComponents.DotNetBar.Controls.GroupPanel gPanelLine;
         private DevComponents.DotNetBar.Controls.GroupPanel gPanelPoint;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cboBoxPointLayer;
-        private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExCenterlineLayer;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExIMULayer;
         private DevExpress.XtraCharts.ChartControl chartControl1;
+        private DevComponents.DotNetBar.ButtonX buttonXAdd;
+        private DevComponents.DotNetBar.ButtonX buttonXRemove;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox listBoxFields;
+        private System.Windows.Forms.ListBox listBoxDrawBandFields;
     }
 }

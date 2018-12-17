@@ -60,7 +60,7 @@ namespace LibCerMap
                     }
                     if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPoint || pFeatureClass.ShapeType == esriGeometryType.esriGeometryMultipoint)
                     {
-                        comboBoxExCenterlineLayer.Items.Add(pLayer.Name);
+                        comboBoxExIMULayer.Items.Add(pLayer.Name);
                     }
                 }
             }
@@ -68,9 +68,9 @@ namespace LibCerMap
             {
                 cboBoxPointLayer.SelectedIndex = 0;
             }
-            if (comboBoxExCenterlineLayer.Items.Count > 0)
+            if (comboBoxExIMULayer.Items.Count > 0)
             {
-                comboBoxExCenterlineLayer.SelectedIndex = 0;
+                comboBoxExIMULayer.SelectedIndex = 0;
             }
 
         }
@@ -117,265 +117,316 @@ namespace LibCerMap
 
         private void btOK_Click(object sender, EventArgs e)
         {
-            
-           
-            string outFile = "";
-            
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "PDF files (*.pdf)|*.pdf";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+
+            try
             {
-                outFile = dlg.FileName;
+                string outFile = "";
+
+                SaveFileDialog dlg = new SaveFileDialog();
+                dlg.Filter = "PDF files (*.pdf)|*.pdf";
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    outFile = dlg.FileName;
+                }
+                else
+                {
+                    return;
+                }
+
+                #region //导出arcmap 地图 export mapfram
+
+                IPageLayout _PageLayout = this.pPageLayoutControl.PageLayout;
+                SizeF m_PageSize = new SizeF();
+                double width;
+                double hight;
+
+
+
+                _PageLayout.Page.QuerySize(out width, out hight);
+                m_PageSize.Width = Convert.ToSingle(width);
+                m_PageSize.Height = Convert.ToSingle(hight);
+                IUnitConverter pUConvert = new UnitConverterClass();
+                esriUnits ut = _PageLayout.Page.Units;
+                float pageUnitToInchUnitScale = (float)pUConvert.ConvertUnits(1, ut, esriUnits.esriInches);
+
+
+
+                var layerOutPageSize = m_PageSize;
+                var outputDPI = 300;
+                int BandHeadWidth = 40;
+
+                var originalActiveView = _PageLayout as IActiveView;
+                var activeView = _PageLayout as IActiveView;
+
+                var avEvents = _PageLayout as IActiveViewEvents;
+
+                float centerX = layerOutPageSize.Width / 2;
+                float centerY = layerOutPageSize.Height / 2;
+
+                var backGroundEnv = new Envelope() as IEnvelope;
+                backGroundEnv.PutCoords(0, 0, layerOutPageSize.Width, layerOutPageSize.Height);
+
+                activeView.Extent = backGroundEnv;
+                //System.Threading.Thread.Sleep(2000);
+
+                IExport pExporter = new ExportPDF() as IExport;
+                pExporter.ExportFileName = outFile;
+                pExporter.Resolution = outputDPI;
+
+                var pExPdf = pExporter as IExportPDF;
+                pExPdf.Compressed = true;
+                pExPdf.ImageCompression = esriExportImageCompression.esriExportImageCompressionDeflate;
+
+                var screenResolution = GetCurrentScreenResolution();
+                var outputResolution = outputDPI;
+
+                ESRI.ArcGIS.esriSystem.tagRECT exportRECT;
+                exportRECT.left = 0;
+                exportRECT.top = 0;
+                exportRECT.right = (int)(activeView.ExportFrame.right * outputResolution / screenResolution) + 1;
+                exportRECT.bottom = (int)(activeView.ExportFrame.bottom * outputResolution / screenResolution) + 1;
+
+                var envelope = new Envelope() as IEnvelope;
+                envelope.PutCoords(exportRECT.left, exportRECT.top, exportRECT.right, exportRECT.bottom);
+                pExporter.PixelBounds = envelope;
+
+                var hDC = pExporter.StartExporting();
+                activeView.Output(hDC, outputDPI, exportRECT, backGroundEnv, null);
+
+                pExporter.FinishExporting();
+                pExporter.Cleanup();
+                // MessageBox.Show("Export finished.");
+                #endregion
+
+                #region  //根据中线图层生成剖面图
+                System.Drawing.Point LastBottomLeftPoint = new System.Drawing.Point();
+                int bandwidth = 0;
+                PdfGraphics pGraphics = null;
+
+                IFeatureLayer pCenterlinePointLayer = null;
+                string centerlinePointnName = cboBoxPointLayer.SelectedItem.ToString();
+
+                for (int i = 0; i < pMapcontrol.LayerCount; i++)
+                {
+                    if (centerlinePointnName == pMapcontrol.get_Layer(i).Name)
+                    {
+                        pCenterlinePointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
+                    }
+                }
+                IQueryFilter pQF = null;
+                DataTable centerlinePointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pCenterlinePointLayer.FeatureClass as ITable, pQF);
+                chartControl1.Series.Clear();
+                Series series = new Series("高程", ViewType.Line);
+                Series series2 = new Series("埋深", ViewType.Line);
+                SecondaryAxisY myAxisY = new SecondaryAxisY("埋深");
+
+                foreach (DataRow r in centerlinePointTable.Rows)
+                {
+                    double m; double z; double underz;
+                    if (r["里程（m）"] != DBNull.Value && r["Z_高程（米"] != DBNull.Value)
+                    {
+                        m = Convert.ToDouble(r["里程（m）"]);
+                        z = Convert.ToDouble(r["Z_高程（米"]);
+                        series.Points.Add(new SeriesPoint(m, z));
+                    }
+                    if (r["里程（m）"] != DBNull.Value && r["管道埋深（"] != DBNull.Value)
+                    {
+                        m = Convert.ToDouble(r["里程（m）"]);
+                        z = Convert.ToDouble(r["管道埋深（"]);
+                        series2.Points.Add(new SeriesPoint(m, z));
+                    }
+                }
+                chartControl1.Series.Add(series);
+                chartControl1.Series.Add(series2);
+                ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+                ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Add(myAxisY);
+                ((LineSeriesView)series2.View).AxisY = myAxisY;
+                #endregion
+
+                #region export chartcontrol
+                IGraphicsContainer pGC = _PageLayout as IGraphicsContainer;
+                pGC.Reset();
+                IElement pE = pGC.Next();
+                while (pE != null)
+                {
+                    if (pE is IMapFrame)
+                    {
+                        // framgeo related to _PageLayout.Page pagesize, 8.5 x 11, inch
+                        IEnvelope framgeo = pE.Geometry.Envelope as IEnvelope;
+                        float defaultDPI = PdfGraphics.DefaultDpi;
+                        double x = defaultDPI * framgeo.LowerLeft.X * pageUnitToInchUnitScale;
+                        double y = defaultDPI * (layerOutPageSize.Height - framgeo.LowerLeft.Y) * pageUnitToInchUnitScale + 1;
+
+                        bandwidth = (int)(defaultDPI * (framgeo.Width * pageUnitToInchUnitScale));
+
+                        LastBottomLeftPoint.X = (int)x;
+                        LastBottomLeftPoint.Y = (int)y;
+
+                        chartControl1.Size = new System.Drawing.Size((int)(framgeo.Width * pageUnitToInchUnitScale * defaultDPI), (int)(framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
+
+                        Image img = null;
+                        Bitmap bmp = null;
+                        // Create an image of the chart.
+                        ImageFormat format = ImageFormat.Png;
+                        using (MemoryStream s = new MemoryStream())
+                        {
+                            chartControl1.ExportToImage(s, format);
+                            img = Image.FromStream(s);
+                            bmp = new Bitmap(img);
+                            bmp.SetResolution(300, 300);
+                        }
+
+                        using (PdfDocumentProcessor processor = new PdfDocumentProcessor())
+                        {
+                            processor.LoadDocument(outFile);
+                            PdfDocument pd = processor.Document;
+                            PdfPage page = pd.Pages[0];
+                            PdfRectangle pdfrec = page.MediaBox;
+                            // RectangleF rf = new RectangleF(0, 0, Convert.ToSingle(pdfrec.Width) * 96 / 72, Convert.ToSingle(pdfrec.Height) * 96 / 72);
+                            // Create and draw PDF graphics.
+                            using (pGraphics = processor.CreateGraphics())
+                            {
+                                PdfGraphics graph = pGraphics;
+
+                                Pen defaultPen = new Pen(Color.Black);
+                                defaultPen.Width = 1;
+                                graph.DrawImage(bmp, new RectangleF((float)x, (float)y, (float)framgeo.Width * pageUnitToInchUnitScale * defaultDPI, (float)framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
+
+                                // draw map head.
+                                RectangleF MapheadRect = new RectangleF((float)(int)(defaultDPI * framgeo.XMin * pageUnitToInchUnitScale - BandHeadWidth),
+                                    (float)(int)(defaultDPI * (layerOutPageSize.Height - framgeo.UpperLeft.Y) * pageUnitToInchUnitScale),
+                                   (float)(int)(BandHeadWidth),
+                                   (float)(int)(defaultDPI * framgeo.Height * pageUnitToInchUnitScale));
+                                graph.DrawRectangle(defaultPen, MapheadRect);
+                                //draw head text
+                                RectangleF rF = new RectangleF(0, 0, (float)MapheadRect.Height, (float)BandHeadWidth);
+                                PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
+                                psf.Alignment = PdfStringAlignment.Center;
+                                psf.LineAlignment = PdfStringAlignment.Center;
+                                graph.SaveGraphicsState();
+                                // head box 的左下角
+                                System.Drawing.Font textfont = new System.Drawing.Font("仿宋", 6F);
+                                graph.TranslateTransform((float)(MapheadRect.Left), (float)(MapheadRect.Bottom));
+                                graph.RotateTransform(270);
+                                graph.DrawString("地图", textfont, new SolidBrush(Color.Black), rF, psf);
+                                graph.RestoreGraphicsState();
+
+
+                                // draw chart head
+                                RectangleF ChartheadRect = new RectangleF((float)(int)(defaultDPI * framgeo.XMin * pageUnitToInchUnitScale - BandHeadWidth),
+                                  (float)(int)(defaultDPI * (layerOutPageSize.Height - framgeo.LowerLeft.Y) * pageUnitToInchUnitScale + 1),
+                                 (float)(int)(BandHeadWidth),
+                                 (float)(int)(defaultDPI * framgeo.Height * pageUnitToInchUnitScale));
+                                graph.DrawRectangle(defaultPen, ChartheadRect);
+                                //draw head text
+                                rF = new RectangleF(0, 0, (float)ChartheadRect.Height, (float)BandHeadWidth);
+                                graph.SaveGraphicsState();
+                                // head box 的左下角                           
+                                graph.TranslateTransform((float)(ChartheadRect.Left), (float)(ChartheadRect.Bottom));
+                                graph.RotateTransform(270);
+                                graph.DrawString("剖面图", textfont, new SolidBrush(Color.Black), rF, psf);
+                                graph.RestoreGraphicsState();
+
+
+                                LastBottomLeftPoint.Y = (int)ChartheadRect.Bottom;
+                                double beginM = -999; double endM = -999;
+                                GetIMUBeginEndMeasure(ref beginM, ref endM);
+
+                                for (int i = 0; i < listBoxDrawBandFields.Items.Count; i++)
+                                {
+                                    string fieldname = listBoxDrawBandFields.Items[i].ToString();
+                                    band b = new band();
+                                    b.BandName = fieldname;
+                                    b.pdfGC = pGraphics;
+                                    b.BandWidth = (int)bandwidth;
+                                    b.headFont = new System.Drawing.Font("仿宋", 6F);
+                                    b.ContentFont = new System.Drawing.Font("仿宋", 4F);
+                                    System.Drawing.Point pt = new System.Drawing.Point();
+                                    pt.X = LastBottomLeftPoint.X;
+                                    pt.Y = LastBottomLeftPoint.Y;
+                                    b.BandTopLeftLocation = pt;
+
+                                    b.BeginM = beginM;
+                                    b.EndM = endM;
+                                    //b.bandData = new List<Tuple<double, string>>();
+                                    //for (int j = 0; j < 6; j++)
+                                    //{
+                                    //    double m = j * 500;
+                                    //    string txt = "异常2";
+                                    //    Tuple<double, string> t = new Tuple<double, string>(m,txt);
+                                    //    b.bandData.Add(t);
+                                    //}
+                                    b.bandData = GetPDFBandData(fieldname);
+                                    b.Draw();
+                                    LastBottomLeftPoint.Y += (int)b.BandHight;
+                                }
+                                // graph.DrawImage(img, rf);
+                                graph.AddToPageForeground(page);
+                                // Render a page with graphics.
+                                //processor.RenderNewPage(PdfPaperSize.Letter, graph);
+                                processor.SaveDocument(outFile);
+                            }
+                        }
+                        break;
+                    }
+                    pE = pGC.Next();
+
+                }
+                #endregion
+                MessageBox.Show("导出成功");
             }
-            else
+            catch(SystemException ex)
             {
-                return;
+                MessageBox.Show(ex.Message);
             }
-
-            #region export mapfram
-
-            IPageLayout _PageLayout = this.pPageLayoutControl.PageLayout;
-            SizeF m_PageSize = new SizeF();
-            double width;
-            double hight;
-
-
-
-            _PageLayout.Page.QuerySize(out width, out hight);
-            m_PageSize.Width = Convert.ToSingle(width);
-            m_PageSize.Height = Convert.ToSingle(hight);
-            IUnitConverter pUConvert = new UnitConverterClass();
-            esriUnits ut = _PageLayout.Page.Units;
-            float pageUnitToInchUnitScale =(float)pUConvert.ConvertUnits(1, ut, esriUnits.esriInches);
-            
-
-
-            var layerOutPageSize = m_PageSize;
-            var outputDPI = 300;
-            int BandHeadWidth = 40;
-
-            var originalActiveView = _PageLayout as IActiveView;
-            var activeView = _PageLayout as IActiveView;
-
-            var avEvents = _PageLayout as IActiveViewEvents;
-
-            float centerX = layerOutPageSize.Width / 2;
-            float centerY = layerOutPageSize.Height / 2;
-
-            var backGroundEnv = new Envelope() as IEnvelope;
-            backGroundEnv.PutCoords(0, 0, layerOutPageSize.Width, layerOutPageSize.Height);
-
-            activeView.Extent = backGroundEnv;
-            //System.Threading.Thread.Sleep(2000);
-
-            IExport pExporter = new ExportPDF() as IExport;
-            pExporter.ExportFileName = outFile;
-            pExporter.Resolution = outputDPI;
-
-            var pExPdf = pExporter as IExportPDF;
-            pExPdf.Compressed = true;
-            pExPdf.ImageCompression = esriExportImageCompression.esriExportImageCompressionDeflate;
-
-            var screenResolution = GetCurrentScreenResolution();
-            var outputResolution = outputDPI;
-
-            ESRI.ArcGIS.esriSystem.tagRECT exportRECT;
-            exportRECT.left = 0;
-            exportRECT.top = 0;
-            exportRECT.right = (int)(activeView.ExportFrame.right * outputResolution / screenResolution) + 1;
-            exportRECT.bottom = (int)(activeView.ExportFrame.bottom * outputResolution / screenResolution) + 1;
-
-            var envelope = new Envelope() as IEnvelope;
-            envelope.PutCoords(exportRECT.left, exportRECT.top, exportRECT.right, exportRECT.bottom);
-            pExporter.PixelBounds = envelope;
-
-            var hDC = pExporter.StartExporting();
-            activeView.Output(hDC, outputDPI, exportRECT, backGroundEnv, null);
-
-            pExporter.FinishExporting();
-            pExporter.Cleanup();
-            MessageBox.Show("Export finished.");
-            #endregion
-
-            System.Drawing.Point LastBottomLeftPoint = new System.Drawing.Point();
-            int bandwidth = 0;
-            PdfGraphics pGraphics = null;
-
+        }
+        private void GetIMUBeginEndMeasure(ref double beginM, ref double endM)
+        {
+            string pPointFileName = cboBoxPointLayer.SelectedItem.ToString();
             IFeatureLayer pCenterlinePointLayer = null;
-            string centerlinePointnName = cboBoxPointLayer.SelectedItem.ToString();
-             
             for (int i = 0; i < pMapcontrol.LayerCount; i++)
             {
-                if (centerlinePointnName == pMapcontrol.get_Layer(i).Name)
+                if (pPointFileName == pMapcontrol.get_Layer(i).Name)
                 {
                     pCenterlinePointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
                 }
             }
+            IFeatureClass pPointFC = pCenterlinePointLayer.FeatureClass;
             IQueryFilter pQF = null;
-            DataTable centerlinePointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pCenterlinePointLayer.FeatureClass as ITable, pQF);
-            chartControl1.Series.Clear();
-            Series series = new Series("高程", ViewType.Line);
-            Series series2 = new Series("埋深", ViewType.Line);
-            SecondaryAxisY myAxisY = new SecondaryAxisY("埋深");
-           
-            foreach (DataRow r in centerlinePointTable.Rows)
-            {
-                double m; double z; double underz;
-                if (r["里程（m）"]!= DBNull.Value && r["Z_高程（米"]!= DBNull.Value )
-                {
-                    m = Convert.ToDouble( r["里程（m）"]);
-                    z = Convert.ToDouble( r["Z_高程（米"]);
-                      series.Points.Add(new SeriesPoint(m, z));
-                }
-                if (r["里程（m）"] != DBNull.Value && r["管道埋深（"] != DBNull.Value)
-                {
-                    m = Convert.ToDouble( r["里程（m）"]);
-                    z = Convert.ToDouble( r["管道埋深（"]);
-                    series2.Points.Add(new SeriesPoint(m, z));
-                }
-            }
-            chartControl1.Series.Add(series);
-            chartControl1.Series.Add(series2);
-            ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
-            ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Add(myAxisY);
-            ((LineSeriesView)series2.View).AxisY = myAxisY;
-
-            #region export chartcontrol
-            IGraphicsContainer pGC = _PageLayout as IGraphicsContainer;
-            pGC.Reset();
-            IElement pE = pGC.Next();
-            while (pE != null)
-            {
-                if (pE is IMapFrame)
-                {
-                    // framgeo related to _PageLayout.Page pagesize, 8.5 x 11, inch
-                    IEnvelope framgeo = pE.Geometry.Envelope as IEnvelope;
-                    float defaultDPI = PdfGraphics.DefaultDpi;
-                    double x = defaultDPI * framgeo.LowerLeft.X * pageUnitToInchUnitScale;
-                    double y = defaultDPI * (layerOutPageSize.Height - framgeo.LowerLeft.Y) * pageUnitToInchUnitScale + 1;
-
-                    bandwidth =(int) (defaultDPI * (framgeo.Width * pageUnitToInchUnitScale));
-
-                    LastBottomLeftPoint.X = (int)x;
-                    LastBottomLeftPoint.Y = (int)y;
-
-                    chartControl1.Size = new System.Drawing.Size((int)(framgeo.Width * pageUnitToInchUnitScale * defaultDPI), (int)(framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
-                  
-                    Image img = null;
-                    Bitmap bmp = null;
-                    // Create an image of the chart.
-                    ImageFormat format = ImageFormat.Png;
-                    using (MemoryStream s = new MemoryStream())
-                    {
-                        chartControl1.ExportToImage(s, format);
-                        img = Image.FromStream(s);
-                        bmp = new Bitmap(img);
-                        bmp.SetResolution(300, 300);
-                    }
-
-                    using (PdfDocumentProcessor processor = new PdfDocumentProcessor())
-                    {
-                        processor.LoadDocument(outFile);
-                        PdfDocument pd = processor.Document;
-                        PdfPage page = pd.Pages[0];
-                        PdfRectangle pdfrec = page.MediaBox;
-                       // RectangleF rf = new RectangleF(0, 0, Convert.ToSingle(pdfrec.Width) * 96 / 72, Convert.ToSingle(pdfrec.Height) * 96 / 72);
-                        // Create and draw PDF graphics.
-                        using (pGraphics = processor.CreateGraphics())
-                        {
-                            PdfGraphics graph = pGraphics;
-
-                            Pen defaultPen = new Pen(Color.Black);
-                            defaultPen.Width = 1;
-                            graph.DrawImage(bmp, new RectangleF((float)x, (float)y, (float)framgeo.Width * pageUnitToInchUnitScale * defaultDPI, (float)framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
-
-                            // draw map head.
-                            RectangleF MapheadRect = new RectangleF((float)(int)(defaultDPI *  framgeo.XMin * pageUnitToInchUnitScale - BandHeadWidth ),
-                                (float)(int)(defaultDPI * (layerOutPageSize.Height - framgeo.UpperLeft.Y) * pageUnitToInchUnitScale),
-                               (float)(int)(BandHeadWidth),
-                               (float)(int)(defaultDPI * framgeo.Height * pageUnitToInchUnitScale));
-                            graph.DrawRectangle(defaultPen, MapheadRect);
-                               //draw head text
-                            RectangleF rF = new RectangleF(0, 0,  (float)MapheadRect.Height, (float)BandHeadWidth);
-                            PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
-                            psf.Alignment = PdfStringAlignment.Center;
-                            psf.LineAlignment = PdfStringAlignment.Center;
-                            graph.SaveGraphicsState();
-                            // head box 的左下角
-                            System.Drawing.Font textfont = new System.Drawing.Font("仿宋",6F);
-                            graph.TranslateTransform((float)(MapheadRect.Left), (float)(MapheadRect.Bottom));
-                            graph.RotateTransform(270);
-                            graph.DrawString("地图", textfont, new SolidBrush(Color.Black), rF, psf);
-                            graph.RestoreGraphicsState();
-
-
-                            // draw chart head
-                            RectangleF ChartheadRect = new RectangleF((float)(int)(defaultDPI * framgeo.XMin * pageUnitToInchUnitScale - BandHeadWidth),
-                              (float)(int)(defaultDPI * (layerOutPageSize.Height - framgeo.LowerLeft.Y) * pageUnitToInchUnitScale + 1),
-                             (float)(int)(BandHeadWidth),
-                             (float)(int)(defaultDPI * framgeo.Height * pageUnitToInchUnitScale));
-                            graph.DrawRectangle(defaultPen, ChartheadRect);
-                              //draw head text
-                            rF = new RectangleF(0, 0, (float)ChartheadRect.Height, (float)BandHeadWidth);                            
-                            graph.SaveGraphicsState();
-                            // head box 的左下角                           
-                            graph.TranslateTransform((float)(ChartheadRect.Left), (float)(ChartheadRect.Bottom));
-                            graph.RotateTransform(270);
-                            graph.DrawString("剖面图", textfont, new SolidBrush(Color.Black), rF, psf);
-                            graph.RestoreGraphicsState();
-
-
-                            LastBottomLeftPoint.Y =(int) ChartheadRect.Bottom;
-
-
-
-                            for (int i = 0; i < 5; i++)
-                            {
-                                band b = new band();
-                                b.pdfGC = pGraphics;
-                                b.BandWidth = (int)bandwidth;                                
-                                b.textfont = this.Font;
-                                b.textfont = new System.Drawing.Font("仿宋",6F);
-                                System.Drawing.Point pt = new System.Drawing.Point();
-                                pt.X = LastBottomLeftPoint.X;
-                                pt.Y = LastBottomLeftPoint.Y;
-                                b.BandTopLeftLocation = pt;
-
-                                b.BeginM = 0;
-                                b.EndM = 7300;
-                                b.bandData = new List<Tuple<double, string>>();
-                                for (int j = 0; j < 6; j++)
-                                {
-                                    double m = j * 500;
-                                    string txt = "异常2";
-                                    Tuple<double, string> t = new Tuple<double, string>(m,txt);
-                                    b.bandData.Add(t);
-                                }
-
-                                    b.Draw();
-                                LastBottomLeftPoint.Y += (int)b.BandHight ;
-                            }
-                            // graph.DrawImage(img, rf);
-                            graph.AddToPageForeground(page);
-                            // Render a page with graphics.
-                            //processor.RenderNewPage(PdfPaperSize.Letter, graph);
-                            processor.SaveDocument(outFile);
-                        }
-                    }
-                    break;
-                }
-                pE = pGC.Next();
-
-
-                // draw map head
-              
-
-            }
-            #endregion
-
-
+            DataTable alignmentPointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, pQF);
+            DataView dv = alignmentPointTable.DefaultView;
+            dv.Sort = "里程（m）" + " ASC";
             
-         
+            alignmentPointTable = dv.ToTable();
+            beginM = Convert.ToDouble(alignmentPointTable.Rows[0]["里程（m）"]);
+            endM = Convert.ToDouble(alignmentPointTable.Rows[alignmentPointTable.Rows.Count - 1]["里程（m）"]);
+             
+        }
+        private List<Tuple<double, string>> GetPDFBandData(string fieldName)
+        {
+            List<Tuple<double, string>> banddata = new List<Tuple<double, string>>();
+
+            string pPointFileName = comboBoxExIMULayer.SelectedItem.ToString();
+            IFeatureLayer pIMUPointLayer = null;
+            for (int i = 0; i < pMapcontrol.LayerCount; i++)
+            {
+                if (pPointFileName == pMapcontrol.get_Layer(i).Name)
+                {
+                    pIMUPointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
+                }
+            }
+            IFeatureClass pPointFC = pIMUPointLayer.FeatureClass;
+            IQueryFilter pQF = null;
+            DataTable alignmentPointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, pQF);
+
+            var query = (from r in alignmentPointTable.AsEnumerable()
+                         where r["类型"].ToString().Contains("异常")
+                         select r).ToList();
+            foreach(DataRow r in query)
+            {
+                banddata.Add(new Tuple<double, string>( Convert.ToDouble(r["对齐里程"]), r[fieldName].ToString())); 
+            }
+            return banddata;
         }
 
         [DllImport("GDI32.dll", EntryPoint = "GetDeviceCaps", ExactSpelling = true, SetLastError = true)]
@@ -397,6 +448,78 @@ namespace LibCerMap
 
         private void btCancel_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void comboBoxExIMULayer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listBoxFields.Items.Clear();
+            listBoxDrawBandFields.Items.Clear();
+            string pPointFileName = comboBoxExIMULayer.SelectedItem.ToString();
+            IFeatureLayer pIMUPointLayer = null;
+            for (int i = 0; i < pMapcontrol.LayerCount; i++)
+            {
+                if (pPointFileName == pMapcontrol.get_Layer(i).Name)
+                {
+                    pIMUPointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
+                }
+            }
+            IFeatureClass pPointFC = pIMUPointLayer.FeatureClass;
+            for (int i = 0; i < pPointFC.Fields.FieldCount; i++)
+            {
+                IField fd = pPointFC.Fields.get_Field(i);
+                // if (fd.Type == esriFieldType.esriFieldTypeDouble)
+                {
+                    listBoxFields.Items.Add(fd.Name);
+                }
+            }
+        }
+
+        private void buttonXRemove_Click(object sender, EventArgs e)
+        {
+            if (listBoxDrawBandFields.SelectedIndex < 0)
+            {
+                return;
+            }
+            else
+            {
+                int idx = listBoxDrawBandFields.SelectedIndex;
+                listBoxFields.Items.Add(listBoxDrawBandFields.Items[idx].ToString());
+
+                string pPointFileName = comboBoxExIMULayer.SelectedItem.ToString();
+                IFeatureLayer pIMUPointLayer = null;
+                for (int i = 0; i < pMapcontrol.LayerCount; i++)
+                {
+                    if (pPointFileName == pMapcontrol.get_Layer(i).Name)
+                    {
+                        pIMUPointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
+                    }
+                }
+                IFeatureClass pPointFC = pIMUPointLayer.FeatureClass;
+                int insertidx = pPointFC.Fields.FindField(listBoxDrawBandFields.Items[idx].ToString());
+                if (insertidx > 0)
+                {
+                    listBoxFields.Items.Insert(insertidx,listBoxDrawBandFields.Items[idx].ToString());                   
+                }
+                listBoxDrawBandFields.Items.RemoveAt(idx);
+                
+            }
+        }
+
+        private void buttonXAdd_Click(object sender, EventArgs e)
+        {
+            if (listBoxFields.SelectedIndex < 0)
+                return;
+            else
+            {
+                int idx = listBoxFields.SelectedIndex;
+                listBoxDrawBandFields.Items.Add(listBoxFields.Items[idx].ToString());
+                listBoxFields.Items.RemoveAt(idx);
+            }
+        }
+
+        private void cboBoxPointLayer_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
 
@@ -414,7 +537,8 @@ namespace LibCerMap
         public double BeginM;
         public double EndM;
         public PdfGraphics pdfGC;
-        public System.Drawing.Font textfont;
+        public System.Drawing.Font headFont;
+        public System.Drawing.Font ContentFont;
         public Pen pPen = new Pen(Color.Black);
         // item1 measure, item2 text
         public List<Tuple<double, string>> bandData = new List<Tuple<double,string>>();
@@ -452,7 +576,7 @@ namespace LibCerMap
             // head box 的左下角
             pdfGC.TranslateTransform((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y+ BandHight));          
             pdfGC.RotateTransform(270);
-            pdfGC.DrawString(BandName, textfont, new SolidBrush(Color.Black),rF,psf);
+            pdfGC.DrawString(BandName, headFont, new SolidBrush(Color.Black),rF,psf);
             pdfGC.RestoreGraphicsState();
         }
         public void DrawBandBorder()
@@ -489,15 +613,15 @@ namespace LibCerMap
 
                 PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
                 psf.Alignment = PdfStringAlignment.Near;
-                psf.LineAlignment = PdfStringAlignment.Near;
+                psf.LineAlignment = PdfStringAlignment.Center;
 
                 pdfGC.SaveGraphicsState();
                 // head box 的左下角
-                pdfGC.TranslateTransform((float)(XInDC), (float)bottomYInDC - indicatorLinelength -2);
+                pdfGC.TranslateTransform((float)(XInDC) - contentTextBoxWidth/2, (float)bottomYInDC - indicatorLinelength );
               //  pdfGC.TranslateTransform((float)(XInDC), (float)(BandTopLeftLocation.Y - BandHight - 2));
               //  pdfGC.TranslateTransform((float)(XInDC), (float)(BandTopLeftLocation.Y - BandHight -2));
                 pdfGC.RotateTransform(270);
-                pdfGC.DrawString(Txt, textfont, new SolidBrush(Color.Black), rF, psf);
+                pdfGC.DrawString(Txt, ContentFont, new SolidBrush(Color.Black), rF, psf);
                 pdfGC.RestoreGraphicsState();
             }
 
