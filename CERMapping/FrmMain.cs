@@ -8661,6 +8661,14 @@ namespace CERMapping
             FrmGeneratePDFReport frm = new FrmGeneratePDFReport(pMapcontrol, pPagelayoutControl);
             frm.ShowDialog();
         
+        }
+
+        private void buttonItemExportToCAD_Click(object sender, EventArgs e)
+        {
+            IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
+            IPageLayoutControl pPagelayoutControl = axPageLayoutCtlMain.Object as IPageLayoutControl;
+            FrmExportToCAD frm = new FrmExportToCAD(pMapcontrol, pPagelayoutControl);
+            frm.ShowDialog();
         }       
 
    

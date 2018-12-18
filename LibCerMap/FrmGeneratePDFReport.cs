@@ -487,20 +487,20 @@ namespace LibCerMap
                 listBoxFields.Items.Add(listBoxDrawBandFields.Items[idx].ToString());
 
                 string pPointFileName = comboBoxExIMULayer.SelectedItem.ToString();
-                IFeatureLayer pIMUPointLayer = null;
-                for (int i = 0; i < pMapcontrol.LayerCount; i++)
-                {
-                    if (pPointFileName == pMapcontrol.get_Layer(i).Name)
-                    {
-                        pIMUPointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
-                    }
-                }
-                IFeatureClass pPointFC = pIMUPointLayer.FeatureClass;
-                int insertidx = pPointFC.Fields.FindField(listBoxDrawBandFields.Items[idx].ToString());
-                if (insertidx > 0)
-                {
-                    listBoxFields.Items.Insert(insertidx,listBoxDrawBandFields.Items[idx].ToString());                   
-                }
+                //IFeatureLayer pIMUPointLayer = null;
+                //for (int i = 0; i < pMapcontrol.LayerCount; i++)
+                //{
+                //    if (pPointFileName == pMapcontrol.get_Layer(i).Name)
+                //    {
+                //        pIMUPointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
+                //    }
+                //}
+                //IFeatureClass pPointFC = pIMUPointLayer.FeatureClass;
+                //int insertidx = pPointFC.Fields.FindField(listBoxDrawBandFields.Items[idx].ToString());
+                //if (insertidx > 0)
+                //{
+                //    listBoxFields.Items.Insert(insertidx,listBoxDrawBandFields.Items[idx].ToString());                   
+                //}
                 listBoxDrawBandFields.Items.RemoveAt(idx);
                 
             }
@@ -521,6 +521,16 @@ namespace LibCerMap
         private void cboBoxPointLayer_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void listBoxFields_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            buttonXAdd_Click(null, null);
+        }
+
+        private void listBoxDrawBandFields_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            buttonXRemove_Click(null, null);
         }
 
     }

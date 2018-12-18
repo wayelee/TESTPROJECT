@@ -226,6 +226,12 @@
     <Compile Include="ClsSiftMatching.cs" />
     <Compile Include="ClsZfDatabase.cs" />
     <Compile Include="ControlsSynchronizer.cs" />
+    <Compile Include="FrmExportToCAD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmExportToCAD.Designer.cs">
+      <DependentUpon>FrmExportToCAD.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmGeneratePDFReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1011,6 +1017,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmExportToCAD.resx">
+      <DependentUpon>FrmExportToCAD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmGeneratePDFReport.resx">
       <DependentUpon>FrmGeneratePDFReport.cs</DependentUpon>
     </EmbeddedResource>
