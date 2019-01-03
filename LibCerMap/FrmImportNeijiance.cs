@@ -272,7 +272,7 @@ namespace LibCerMap
                     pFieldEdit.Type_2 = esriFieldType.esriFieldTypeString;
                     if (ds.Tables[0].Columns[i].ColumnName.ToString().Contains("记录距离"))
                     {
-                        pFieldEdit.Name_2 = "记录距离__";
+                        pFieldEdit.Name_2 =  EvConfig.IMUMoveDistanceField;
                         pFieldEdit.Type_2 = esriFieldType.esriFieldTypeDouble;
                     }
                     

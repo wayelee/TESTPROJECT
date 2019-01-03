@@ -142,10 +142,12 @@ namespace LibCerMap
                  
 
                 DataView dv = CenterlinePointTable.DefaultView;
-                dv.Sort = "里程（m） ASC";
+               // dv.Sort = "里程（m） ASC";
+                dv.Sort = EvConfig.CenterlineMeasureField + " ASC";
                 CenterlinePointTable = dv.ToTable();
                 dv = IMUTable.DefaultView;
-                dv.Sort = "记录距离__ ASC";
+               // dv.Sort = "记录距离__ ASC";
+                dv.Sort = EvConfig.IMUMoveDistanceField + " ASC";
                 IMUTable = dv.ToTable();
                 double centerlineLength = endM - beginM;
                 if (!IMUTable.Columns.Contains("X"))
@@ -158,9 +160,9 @@ namespace LibCerMap
                     IMUTable.Columns.Add("里程差", System.Type.GetType("System.Double"));
                 if (!IMUTable.Columns.Contains("对齐里程"))
                     IMUTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
-                
-                double endIMUM = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1]["记录距离__"]);
-                double beginIMUM = Convert.ToDouble(IMUTable.Rows[0]["记录距离__"]);
+
+                double endIMUM = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1][EvConfig.IMUMoveDistanceField]);
+                double beginIMUM = Convert.ToDouble(IMUTable.Rows[0][EvConfig.IMUMoveDistanceField]);
                 double IMULength = endIMUM - beginM;
 
                 List<DataRow> WantouPointList = (from DataRow r in IMUTable.Rows
@@ -174,16 +176,16 @@ namespace LibCerMap
                 for (int i = 0; i < WantouPointList.Count; i++)
                 {
                     DataRow IMUr = WantouPointList[i];
-                    double ActionIMUM = (Convert.ToDouble(IMUr["记录距离__"]) - beginIMUM) * centerlineLength / IMULength + beginM;
+                    double ActionIMUM = (Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField]) - beginIMUM) * centerlineLength / IMULength + beginM;
                     List<DataRow> Featurerow = (from r in GuandianPointList
-                                                where Math.Abs(Convert.ToDouble(r["里程（m）"]) - ActionIMUM) < Convert.ToDouble( numericUpDown3.Value)
-                                                select r).OrderBy(x => Math.Abs(Convert.ToDouble(x["里程（m）"]) - ActionIMUM)).ToList();
+                                                where Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField]) - ActionIMUM) < Convert.ToDouble(numericUpDown3.Value)
+                                                select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.CenterlineMeasureField]) - ActionIMUM)).ToList();
                     if (Featurerow.Count > 0)
                     {
                         DataRow NearestR = Featurerow[0];
                         if (MatchedDataRowPair.Values.Contains(NearestR) == false)
                         {
-                            IMUr["里程差"] = Convert.ToDouble(NearestR["里程（m）"]) - ActionIMUM;
+                            IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
                             MatchedDataRowPair.Add(IMUr, NearestR);
                         }
                         else
@@ -191,12 +193,12 @@ namespace LibCerMap
                            DataRow mathcedIMUr = (from DataRow k in MatchedDataRowPair.Keys
                                                  where MatchedDataRowPair[k].Equals(NearestR)
                                                  select k).ToList().First();
-                           double dis = Math.Abs(Convert.ToDouble(NearestR["里程（m）"]) - ActionIMUM);
+                           double dis = Math.Abs(Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM);
                            double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
                            if (dis < olddis)
                            {
                                MatchedDataRowPair.Remove(mathcedIMUr);
-                               IMUr["里程差"] = Convert.ToDouble(NearestR["里程（m）"]) - ActionIMUM;
+                               IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
                                MatchedDataRowPair.Add(IMUr, NearestR);
                            }
                            else
@@ -209,7 +211,7 @@ namespace LibCerMap
 
                 foreach (DataRow r in MatchedDataRowPair.Keys)
                 {
-                    r["对齐里程"] = MatchedDataRowPair[r]["里程（m）"];
+                    r["对齐里程"] = MatchedDataRowPair[r][EvConfig.CenterlineMeasureField];
                 }
                 IMUTable.Rows[0]["对齐里程"] = beginM;
                 IMUTable.Rows[IMUTable.Rows.Count -1]["对齐里程"] = endM;
@@ -238,11 +240,11 @@ namespace LibCerMap
                         {
                             break;
                         }
-                        double BeginJiluM = Convert.ToDouble(PrevRowWithM["记录距离__"]);
-                        double endJiluM = Convert.ToDouble(NextRowWithM["记录距离__"]);
+                        double BeginJiluM = Convert.ToDouble(PrevRowWithM[EvConfig.IMUMoveDistanceField]);
+                        double endJiluM = Convert.ToDouble(NextRowWithM[EvConfig.IMUMoveDistanceField]);
                         double BeginAM = Convert.ToDouble(PrevRowWithM["对齐里程"]);
                         double endAM = Convert.ToDouble(NextRowWithM["对齐里程"]);
-                        double currentJiluM = Convert.ToDouble(r["记录距离__"]);
+                        double currentJiluM = Convert.ToDouble(r[EvConfig.IMUMoveDistanceField]);
                         r["对齐里程"] = (currentJiluM - BeginJiluM) * (endAM - BeginAM) / (endJiluM - BeginJiluM) + BeginAM;                    
                     }
                 }
@@ -355,7 +357,7 @@ namespace LibCerMap
                 mpt.MAware = true;
 
                 pPoint.PutCoords(pt.X, pt.Y);
-                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField("Z_高程（米")]);
+                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineZField)]);
 
                 if (i == 0)
                 {

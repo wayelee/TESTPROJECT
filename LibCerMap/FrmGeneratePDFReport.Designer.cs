@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY2 = new DevExpress.XtraCharts.SecondaryAxisY();
-            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView4 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView5 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView6 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY1 = new DevExpress.XtraCharts.SecondaryAxisY();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView3 = new DevExpress.XtraCharts.LineSeriesView();
             this.btOK = new DevComponents.DotNetBar.ButtonX();
             this.btCancel = new DevComponents.DotNetBar.ButtonX();
             this.gPanelLine = new DevComponents.DotNetBar.Controls.GroupPanel();
@@ -48,16 +48,38 @@
             this.label2 = new System.Windows.Forms.Label();
             this.listBoxFields = new System.Windows.Forms.ListBox();
             this.listBoxDrawBandFields = new System.Windows.Forms.ListBox();
+            this.radioButtonWholeCenterline = new System.Windows.Forms.RadioButton();
+            this.radioButtonGivenBeginEndMeasure = new System.Windows.Forms.RadioButton();
+            this.radioButtonSelectRangeOnMap = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.numericUpDownBeginMeasure1 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownEndMeasure1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownBeginMeasure2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownEndMeasure2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownSegmentLength = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSegmentLength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // btOK
@@ -192,31 +214,31 @@
             // 
             // chartControl1
             // 
-            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram2.Margins.Bottom = 0;
-            xyDiagram2.Margins.Left = 0;
-            xyDiagram2.Margins.Right = 0;
-            xyDiagram2.Margins.Top = 0;
-            xyDiagram2.PaneDistance = 0;
-            secondaryAxisY2.AxisID = 0;
-            secondaryAxisY2.Name = "Secondary AxisY 1";
-            secondaryAxisY2.VisibleInPanesSerializable = "-1";
-            xyDiagram2.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
-            secondaryAxisY2});
-            this.chartControl1.Diagram = xyDiagram2;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram1.Margins.Bottom = 0;
+            xyDiagram1.Margins.Left = 0;
+            xyDiagram1.Margins.Right = 0;
+            xyDiagram1.Margins.Top = 0;
+            xyDiagram1.PaneDistance = 0;
+            secondaryAxisY1.AxisID = 0;
+            secondaryAxisY1.Name = "Secondary AxisY 1";
+            secondaryAxisY1.VisibleInPanesSerializable = "-1";
+            xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
+            secondaryAxisY1});
+            this.chartControl1.Diagram = xyDiagram1;
             this.chartControl1.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Center;
             this.chartControl1.Legend.Name = "Default Legend";
             this.chartControl1.Location = new System.Drawing.Point(421, 276);
             this.chartControl1.Name = "chartControl1";
-            series3.Name = "Series 1";
-            series3.View = lineSeriesView4;
-            series4.Name = "Series 2";
-            series4.View = lineSeriesView5;
+            series1.Name = "Series 1";
+            series1.View = lineSeriesView1;
+            series2.Name = "Series 2";
+            series2.View = lineSeriesView2;
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series3,
-        series4};
-            this.chartControl1.SeriesTemplate.View = lineSeriesView6;
+        series1,
+        series2};
+            this.chartControl1.SeriesTemplate.View = lineSeriesView3;
             this.chartControl1.Size = new System.Drawing.Size(369, 179);
             this.chartControl1.TabIndex = 5;
             this.chartControl1.Visible = false;
@@ -281,11 +303,223 @@
             this.listBoxDrawBandFields.TabIndex = 10;
             this.listBoxDrawBandFields.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxDrawBandFields_MouseDoubleClick);
             // 
+            // radioButtonWholeCenterline
+            // 
+            this.radioButtonWholeCenterline.AutoSize = true;
+            this.radioButtonWholeCenterline.Location = new System.Drawing.Point(421, 49);
+            this.radioButtonWholeCenterline.Name = "radioButtonWholeCenterline";
+            this.radioButtonWholeCenterline.Size = new System.Drawing.Size(73, 17);
+            this.radioButtonWholeCenterline.TabIndex = 11;
+            this.radioButtonWholeCenterline.TabStop = true;
+            this.radioButtonWholeCenterline.Text = "整条中线";
+            this.radioButtonWholeCenterline.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonGivenBeginEndMeasure
+            // 
+            this.radioButtonGivenBeginEndMeasure.AutoSize = true;
+            this.radioButtonGivenBeginEndMeasure.Location = new System.Drawing.Point(421, 93);
+            this.radioButtonGivenBeginEndMeasure.Name = "radioButtonGivenBeginEndMeasure";
+            this.radioButtonGivenBeginEndMeasure.Size = new System.Drawing.Size(109, 17);
+            this.radioButtonGivenBeginEndMeasure.TabIndex = 11;
+            this.radioButtonGivenBeginEndMeasure.TabStop = true;
+            this.radioButtonGivenBeginEndMeasure.Text = "指定起始结束点";
+            this.radioButtonGivenBeginEndMeasure.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSelectRangeOnMap
+            // 
+            this.radioButtonSelectRangeOnMap.AutoSize = true;
+            this.radioButtonSelectRangeOnMap.Location = new System.Drawing.Point(421, 140);
+            this.radioButtonSelectRangeOnMap.Name = "radioButtonSelectRangeOnMap";
+            this.radioButtonSelectRangeOnMap.Size = new System.Drawing.Size(73, 17);
+            this.radioButtonSelectRangeOnMap.TabIndex = 11;
+            this.radioButtonSelectRangeOnMap.TabStop = true;
+            this.radioButtonSelectRangeOnMap.Text = "地图框选";
+            this.radioButtonSelectRangeOnMap.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(421, 194);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(97, 17);
+            this.radioButton1.TabIndex = 11;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "分段连续输出";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownBeginMeasure1
+            // 
+            this.numericUpDownBeginMeasure1.DecimalPlaces = 2;
+            this.numericUpDownBeginMeasure1.Location = new System.Drawing.Point(549, 93);
+            this.numericUpDownBeginMeasure1.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numericUpDownBeginMeasure1.Minimum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownBeginMeasure1.Name = "numericUpDownBeginMeasure1";
+            this.numericUpDownBeginMeasure1.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownBeginMeasure1.TabIndex = 12;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(546, 77);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "起始里程";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(648, 77);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "结束里程";
+            // 
+            // numericUpDownEndMeasure1
+            // 
+            this.numericUpDownEndMeasure1.DecimalPlaces = 2;
+            this.numericUpDownEndMeasure1.Location = new System.Drawing.Point(651, 93);
+            this.numericUpDownEndMeasure1.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numericUpDownEndMeasure1.Minimum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEndMeasure1.Name = "numericUpDownEndMeasure1";
+            this.numericUpDownEndMeasure1.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownEndMeasure1.TabIndex = 12;
+            // 
+            // numericUpDownBeginMeasure2
+            // 
+            this.numericUpDownBeginMeasure2.DecimalPlaces = 2;
+            this.numericUpDownBeginMeasure2.Location = new System.Drawing.Point(549, 194);
+            this.numericUpDownBeginMeasure2.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numericUpDownBeginMeasure2.Minimum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownBeginMeasure2.Name = "numericUpDownBeginMeasure2";
+            this.numericUpDownBeginMeasure2.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownBeginMeasure2.TabIndex = 12;
+            // 
+            // numericUpDownEndMeasure2
+            // 
+            this.numericUpDownEndMeasure2.DecimalPlaces = 2;
+            this.numericUpDownEndMeasure2.Location = new System.Drawing.Point(651, 194);
+            this.numericUpDownEndMeasure2.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numericUpDownEndMeasure2.Minimum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDownEndMeasure2.Name = "numericUpDownEndMeasure2";
+            this.numericUpDownEndMeasure2.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownEndMeasure2.TabIndex = 12;
+            // 
+            // numericUpDownSegmentLength
+            // 
+            this.numericUpDownSegmentLength.DecimalPlaces = 2;
+            this.numericUpDownSegmentLength.Location = new System.Drawing.Point(549, 250);
+            this.numericUpDownSegmentLength.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numericUpDownSegmentLength.Name = "numericUpDownSegmentLength";
+            this.numericUpDownSegmentLength.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownSegmentLength.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(546, 178);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "起始里程";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(648, 178);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "结束里程";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(546, 227);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "分段长度";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Location = new System.Drawing.Point(651, 250);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDown1.TabIndex = 12;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(648, 227);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "段间重叠";
+            // 
             // FrmGeneratePDFReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 520);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.numericUpDownEndMeasure2);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numericUpDownEndMeasure1);
+            this.Controls.Add(this.numericUpDownSegmentLength);
+            this.Controls.Add(this.numericUpDownBeginMeasure2);
+            this.Controls.Add(this.numericUpDownBeginMeasure1);
+            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.radioButtonSelectRangeOnMap);
+            this.Controls.Add(this.radioButtonGivenBeginEndMeasure);
+            this.Controls.Add(this.radioButtonWholeCenterline);
             this.Controls.Add(this.listBoxDrawBandFields);
             this.Controls.Add(this.listBoxFields);
             this.Controls.Add(this.label2);
@@ -308,14 +542,20 @@
             this.Load += new System.EventHandler(this.FrmPointToLine_Load);
             this.gPanelLine.ResumeLayout(false);
             this.gPanelPoint.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSegmentLength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,5 +576,21 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBoxFields;
         private System.Windows.Forms.ListBox listBoxDrawBandFields;
+        private System.Windows.Forms.RadioButton radioButtonWholeCenterline;
+        private System.Windows.Forms.RadioButton radioButtonGivenBeginEndMeasure;
+        private System.Windows.Forms.RadioButton radioButtonSelectRangeOnMap;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.NumericUpDown numericUpDownBeginMeasure1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDownEndMeasure1;
+        private System.Windows.Forms.NumericUpDown numericUpDownBeginMeasure2;
+        private System.Windows.Forms.NumericUpDown numericUpDownEndMeasure2;
+        private System.Windows.Forms.NumericUpDown numericUpDownSegmentLength;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label8;
     }
 }

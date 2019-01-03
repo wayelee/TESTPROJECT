@@ -535,7 +535,7 @@ namespace LibCerMap
                 mpt.MAware = true;
 
                 pPoint.PutCoords(pt.X, pt.Y);
-                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField("Z_高程（米")]);
+                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineZField)]);
 
                 if (i == 0)
                 {

@@ -270,9 +270,9 @@ namespace LibCerMap
                     pFieldEdit = (IFieldEdit)pField;
                     pFieldEdit.Name_2 = ds.Tables[0].Columns[i].ColumnName;
                     pFieldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-                    if (ds.Tables[0].Columns[i].ColumnName.Contains("Z_高程"))
+                    if (ds.Tables[0].Columns[i].ColumnName.Contains(EvConfig.CenterlineZField))
                     {
-                        pFieldEdit.Name_2 = "Z_高程（米";
+                        pFieldEdit.Name_2 = EvConfig.CenterlineZField;
                     }
                     if (ds.Tables[0].Columns[i].ColumnName.Contains("里程"))
                     {

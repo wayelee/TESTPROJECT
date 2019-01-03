@@ -204,7 +204,7 @@ namespace LibCerMap
 
                 if (ds.Tables[0].Columns[i].ColumnName.Contains("Z_高程"))
                 {
-                    pFieldEdit.Name_2 = "Z_高程（米";
+                    pFieldEdit.Name_2 = EvConfig.CenterlineZField;
                 }
                 if (ds.Tables[0].Columns[i].ColumnName.Contains("里程"))
                 {

@@ -164,7 +164,7 @@ namespace LibCerMap
                     else
                     {
                         DataRow preRow = ptTable.Rows[idx - 1];
-                        row["长度"] = Convert.ToDouble(row["记录距离__"]) - Convert.ToDouble(preRow["记录距离__"]);
+                        row["长度"] = Convert.ToDouble(row[EvConfig.IMUMoveDistanceField]) - Convert.ToDouble(preRow[EvConfig.IMUMoveDistanceField]);
                     }
                     ptFeature = pPointCursor.NextFeature();
                     idx++;
@@ -265,7 +265,7 @@ namespace LibCerMap
                 mpt.MAware = true;
 
                 pPoint.PutCoords(pt.X, pt.Y);
-                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField("Z_高程（米")]);
+                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineZField)]);
 
                 if (i == 0)
                 {

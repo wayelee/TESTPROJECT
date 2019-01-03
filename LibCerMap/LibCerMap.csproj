@@ -226,6 +226,7 @@
     <Compile Include="ClsSiftMatching.cs" />
     <Compile Include="ClsZfDatabase.cs" />
     <Compile Include="ControlsSynchronizer.cs" />
+    <Compile Include="EvConfig.cs" />
     <Compile Include="FrmExportToCAD.cs">
       <SubType>Form</SubType>
     </Compile>

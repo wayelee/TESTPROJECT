@@ -243,7 +243,7 @@ namespace LibCerMap
                 mpt.MAware = true;
 
                 pPoint.PutCoords(pt.X, pt.Y);
-                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField("Z_高程（米")]);
+                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineZField)]);
 
                 if (i == 0)
                 {
@@ -259,7 +259,7 @@ namespace LibCerMap
                 }
                 pPointCollection.AddPoint(pPoint);
 
-                pFeature.Value[pFeature.Fields.FindField("里程（m）")] = pPoint.M;
+                pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineMeasureField)] = pPoint.M;
                 pFeature.Store();
 
                 frm.Progress = Convert.ToInt16(Convert.ToDouble(i) / Convert.ToDouble(number) * 100);
