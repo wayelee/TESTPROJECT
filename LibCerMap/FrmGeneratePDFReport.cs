@@ -170,8 +170,7 @@ namespace LibCerMap
                     }
 
                 }
-
-                GenerateReportOfSegment(50, 3000, outFile);
+              
               
                 MessageBox.Show("导出成功");
             }
