@@ -51,7 +51,7 @@
             this.radioButtonWholeCenterline = new System.Windows.Forms.RadioButton();
             this.radioButtonGivenBeginEndMeasure = new System.Windows.Forms.RadioButton();
             this.radioButtonSelectRangeOnMap = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButtonMuliple = new System.Windows.Forms.RadioButton();
             this.numericUpDownBeginMeasure1 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -62,7 +62,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownOverlap = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
@@ -79,7 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSegmentLength)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlap)).BeginInit();
             this.SuspendLayout();
             // 
             // btOK
@@ -306,6 +306,7 @@
             // radioButtonWholeCenterline
             // 
             this.radioButtonWholeCenterline.AutoSize = true;
+            this.radioButtonWholeCenterline.Checked = true;
             this.radioButtonWholeCenterline.Location = new System.Drawing.Point(421, 49);
             this.radioButtonWholeCenterline.Name = "radioButtonWholeCenterline";
             this.radioButtonWholeCenterline.Size = new System.Drawing.Size(73, 17);
@@ -321,7 +322,6 @@
             this.radioButtonGivenBeginEndMeasure.Name = "radioButtonGivenBeginEndMeasure";
             this.radioButtonGivenBeginEndMeasure.Size = new System.Drawing.Size(109, 17);
             this.radioButtonGivenBeginEndMeasure.TabIndex = 11;
-            this.radioButtonGivenBeginEndMeasure.TabStop = true;
             this.radioButtonGivenBeginEndMeasure.Text = "指定起始结束点";
             this.radioButtonGivenBeginEndMeasure.UseVisualStyleBackColor = true;
             // 
@@ -332,20 +332,18 @@
             this.radioButtonSelectRangeOnMap.Name = "radioButtonSelectRangeOnMap";
             this.radioButtonSelectRangeOnMap.Size = new System.Drawing.Size(73, 17);
             this.radioButtonSelectRangeOnMap.TabIndex = 11;
-            this.radioButtonSelectRangeOnMap.TabStop = true;
             this.radioButtonSelectRangeOnMap.Text = "地图框选";
             this.radioButtonSelectRangeOnMap.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radioButtonMuliple
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(421, 194);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(97, 17);
-            this.radioButton1.TabIndex = 11;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "分段连续输出";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButtonMuliple.AutoSize = true;
+            this.radioButtonMuliple.Location = new System.Drawing.Point(421, 194);
+            this.radioButtonMuliple.Name = "radioButtonMuliple";
+            this.radioButtonMuliple.Size = new System.Drawing.Size(97, 17);
+            this.radioButtonMuliple.TabIndex = 11;
+            this.radioButtonMuliple.Text = "分段连续输出";
+            this.radioButtonMuliple.UseVisualStyleBackColor = true;
             // 
             // numericUpDownBeginMeasure1
             // 
@@ -477,18 +475,19 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "分段长度";
             // 
-            // numericUpDown1
+            // numericUpDownOverlap
             // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Location = new System.Drawing.Point(651, 250);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.numericUpDownOverlap.DecimalPlaces = 2;
+            this.numericUpDownOverlap.Location = new System.Drawing.Point(651, 250);
+            this.numericUpDownOverlap.Maximum = new decimal(new int[] {
             999999999,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(82, 20);
-            this.numericUpDown1.TabIndex = 12;
+            this.numericUpDownOverlap.Name = "numericUpDownOverlap";
+            this.numericUpDownOverlap.Size = new System.Drawing.Size(82, 20);
+            this.numericUpDownOverlap.TabIndex = 12;
+            this.numericUpDownOverlap.Visible = false;
             // 
             // label8
             // 
@@ -498,6 +497,7 @@
             this.label8.Size = new System.Drawing.Size(55, 13);
             this.label8.TabIndex = 13;
             this.label8.Text = "段间重叠";
+            this.label8.Visible = false;
             // 
             // FrmGeneratePDFReport
             // 
@@ -511,12 +511,12 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.numericUpDownEndMeasure2);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numericUpDownOverlap);
             this.Controls.Add(this.numericUpDownEndMeasure1);
             this.Controls.Add(this.numericUpDownSegmentLength);
             this.Controls.Add(this.numericUpDownBeginMeasure2);
             this.Controls.Add(this.numericUpDownBeginMeasure1);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.radioButtonMuliple);
             this.Controls.Add(this.radioButtonSelectRangeOnMap);
             this.Controls.Add(this.radioButtonGivenBeginEndMeasure);
             this.Controls.Add(this.radioButtonWholeCenterline);
@@ -555,7 +555,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSegmentLength)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlap)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -579,7 +579,7 @@
         private System.Windows.Forms.RadioButton radioButtonWholeCenterline;
         private System.Windows.Forms.RadioButton radioButtonGivenBeginEndMeasure;
         private System.Windows.Forms.RadioButton radioButtonSelectRangeOnMap;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButtonMuliple;
         private System.Windows.Forms.NumericUpDown numericUpDownBeginMeasure1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -590,7 +590,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDownOverlap;
         private System.Windows.Forms.Label label8;
     }
 }

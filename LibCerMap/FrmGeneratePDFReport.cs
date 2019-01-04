@@ -132,10 +132,44 @@ namespace LibCerMap
                 {
                     return;
                 }
+                double begm = 0; double endm = 0;
+                 GetCenterlineBeginEndMeasure(ref begm, ref endm);
+                if (radioButtonWholeCenterline.Checked)
+                {                   
+                    GenerateReportOfSegment(begm, endm, outFile);
+                }
+                if (radioButtonGivenBeginEndMeasure.Checked)
+                {
+                    double bm = Convert.ToDouble( numericUpDownBeginMeasure1.Value);
+                    double em = Convert.ToDouble( numericUpDownEndMeasure1.Value);
+                    GenerateReportOfSegment(bm, em, outFile);
+                }
+                if (radioButtonSelectRangeOnMap.Checked)
+                {
 
+                }
+                if (radioButtonMuliple.Checked)
+                {
+                    double bm = Convert.ToDouble(numericUpDownBeginMeasure2.Value);
+                    double em = Convert.ToDouble(numericUpDownEndMeasure2.Value);
+                    double tempB = bm;
+                    double tempE = tempB + Convert.ToDouble(numericUpDownSegmentLength.Value);
+                     GenerateReportOfSegment(tempB, tempE, outFile);
+                     tempB = tempE;
+                    int i = 1;
+                    while(tempB < em)
+                    {
+                        tempE = tempB + Convert.ToDouble(numericUpDownSegmentLength.Value);
+                        if (tempE >= em)
+                        {
+                            tempE = em;
+                        }
+                         GenerateReportOfSegment(tempB, tempE, outFile.Substring(0, outFile.Length - 4) + "_" + i.ToString() + ".pdf");
+                         tempB = tempE;
+                         i++;
+                    }
 
-
-
+                }
 
                 GenerateReportOfSegment(50, 3000, outFile);
               
@@ -146,7 +180,7 @@ namespace LibCerMap
                 MessageBox.Show(ex.Message);
             }
         }
-        private void GetIMUBeginEndMeasure(ref double beginM, ref double endM)
+        private void GetCenterlineBeginEndMeasure(ref double beginM, ref double endM)
         {
             string pPointFileName = cboBoxPointLayer.SelectedItem.ToString();
             IFeatureLayer pCenterlinePointLayer = null;
