@@ -8669,6 +8669,11 @@ namespace CERMapping
             IPageLayoutControl pPagelayoutControl = axPageLayoutCtlMain.Object as IPageLayoutControl;
             FrmExportToCAD frm = new FrmExportToCAD(pMapcontrol, pPagelayoutControl);
             frm.ShowDialog();
+        }
+
+        private void buttonItemWeldAlignToCenterline_Click(object sender, EventArgs e)
+        {
+
         }       
 
    
