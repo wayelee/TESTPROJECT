@@ -337,6 +337,7 @@
             this.buttonItem27 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem28 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem29 = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemWeldAlignToCenterline = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemGeneratePDFReport = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemExportToCAD = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem30 = new DevComponents.DotNetBar.ButtonItem();
@@ -382,6 +383,13 @@
             this.barContexMenuEditor = new DevComponents.DotNetBar.Bar();
             this.axToolbarCtlMenuEditor = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.controlContainerItem20 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.barTerrain = new DevComponents.DotNetBar.Bar();
+            this.btnRandomTerrain = new DevComponents.DotNetBar.ButtonItem();
+            this.btnRandomTexture = new DevComponents.DotNetBar.ButtonItem();
+            this.btnRandomModel = new DevComponents.DotNetBar.ButtonItem();
+            this.barCustom = new DevComponents.DotNetBar.Bar();
+            this.axToolbarControlCustom = new ESRI.ArcGIS.Controls.AxToolbarControl();
+            this.controlContainerItem19 = new DevComponents.DotNetBar.ControlContainerItem();
             this.barGeoAdjust = new DevComponents.DotNetBar.Bar();
             this.cmbAdjustMethod = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.cbiAffine = new DevComponents.Editors.ComboItem();
@@ -390,19 +398,12 @@
             this.axToolbarControlSpatialAdjust = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.controlContainerItem14 = new DevComponents.DotNetBar.ControlContainerItem();
             this.controlContainerItem13 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.barCustom = new DevComponents.DotNetBar.Bar();
-            this.axToolbarControlCustom = new ESRI.ArcGIS.Controls.AxToolbarControl();
-            this.controlContainerItem19 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.barTerrain = new DevComponents.DotNetBar.Bar();
-            this.btnRandomTerrain = new DevComponents.DotNetBar.ButtonItem();
-            this.btnRandomTexture = new DevComponents.DotNetBar.ButtonItem();
-            this.btnRandomModel = new DevComponents.DotNetBar.ButtonItem();
-            this.barCommon = new DevComponents.DotNetBar.Bar();
-            this.axToolbarControlCommon = new ESRI.ArcGIS.Controls.AxToolbarControl();
-            this.controlContainerItem3 = new DevComponents.DotNetBar.ControlContainerItem();
             this.bar3D = new DevComponents.DotNetBar.Bar();
             this.axToolbarControlScene = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.controlContainerItem6 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.barCommon = new DevComponents.DotNetBar.Bar();
+            this.axToolbarControlCommon = new ESRI.ArcGIS.Controls.AxToolbarControl();
+            this.controlContainerItem3 = new DevComponents.DotNetBar.ControlContainerItem();
             this.barSunAlt = new DevComponents.DotNetBar.Bar();
             this.cmbSunAltOriImg = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.txtSunAltXmlFile = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -423,15 +424,15 @@
             this.barLayout = new DevComponents.DotNetBar.Bar();
             this.axToolbarControlLayout = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.controlContainerItem4 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.barEditor = new DevComponents.DotNetBar.Bar();
-            this.axToolbarControlEdit = new ESRI.ArcGIS.Controls.AxToolbarControl();
-            this.controlContainerItem5 = new DevComponents.DotNetBar.ControlContainerItem();
             this.barEffects = new DevComponents.DotNetBar.Bar();
             this.cmBoxEffectsLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.controlContainerItem23 = new DevComponents.DotNetBar.ControlContainerItem();
             this.sliderItemTransparency = new DevComponents.DotNetBar.SliderItem();
             this.sliderItemContrast = new DevComponents.DotNetBar.SliderItem();
             this.sliderItemBrightness = new DevComponents.DotNetBar.SliderItem();
+            this.barEditor = new DevComponents.DotNetBar.Bar();
+            this.axToolbarControlEdit = new ESRI.ArcGIS.Controls.AxToolbarControl();
+            this.controlContainerItem5 = new DevComponents.DotNetBar.ControlContainerItem();
             this.barTinEditor = new DevComponents.DotNetBar.Bar();
             this.axToolbarControlTinEdit = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.cmbTargetTinLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
@@ -485,7 +486,6 @@
             this.dockContainerItem5 = new DevComponents.DotNetBar.DockContainerItem();
             this.axLicenseControl2 = new ESRI.ArcGIS.Controls.AxLicenseControl();
             this.axToolbarControlEffects = new ESRI.ArcGIS.Controls.AxToolbarControl();
-            this.buttonItemWeldAlignToCenterline = new DevComponents.DotNetBar.ButtonItem();
             this.dockSiteBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barAttributeTable)).BeginInit();
             this.barAttributeTable.SuspendLayout();
@@ -552,19 +552,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.barContexMenuEditor)).BeginInit();
             this.barContexMenuEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarCtlMenuEditor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barGeoAdjust)).BeginInit();
-            this.barGeoAdjust.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlSpatialAdjust)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barTerrain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barCustom)).BeginInit();
             this.barCustom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCustom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barTerrain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barCommon)).BeginInit();
-            this.barCommon.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCommon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barGeoAdjust)).BeginInit();
+            this.barGeoAdjust.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlSpatialAdjust)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar3D)).BeginInit();
             this.bar3D.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlScene)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barCommon)).BeginInit();
+            this.barCommon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCommon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barSunAlt)).BeginInit();
             this.barSunAlt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarSunAltitude)).BeginInit();
@@ -574,11 +574,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.barLayout)).BeginInit();
             this.barLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlLayout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barEffects)).BeginInit();
+            this.barEffects.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barEditor)).BeginInit();
             this.barEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barEffects)).BeginInit();
-            this.barEffects.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barTinEditor)).BeginInit();
             this.barTinEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlTinEdit)).BeginInit();
@@ -2941,16 +2941,16 @@
             this.dockSite7.ContextMenuStrip = this.contextMenuBar;
             this.dockSite7.Controls.Add(this.menuMain);
             this.dockSite7.Controls.Add(this.barContexMenuEditor);
-            this.dockSite7.Controls.Add(this.barTerrain);
-            this.dockSite7.Controls.Add(this.barCustom);
             this.dockSite7.Controls.Add(this.barGeoAdjust);
-            this.dockSite7.Controls.Add(this.bar3D);
+            this.dockSite7.Controls.Add(this.barCustom);
+            this.dockSite7.Controls.Add(this.barTerrain);
             this.dockSite7.Controls.Add(this.barCommon);
+            this.dockSite7.Controls.Add(this.bar3D);
             this.dockSite7.Controls.Add(this.barSunAlt);
             this.dockSite7.Controls.Add(this.barGeoReference);
             this.dockSite7.Controls.Add(this.barLayout);
-            this.dockSite7.Controls.Add(this.barEffects);
             this.dockSite7.Controls.Add(this.barEditor);
+            this.dockSite7.Controls.Add(this.barEffects);
             this.dockSite7.Controls.Add(this.barTinEditor);
             this.dockSite7.Dock = System.Windows.Forms.DockStyle.Top;
             this.dockSite7.Location = new System.Drawing.Point(0, 0);
@@ -3699,6 +3699,12 @@
             this.buttonItem29.Name = "buttonItem29";
             this.buttonItem29.Text = "两次内外检测结果对比";
             // 
+            // buttonItemWeldAlignToCenterline
+            // 
+            this.buttonItemWeldAlignToCenterline.Name = "buttonItemWeldAlignToCenterline";
+            this.buttonItemWeldAlignToCenterline.Text = "焊缝对齐到中线";
+            this.buttonItemWeldAlignToCenterline.Click += new System.EventHandler(this.buttonItemWeldAlignToCenterline_Click);
+            // 
             // buttonItemGeneratePDFReport
             // 
             this.buttonItemGeneratePDFReport.Name = "buttonItemGeneratePDFReport";
@@ -4023,6 +4029,84 @@
             this.controlContainerItem20.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem20.Name = "controlContainerItem20";
             // 
+            // barTerrain
+            // 
+            this.barTerrain.AccessibleDescription = "DotNetBar Bar (barTerrain)";
+            this.barTerrain.AccessibleName = "DotNetBar Bar";
+            this.barTerrain.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.barTerrain.CanHide = true;
+            this.barTerrain.DockLine = 2;
+            this.barTerrain.DockSide = DevComponents.DotNetBar.eDockSide.Top;
+            this.barTerrain.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.barTerrain.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
+            this.barTerrain.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnRandomTerrain,
+            this.btnRandomTexture,
+            this.btnRandomModel});
+            this.barTerrain.Location = new System.Drawing.Point(1227, 61);
+            this.barTerrain.Name = "barTerrain";
+            this.barTerrain.Size = new System.Drawing.Size(0, 27);
+            this.barTerrain.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
+            this.barTerrain.TabIndex = 6;
+            this.barTerrain.TabStop = false;
+            this.barTerrain.Text = "地形纹理生成";
+            this.barTerrain.Visible = false;
+            // 
+            // btnRandomTerrain
+            // 
+            this.btnRandomTerrain.Name = "btnRandomTerrain";
+            this.btnRandomTerrain.Text = "随机地形";
+            this.btnRandomTerrain.Click += new System.EventHandler(this.btnRandomTerrain_Click);
+            // 
+            // btnRandomTexture
+            // 
+            this.btnRandomTexture.Name = "btnRandomTexture";
+            this.btnRandomTexture.Text = "随机纹理";
+            this.btnRandomTexture.Click += new System.EventHandler(this.btnRandomTexture_Click);
+            // 
+            // btnRandomModel
+            // 
+            this.btnRandomModel.Name = "btnRandomModel";
+            this.btnRandomModel.Text = "随机加入模型";
+            this.btnRandomModel.Click += new System.EventHandler(this.btnRandomModel_Click);
+            // 
+            // barCustom
+            // 
+            this.barCustom.AccessibleDescription = "DotNetBar Bar (barCustom)";
+            this.barCustom.AccessibleName = "DotNetBar Bar";
+            this.barCustom.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.barCustom.CanHide = true;
+            this.barCustom.Controls.Add(this.axToolbarControlCustom);
+            this.barCustom.DockLine = 2;
+            this.barCustom.DockSide = DevComponents.DotNetBar.eDockSide.Top;
+            this.barCustom.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.barCustom.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
+            this.barCustom.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.controlContainerItem19});
+            this.barCustom.Location = new System.Drawing.Point(248, 61);
+            this.barCustom.Name = "barCustom";
+            this.barCustom.Size = new System.Drawing.Size(977, 33);
+            this.barCustom.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
+            this.barCustom.TabIndex = 11;
+            this.barCustom.TabStop = false;
+            this.barCustom.Text = "自定义工具栏";
+            this.barCustom.Visible = false;
+            // 
+            // axToolbarControlCustom
+            // 
+            this.axToolbarControlCustom.Location = new System.Drawing.Point(10, 2);
+            this.axToolbarControlCustom.Name = "axToolbarControlCustom";
+            this.axToolbarControlCustom.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlCustom.OcxState")));
+            this.axToolbarControlCustom.Size = new System.Drawing.Size(964, 28);
+            this.axToolbarControlCustom.TabIndex = 2;
+            // 
+            // controlContainerItem19
+            // 
+            this.controlContainerItem19.AllowItemResize = false;
+            this.controlContainerItem19.Control = this.axToolbarControlCustom;
+            this.controlContainerItem19.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem19.Name = "controlContainerItem19";
+            // 
             // barGeoAdjust
             // 
             this.barGeoAdjust.AccessibleDescription = "DotNetBar Bar (barGeoAdjust)";
@@ -4040,9 +4124,9 @@
             this.barGeoAdjust.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.controlContainerItem14,
             this.controlContainerItem13});
-            this.barGeoAdjust.Location = new System.Drawing.Point(1195, 61);
+            this.barGeoAdjust.Location = new System.Drawing.Point(0, 61);
             this.barGeoAdjust.Name = "barGeoAdjust";
-            this.barGeoAdjust.Size = new System.Drawing.Size(0, 28);
+            this.barGeoAdjust.Size = new System.Drawing.Size(246, 33);
             this.barGeoAdjust.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barGeoAdjust.TabIndex = 8;
             this.barGeoAdjust.TabStop = false;
@@ -4101,120 +4185,6 @@
             this.controlContainerItem13.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem13.Name = "controlContainerItem13";
             // 
-            // barCustom
-            // 
-            this.barCustom.AccessibleDescription = "DotNetBar Bar (barCustom)";
-            this.barCustom.AccessibleName = "DotNetBar Bar";
-            this.barCustom.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.barCustom.CanHide = true;
-            this.barCustom.Controls.Add(this.axToolbarControlCustom);
-            this.barCustom.DockLine = 2;
-            this.barCustom.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barCustom.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
-            this.barCustom.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
-            this.barCustom.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.controlContainerItem19});
-            this.barCustom.Location = new System.Drawing.Point(216, 61);
-            this.barCustom.Name = "barCustom";
-            this.barCustom.Size = new System.Drawing.Size(977, 33);
-            this.barCustom.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
-            this.barCustom.TabIndex = 11;
-            this.barCustom.TabStop = false;
-            this.barCustom.Text = "自定义工具栏";
-            this.barCustom.Visible = false;
-            // 
-            // axToolbarControlCustom
-            // 
-            this.axToolbarControlCustom.Location = new System.Drawing.Point(10, 2);
-            this.axToolbarControlCustom.Name = "axToolbarControlCustom";
-            this.axToolbarControlCustom.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlCustom.OcxState")));
-            this.axToolbarControlCustom.Size = new System.Drawing.Size(964, 28);
-            this.axToolbarControlCustom.TabIndex = 2;
-            // 
-            // controlContainerItem19
-            // 
-            this.controlContainerItem19.AllowItemResize = false;
-            this.controlContainerItem19.Control = this.axToolbarControlCustom;
-            this.controlContainerItem19.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem19.Name = "controlContainerItem19";
-            // 
-            // barTerrain
-            // 
-            this.barTerrain.AccessibleDescription = "DotNetBar Bar (barTerrain)";
-            this.barTerrain.AccessibleName = "DotNetBar Bar";
-            this.barTerrain.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.barTerrain.CanHide = true;
-            this.barTerrain.DockLine = 2;
-            this.barTerrain.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barTerrain.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
-            this.barTerrain.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
-            this.barTerrain.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnRandomTerrain,
-            this.btnRandomTexture,
-            this.btnRandomModel});
-            this.barTerrain.Location = new System.Drawing.Point(0, 61);
-            this.barTerrain.Name = "barTerrain";
-            this.barTerrain.Size = new System.Drawing.Size(214, 27);
-            this.barTerrain.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
-            this.barTerrain.TabIndex = 6;
-            this.barTerrain.TabStop = false;
-            this.barTerrain.Text = "地形纹理生成";
-            this.barTerrain.Visible = false;
-            // 
-            // btnRandomTerrain
-            // 
-            this.btnRandomTerrain.Name = "btnRandomTerrain";
-            this.btnRandomTerrain.Text = "随机地形";
-            this.btnRandomTerrain.Click += new System.EventHandler(this.btnRandomTerrain_Click);
-            // 
-            // btnRandomTexture
-            // 
-            this.btnRandomTexture.Name = "btnRandomTexture";
-            this.btnRandomTexture.Text = "随机纹理";
-            this.btnRandomTexture.Click += new System.EventHandler(this.btnRandomTexture_Click);
-            // 
-            // btnRandomModel
-            // 
-            this.btnRandomModel.Name = "btnRandomModel";
-            this.btnRandomModel.Text = "随机加入模型";
-            this.btnRandomModel.Click += new System.EventHandler(this.btnRandomModel_Click);
-            // 
-            // barCommon
-            // 
-            this.barCommon.AccessibleDescription = "DotNetBar Bar (barCommon)";
-            this.barCommon.AccessibleName = "DotNetBar Bar";
-            this.barCommon.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.barCommon.CanHide = true;
-            this.barCommon.Controls.Add(this.axToolbarControlCommon);
-            this.barCommon.DockLine = 3;
-            this.barCommon.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barCommon.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
-            this.barCommon.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
-            this.barCommon.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.controlContainerItem3});
-            this.barCommon.Location = new System.Drawing.Point(510, 95);
-            this.barCommon.Name = "barCommon";
-            this.barCommon.Size = new System.Drawing.Size(716, 33);
-            this.barCommon.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
-            this.barCommon.TabIndex = 1;
-            this.barCommon.TabStop = false;
-            this.barCommon.Text = "工具";
-            // 
-            // axToolbarControlCommon
-            // 
-            this.axToolbarControlCommon.Location = new System.Drawing.Point(10, 2);
-            this.axToolbarControlCommon.Name = "axToolbarControlCommon";
-            this.axToolbarControlCommon.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlCommon.OcxState")));
-            this.axToolbarControlCommon.Size = new System.Drawing.Size(703, 28);
-            this.axToolbarControlCommon.TabIndex = 0;
-            // 
-            // controlContainerItem3
-            // 
-            this.controlContainerItem3.AllowItemResize = false;
-            this.controlContainerItem3.Control = this.axToolbarControlCommon;
-            this.controlContainerItem3.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem3.Name = "controlContainerItem3";
-            // 
             // bar3D
             // 
             this.bar3D.AccessibleDescription = "DotNetBar Bar (bar3D)";
@@ -4230,7 +4200,7 @@
             this.bar3D.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.bar3D.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.controlContainerItem6});
-            this.bar3D.Location = new System.Drawing.Point(0, 95);
+            this.bar3D.Location = new System.Drawing.Point(718, 95);
             this.bar3D.Name = "bar3D";
             this.bar3D.Size = new System.Drawing.Size(508, 33);
             this.bar3D.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
@@ -4254,6 +4224,42 @@
             this.controlContainerItem6.Control = this.axToolbarControlScene;
             this.controlContainerItem6.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem6.Name = "controlContainerItem6";
+            // 
+            // barCommon
+            // 
+            this.barCommon.AccessibleDescription = "DotNetBar Bar (barCommon)";
+            this.barCommon.AccessibleName = "DotNetBar Bar";
+            this.barCommon.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.barCommon.CanHide = true;
+            this.barCommon.Controls.Add(this.axToolbarControlCommon);
+            this.barCommon.DockLine = 3;
+            this.barCommon.DockSide = DevComponents.DotNetBar.eDockSide.Top;
+            this.barCommon.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.barCommon.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
+            this.barCommon.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.controlContainerItem3});
+            this.barCommon.Location = new System.Drawing.Point(0, 95);
+            this.barCommon.Name = "barCommon";
+            this.barCommon.Size = new System.Drawing.Size(716, 33);
+            this.barCommon.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
+            this.barCommon.TabIndex = 1;
+            this.barCommon.TabStop = false;
+            this.barCommon.Text = "工具";
+            // 
+            // axToolbarControlCommon
+            // 
+            this.axToolbarControlCommon.Location = new System.Drawing.Point(10, 2);
+            this.axToolbarControlCommon.Name = "axToolbarControlCommon";
+            this.axToolbarControlCommon.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlCommon.OcxState")));
+            this.axToolbarControlCommon.Size = new System.Drawing.Size(703, 28);
+            this.axToolbarControlCommon.TabIndex = 0;
+            // 
+            // controlContainerItem3
+            // 
+            this.controlContainerItem3.AllowItemResize = false;
+            this.controlContainerItem3.Control = this.axToolbarControlCommon;
+            this.controlContainerItem3.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem3.Name = "controlContainerItem3";
             // 
             // barSunAlt
             // 
@@ -4485,43 +4491,6 @@
             this.controlContainerItem4.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem4.Name = "controlContainerItem4";
             // 
-            // barEditor
-            // 
-            this.barEditor.AccessibleDescription = "DotNetBar Bar (barEditor)";
-            this.barEditor.AccessibleName = "DotNetBar Bar";
-            this.barEditor.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.barEditor.CanHide = true;
-            this.barEditor.Controls.Add(this.axToolbarControlEdit);
-            this.barEditor.DockLine = 6;
-            this.barEditor.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barEditor.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
-            this.barEditor.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
-            this.barEditor.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.controlContainerItem5});
-            this.barEditor.Location = new System.Drawing.Point(733, 197);
-            this.barEditor.Name = "barEditor";
-            this.barEditor.Size = new System.Drawing.Size(833, 33);
-            this.barEditor.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
-            this.barEditor.TabIndex = 3;
-            this.barEditor.TabStop = false;
-            this.barEditor.Text = "编辑";
-            this.barEditor.Visible = false;
-            // 
-            // axToolbarControlEdit
-            // 
-            this.axToolbarControlEdit.Location = new System.Drawing.Point(10, 2);
-            this.axToolbarControlEdit.Name = "axToolbarControlEdit";
-            this.axToolbarControlEdit.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlEdit.OcxState")));
-            this.axToolbarControlEdit.Size = new System.Drawing.Size(820, 28);
-            this.axToolbarControlEdit.TabIndex = 1;
-            // 
-            // controlContainerItem5
-            // 
-            this.controlContainerItem5.AllowItemResize = false;
-            this.controlContainerItem5.Control = this.axToolbarControlEdit;
-            this.controlContainerItem5.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem5.Name = "controlContainerItem5";
-            // 
             // barEffects
             // 
             this.barEffects.AccessibleDescription = "DotNetBar Bar (barEffects)";
@@ -4538,9 +4507,9 @@
             this.sliderItemTransparency,
             this.sliderItemContrast,
             this.sliderItemBrightness});
-            this.barEffects.Location = new System.Drawing.Point(0, 197);
+            this.barEffects.Location = new System.Drawing.Point(835, 197);
             this.barEffects.Name = "barEffects";
-            this.barEffects.Size = new System.Drawing.Size(731, 28);
+            this.barEffects.Size = new System.Drawing.Size(0, 28);
             this.barEffects.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barEffects.TabIndex = 10;
             this.barEffects.TabStop = false;
@@ -4594,6 +4563,43 @@
             this.sliderItemBrightness.Text = "亮度";
             this.sliderItemBrightness.Value = 0;
             this.sliderItemBrightness.ValueChanged += new System.EventHandler(this.sliderItemBrightness_ValueChanged);
+            // 
+            // barEditor
+            // 
+            this.barEditor.AccessibleDescription = "DotNetBar Bar (barEditor)";
+            this.barEditor.AccessibleName = "DotNetBar Bar";
+            this.barEditor.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.barEditor.CanHide = true;
+            this.barEditor.Controls.Add(this.axToolbarControlEdit);
+            this.barEditor.DockLine = 6;
+            this.barEditor.DockSide = DevComponents.DotNetBar.eDockSide.Top;
+            this.barEditor.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.barEditor.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
+            this.barEditor.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.controlContainerItem5});
+            this.barEditor.Location = new System.Drawing.Point(0, 197);
+            this.barEditor.Name = "barEditor";
+            this.barEditor.Size = new System.Drawing.Size(833, 33);
+            this.barEditor.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
+            this.barEditor.TabIndex = 3;
+            this.barEditor.TabStop = false;
+            this.barEditor.Text = "编辑";
+            this.barEditor.Visible = false;
+            // 
+            // axToolbarControlEdit
+            // 
+            this.axToolbarControlEdit.Location = new System.Drawing.Point(10, 2);
+            this.axToolbarControlEdit.Name = "axToolbarControlEdit";
+            this.axToolbarControlEdit.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlEdit.OcxState")));
+            this.axToolbarControlEdit.Size = new System.Drawing.Size(820, 28);
+            this.axToolbarControlEdit.TabIndex = 1;
+            // 
+            // controlContainerItem5
+            // 
+            this.controlContainerItem5.AllowItemResize = false;
+            this.controlContainerItem5.Control = this.axToolbarControlEdit;
+            this.controlContainerItem5.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem5.Name = "controlContainerItem5";
             // 
             // barTinEditor
             // 
@@ -5004,12 +5010,6 @@
             this.axToolbarControlEffects.Size = new System.Drawing.Size(227, 28);
             this.axToolbarControlEffects.TabIndex = 10000;
             // 
-            // buttonItemWeldAlignToCenterline
-            // 
-            this.buttonItemWeldAlignToCenterline.Name = "buttonItemWeldAlignToCenterline";
-            this.buttonItemWeldAlignToCenterline.Text = "焊缝对齐到中线";
-            this.buttonItemWeldAlignToCenterline.Click += new System.EventHandler(this.buttonItemWeldAlignToCenterline_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5100,19 +5100,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.barContexMenuEditor)).EndInit();
             this.barContexMenuEditor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarCtlMenuEditor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barGeoAdjust)).EndInit();
-            this.barGeoAdjust.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlSpatialAdjust)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barTerrain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barCustom)).EndInit();
             this.barCustom.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCustom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barTerrain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barCommon)).EndInit();
-            this.barCommon.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCommon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barGeoAdjust)).EndInit();
+            this.barGeoAdjust.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlSpatialAdjust)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar3D)).EndInit();
             this.bar3D.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlScene)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barCommon)).EndInit();
+            this.barCommon.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCommon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barSunAlt)).EndInit();
             this.barSunAlt.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarSunAltitude)).EndInit();
@@ -5122,11 +5122,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.barLayout)).EndInit();
             this.barLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlLayout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barEffects)).EndInit();
+            this.barEffects.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barEditor)).EndInit();
             this.barEditor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barEffects)).EndInit();
-            this.barEffects.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barTinEditor)).EndInit();
             this.barTinEditor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlTinEdit)).EndInit();

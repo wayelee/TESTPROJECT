@@ -8673,7 +8673,9 @@ namespace CERMapping
 
         private void buttonItemWeldAlignToCenterline_Click(object sender, EventArgs e)
         {
-
+            IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
+            FrmCenterLineWeldAlignment frm = new FrmCenterLineWeldAlignment(pMapcontrol);
+            frm.ShowDialog();
         }       
 
    

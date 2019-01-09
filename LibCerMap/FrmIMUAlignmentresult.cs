@@ -96,7 +96,16 @@ namespace LibCerMap
                         }
                         int filedidx = pF.Fields.FindField(dt.Columns[i].ColumnName);
                         if (filedidx > 0)
-                            pF.set_Value(filedidx, r[i]);
+                        {
+                            try
+                            {
+                                pF.set_Value(filedidx, r[i]);
+                            }
+                            catch
+                            {
+                            }
+                           
+                        }
                     }
                     IPoint pt = new PointClass();
                     pt.X = Convert.ToDouble(r["X"]);
@@ -202,10 +211,10 @@ namespace LibCerMap
                     pFieldEdit.Type_2 = esriFieldType.esriFieldTypeString;
                 }
 
-                if (ds.Tables[0].Columns[i].ColumnName.Contains("Z_高程"))
-                {
-                    pFieldEdit.Name_2 = EvConfig.CenterlineZField;
-                }
+                //if (ds.Tables[0].Columns[i].ColumnName.Contains("Z_高程"))
+                //{
+                //    pFieldEdit.Name_2 = EvConfig.CenterlineZField;
+                //}
                 if (ds.Tables[0].Columns[i].ColumnName.Contains("里程"))
                 {
                     pFieldEdit.Type_2 = esriFieldType.esriFieldTypeDouble;

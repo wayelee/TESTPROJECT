@@ -226,6 +226,12 @@
     <Compile Include="ClsSiftMatching.cs" />
     <Compile Include="ClsZfDatabase.cs" />
     <Compile Include="ControlsSynchronizer.cs" />
+    <Compile Include="FrmCenterLineWeldAlignment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCenterLineWeldAlignment.Designer.cs">
+      <DependentUpon>FrmCenterLineWeldAlignment.cs</DependentUpon>
+    </Compile>
     <Compile Include="EvConfig.cs" />
     <Compile Include="FrmExportToCAD.cs">
       <SubType>Form</SubType>
@@ -1018,6 +1024,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmCenterLineWeldAlignment.resx">
+      <DependentUpon>FrmCenterLineWeldAlignment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmExportToCAD.resx">
       <DependentUpon>FrmExportToCAD.cs</DependentUpon>
     </EmbeddedResource>
