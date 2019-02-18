@@ -297,11 +297,12 @@ namespace LibCerMap
                     MatchedDataRowPair.Clear();
                     foreach (DataRow IMUr in alignmentPointTable.Rows)
                     {
-                        if (!IMUr["类型"].ToString().Contains("弯头") && !IMUr["类型"].ToString().Contains("环向焊缝"))
+                        if (!IMUr["类型"].ToString().Contains("弯头") && !IMUr["类型"].ToString().Contains("环向焊缝") )
                         {
                             continue;
                         }
-
+                        if (IMUr["对齐里程"] == DBNull.Value)
+                            continue;
                         double ActionIMUM = Convert.ToDouble(IMUr["对齐里程"]);
 
                         //List<DataRow> Featurerow = (from DataRow r in baseTable.Rows
@@ -457,6 +458,8 @@ namespace LibCerMap
                 for (int i = 0; i < AlimAnomany.Count; i++)
                 {
                     DataRow IMUr = AlimAnomany[i];
+                    if (IMUr["对齐里程"] == DBNull.Value)
+                        continue;
                     double ActionIMUM = Convert.ToDouble(IMUr["对齐里程"]);
                     List<DataRow> Featurerow = (from r in BaseAnomany
                                                 where Math.Abs(Convert.ToDouble(r[baseMeasureColumn]) - ActionIMUM) < Convert.ToDouble(numericUpDown4.Value)

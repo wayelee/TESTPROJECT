@@ -229,45 +229,56 @@ namespace LibCerMap
 
             IPointCollection pPointCollection = new MultipointClass();
             IPoint PrevPT = null;
-            for (int i = 0; i < number; i++)
+            try
             {
-                Application.DoEvents();
-                frm.Status = "处理点 " + i.ToString() + "/ " + number.ToString();
-                IGeometry pGeometry = pFeature.Shape as IGeometry;
-                IPoint pt = pGeometry as IPoint;               
-                IPoint pPoint = new PointClass();
-
-                IZAware zpt = pPoint as IZAware;
-                zpt.ZAware = true;
-                IMAware mpt = pPoint as IMAware;
-                mpt.MAware = true;
-
-                pPoint.PutCoords(pt.X, pt.Y);
-                pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineZField)]);
-
-                if (i == 0)
+                for (int i = 0; i < number; i++)
                 {
-                    pPoint.M = 0;
-                    PrevPT = pPoint;
+                    Application.DoEvents();
+                    frm.Status = "处理点 " + i.ToString() + "/ " + number.ToString();
+                    IGeometry pGeometry = pFeature.Shape as IGeometry;
+                    IPoint pt = pGeometry as IPoint;
+                    IPoint pPoint = new PointClass();
+
+                    IZAware zpt = pPoint as IZAware;
+                    zpt.ZAware = true;
+                    IMAware mpt = pPoint as IMAware;
+                    mpt.MAware = true;
+
+                    pPoint.PutCoords(pt.X, pt.Y);
+                    pPoint.Z = Convert.ToDouble(pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineZField)]);
+
+                    if (i == 0)
+                    {
+                        pPoint.M = 0;
+                        PrevPT = pPoint;
+                    }
+                    else
+                    {
+
+                        pPoint.M = PrevPT.M + DataAlignment.DataAlignment.CalculateDistanceBetween84TwoPoints(pPoint, PrevPT);
+
+                        PrevPT = pPoint;
+                    }
+                    pPointCollection.AddPoint(pPoint);
+
+                    pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineMeasureField)] = pPoint.M;
+                    pFeature.Store();
+
+                    frm.Progress = Convert.ToInt16(Convert.ToDouble(i) / Convert.ToDouble(number) * 100);
+
+                    pFeature = pFeatureCursor.NextFeature();
                 }
-                else
-                {
-
-                    pPoint.M = PrevPT.M + DataAlignment.DataAlignment.CalculateDistanceBetween84TwoPoints(pPoint, PrevPT);
-
-                    PrevPT = pPoint;
-                }
-                pPointCollection.AddPoint(pPoint);
-
-                pFeature.Value[pFeature.Fields.FindField(EvConfig.CenterlineMeasureField)] = pPoint.M;
-                pFeature.Store();
-
-                frm.Progress = Convert.ToInt16(Convert.ToDouble(i) / Convert.ToDouble(number) * 100);
-
-                pFeature = pFeatureCursor.NextFeature();
+            }
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                frm.Close();
             }
 
-            frm.Close();
+           
             return pPointCollection;
         }
        

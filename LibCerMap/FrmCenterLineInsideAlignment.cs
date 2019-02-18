@@ -38,35 +38,42 @@ namespace LibCerMap
 
         private void FrmPointToLine_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < pMapcontrol.LayerCount; i++)
+            try
             {
-                ILayer pLayer = null;
-                if (pMapcontrol.get_Layer(i) is IFeatureLayer)
+                for (int i = 0; i < pMapcontrol.LayerCount; i++)
                 {
-                    pLayer = pMapcontrol.get_Layer(i);
-                    IFeatureLayer pFeatureLayer = pLayer as IFeatureLayer;
-                    IFeatureClass pFeatureClass=pFeatureLayer .FeatureClass ;
-                    if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPoint || pFeatureClass.ShapeType == esriGeometryType.esriGeometryMultipoint)
+                    ILayer pLayer = null;
+                    if (pMapcontrol.get_Layer(i) is IFeatureLayer)
                     {
-                        cboBoxPointLayer.Items.Add(pLayer.Name);
-                    }
-                    if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPoint || pFeatureClass.ShapeType == esriGeometryType.esriGeometryMultipoint)
-                    {
-                        comboBoxExCenterlineLayer.Items.Add(pLayer.Name);
-                    }
-                    if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPolyline)
-                    {
-                        comboBoxExCenterlineLinearLayer.Items.Add(pLayer.Name);
+                        pLayer = pMapcontrol.get_Layer(i);
+                        IFeatureLayer pFeatureLayer = pLayer as IFeatureLayer;
+                        IFeatureClass pFeatureClass = pFeatureLayer.FeatureClass;
+                        if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPoint || pFeatureClass.ShapeType == esriGeometryType.esriGeometryMultipoint)
+                        {
+                            cboBoxPointLayer.Items.Add(pLayer.Name);
+                        }
+                        if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPoint || pFeatureClass.ShapeType == esriGeometryType.esriGeometryMultipoint)
+                        {
+                            comboBoxExCenterlineLayer.Items.Add(pLayer.Name);
+                        }
+                        if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPolyline)
+                        {
+                            comboBoxExCenterlineLinearLayer.Items.Add(pLayer.Name);
+                        }
                     }
                 }
+                if (cboBoxPointLayer.Items.Count > 0)
+                {
+                    cboBoxPointLayer.SelectedIndex = 0;
+                }
+                if (comboBoxExCenterlineLayer.Items.Count > 0)
+                {
+                    comboBoxExCenterlineLayer.SelectedIndex = 0;
+                }
             }
-            if (cboBoxPointLayer.Items.Count > 0)
+            catch(SystemException ex)
             {
-                cboBoxPointLayer.SelectedIndex = 0;
-            }
-            if (comboBoxExCenterlineLayer.Items.Count > 0)
-            {
-                comboBoxExCenterlineLayer.SelectedIndex = 0;
+                
             }
 
         }
