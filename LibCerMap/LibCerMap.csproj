@@ -226,6 +226,12 @@
     <Compile Include="ClsSiftMatching.cs" />
     <Compile Include="ClsZfDatabase.cs" />
     <Compile Include="ControlsSynchronizer.cs" />
+    <Compile Include="FormChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChart.Designer.cs">
+      <DependentUpon>FormChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmCenterLineWeldAlignment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1024,6 +1030,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormChart.resx">
+      <DependentUpon>FormChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmCenterLineWeldAlignment.resx">
       <DependentUpon>FrmCenterLineWeldAlignment.cs</DependentUpon>
     </EmbeddedResource>

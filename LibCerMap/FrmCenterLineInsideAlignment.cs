@@ -312,6 +312,8 @@ namespace LibCerMap
                 
 
                 FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(IMUTable);
+                frm.CenterlinePointTable = CenterlinePointTable;
+                frm.setResultType("内检测对齐中线报告");
                 frm.ShowDialog();
 
                    

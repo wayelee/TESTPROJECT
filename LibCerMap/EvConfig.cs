@@ -19,6 +19,7 @@ namespace LibCerMap
         public static string IMUWidththField = "宽度";
         public static string IMUDepthField = "壁厚";
         public static string IMUAngleField = "时钟方位";
+        public static string IMUAlignmentMeasureField = "对齐里程";
 
         public static string WeldXField = "经度";
         public static string WeldYField = "纬度";

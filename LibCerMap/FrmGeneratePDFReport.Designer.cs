@@ -334,6 +334,7 @@
             this.radioButtonSelectRangeOnMap.TabIndex = 11;
             this.radioButtonSelectRangeOnMap.Text = "地图框选";
             this.radioButtonSelectRangeOnMap.UseVisualStyleBackColor = true;
+            this.radioButtonSelectRangeOnMap.Visible = false;
             // 
             // radioButtonMuliple
             // 
