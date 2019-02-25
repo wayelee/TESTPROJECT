@@ -148,8 +148,8 @@ namespace LibCerMap
                 alignmentPointTable = dv.ToTable();
 
                 double centerlineLength = endM - beginM;
-                alignmentPointTable.Columns.Add("里程差");
-                alignmentPointTable.Columns.Add("对齐里程");
+                alignmentPointTable.Columns.Add("里程差", System.Type.GetType("System.Double"));
+                alignmentPointTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
 
                 double endIMUM = Convert.ToDouble(alignmentPointTable.Rows[alignmentPointTable.Rows.Count - 1][AlingMeasureColumn]);
                 double beginIMUM = Convert.ToDouble(alignmentPointTable.Rows[0][AlingMeasureColumn]);
@@ -278,14 +278,14 @@ namespace LibCerMap
 
                 #region //对齐里程后，将焊缝加入特征点继续匹配
               
-                alignmentPointTable.Columns.Add("对齐基准点里程");
-                alignmentPointTable.Columns.Add("对齐基准点里程差");
+                alignmentPointTable.Columns.Add("对齐基准点里程", System.Type.GetType("System.Double"));
+                alignmentPointTable.Columns.Add("对齐基准点里程差", System.Type.GetType("System.Double"));
                 alignmentPointTable.Columns.Add("对齐基准点类型");
 
                 foreach (DataRow IMUr in alignmentPointTable.Rows)
                 {
-                    IMUr["对齐基准点里程"] = "";
-                    IMUr["对齐基准点里程差"]="";
+                    IMUr["对齐基准点里程"] = DBNull.Value;
+                    IMUr["对齐基准点里程差"]= DBNull.Value;
                     IMUr["对齐基准点类型"] = "";
                 }
 
@@ -409,6 +409,34 @@ namespace LibCerMap
                         }
                     }
 
+                    //将输入的里程当做最终里程
+                    if (checkBoxFixInputValue.Checked == true)
+                    {
+                        alignmentPointTable.Rows[0]["对齐里程"] = beginM;
+                        alignmentPointTable.Rows[alignmentPointTable.Rows.Count - 1]["对齐里程"] = endM;
+                    }
+                    //根据最近的特征点以及距离重算起始点里程
+                    else
+                    {
+                        var query = (from r in alignmentPointTable.AsEnumerable()
+                                     where r["对齐里程"] != DBNull.Value
+                                     select r).ToList();
+                        if (query.Count > 0)
+                        {
+                            DataRow r = query[0];
+                            beginM = Convert.ToDouble(r["对齐里程"]) -
+                                (Convert.ToDouble(r[AlingMeasureColumn]) - Convert.ToDouble(alignmentPointTable.Rows[0][AlingMeasureColumn]));
+                            alignmentPointTable.Rows[0]["对齐里程"] = beginM;
+
+                            int idx = alignmentPointTable.Rows.Count - 1;
+                            r = query[query.Count - 1];
+
+                            endM = Convert.ToDouble(r["对齐里程"]) +
+                                (Convert.ToDouble(alignmentPointTable.Rows[idx][AlingMeasureColumn]) - Convert.ToDouble(r[AlingMeasureColumn]));
+                            alignmentPointTable.Rows[idx]["对齐里程"] = endM;
+                        }
+                    }
+
                     PrevRowWithM = null;
                     for (int i = 0; i < alignmentPointTable.Rows.Count; i++)
                     {
@@ -443,7 +471,7 @@ namespace LibCerMap
                     }
                   
                 }
-                alignmentPointTable.Columns.Remove("对齐基准点里程差");
+                //alignmentPointTable.Columns.Remove("对齐基准点里程差");
                 #endregion
 
                 #region //匹配异常
@@ -454,6 +482,8 @@ namespace LibCerMap
                 List<DataRow> BaseAnomany = (from DataRow r in baseTable.Rows
                                                    where r["类型"].ToString().Contains("异常")
                                                    select r).ToList();
+
+                alignmentPointTable.Columns.Add("异常匹配里程差", System.Type.GetType("System.Double"));
                 MatchedDataRowPair.Clear();
                 for (int i = 0; i < AlimAnomany.Count; i++)
                 {
@@ -461,15 +491,25 @@ namespace LibCerMap
                     if (IMUr["对齐里程"] == DBNull.Value)
                         continue;
                     double ActionIMUM = Convert.ToDouble(IMUr["对齐里程"]);
+                    if (IMUr[EvConfig.IMUAngleField] == DBNull.Value)
+                    {
+                        continue;
+                    }
+
+                    //double AlimomanyAngle = Convert.ToDouble(IMUr[EvConfig.IMUAngleField]);
+                    double AlimomanyAngle = ShizhongFangweiToMinutes(IMUr[EvConfig.IMUAngleField].ToString());
                     List<DataRow> Featurerow = (from r in BaseAnomany
                                                 where Math.Abs(Convert.ToDouble(r[baseMeasureColumn]) - ActionIMUM) < Convert.ToDouble(numericUpDown4.Value)
+                                                &&  r[EvConfig.IMUAngleField]!= DBNull.Value
+                                                && (Math.Abs(ShizhongFangweiToMinutes(r[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle) < 10 ||
+                                                720 - Math.Abs(ShizhongFangweiToMinutes(r[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle) < 10)
                                                 select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[baseMeasureColumn]) - ActionIMUM)).ToList();
                     if (Featurerow.Count > 0)
                     {
                         DataRow NearestR = Featurerow[0];
                         if (MatchedDataRowPair.Values.Contains(NearestR) == false)
                         {
-                            IMUr["里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
+                            IMUr["异常匹配里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
                             MatchedDataRowPair.Add(IMUr, NearestR);
                         }
                         else
@@ -478,11 +518,11 @@ namespace LibCerMap
                                                    where MatchedDataRowPair[k].Equals(NearestR)
                                                    select k).ToList().First();
                             double dis = Math.Abs(Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM);
-                            double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
+                            double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["异常匹配里程差"]));
                             if (dis < olddis)
                             {
                                 MatchedDataRowPair.Remove(mathcedIMUr);
-                                IMUr["里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
+                                IMUr["异常匹配里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
                                 MatchedDataRowPair.Add(IMUr, NearestR);
                             }
                             else
@@ -495,7 +535,7 @@ namespace LibCerMap
                 #endregion
 
 
-                alignmentPointTable.Columns.Add("壁厚变化");
+                alignmentPointTable.Columns.Add("壁厚变化", System.Type.GetType("System.Double"));
                 #region // 异常增长计算
                 for (int i = 0; i < MatchedDataRowPair.Count; i++)
                 {
@@ -503,7 +543,7 @@ namespace LibCerMap
                     DataRow BaseRow = MatchedDataRowPair.Values.ElementAt(i);
                     try
                     {
-                        IMUr["壁厚变化"] = Convert.ToDouble(IMUr["壁厚__mm_"]) - Convert.ToDouble(BaseRow["壁厚__mm_"]); 
+                        IMUr["壁厚变化"] = Convert.ToDouble(IMUr[EvConfig.IMUDepthField]) - Convert.ToDouble(BaseRow[EvConfig.IMUDepthField]); 
                     }
                     catch
                     {
@@ -512,6 +552,9 @@ namespace LibCerMap
 
                 #endregion
                 FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
+                frm.setResultType("两次内检测对齐报告");
+                frm.BasePointTable = baseTable;
+                frm.AlignmentPointTable = alignmentPointTable;
                 frm.ShowDialog();
 
                    
@@ -657,7 +700,12 @@ namespace LibCerMap
             }
           
         }
-
+        // format 12:00,  to minute. 0 ~ 720
+        private double ShizhongFangweiToMinutes(string timestring)
+        {
+            DateTime tm = DateTime.Parse(timestring);
+            return tm.Hour * 60.0 + tm.Minute;
+        }
         private void comboBoxExCenterlineLayer_SelectedIndexChanged(object sender, EventArgs e)
         {
 

@@ -27,7 +27,9 @@ namespace LibCerMap
         public DataTable CenterlinePointTable;
         public DataTable InsidePointTable;
 
-
+        // 两次内检测对齐
+        public DataTable BasePointTable;
+        public DataTable AlignmentPointTable;
 
         public FrmIMUAlignmentresult(DataTable tb)
         {
@@ -254,6 +256,10 @@ namespace LibCerMap
             {
                 ExportInsideToCenterline();
             }
+            if (m_ResultType == "两次内检测对齐报告")
+            {
+                ExportInsideToInside();
+            }
         }
         private void ExportInsideToCenterline()
         {
@@ -310,6 +316,74 @@ namespace LibCerMap
             fm.ShowDialog();
             ExportImageToWordBookMark(BookMarkName, doc, app);
 
+            //!<输出完毕后关闭doc对象
+            object IsSave = true;
+            doc.Close(ref IsSave, ref missing, ref missing);
+            app.Quit(ref missing, ref missing, ref missing);
+            MessageBox.Show("报告生成完毕");
+        }
+        private void ExportInsideToInside()
+        {
+            string TemplateFileName = ClsGDBDataCommon.GetParentPathofExe() + @"Resource\WordTemplate\两次内检测对齐报告.doc";
+            SaveFileDialog saveDig = new SaveFileDialog();
+            string saveFileName = "";
+            saveDig.Filter = "word文档|*.doc";
+            saveDig.OverwritePrompt = false;
+            if (saveDig.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(saveFileName))
+                {
+                    MessageBox.Show("file already exists!!");
+                    return;
+                }
+                saveFileName = saveDig.FileName;
+            }
+            else
+            {
+                return;
+            }
+
+            Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+            //!<根据模板文件生成新文件框架
+            File.Copy(TemplateFileName, saveFileName);
+            //!<生成documnet对象
+            Microsoft.Office.Interop.Word.Document doc = new Microsoft.Office.Interop.Word.Document();
+            //!<打开新文挡
+            object objFileName = saveFileName;
+            object missing = System.Reflection.Missing.Value;
+            object isReadOnly = false;
+            object isVisible = false;
+            doc = app.Documents.Open(ref objFileName, ref missing, ref isReadOnly, ref missing,
+            ref missing, ref missing, ref missing, ref missing,
+            ref missing, ref missing, ref missing, ref isVisible,
+            ref missing, ref missing, ref missing, ref missing);
+            doc.Activate();
+
+            DataTable dt = CreateInsideToInsiddeBaseStatisticsTable();
+            string BookMarkName = "tbBasePointTable";
+            ExportDatatableToWordBookMark(dt, BookMarkName, doc);
+
+            BookMarkName = "taAlignmentTable";
+            dt = CreateInsideToInsiddeAlignmentTableStatisticsTable();
+            ExportDatatableToWordBookMark(dt, BookMarkName, doc);
+
+            BookMarkName = "tbAlignment";
+            dt = CreateInsideToInsideAlignmentStatisticsTable();
+            ExportDatatableToWordBookMark(dt, BookMarkName, doc);
+
+            BookMarkName = "tbMeasureDifference";
+            FormChart fm = new FormChart();
+            CreateInsideToInsideAlignmentDifferenceStatisticsImage(fm.ChartContrl);
+            ExportImageToWordBookMark(BookMarkName, doc, app);
+
+            BookMarkName = "tbtaAnomanyDepth";             
+            CreateInsideToInsideAnomanyDepthImage(fm.ChartContrl);
+            ExportImageToWordBookMark(BookMarkName, doc, app);
+
+            BookMarkName = "tbtaAnomanyDepthChange";
+            CreateInsideToInsideMatchedAnomanyDepthChangeImage(fm.ChartContrl);
+            ExportImageToWordBookMark(BookMarkName, doc, app);
+             
             //!<输出完毕后关闭doc对象
             object IsSave = true;
             doc.Close(ref IsSave, ref missing, ref missing);
@@ -446,7 +520,7 @@ namespace LibCerMap
             dr["匹配特征点数"] = (from DataRow r in stable.Rows
                             where r["里程差"] != DBNull.Value
                             select r).Count();
-
+             
             dr["特征点平均里程差"] = Math.Round((from DataRow r in stable.Rows
                                          where r["里程差"] != DBNull.Value
                                          select Math.Abs(Convert.ToDouble(r["里程差"]))).Average(), 2);
@@ -456,65 +530,7 @@ namespace LibCerMap
         // 内检测对齐到中线里程差统计图
         private void CreateInsidPointCenterlineAlignmentDifferenceStatisticsImage(ChartControl control)
         {
-            //ChartControl pointChart = control;
-            //DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series("Series 1", ViewType.Point);
 
-            //// Set the numerical argument scale type for the series, 
-            //// as it is qualitative, by default. 
-            //series1.ArgumentScaleType = ScaleType.Numerical;
-
-            //// Add points to it. 
-            //series1.Points.Add(new SeriesPoint(1, 10));
-            //series1.Points.Add(new SeriesPoint(2, 22));
-            //series1.Points.Add(new SeriesPoint(3, 14));
-            //series1.Points.Add(new SeriesPoint(4, 27));
-            //series1.Points.Add(new SeriesPoint(5, 15));
-            //series1.Points.Add(new SeriesPoint(6, 28));
-            //series1.Points.Add(new SeriesPoint(7, 15));
-            //series1.Points.Add(new SeriesPoint(8, 33));
-
-            //// Add the series to the chart. 
-            //pointChart.Series.Add(series1);
-
-            //// Access the view-type-specific options of the series. 
-            //PointSeriesView myView1 = (PointSeriesView)series1.View;
-            //myView1.PointMarkerOptions.Kind = MarkerKind.Star;
-            //myView1.PointMarkerOptions.StarPointCount = 5;
-            //myView1.PointMarkerOptions.Size = 20;
-
-            //// Access the type-specific options of the diagram. 
-            //((XYDiagram)pointChart.Diagram).EnableAxisXZooming = true;
-
-            //// Hide the legend (if necessary). 
-            //pointChart.Legend.Visible = true;
-
-            //// Add a title to the chart (if necessary). 
-            //pointChart.Titles.Add(new ChartTitle());
-            //pointChart.Titles[0].Text = "A Point Chart";
-
-            //// Add the chart to the form. 
-            //pointChart.Dock = DockStyle.Fill;
-
-            //pointChart.SaveToFile(this.TempImagePath);
-            //pointChart.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
-            //string DataName = "数量";
-            //string pDataStats = "管节长度";
-
-            //DataRow pDataRow;
-
-
-            //chart1.ChartAreas["ChartArea1"].AxisX.Title = "数量";
-            //chart1.ChartAreas["ChartArea1"].AxisY.Title = "管节长度";
-            //System.Windows.Forms.DataVisualization.Charting.Series series = chart1.Series.Add(DataName);
-
-          //  InitChartStyle(DataName,chart1);
-           // chart1.Series[DataName].Points.DataBind(attributeTable.DefaultView, pDataStats, "统计值", null);
-
-            //create jpg
-          //  chart1.SaveImage(jpgpath, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-
-            //return;
             try
             {
                 DataTable stable = sourcetable;
@@ -579,47 +595,310 @@ namespace LibCerMap
         }
 
 
-        public void InitChartStyle(string DataName,string titlename, System.Windows.Forms.DataVisualization.Charting.Chart chart1)
+
+        // 两次内检测base内检测表
+        private DataTable CreateInsideToInsiddeBaseStatisticsTable()
+        {
+            DataTable stable = BasePointTable;
+             
+            DataTable dt = new DataTable();
+            dt.Columns.Add(EvConfig.IMUInspectionYearField);
+            dt.Columns.Add("起点记录距离");
+            dt.Columns.Add("终点记录距离");
+            dt.Columns.Add("内检测点数");
+            dt.Columns.Add("环向焊缝数");
+            dt.Columns.Add("三通数");
+            dt.Columns.Add("弯头数");
+            dt.Columns.Add("异常数");
+            
+            DataRow dr = dt.NewRow();
+            dr[EvConfig.IMUInspectionYearField] = BasePointTable.Rows[0][EvConfig.IMUInspectionYearField];
+            dr["起点记录距离"] = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
+            dr["终点记录距离"] = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
+            dr["内检测点数"] = stable.Rows.Count;
+            //dr["起点对齐里程"] = InsidePointTable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+            //dr["终点对齐里程"] = InsidePointTable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+
+            dr["环向焊缝数"] = (from DataRow r in stable.Rows
+                           where r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("环向焊缝")
+                           select r).Count();
+            dr["弯头数"] = (from DataRow r in stable.Rows
+                         where r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("弯头")
+                         select r).Count();
+            dr["三通数"] = (from DataRow r in stable.Rows
+                         where r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("三通")
+                         select r).Count();
+            dr["异常数"] = (from DataRow r in stable.Rows
+                         where r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("异常")
+                         select r).Count();
+            dt.Rows.Add(dr);
+            return dt;
+        }
+        // 两次内检测对齐内检测表
+        private DataTable CreateInsideToInsiddeAlignmentTableStatisticsTable()
+        {
+            DataTable stable = AlignmentPointTable;
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add(EvConfig.IMUInspectionYearField);
+            dt.Columns.Add("起点记录距离");
+            dt.Columns.Add("终点记录距离");
+            dt.Columns.Add("内检测点数");
+            dt.Columns.Add("环向焊缝数");
+            dt.Columns.Add("三通数");
+            dt.Columns.Add("弯头数");
+            dt.Columns.Add("异常数");
+
+            DataRow dr = dt.NewRow();
+            dr[EvConfig.IMUInspectionYearField] = BasePointTable.Rows[0][EvConfig.IMUInspectionYearField];
+            dr["起点记录距离"] = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
+            dr["终点记录距离"] = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
+            dr["内检测点数"] = stable.Rows.Count;
+            //dr["起点对齐里程"] = InsidePointTable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+            //dr["终点对齐里程"] = InsidePointTable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+
+            dr["环向焊缝数"] = (from DataRow r in stable.Rows
+                           where r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("环向焊缝")
+                           select r).Count();
+            dr["弯头数"] = (from DataRow r in stable.Rows
+                         where r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("弯头")
+                         select r).Count();
+            dr["三通数"] = (from DataRow r in stable.Rows
+                         where r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("三通")
+                         select r).Count();
+            dr["异常数"] = (from DataRow r in stable.Rows
+                         where r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("异常")
+                         select r).Count();
+            dt.Rows.Add(dr);
+            return dt;
+        }
+        // 两次内检测对齐统计表
+        private DataTable CreateInsideToInsideAlignmentStatisticsTable()
+        {
+            DataTable stable = sourcetable;
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("起点记录距离");
+            dt.Columns.Add("终点记录距离");
+            dt.Columns.Add("起点对齐里程");
+            dt.Columns.Add("终点对齐里程");
+            dt.Columns.Add("粗对齐匹配特征点数");
+            dt.Columns.Add("特征点平均里程差");
+            dt.Columns.Add("精对齐匹配特征点数");
+            dt.Columns.Add("匹配异常数");
+
+            DataRow dr = dt.NewRow();
+            dr["起点记录距离"] = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
+            dr["终点记录距离"] = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
+            dr["起点对齐里程"] = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+            dr["终点对齐里程"] = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+
+            dr["粗对齐匹配特征点数"] = (from DataRow r in stable.Rows
+                            where r["里程差"] != DBNull.Value
+                            select r).Count();
+            dr["精对齐匹配特征点数"] = (from DataRow r in stable.Rows
+                               where r["对齐基准点里程"] != DBNull.Value
+                               select r).Count();
+            dr["特征点平均里程差"] = Math.Round((from DataRow r in stable.Rows
+                                         where r["里程差"] != DBNull.Value
+                                         select Math.Abs(Convert.ToDouble(r["里程差"]))).Average(), 2);
+            dr["匹配异常数"] =  (from DataRow r in stable.Rows
+                                         where r["壁厚变化"] != DBNull.Value
+                                         select r).ToList().Count;
+            dt.Rows.Add(dr);
+            return dt;
+        }
+
+        private void CreateInsideToInsideAlignmentDifferenceStatisticsImage(ChartControl control)
         {
 
-            chart1.Series[DataName].BorderWidth = 2;                    //线条宽度
-            chart1.Series[DataName].ShadowOffset = 1;                   //阴影宽度
-            chart1.Series[DataName].IsVisibleInLegend = true;           //是否显示数据说明
-            chart1.Series[DataName].IsValueShownAsLabel = true;
-           // chart1.Series[DataName].Label = "#PERCENT{P1}";//百分比 
+            try
+            {
+                DataTable stable = sourcetable;
+                ChartControl chartControl1 = control;
+                double BegMeasure = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+                double endMeasure = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+                chartControl1.Series.Clear();
+                DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("特征点里程差", ViewType.Bar);
+                series.ShowInLegend = false;
+                foreach (DataRow r in stable.Rows)
+                {
+                    double m; double z;
+                    if (r["里程差"] == DBNull.Value)
+                        continue;
+                    m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
+                    z = Math.Round(Math.Abs(Convert.ToDouble(r["里程差"])), 2);
+                    series.Points.Add(new SeriesPoint(m, z));
+                }
 
-            //作图区的显示属性设置
-            chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = false;
+                // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
 
-            //背景色设置
-            chart1.ChartAreas["ChartArea1"].ShadowColor = Color.Transparent;
-            chart1.ChartAreas["ChartArea1"].BackColor = Color.Azure;         //该处设置为了由天蓝到白色的逐渐变化
-            chart1.ChartAreas["ChartArea1"].BackGradientStyle = GradientStyle.TopBottom;
-            chart1.ChartAreas["ChartArea1"].BackSecondaryColor = Color.White;
-            //X,Y坐标线颜色和大小
-            chart1.ChartAreas["ChartArea1"].AxisX.LineColor = Color.Blue;
-            chart1.ChartAreas["ChartArea1"].AxisY.LineColor = Color.Blue;
-            chart1.ChartAreas["ChartArea1"].AxisX.LineWidth = 2;
-            chart1.ChartAreas["ChartArea1"].AxisY.LineWidth = 2;
+                chartControl1.Series.Add(series);
+                chartControl1.Titles.Clear();
+                ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+                ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
 
-            //中间X,Y线条的颜色设置
-            chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Blue;
-            chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Blue;
+                XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
+                // Customize the appearance of the X-axis title. 
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Alignment = StringAlignment.Center;
+                diagram.AxisX.Title.Text = "特征点对齐里程";
+                diagram.AxisX.Title.TextColor = Color.Black;
+                diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
 
-            //坐标轴和数据点标注字体
-            System.Drawing.Font font1 = new System.Drawing.Font("微软雅黑", 10, FontStyle.Regular);
-            //X Y 轴字体
-            chart1.ChartAreas["ChartArea1"].AxisX.TitleFont = font1;
-            chart1.ChartAreas["ChartArea1"].AxisY.TitleFont = font1;
-            //数据点字体
-            chart1.Series[DataName].Font = font1;
+                // Customize the appearance of the Y-axis title. 
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Alignment = StringAlignment.Center;
+                diagram.AxisY.Title.Text = "特征点里程差";
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
 
-            //图表标题字体
-            System.Drawing.Font font2 = new System.Drawing.Font("微软雅黑", 20, FontStyle.Regular);
-            //添加标题
-            //Title title = new Title(DataName, Docking.Top, font2, Color.Black);
-            System.Windows.Forms.DataVisualization.Charting.Title title = new System.Windows.Forms.DataVisualization.Charting.Title(titlename, Docking.Top, font2, Color.Black);
-            chart1.Titles.Add(title);
+                //((XYDiagram)chartControl1.Diagram).AxisX.Title.Text = "对齐里程";
+                //((XYDiagram)chartControl1.Diagram).AxisY.Title.Text = "特征点里程差";
+                Image image = null;
+                ImageFormat format = ImageFormat.Jpeg;
+                // Create an image of the chart. 
+                using (MemoryStream s = new MemoryStream())
+                {
+                    chartControl1.ExportToImage(s, format);
+                    image = Image.FromStream(s);
+                }
+                control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
+            }
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            // return image;
+
+        }
+
+        private void CreateInsideToInsideAnomanyDepthImage(ChartControl control)
+        {
+            try
+            {
+                DataTable stable = sourcetable;
+                ChartControl chartControl1 = control;
+                double BegMeasure = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+                double endMeasure = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+                chartControl1.Series.Clear();
+                DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("异常", ViewType.Bar);
+                series.ShowInLegend = false;
+                foreach (DataRow r in stable.Rows)
+                {
+                    double m; double z;
+                    if (r[EvConfig.IMUDepthField] == DBNull.Value || r[EvConfig.IMUPointTypeField] == DBNull.Value || !r[EvConfig.IMUPointTypeField].ToString().Contains("异常"))
+                        continue;
+                    m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
+                    z = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUDepthField])), 2);
+                    series.Points.Add(new SeriesPoint(m, z));
+                }
+
+                // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+
+                chartControl1.Series.Add(series);
+                chartControl1.Titles.Clear();
+                ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+                ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+
+                XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
+                // Customize the appearance of the X-axis title. 
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Alignment = StringAlignment.Center;
+                diagram.AxisX.Title.Text = "异常对齐里程";
+                diagram.AxisX.Title.TextColor = Color.Black;
+                diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                // Customize the appearance of the Y-axis title. 
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Alignment = StringAlignment.Center;
+                diagram.AxisY.Title.Text = EvConfig.IMUDepthField;
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                //((XYDiagram)chartControl1.Diagram).AxisX.Title.Text = "对齐里程";
+                //((XYDiagram)chartControl1.Diagram).AxisY.Title.Text = "特征点里程差";
+                Image image = null;
+                ImageFormat format = ImageFormat.Jpeg;
+                // Create an image of the chart. 
+                using (MemoryStream s = new MemoryStream())
+                {
+                    chartControl1.ExportToImage(s, format);
+                    image = Image.FromStream(s);
+                }
+                control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
+            }
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CreateInsideToInsideMatchedAnomanyDepthChangeImage(ChartControl control)
+        {
+            try
+            {
+                DataTable stable = sourcetable;
+                ChartControl chartControl1 = control;
+                double BegMeasure = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+                double endMeasure = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+                chartControl1.Series.Clear();
+                DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("异常", ViewType.Bar);
+                series.ShowInLegend = false;
+                foreach (DataRow r in stable.Rows)
+                {
+                    double m; double z;
+                    if (r["壁厚变化"] == DBNull.Value)
+                        continue;
+                    m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
+                    z = Math.Round(Math.Abs(Convert.ToDouble(r["壁厚变化"])), 2);
+                    series.Points.Add(new SeriesPoint(m, z));
+                }
+
+                // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+
+                chartControl1.Series.Add(series);
+                chartControl1.Titles.Clear();
+                ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+                ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+
+                XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
+                // Customize the appearance of the X-axis title. 
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Alignment = StringAlignment.Center;
+                diagram.AxisX.Title.Text = "异常对齐里程";
+                diagram.AxisX.Title.TextColor = Color.Black;
+                diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                // Customize the appearance of the Y-axis title. 
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Alignment = StringAlignment.Center;
+                diagram.AxisY.Title.Text = "壁厚变化";
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                //((XYDiagram)chartControl1.Diagram).AxisX.Title.Text = "对齐里程";
+                //((XYDiagram)chartControl1.Diagram).AxisY.Title.Text = "特征点里程差";
+                Image image = null;
+                ImageFormat format = ImageFormat.Jpeg;
+                // Create an image of the chart. 
+                using (MemoryStream s = new MemoryStream())
+                {
+                    chartControl1.ExportToImage(s, format);
+                    image = Image.FromStream(s);
+                }
+                control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
+            }
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 
