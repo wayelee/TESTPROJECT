@@ -26,5 +26,6 @@ namespace LibCerMap
         public static string WeldYField = "纬度";
         public static string WeldZField = "高程";
         public static string WeldMField = "里程";
+        public static string WeldAlignmentMeasureField = "对齐里程";
     }
 }

@@ -260,6 +260,10 @@ namespace LibCerMap
             {
                 ExportInsideToInside();
             }
+            if (m_ResultType == "焊缝对齐报告")
+            {
+                ExportWeldToCenterline();
+            }
         }
         private void ExportInsideToCenterline()
         {
@@ -384,6 +388,59 @@ namespace LibCerMap
             CreateInsideToInsideMatchedAnomanyDepthChangeImage(fm.ChartContrl);
             ExportImageToWordBookMark(BookMarkName, doc, app);
              
+            //!<输出完毕后关闭doc对象
+            object IsSave = true;
+            doc.Close(ref IsSave, ref missing, ref missing);
+            app.Quit(ref missing, ref missing, ref missing);
+            MessageBox.Show("报告生成完毕");
+        }
+        private void ExportWeldToCenterline()
+        {
+            string TemplateFileName = ClsGDBDataCommon.GetParentPathofExe() + @"Resource\WordTemplate\焊缝对齐报告.doc";
+            SaveFileDialog saveDig = new SaveFileDialog();
+            string saveFileName = "";
+            saveDig.Filter = "word文档|*.doc";
+            saveDig.OverwritePrompt = false;
+            if (saveDig.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(saveFileName))
+                {
+                    MessageBox.Show("file already exists!!");
+                    return;
+                }
+                saveFileName = saveDig.FileName;
+            }
+            else
+            {
+                return;
+            }
+
+            Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+            //!<根据模板文件生成新文件框架
+            File.Copy(TemplateFileName, saveFileName);
+            //!<生成documnet对象
+            Microsoft.Office.Interop.Word.Document doc = new Microsoft.Office.Interop.Word.Document();
+            //!<打开新文挡
+            object objFileName = saveFileName;
+            object missing = System.Reflection.Missing.Value;
+            object isReadOnly = false;
+            object isVisible = false;
+            doc = app.Documents.Open(ref objFileName, ref missing, ref isReadOnly, ref missing,
+            ref missing, ref missing, ref missing, ref missing,
+            ref missing, ref missing, ref missing, ref isVisible,
+            ref missing, ref missing, ref missing, ref missing);
+            doc.Activate();
+
+            DataTable dt = CreateWeldToCenterlineTable();
+            string BookMarkName = "tbWeld";
+            ExportDatatableToWordBookMark(dt, BookMarkName, doc);
+
+            BookMarkName = "tbWeldOffset";
+            FormChart fm = new FormChart();
+            CreateWeldToCenterlineOffsetTableImage(fm.ChartContrl);
+            ExportImageToWordBookMark(BookMarkName, doc, app);
+
+
             //!<输出完毕后关闭doc对象
             object IsSave = true;
             doc.Close(ref IsSave, ref missing, ref missing);
@@ -900,6 +957,87 @@ namespace LibCerMap
                 MessageBox.Show(ex.Message);
             }
         }
+
+        // 焊缝对齐统计
+        private DataTable CreateWeldToCenterlineTable()
+        {
+            DataTable stable = sourcetable;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("焊缝数");
+            dt.Columns.Add("平均偏移距离");
+            DataRow dr = dt.NewRow();
+            dr["焊缝数"] = stable.Rows.Count;
+
+            dr["平均偏移距离"] = Math.Round((from DataRow r in stable.Rows
+                                       where r["距离偏移"] != DBNull.Value
+                                       select Math.Abs(Convert.ToDouble(r["距离偏移"]))).Average(), 2);
+
+            dt.Rows.Add(dr);
+            return dt;
+        }
+        private void CreateWeldToCenterlineOffsetTableImage(ChartControl control)
+        {
+            try
+            {
+                DataTable stable = sourcetable;
+                ChartControl chartControl1 = control;
+                double BegMeasure = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.WeldAlignmentMeasureField]));
+                double endMeasure = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.WeldAlignmentMeasureField]));
+                chartControl1.Series.Clear();
+                DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("焊缝", ViewType.Bar);
+                series.ShowInLegend = false;
+                foreach (DataRow r in stable.Rows)
+                {
+                    double m; double z;
+                    if (r["距离偏移"] == DBNull.Value)
+                        continue;
+                    m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.WeldAlignmentMeasureField])), 2);
+                    z = Math.Round(Math.Abs(Convert.ToDouble(r["距离偏移"])), 2);
+                    series.Points.Add(new SeriesPoint(m, z));
+                }
+
+                // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+
+                chartControl1.Series.Add(series);
+                chartControl1.Titles.Clear();
+                ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+                ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+
+                XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
+                // Customize the appearance of the X-axis title. 
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Alignment = StringAlignment.Center;
+                diagram.AxisX.Title.Text = "焊缝里程";
+                diagram.AxisX.Title.TextColor = Color.Black;
+                diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                // Customize the appearance of the Y-axis title. 
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Alignment = StringAlignment.Center;
+                diagram.AxisY.Title.Text = "距离偏移";
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                //((XYDiagram)chartControl1.Diagram).AxisX.Title.Text = "对齐里程";
+                //((XYDiagram)chartControl1.Diagram).AxisY.Title.Text = "特征点里程差";
+                Image image = null;
+                ImageFormat format = ImageFormat.Jpeg;
+                // Create an image of the chart. 
+                using (MemoryStream s = new MemoryStream())
+                {
+                    chartControl1.ExportToImage(s, format);
+                    image = Image.FromStream(s);
+                }
+                control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
+            }
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
     }
 
 }

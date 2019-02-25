@@ -140,8 +140,9 @@ namespace LibCerMap
                     ptable.Columns.Add("Z", System.Type.GetType("System.Double"));
                 if (!ptable.Columns.Contains("对齐里程"))
                     ptable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
-
-                 ISpatialReferenceFactory spatialReferenceFactory = new SpatialReferenceEnvironmentClass();
+                if (!ptable.Columns.Contains("距离偏移"))
+                    ptable.Columns.Add("距离偏移", System.Type.GetType("System.Double"));
+                ISpatialReferenceFactory spatialReferenceFactory = new SpatialReferenceEnvironmentClass();
                 //wgs 84
                 IGeographicCoordinateSystem wgs84 = spatialReferenceFactory.CreateGeographicCoordinateSystem(4326) as IGeographicCoordinateSystem;
                 IUnit meterUnit = spatialReferenceFactory.CreateUnit((int)ESRI.ArcGIS.Geometry.esriSRUnitType.esriSRUnit_Meter);
@@ -164,12 +165,15 @@ namespace LibCerMap
                     r["Y"] = ptInLine.Y;
                     r["对齐里程"] = ptInLine.M;
                     r["Z"] = ptInLine.Z;
+                    
+                    r["距离偏移"] = Math.Round( DataAlignment.DataAlignment.CalculateDistanceBetween84TwoPoints(pt, ptInLine),2);
                 }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(spatialReferenceFactory);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(pLineCursor);
 
 
                 FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(ptable);
+                frm.setResultType("焊缝对齐报告");
                 frm.ShowDialog();
                    
             }
