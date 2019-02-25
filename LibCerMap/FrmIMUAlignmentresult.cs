@@ -301,8 +301,9 @@ namespace LibCerMap
             ref missing, ref missing, ref missing, ref isVisible,
             ref missing, ref missing, ref missing, ref missing);
             doc.Activate();
-
-            DataTable dt = CreateCenterlinePointStatisticsTable();
+            try
+            {
+                DataTable dt = CreateCenterlinePointStatisticsTable();
             string BookMarkName = "tbCenterline";
             ExportDatatableToWordBookMark(dt, BookMarkName, doc);
 
@@ -319,12 +320,19 @@ namespace LibCerMap
             CreateInsidPointCenterlineAlignmentDifferenceStatisticsImage(fm.ChartContrl);
             fm.ShowDialog();
             ExportImageToWordBookMark(BookMarkName, doc, app);
-
-            //!<输出完毕后关闭doc对象
-            object IsSave = true;
-            doc.Close(ref IsSave, ref missing, ref missing);
-            app.Quit(ref missing, ref missing, ref missing);
-            MessageBox.Show("报告生成完毕");
+            }
+             
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                //!<输出完毕后关闭doc对象
+                object IsSave = true;
+                doc.Close(ref IsSave, ref missing, ref missing);
+                app.Quit(ref missing, ref missing, ref missing);
+            }
         }
         private void ExportInsideToInside()
         {
@@ -362,37 +370,48 @@ namespace LibCerMap
             ref missing, ref missing, ref missing, ref isVisible,
             ref missing, ref missing, ref missing, ref missing);
             doc.Activate();
+            try
+            {
+                DataTable dt = CreateInsideToInsiddeBaseStatisticsTable();
+                string BookMarkName = "tbBasePointTable";
+                ExportDatatableToWordBookMark(dt, BookMarkName, doc);
 
-            DataTable dt = CreateInsideToInsiddeBaseStatisticsTable();
-            string BookMarkName = "tbBasePointTable";
-            ExportDatatableToWordBookMark(dt, BookMarkName, doc);
+                BookMarkName = "taAlignmentTable";
+                dt = CreateInsideToInsiddeAlignmentTableStatisticsTable();
+                ExportDatatableToWordBookMark(dt, BookMarkName, doc);
 
-            BookMarkName = "taAlignmentTable";
-            dt = CreateInsideToInsiddeAlignmentTableStatisticsTable();
-            ExportDatatableToWordBookMark(dt, BookMarkName, doc);
+                BookMarkName = "tbAlignment";
+                dt = CreateInsideToInsideAlignmentStatisticsTable();
+                ExportDatatableToWordBookMark(dt, BookMarkName, doc);
 
-            BookMarkName = "tbAlignment";
-            dt = CreateInsideToInsideAlignmentStatisticsTable();
-            ExportDatatableToWordBookMark(dt, BookMarkName, doc);
+                BookMarkName = "tbMeasureDifference";
+                FormChart fm = new FormChart();
+                CreateInsideToInsideAlignmentDifferenceStatisticsImage(fm.ChartContrl);
+                ExportImageToWordBookMark(BookMarkName, doc, app);
 
-            BookMarkName = "tbMeasureDifference";
-            FormChart fm = new FormChart();
-            CreateInsideToInsideAlignmentDifferenceStatisticsImage(fm.ChartContrl);
-            ExportImageToWordBookMark(BookMarkName, doc, app);
+                BookMarkName = "tbtaAnomanyDepth";
+                CreateInsideToInsideAnomanyDepthImage(fm.ChartContrl);
+                ExportImageToWordBookMark(BookMarkName, doc, app);
 
-            BookMarkName = "tbtaAnomanyDepth";             
-            CreateInsideToInsideAnomanyDepthImage(fm.ChartContrl);
-            ExportImageToWordBookMark(BookMarkName, doc, app);
-
-            BookMarkName = "tbtaAnomanyDepthChange";
-            CreateInsideToInsideMatchedAnomanyDepthChangeImage(fm.ChartContrl);
-            ExportImageToWordBookMark(BookMarkName, doc, app);
-             
-            //!<输出完毕后关闭doc对象
-            object IsSave = true;
-            doc.Close(ref IsSave, ref missing, ref missing);
-            app.Quit(ref missing, ref missing, ref missing);
-            MessageBox.Show("报告生成完毕");
+                BookMarkName = "tbtaAnomanyDepthChange";
+                CreateInsideToInsideMatchedAnomanyDepthChangeImage(fm.ChartContrl);
+                ExportImageToWordBookMark(BookMarkName, doc, app);
+                MessageBox.Show("报告生成完毕");
+               
+            }
+            catch(SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                //!<输出完毕后关闭doc对象
+                object IsSave = true;
+                doc.Close(ref IsSave, ref missing, ref missing);
+                app.Quit(ref missing, ref missing, ref missing);
+            }
+            
+          
         }
         private void ExportWeldToCenterline()
         {
@@ -415,37 +434,49 @@ namespace LibCerMap
                 return;
             }
 
+
             Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+
             //!<根据模板文件生成新文件框架
             File.Copy(TemplateFileName, saveFileName);
             //!<生成documnet对象
             Microsoft.Office.Interop.Word.Document doc = new Microsoft.Office.Interop.Word.Document();
-            //!<打开新文挡
-            object objFileName = saveFileName;
-            object missing = System.Reflection.Missing.Value;
-            object isReadOnly = false;
-            object isVisible = false;
-            doc = app.Documents.Open(ref objFileName, ref missing, ref isReadOnly, ref missing,
-            ref missing, ref missing, ref missing, ref missing,
-            ref missing, ref missing, ref missing, ref isVisible,
-            ref missing, ref missing, ref missing, ref missing);
-            doc.Activate();
+           
+                //!<打开新文挡
+                object objFileName = saveFileName;
+                object missing = System.Reflection.Missing.Value;
+                object isReadOnly = false;
+                object isVisible = false;
+                doc = app.Documents.Open(ref objFileName, ref missing, ref isReadOnly, ref missing,
+                ref missing, ref missing, ref missing, ref missing,
+                ref missing, ref missing, ref missing, ref isVisible,
+                ref missing, ref missing, ref missing, ref missing);
+                doc.Activate();
+            try
+            {
+                DataTable dt = CreateWeldToCenterlineTable();
+                string BookMarkName = "tbWeld";
+                ExportDatatableToWordBookMark(dt, BookMarkName, doc);
 
-            DataTable dt = CreateWeldToCenterlineTable();
-            string BookMarkName = "tbWeld";
-            ExportDatatableToWordBookMark(dt, BookMarkName, doc);
+                BookMarkName = "tbWeldOffset";
+                FormChart fm = new FormChart();
+                CreateWeldToCenterlineOffsetTableImage(fm.ChartContrl);
+                ExportImageToWordBookMark(BookMarkName, doc, app);
+                MessageBox.Show("报告生成完毕");
+            }
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                //!<输出完毕后关闭doc对象
+                object IsSave = true;
+                doc.Close(ref IsSave, ref missing, ref missing);
+                app.Quit(ref missing, ref missing, ref missing);
+            }
 
-            BookMarkName = "tbWeldOffset";
-            FormChart fm = new FormChart();
-            CreateWeldToCenterlineOffsetTableImage(fm.ChartContrl);
-            ExportImageToWordBookMark(BookMarkName, doc, app);
 
-
-            //!<输出完毕后关闭doc对象
-            object IsSave = true;
-            doc.Close(ref IsSave, ref missing, ref missing);
-            app.Quit(ref missing, ref missing, ref missing);
-            MessageBox.Show("报告生成完毕");
         }
         private void ExportImageToWordBookMark(string bookmarkName, Microsoft.Office.Interop.Word.Document doc, Microsoft.Office.Interop.Word.Application app)
         {
