@@ -700,7 +700,7 @@ namespace LibCerMap
             dt.Columns.Add("异常数");
             
             DataRow dr = dt.NewRow();
-            dr[EvConfig.IMUInspectionYearField] = BasePointTable.Rows[0][EvConfig.IMUInspectionYearField];
+            dr[EvConfig.IMUInspectionYearField] = stable.Rows[0][EvConfig.IMUInspectionYearField];
             dr["起点记录距离"] = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
             dr["终点记录距离"] = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
             dr["内检测点数"] = stable.Rows.Count;
@@ -738,7 +738,7 @@ namespace LibCerMap
             dt.Columns.Add("异常数");
 
             DataRow dr = dt.NewRow();
-            dr[EvConfig.IMUInspectionYearField] = BasePointTable.Rows[0][EvConfig.IMUInspectionYearField];
+            dr[EvConfig.IMUInspectionYearField] = stable.Rows[0][EvConfig.IMUInspectionYearField];
             dr["起点记录距离"] = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
             dr["终点记录距离"] = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
             dr["内检测点数"] = stable.Rows.Count;
