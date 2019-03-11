@@ -330,10 +330,11 @@ namespace LibCerMap
                     z = Convert.ToDouble(r[EvConfig.CenterlineZField]);
                     series.Points.Add(new SeriesPoint(m, z));
                 }
-                if (r[EvConfig.CenterlineMeasureField] != DBNull.Value && r["管道埋深（"] != DBNull.Value)
+               // if (r[EvConfig.CenterlineMeasureField] != DBNull.Value && r["管道埋深（"] != DBNull.Value)
+                if (r[EvConfig.CenterlineMeasureField] != DBNull.Value && r[EvConfig.CenterlineBuryDepthField] != DBNull.Value)
                 {
                     m = Convert.ToDouble(r[EvConfig.CenterlineMeasureField]);
-                    z = Convert.ToDouble(r["管道埋深（"]);
+                    z = Convert.ToDouble(r[EvConfig.CenterlineBuryDepthField]);
                     series2.Points.Add(new SeriesPoint(m, z));
                 }
             }
