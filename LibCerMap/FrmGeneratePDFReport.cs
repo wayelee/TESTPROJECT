@@ -25,6 +25,7 @@ using System.Drawing.Imaging;
 using DevExpress.Pdf;
 using DevExpress.Pdf.Drawing;
 using DevExpress.XtraCharts;
+using DataAlignment;
 
 namespace LibCerMap
 {
@@ -62,6 +63,10 @@ namespace LibCerMap
                     {
                         comboBoxExIMULayer.Items.Add(pLayer.Name);
                     }
+                    if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPolyline)
+                    {
+                        comboBoxExCenterline.Items.Add(pLayer.Name);
+                    }
                 }
             }
             if (cboBoxPointLayer.Items.Count > 0)
@@ -71,6 +76,10 @@ namespace LibCerMap
             if (comboBoxExIMULayer.Items.Count > 0)
             {
                 comboBoxExIMULayer.SelectedIndex = 0;
+            }
+            if(comboBoxExCenterline.Items.Count > 0)
+            {
+                comboBoxExCenterline.SelectedIndex = 0;
             }
 
         }
@@ -231,6 +240,55 @@ namespace LibCerMap
 
         private void GenerateReportOfSegment(double BegMeasure, double endMeasure, string outFile)
         {
+            IFeatureLayer pCenterlineLayer = null;
+            string pCenterlineFileName = comboBoxExCenterline.SelectedItem.ToString();
+            for (int i = 0; i < pMapcontrol.LayerCount; i++)
+            {
+                if (pCenterlineFileName == pMapcontrol.get_Layer(i).Name)
+                {
+                    pCenterlineLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
+                }
+            }
+            IFeatureClass pCenterlineFC = pCenterlineLayer.FeatureClass;
+            try
+            {
+                IFeatureCursor pCurcor = pCenterlineFC.Search(null, false);
+                IFeature pFeature = pCurcor.NextFeature();
+                IGeometry pGeo = pFeature.Shape;
+                IMSegmentation pMS = pGeo as IMSegmentation;
+                double minM = pMS.MMin;
+                double maxM = pMS.MMax;
+                BegMeasure = BegMeasure < minM ? minM : BegMeasure;
+                endMeasure = endMeasure > maxM ? maxM : endMeasure;
+                IPoint begPt = pMS.GetPointsAtM(BegMeasure,0).Geometry[0] as IPoint;
+                IPoint endPt = pMS.GetPointsAtM(endMeasure,0).Geometry[0] as IPoint;
+                
+                ISpatialReference sourcePrj;
+                sourcePrj = pCenterlineFC.Fields.get_Field(pCenterlineFC.FindField(pCenterlineFC.ShapeFieldName)).GeometryDef.SpatialReference;
+                ISpatialReference targetPrj = pMapcontrol.Map.SpatialReference;                 
+                IPoint begPtPrj;
+                IPoint endPtPrj;
+                 begPt.Project(targetPrj);
+                 endPt.Project(targetPrj);
+                begPtPrj = begPt;
+                endPtPrj = endPt;
+                IActiveView pView = this.pMapcontrol.Map as IActiveView;
+                double widthHeightR = (((double)pView.ExportFrame.right - pView.ExportFrame.left)/ ((double)pView.ExportFrame.bottom - pView.ExportFrame.top));
+                // Dim fw As New FileWindow(begPt, endPt, widthHeightR)
+                MCenterlineUtil fw = new MCenterlineUtil(begPtPrj, endPtPrj, widthHeightR);
+                fw.FitActiveViewTo(pView, true);
+               
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(pCurcor);
+                
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+
+
+
             #region //导出arcmap 地图 export mapfram
 
             IPageLayout _PageLayout = this.pPageLayoutControl.PageLayout;
@@ -255,7 +313,7 @@ namespace LibCerMap
 
             var originalActiveView = _PageLayout as IActiveView;
             var activeView = _PageLayout as IActiveView;
-
+            originalActiveView.Refresh();
             var avEvents = _PageLayout as IActiveViewEvents;
 
             float centerX = layerOutPageSize.Width / 2;

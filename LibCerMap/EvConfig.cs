@@ -12,6 +12,7 @@ namespace LibCerMap
         public static string CenterlineZField = "高程";
         public static string CenterlineMeasureField = "里程";
         public static string CenterlinePointTypeField = "测点属性";
+        public static string CenterlineBuryDepthField = "埋深";
         
         public static string IMUMoveDistanceField = "记录距离";
         public static string IMUPointTypeField = "类型";

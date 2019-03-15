@@ -64,6 +64,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownOverlap = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
+            this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.comboBoxExCenterline = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
@@ -80,6 +82,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSegmentLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlap)).BeginInit();
+            this.groupPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btOK
@@ -113,9 +116,9 @@
             this.gPanelLine.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.gPanelLine.Controls.Add(this.comboBoxExIMULayer);
             this.gPanelLine.DisabledBackColor = System.Drawing.Color.Empty;
-            this.gPanelLine.Location = new System.Drawing.Point(12, 116);
+            this.gPanelLine.Location = new System.Drawing.Point(15, 140);
             this.gPanelLine.Name = "gPanelLine";
-            this.gPanelLine.Size = new System.Drawing.Size(369, 98);
+            this.gPanelLine.Size = new System.Drawing.Size(369, 54);
             // 
             // 
             // 
@@ -152,7 +155,7 @@
             this.comboBoxExIMULayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxExIMULayer.FormattingEnabled = true;
             this.comboBoxExIMULayer.ItemHeight = 14;
-            this.comboBoxExIMULayer.Location = new System.Drawing.Point(22, 19);
+            this.comboBoxExIMULayer.Location = new System.Drawing.Point(22, 3);
             this.comboBoxExIMULayer.Name = "comboBoxExIMULayer";
             this.comboBoxExIMULayer.Size = new System.Drawing.Size(314, 20);
             this.comboBoxExIMULayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -166,9 +169,9 @@
             this.gPanelPoint.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.gPanelPoint.Controls.Add(this.cboBoxPointLayer);
             this.gPanelPoint.DisabledBackColor = System.Drawing.Color.Empty;
-            this.gPanelPoint.Location = new System.Drawing.Point(12, 13);
+            this.gPanelPoint.Location = new System.Drawing.Point(12, 12);
             this.gPanelPoint.Name = "gPanelPoint";
-            this.gPanelPoint.Size = new System.Drawing.Size(369, 97);
+            this.gPanelPoint.Size = new System.Drawing.Size(369, 54);
             // 
             // 
             // 
@@ -205,7 +208,7 @@
             this.cboBoxPointLayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboBoxPointLayer.FormattingEnabled = true;
             this.cboBoxPointLayer.ItemHeight = 14;
-            this.cboBoxPointLayer.Location = new System.Drawing.Point(22, 17);
+            this.cboBoxPointLayer.Location = new System.Drawing.Point(22, 3);
             this.cboBoxPointLayer.Name = "cboBoxPointLayer";
             this.cboBoxPointLayer.Size = new System.Drawing.Size(314, 20);
             this.cboBoxPointLayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -500,6 +503,59 @@
             this.label8.Text = "段间重叠";
             this.label8.Visible = false;
             // 
+            // groupPanel1
+            // 
+            this.groupPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
+            this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.groupPanel1.Controls.Add(this.comboBoxExCenterline);
+            this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
+            this.groupPanel1.Location = new System.Drawing.Point(15, 77);
+            this.groupPanel1.Name = "groupPanel1";
+            this.groupPanel1.Size = new System.Drawing.Size(369, 54);
+            // 
+            // 
+            // 
+            this.groupPanel1.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.groupPanel1.Style.BackColorGradientAngle = 90;
+            this.groupPanel1.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.groupPanel1.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel1.Style.BorderBottomWidth = 1;
+            this.groupPanel1.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.groupPanel1.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel1.Style.BorderLeftWidth = 1;
+            this.groupPanel1.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel1.Style.BorderRightWidth = 1;
+            this.groupPanel1.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel1.Style.BorderTopWidth = 1;
+            this.groupPanel1.Style.CornerDiameter = 4;
+            this.groupPanel1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.groupPanel1.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            // 
+            // 
+            // 
+            this.groupPanel1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.groupPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.groupPanel1.TabIndex = 3;
+            this.groupPanel1.Text = "选择中线图层";
+            // 
+            // comboBoxExCenterline
+            // 
+            this.comboBoxExCenterline.DisplayMember = "Text";
+            this.comboBoxExCenterline.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.comboBoxExCenterline.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxExCenterline.FormattingEnabled = true;
+            this.comboBoxExCenterline.ItemHeight = 14;
+            this.comboBoxExCenterline.Location = new System.Drawing.Point(22, 3);
+            this.comboBoxExCenterline.Name = "comboBoxExCenterline";
+            this.comboBoxExCenterline.Size = new System.Drawing.Size(314, 20);
+            this.comboBoxExCenterline.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.comboBoxExCenterline.TabIndex = 1;
+            this.comboBoxExCenterline.SelectedIndexChanged += new System.EventHandler(this.comboBoxExIMULayer_SelectedIndexChanged);
+            // 
             // FrmGeneratePDFReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -528,6 +584,7 @@
             this.Controls.Add(this.buttonXRemove);
             this.Controls.Add(this.buttonXAdd);
             this.Controls.Add(this.chartControl1);
+            this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.gPanelLine);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.gPanelPoint);
@@ -557,6 +614,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSegmentLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlap)).EndInit();
+            this.groupPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -593,5 +651,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownOverlap;
         private System.Windows.Forms.Label label8;
+        private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExCenterline;
     }
 }
