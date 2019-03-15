@@ -66,6 +66,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.comboBoxExCenterline = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.checkBoxRotateMap = new System.Windows.Forms.CheckBox();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
@@ -556,11 +557,22 @@
             this.comboBoxExCenterline.TabIndex = 1;
             this.comboBoxExCenterline.SelectedIndexChanged += new System.EventHandler(this.comboBoxExIMULayer_SelectedIndexChanged);
             // 
+            // checkBoxRotateMap
+            // 
+            this.checkBoxRotateMap.AutoSize = true;
+            this.checkBoxRotateMap.Location = new System.Drawing.Point(421, 26);
+            this.checkBoxRotateMap.Name = "checkBoxRotateMap";
+            this.checkBoxRotateMap.Size = new System.Drawing.Size(98, 17);
+            this.checkBoxRotateMap.TabIndex = 14;
+            this.checkBoxRotateMap.Text = "自动旋转地图";
+            this.checkBoxRotateMap.UseVisualStyleBackColor = true;
+            // 
             // FrmGeneratePDFReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 520);
+            this.Controls.Add(this.checkBoxRotateMap);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label8);
@@ -653,5 +665,6 @@
         private System.Windows.Forms.Label label8;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExCenterline;
+        private System.Windows.Forms.CheckBox checkBoxRotateMap;
     }
 }
