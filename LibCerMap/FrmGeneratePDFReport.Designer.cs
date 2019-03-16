@@ -219,6 +219,9 @@
             // chartControl1
             // 
             xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.Label.Visible = false;
+            xyDiagram1.AxisY.Tickmarks.MinorVisible = false;
+            xyDiagram1.AxisY.Tickmarks.Visible = false;
             xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
             xyDiagram1.Margins.Bottom = 0;
             xyDiagram1.Margins.Left = 0;
@@ -226,7 +229,10 @@
             xyDiagram1.Margins.Top = 0;
             xyDiagram1.PaneDistance = 0;
             secondaryAxisY1.AxisID = 0;
+            secondaryAxisY1.Label.Visible = false;
             secondaryAxisY1.Name = "Secondary AxisY 1";
+            secondaryAxisY1.Tickmarks.MinorVisible = false;
+            secondaryAxisY1.Tickmarks.Visible = false;
             secondaryAxisY1.VisibleInPanesSerializable = "-1";
             xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
             secondaryAxisY1});
@@ -235,6 +241,8 @@
             this.chartControl1.Legend.Name = "Default Legend";
             this.chartControl1.Location = new System.Drawing.Point(421, 276);
             this.chartControl1.Name = "chartControl1";
+            this.chartControl1.Padding.Left = 0;
+            this.chartControl1.Padding.Right = 0;
             series1.Name = "Series 1";
             series1.View = lineSeriesView1;
             series2.Name = "Series 2";
@@ -246,6 +254,7 @@
             this.chartControl1.Size = new System.Drawing.Size(369, 179);
             this.chartControl1.TabIndex = 5;
             this.chartControl1.Visible = false;
+            this.chartControl1.CustomDrawAxisLabel += new DevExpress.XtraCharts.CustomDrawAxisLabelEventHandler(this.chartControl1_CustomDrawAxisLabel);
             // 
             // buttonXAdd
             // 

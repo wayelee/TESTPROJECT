@@ -54,7 +54,7 @@ namespace LibCerMap
                 {
                     pLayer = pMapcontrol.get_Layer(i);
                     IFeatureLayer pFeatureLayer = pLayer as IFeatureLayer;
-                    IFeatureClass pFeatureClass=pFeatureLayer .FeatureClass ;
+                    IFeatureClass pFeatureClass = pFeatureLayer.FeatureClass;
                     if (pFeatureClass.ShapeType == esriGeometryType.esriGeometryPoint || pFeatureClass.ShapeType == esriGeometryType.esriGeometryMultipoint)
                     {
                         cboBoxPointLayer.Items.Add(pLayer.Name);
@@ -77,13 +77,13 @@ namespace LibCerMap
             {
                 comboBoxExIMULayer.SelectedIndex = 0;
             }
-            if(comboBoxExCenterline.Items.Count > 0)
+            if (comboBoxExCenterline.Items.Count > 0)
             {
                 comboBoxExCenterline.SelectedIndex = 0;
             }
 
         }
-      
+
         //添加点图层按钮
         private void btAddPoint_Click(object sender, EventArgs e)
         {
@@ -92,7 +92,7 @@ namespace LibCerMap
             OpenFile.Filter = "(*.shp)|*.shp";
             if (OpenFile.ShowDialog() == DialogResult.OK)
             {
-                cboBoxPointLayer.Items.Add(System .IO .Path .GetFileNameWithoutExtension( OpenFile.FileName));
+                cboBoxPointLayer.Items.Add(System.IO.Path.GetFileNameWithoutExtension(OpenFile.FileName));
 
                 try
                 {
@@ -111,7 +111,7 @@ namespace LibCerMap
                 cboBoxPointLayer.SelectedIndex = 0;
             }
         }
-     
+
         //保存线文件
         private void btAddLine_Click(object sender, EventArgs e)
         {
@@ -120,7 +120,7 @@ namespace LibCerMap
             SaveFile.Filter = "(*.shp)|*.shp";
             if (SaveFile.ShowDialog() == DialogResult.OK)
             {
-            //    txtLineFilePath.Text = SaveFile.FileName;
+                //    txtLineFilePath.Text = SaveFile.FileName;
             }
         }
 
@@ -142,15 +142,15 @@ namespace LibCerMap
                     return;
                 }
                 double begm = 0; double endm = 0;
-                 GetCenterlineBeginEndMeasure(ref begm, ref endm);
+                GetCenterlineBeginEndMeasure(ref begm, ref endm);
                 if (radioButtonWholeCenterline.Checked)
-                {                   
+                {
                     GenerateReportOfSegment(begm, endm, outFile);
                 }
                 if (radioButtonGivenBeginEndMeasure.Checked)
                 {
-                    double bm = Convert.ToDouble( numericUpDownBeginMeasure1.Value);
-                    double em = Convert.ToDouble( numericUpDownEndMeasure1.Value);
+                    double bm = Convert.ToDouble(numericUpDownBeginMeasure1.Value);
+                    double em = Convert.ToDouble(numericUpDownEndMeasure1.Value);
                     GenerateReportOfSegment(bm, em, outFile);
                 }
                 if (radioButtonSelectRangeOnMap.Checked)
@@ -163,27 +163,27 @@ namespace LibCerMap
                     double em = Convert.ToDouble(numericUpDownEndMeasure2.Value);
                     double tempB = bm;
                     double tempE = tempB + Convert.ToDouble(numericUpDownSegmentLength.Value);
-                     GenerateReportOfSegment(tempB, tempE, outFile);
-                     tempB = tempE;
+                    GenerateReportOfSegment(tempB, tempE, outFile);
+                    tempB = tempE;
                     int i = 1;
-                    while(tempB < em)
+                    while (tempB < em)
                     {
                         tempE = tempB + Convert.ToDouble(numericUpDownSegmentLength.Value);
                         if (tempE >= em)
                         {
                             tempE = em;
                         }
-                         GenerateReportOfSegment(tempB, tempE, outFile.Substring(0, outFile.Length - 4) + "_" + i.ToString() + ".pdf");
-                         tempB = tempE;
-                         i++;
+                        GenerateReportOfSegment(tempB, tempE, outFile.Substring(0, outFile.Length - 4) + "_" + i.ToString() + ".pdf");
+                        tempB = tempE;
+                        i++;
                     }
 
                 }
-              
-              
+
+
                 MessageBox.Show("导出成功");
             }
-            catch(SystemException ex)
+            catch (SystemException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -203,13 +203,13 @@ namespace LibCerMap
             IQueryFilter pQF = null;
             DataTable alignmentPointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, pQF);
             DataView dv = alignmentPointTable.DefaultView;
-           // dv.Sort = "里程（m）" + " ASC";
+            // dv.Sort = "里程（m）" + " ASC";
             dv.Sort = EvConfig.CenterlineMeasureField + " ASC";
 
             alignmentPointTable = dv.ToTable();
             beginM = Convert.ToDouble(alignmentPointTable.Rows[0][EvConfig.CenterlineMeasureField]);
             endM = Convert.ToDouble(alignmentPointTable.Rows[alignmentPointTable.Rows.Count - 1][EvConfig.CenterlineMeasureField]);
-             
+
         }
         private List<Tuple<double, string>> GetPDFBandData(string fieldName)
         {
@@ -231,9 +231,9 @@ namespace LibCerMap
             var query = (from r in alignmentPointTable.AsEnumerable()
                          where r["类型"].ToString().Contains("异常")
                          select r).ToList();
-            foreach(DataRow r in query)
+            foreach (DataRow r in query)
             {
-                banddata.Add(new Tuple<double, string>( Convert.ToDouble(r["对齐里程"]), r[fieldName].ToString())); 
+                banddata.Add(new Tuple<double, string>(Convert.ToDouble(r["对齐里程"]), r[fieldName].ToString()));
             }
             return banddata;
         }
@@ -262,31 +262,30 @@ namespace LibCerMap
                     double maxM = pMS.MMax;
                     BegMeasure = BegMeasure < minM ? minM : BegMeasure;
                     endMeasure = endMeasure > maxM ? maxM : endMeasure;
-                    IPoint begPt = pMS.GetPointsAtM(BegMeasure,0).Geometry[0] as IPoint;
-                    IPoint endPt = pMS.GetPointsAtM(endMeasure,0).Geometry[0] as IPoint;
-                
+                    IPoint begPt = pMS.GetPointsAtM(BegMeasure, 0).Geometry[0] as IPoint;
+                    IPoint endPt = pMS.GetPointsAtM(endMeasure, 0).Geometry[0] as IPoint;
+
                     ISpatialReference sourcePrj;
                     sourcePrj = pCenterlineFC.Fields.get_Field(pCenterlineFC.FindField(pCenterlineFC.ShapeFieldName)).GeometryDef.SpatialReference;
-                    ISpatialReference targetPrj = pMapcontrol.Map.SpatialReference;                 
+                    ISpatialReference targetPrj = pMapcontrol.Map.SpatialReference;
                     IPoint begPtPrj;
                     IPoint endPtPrj;
-                     begPt.Project(targetPrj);
-                     endPt.Project(targetPrj);
+                    begPt.Project(targetPrj);
+                    endPt.Project(targetPrj);
                     begPtPrj = begPt;
                     endPtPrj = endPt;
                     IActiveView pView = this.pMapcontrol.Map as IActiveView;
                     pView.ScreenDisplay.DisplayTransformation.Rotation = 0;
-                    double widthHeightR = (((double)pView.ExportFrame.right - pView.ExportFrame.left)/ ((double)pView.ExportFrame.bottom - pView.ExportFrame.top));
+                    double widthHeightR = (((double)pView.ExportFrame.right - pView.ExportFrame.left) / ((double)pView.ExportFrame.bottom - pView.ExportFrame.top));
                     // Dim fw As New FileWindow(begPt, endPt, widthHeightR)
                     MCenterlineUtil fw = new MCenterlineUtil(begPtPrj, endPtPrj, widthHeightR);
-             
+
                     fw.FitActiveViewTo(pView, true);
-                    return;
-               
+
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(pCurcor);
-                
+
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                     return;
@@ -393,7 +392,7 @@ namespace LibCerMap
                     z = Convert.ToDouble(r[EvConfig.CenterlineZField]);
                     series.Points.Add(new SeriesPoint(m, z));
                 }
-               // if (r[EvConfig.CenterlineMeasureField] != DBNull.Value && r["管道埋深（"] != DBNull.Value)
+                // if (r[EvConfig.CenterlineMeasureField] != DBNull.Value && r["管道埋深（"] != DBNull.Value)
                 if (r[EvConfig.CenterlineMeasureField] != DBNull.Value && r[EvConfig.CenterlineBuryDepthField] != DBNull.Value)
                 {
                     m = Convert.ToDouble(r[EvConfig.CenterlineMeasureField]);
@@ -401,14 +400,22 @@ namespace LibCerMap
                     series2.Points.Add(new SeriesPoint(m, z));
                 }
             }
-            
+
             chartControl1.Series.Add(series);
             chartControl1.Series.Add(series2);
             ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
             ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Add(myAxisY);
             ((LineSeriesView)series2.View).AxisY = myAxisY;
-            ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+            myAxisY.Tickmarks.Visible = false;
+            myAxisY.Tickmarks.MinorVisible = false;
+            ((XYDiagram)chartControl1.Diagram).AxisX.WholeRange.AutoSideMargins = false;
+            ((XYDiagram)chartControl1.Diagram).AxisX.WholeRange.SideMarginsValue = 0;
+            ((XYDiagram)chartControl1.Diagram).AxisX.WholeRange.SetMinMaxValues(BegMeasure, endMeasure);
+
+
+
             #endregion
+            
 
             #region export chartcontrol
             IGraphicsContainer pGC = _PageLayout as IGraphicsContainer;
@@ -616,7 +623,7 @@ namespace LibCerMap
                 //    listBoxFields.Items.Insert(insertidx,listBoxDrawBandFields.Items[idx].ToString());                   
                 //}
                 listBoxDrawBandFields.Items.RemoveAt(idx);
-                
+
             }
         }
 
@@ -647,112 +654,159 @@ namespace LibCerMap
             buttonXRemove_Click(null, null);
         }
 
-    }
-
-    public class band
-    {
-        // all the info should be in device unit. head is in left of band
-        public System.Drawing.Point BandTopLeftLocation;       
-        public double BandWidth;
-        public double BandHight = 50;
-        public double BandHeadWidth = 40;
-
-        public string BandName = "属性";
-        public double BeginM;
-        public double EndM;
-        public PdfGraphics pdfGC;
-        public System.Drawing.Font headFont;
-        public System.Drawing.Font ContentFont;
-        public Pen pPen = new Pen(Color.Black);
-        // item1 measure, item2 text
-        public List<Tuple<double, string>> bandData = new List<Tuple<double,string>>();
-
-        //private Pen p = Pens.Black;
-        public band()
+        private void chartControl1_CustomDrawAxisLabel(object sender, CustomDrawAxisLabelEventArgs e)
         {
-        }
-
-        public void Draw()
-        {
-            DrawBandHead();
-            DrawBandBorder();
-            DrawBandContent();
-        }
-        public void DrawBandHead()
-        {
-            pPen.Width = 1;
-            pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)(BandTopLeftLocation.Y + BandHight));
-
-            pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y + BandHight));
-            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y);
-
-            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y);
-
-          //  RectangleF rF = new RectangleF((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y), (float)BandHeadWidth, (float)BandHight);
-            RectangleF rF = new RectangleF(0, 0, (float)BandHight,(float)BandHeadWidth);
-           
-            PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
-            psf.Alignment = PdfStringAlignment.Center;
-            psf.LineAlignment = PdfStringAlignment.Center;
-           // pdfGC.DrawString(BandName, textfont, Brushes.Black, rF, psf);
-
-            pdfGC.SaveGraphicsState();
-            // head box 的左下角
-            pdfGC.TranslateTransform((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y+ BandHight));          
-            pdfGC.RotateTransform(270);
-            pdfGC.DrawString(BandName, headFont, new SolidBrush(Color.Black),rF,psf);
-            pdfGC.RestoreGraphicsState();
-        }
-        public void DrawBandBorder()
-        {
-            Pen pPen = new Pen(Color.Black);
-            pPen.Width = 1;
-            pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y ));
-
-            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y), (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y + BandHight));
-            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X), (float)(BandTopLeftLocation.Y + BandHight));
-
-            pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X), (float)(BandTopLeftLocation.Y + BandHight), (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y);
-      
-            
-        }
-        public void DrawBandContent()
-        {
-            double beginXInDC = BandTopLeftLocation.X;
-            double endXInDC = BandTopLeftLocation.X + BandWidth;
-            double bottomYInDC = BandTopLeftLocation.Y + BandHight;
-            int indicatorLinelength =4;
-
-            int contentTextBoxWidth = 20;
-            for (int i = 0; i < bandData.Count; i++)
+            if (e.Item.Axis.Equals(((XYDiagram)chartControl1.Diagram).AxisX))
             {
-                double m = bandData[i].Item1;
-                if (m < BeginM || m > EndM)
-                {
-                    continue;
-                }
-                string Txt = bandData[i].Item2;
 
-                Double XInDC = (m - BeginM) * (endXInDC - beginXInDC) / (EndM - BeginM) + beginXInDC;
-                //指示线
-                pdfGC.DrawLine(pPen, (float)XInDC, (float)bottomYInDC, (float)XInDC, (float)bottomYInDC - indicatorLinelength);
+            }
+            else
+            {
+                //TextAnnotation ann = chartControl1.Annotations.AddTextAnnotation();
+                //ann.Text = e.Item.Text;
+                //PaneAnchorPoint spa = new PaneAnchorPoint();
+                //spa.AxisXCoordinate.Axis = ((XYDiagram)chartControl1.Diagram).AxisX;
+                //spa.AxisYCoordinate.Axis = ((XYDiagram)chartControl1.Diagram).AxisY;
+                //spa.AxisXCoordinate.AxisValue = 0;
+                //spa.AxisYCoordinate.AxisValue = e.Item.AxisValue;
+                //RelativePosition pos = new RelativePosition();
+                //pos.Angle = 0;
+                //pos.ConnectorLength = 20;
+                //ann.ShapePosition = pos;
+                //ann.AnchorPoint = spa;
+                
+                e.Item.Text = null;
+                
 
-                RectangleF rF = new RectangleF(0, 0, (float)BandHight - indicatorLinelength, (float)contentTextBoxWidth);
+
+
+                // ((XYDiagram)chartControl1.Diagram).AxisY.Label.
+                //foreach (SeriesPoint sp in chart.Diagram.Series[0].Points)
+                //{
+                //    Annotation ann = new Annotation();
+                //    ann.Content = string.Format("{0:N0}", sp.Value);
+                //    PaneAnchorPoint spa = new PaneAnchorPoint();
+                //    spa.AxisXCoordinate = new AxisXCoordinate() { AxisValue = sp.Argument };
+                //    spa.AxisYCoordinate = new AxisYCoordinate() { AxisValue = 0 };
+                //    RelativePosition pos = new RelativePosition();
+                //    pos.Angle = 0;
+                //    pos.ConnectorLength = 20;
+                //    ann.ShapePosition = pos;
+                //    ann.AnchorPoint = spa;
+                //    chart.Annotations.Add(ann);
+                //}
+
+
+
+            }
+
+        }
+
+        public class band
+        {
+            // all the info should be in device unit. head is in left of band
+            public System.Drawing.Point BandTopLeftLocation;
+            public double BandWidth;
+            public double BandHight = 50;
+            public double BandHeadWidth = 40;
+
+            public string BandName = "属性";
+            public double BeginM;
+            public double EndM;
+            public PdfGraphics pdfGC;
+            public System.Drawing.Font headFont;
+            public System.Drawing.Font ContentFont;
+            public Pen pPen = new Pen(Color.Black);
+            // item1 measure, item2 text
+            public List<Tuple<double, string>> bandData = new List<Tuple<double, string>>();
+
+            //private Pen p = Pens.Black;
+            public band()
+            {
+            }
+
+            public void Draw()
+            {
+                DrawBandHead();
+                DrawBandBorder();
+                DrawBandContent();
+            }
+            public void DrawBandHead()
+            {
+                pPen.Width = 1;
+                pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)(BandTopLeftLocation.Y + BandHight));
+
+                pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y + BandHight));
+                pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y);
+
+                pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X - BandHeadWidth), (float)BandTopLeftLocation.Y, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y);
+
+                //  RectangleF rF = new RectangleF((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y), (float)BandHeadWidth, (float)BandHight);
+                RectangleF rF = new RectangleF(0, 0, (float)BandHight, (float)BandHeadWidth);
 
                 PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
-                psf.Alignment = PdfStringAlignment.Near;
+                psf.Alignment = PdfStringAlignment.Center;
                 psf.LineAlignment = PdfStringAlignment.Center;
+                // pdfGC.DrawString(BandName, textfont, Brushes.Black, rF, psf);
 
                 pdfGC.SaveGraphicsState();
                 // head box 的左下角
-                pdfGC.TranslateTransform((float)(XInDC) - contentTextBoxWidth/2, (float)bottomYInDC - indicatorLinelength );
-              //  pdfGC.TranslateTransform((float)(XInDC), (float)(BandTopLeftLocation.Y - BandHight - 2));
-              //  pdfGC.TranslateTransform((float)(XInDC), (float)(BandTopLeftLocation.Y - BandHight -2));
+                pdfGC.TranslateTransform((float)(BandTopLeftLocation.X - BandHeadWidth), (float)(BandTopLeftLocation.Y + BandHight));
                 pdfGC.RotateTransform(270);
-                pdfGC.DrawString(Txt, ContentFont, new SolidBrush(Color.Black), rF, psf);
+                pdfGC.DrawString(BandName, headFont, new SolidBrush(Color.Black), rF, psf);
                 pdfGC.RestoreGraphicsState();
             }
+            public void DrawBandBorder()
+            {
+                Pen pPen = new Pen(Color.Black);
+                pPen.Width = 1;
+                pdfGC.DrawLine(pPen, (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y));
 
+                pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y), (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y + BandHight));
+                pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X + BandWidth), (float)(BandTopLeftLocation.Y + BandHight), (float)(BandTopLeftLocation.X), (float)(BandTopLeftLocation.Y + BandHight));
+
+                pdfGC.DrawLine(pPen, (float)(BandTopLeftLocation.X), (float)(BandTopLeftLocation.Y + BandHight), (float)BandTopLeftLocation.X, (float)BandTopLeftLocation.Y);
+
+
+            }
+            public void DrawBandContent()
+            {
+                double beginXInDC = BandTopLeftLocation.X;
+                double endXInDC = BandTopLeftLocation.X + BandWidth;
+                double bottomYInDC = BandTopLeftLocation.Y + BandHight;
+                int indicatorLinelength = 4;
+
+                int contentTextBoxWidth = 20;
+                for (int i = 0; i < bandData.Count; i++)
+                {
+                    double m = bandData[i].Item1;
+                    if (m < BeginM || m > EndM)
+                    {
+                        continue;
+                    }
+                    string Txt = bandData[i].Item2;
+
+                    Double XInDC = (m - BeginM) * (endXInDC - beginXInDC) / (EndM - BeginM) + beginXInDC;
+                    //指示线
+                    pdfGC.DrawLine(pPen, (float)XInDC, (float)bottomYInDC, (float)XInDC, (float)bottomYInDC - indicatorLinelength);
+
+                    RectangleF rF = new RectangleF(0, 0, (float)BandHight - indicatorLinelength, (float)contentTextBoxWidth);
+
+                    PdfStringFormat psf = new PdfStringFormat(PdfStringFormat.GenericDefault);
+                    psf.Alignment = PdfStringAlignment.Near;
+                    psf.LineAlignment = PdfStringAlignment.Center;
+
+                    pdfGC.SaveGraphicsState();
+                    // head box 的左下角
+                    pdfGC.TranslateTransform((float)(XInDC) - contentTextBoxWidth / 2, (float)bottomYInDC - indicatorLinelength);
+                    //  pdfGC.TranslateTransform((float)(XInDC), (float)(BandTopLeftLocation.Y - BandHight - 2));
+                    //  pdfGC.TranslateTransform((float)(XInDC), (float)(BandTopLeftLocation.Y - BandHight -2));
+                    pdfGC.RotateTransform(270);
+                    pdfGC.DrawString(Txt, ContentFont, new SolidBrush(Color.Black), rF, psf);
+                    pdfGC.RestoreGraphicsState();
+                }
+
+            }
         }
     }
 
