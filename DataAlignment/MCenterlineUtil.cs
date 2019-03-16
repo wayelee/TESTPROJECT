@@ -132,37 +132,11 @@ namespace DataAlignment
 
                     IPolygon poly = BuildRectange(centerPt);
                     ITransform2D transForPoly = poly as ITransform2D;
-                    transForPoly.Rotate(centerPt, Rotation * (Math.PI / 180)); // XQ: parameter should be radian
+                    transForPoly.Rotate(centerPt, Rotation * (Math.PI / 180)); 
 
                     poly.SpatialReference = pt1.SpatialReference;
 
                     return poly;
-
-
-                    //Dim ptF1, ptF2 As PointF
-                    //ptF1 = New PointF(pt1.X, pt1.Y)
-                    //ptF2 = New PointF(pt2.X, pt2.Y)
-
-                    //Dim centerPF As PointF = New PointF((ptF1.X + ptF2.X) / 2, (ptF1.Y + ptF2.Y) / 2)
-
-                    //Dim mForPoints As System.Drawing.Drawing2D.Matrix = New System.Drawing.Drawing2D.Matrix()
-                    //mForPoints.RotateAt(-Rotation, centerPF)
-                    //Dim pts(1) As PointF
-                    //pts(0) = ptF1
-                    //pts(1) = ptF2
-                    //mForPoints.TransformPoints(pts)
-
-                    //Dim ptsForPolygon() As PointF = BuildRectange(centerPF)
-                    //Dim mForPolygon As System.Drawing.Drawing2D.Matrix = New System.Drawing.Drawing2D.Matrix()
-                    //mForPolygon.RotateAt(Rotation, centerPF)
-                    //mForPolygon.TransformPoints(ptsForPolygon)
-
-                    //Dim poly As IPolygon = CreatePolygonFromPointF(ptsForPolygon)
-                    //poly.SpatialReference = pt1.SpatialReference
-
-                    //Return poly
-
-
 
                 }
                 catch (Exception ex)

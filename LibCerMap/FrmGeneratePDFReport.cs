@@ -275,11 +275,13 @@ namespace LibCerMap
                     begPtPrj = begPt;
                     endPtPrj = endPt;
                     IActiveView pView = this.pMapcontrol.Map as IActiveView;
+                    pView.ScreenDisplay.DisplayTransformation.Rotation = 0;
                     double widthHeightR = (((double)pView.ExportFrame.right - pView.ExportFrame.left)/ ((double)pView.ExportFrame.bottom - pView.ExportFrame.top));
                     // Dim fw As New FileWindow(begPt, endPt, widthHeightR)
                     MCenterlineUtil fw = new MCenterlineUtil(begPtPrj, endPtPrj, widthHeightR);
              
                     fw.FitActiveViewTo(pView, true);
+                    return;
                
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(pCurcor);
                 
