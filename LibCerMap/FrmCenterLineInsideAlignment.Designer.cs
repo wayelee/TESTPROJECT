@@ -42,19 +42,25 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.comboBoxExCenterlineLinearLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.groupPanel2 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.textBoxFile = new System.Windows.Forms.TextBox();
+            this.radioButtonFromMap = new System.Windows.Forms.RadioButton();
+            this.radioButtonFromExcelFile = new System.Windows.Forms.RadioButton();
+            this.buttonXDIR = new DevComponents.DotNetBar.ButtonX();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.groupPanel1.SuspendLayout();
+            this.groupPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btOK
             // 
             this.btOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btOK.Location = new System.Drawing.Point(206, 372);
+            this.btOK.Location = new System.Drawing.Point(206, 463);
             this.btOK.Name = "btOK";
             this.btOK.Size = new System.Drawing.Size(75, 25);
             this.btOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -66,7 +72,7 @@
             // 
             this.btCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btCancel.Location = new System.Drawing.Point(303, 372);
+            this.btCancel.Location = new System.Drawing.Point(303, 463);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 25);
             this.btCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -81,7 +87,7 @@
             this.gPanelLine.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.gPanelLine.Controls.Add(this.comboBoxExCenterlineLayer);
             this.gPanelLine.DisabledBackColor = System.Drawing.Color.Empty;
-            this.gPanelLine.Location = new System.Drawing.Point(12, 105);
+            this.gPanelLine.Location = new System.Drawing.Point(12, 196);
             this.gPanelLine.Name = "gPanelLine";
             this.gPanelLine.Size = new System.Drawing.Size(369, 88);
             // 
@@ -180,7 +186,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(34, 332);
+            this.numericUpDown1.Location = new System.Drawing.Point(34, 423);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             99999999,
             0,
@@ -193,7 +199,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 313);
+            this.label1.Location = new System.Drawing.Point(34, 404);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 6;
@@ -201,7 +207,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(239, 332);
+            this.numericUpDown2.Location = new System.Drawing.Point(239, 423);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             99999999,
             0,
@@ -214,7 +220,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(236, 313);
+            this.label2.Location = new System.Drawing.Point(236, 404);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 6;
@@ -222,7 +228,7 @@
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(34, 372);
+            this.numericUpDown3.Location = new System.Drawing.Point(34, 463);
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(106, 20);
             this.numericUpDown3.TabIndex = 5;
@@ -230,7 +236,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 355);
+            this.label3.Location = new System.Drawing.Point(34, 446);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 6;
@@ -243,7 +249,7 @@
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.groupPanel1.Controls.Add(this.comboBoxExCenterlineLinearLayer);
             this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanel1.Location = new System.Drawing.Point(12, 212);
+            this.groupPanel1.Location = new System.Drawing.Point(12, 303);
             this.groupPanel1.Name = "groupPanel1";
             this.groupPanel1.Size = new System.Drawing.Size(369, 88);
             // 
@@ -288,11 +294,94 @@
             this.comboBoxExCenterlineLinearLayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.comboBoxExCenterlineLinearLayer.TabIndex = 1;
             // 
+            // groupPanel2
+            // 
+            this.groupPanel2.BackColor = System.Drawing.Color.Transparent;
+            this.groupPanel2.CanvasColor = System.Drawing.SystemColors.Control;
+            this.groupPanel2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.groupPanel2.Controls.Add(this.textBoxFile);
+            this.groupPanel2.Controls.Add(this.buttonXDIR);
+            this.groupPanel2.DisabledBackColor = System.Drawing.Color.Empty;
+            this.groupPanel2.Location = new System.Drawing.Point(12, 105);
+            this.groupPanel2.Name = "groupPanel2";
+            this.groupPanel2.Size = new System.Drawing.Size(369, 86);
+            // 
+            // 
+            // 
+            this.groupPanel2.Style.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2;
+            this.groupPanel2.Style.BackColorGradientAngle = 90;
+            this.groupPanel2.Style.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
+            this.groupPanel2.Style.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel2.Style.BorderBottomWidth = 1;
+            this.groupPanel2.Style.BorderColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
+            this.groupPanel2.Style.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel2.Style.BorderLeftWidth = 1;
+            this.groupPanel2.Style.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel2.Style.BorderRightWidth = 1;
+            this.groupPanel2.Style.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.groupPanel2.Style.BorderTopWidth = 1;
+            this.groupPanel2.Style.CornerDiameter = 4;
+            this.groupPanel2.Style.CornerType = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.groupPanel2.Style.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            // 
+            // 
+            // 
+            this.groupPanel2.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.groupPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.groupPanel2.TabIndex = 2;
+            this.groupPanel2.Text = "选择内检测点文件";
+            // 
+            // textBoxFile
+            // 
+            this.textBoxFile.Location = new System.Drawing.Point(19, 19);
+            this.textBoxFile.Name = "textBoxFile";
+            this.textBoxFile.Size = new System.Drawing.Size(297, 20);
+            this.textBoxFile.TabIndex = 0;
+            // 
+            // radioButtonFromMap
+            // 
+            this.radioButtonFromMap.AutoSize = true;
+            this.radioButtonFromMap.Checked = true;
+            this.radioButtonFromMap.Location = new System.Drawing.Point(387, 52);
+            this.radioButtonFromMap.Name = "radioButtonFromMap";
+            this.radioButtonFromMap.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonFromMap.TabIndex = 8;
+            this.radioButtonFromMap.TabStop = true;
+            this.radioButtonFromMap.Text = "从图层获取";
+            this.radioButtonFromMap.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonFromExcelFile
+            // 
+            this.radioButtonFromExcelFile.AutoSize = true;
+            this.radioButtonFromExcelFile.Location = new System.Drawing.Point(387, 144);
+            this.radioButtonFromExcelFile.Name = "radioButtonFromExcelFile";
+            this.radioButtonFromExcelFile.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonFromExcelFile.TabIndex = 8;
+            this.radioButtonFromExcelFile.Text = "从文件获取";
+            this.radioButtonFromExcelFile.UseVisualStyleBackColor = true;
+            // 
+            // buttonXDIR
+            // 
+            this.buttonXDIR.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXDIR.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXDIR.Location = new System.Drawing.Point(322, 17);
+            this.buttonXDIR.Name = "buttonXDIR";
+            this.buttonXDIR.Size = new System.Drawing.Size(28, 25);
+            this.buttonXDIR.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXDIR.TabIndex = 0;
+            this.buttonXDIR.Text = "...";
+            this.buttonXDIR.Click += new System.EventHandler(this.buttonXDIR_Click);
+            // 
             // FrmCenterLineInsideAlignment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 428);
+            this.ClientSize = new System.Drawing.Size(495, 514);
+            this.Controls.Add(this.radioButtonFromExcelFile);
+            this.Controls.Add(this.radioButtonFromMap);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
@@ -302,6 +391,7 @@
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.gPanelLine);
             this.Controls.Add(this.btCancel);
+            this.Controls.Add(this.groupPanel2);
             this.Controls.Add(this.gPanelPoint);
             this.Controls.Add(this.btOK);
             this.DoubleBuffered = true;
@@ -319,6 +409,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.groupPanel1.ResumeLayout(false);
+            this.groupPanel2.ResumeLayout(false);
+            this.groupPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -340,5 +432,10 @@
         private System.Windows.Forms.Label label3;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExCenterlineLinearLayer;
+        private DevComponents.DotNetBar.Controls.GroupPanel groupPanel2;
+        private System.Windows.Forms.TextBox textBoxFile;
+        private DevComponents.DotNetBar.ButtonX buttonXDIR;
+        private System.Windows.Forms.RadioButton radioButtonFromMap;
+        private System.Windows.Forms.RadioButton radioButtonFromExcelFile;
     }
 }

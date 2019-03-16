@@ -19,6 +19,7 @@ using System.Drawing.Text;
 using stdole;
 using DevComponents.DotNetBar;
 using AOFunctions.GDB;
+using System.Data.OleDb;
 
 namespace LibCerMap
 {
@@ -137,11 +138,32 @@ namespace LibCerMap
                         pCenterlinePointLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
                     }
                 }
-                IFeatureClass pLineFC = pCenterlinePointLayer.FeatureClass;
-                IFeatureClass pPointFC = pIMUPointLayer.FeatureClass;
                 IQueryFilter pQF = null;
+                IFeatureClass pLineFC = pCenterlinePointLayer.FeatureClass;
                 DataTable CenterlinePointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pLineFC as ITable, pQF);
-                DataTable IMUTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, pQF);
+                IFeatureClass pPointFC = pIMUPointLayer.FeatureClass;
+
+                DataTable IMUTable;
+                if(radioButtonFromMap.Checked)
+                {
+                    IMUTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, pQF);
+                }
+                else
+                {
+                    string strCon = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + this.textBoxFile.Text + ";Extended Properties=Excel 8.0";
+                    OleDbConnection conn = new OleDbConnection(strCon);
+                    string sql1 = "select * from [Sheet1$]";
+                    conn.Open();
+                    OleDbDataAdapter myCommand = new OleDbDataAdapter(sql1, strCon);
+                    DataSet ds = new DataSet();
+                    myCommand.Fill(ds);
+                    conn.Close();
+                    IMUTable = ds.Tables[0];
+                    IMUTable.Columns[EvConfig.IMUMoveDistanceField].DataType = System.Type.GetType("System.Double");
+                }
+
+
+
 
                 double beginM = (double)numericUpDown1.Value;
                 double endM = (double)numericUpDown2.Value;
@@ -435,5 +457,18 @@ namespace LibCerMap
             this.Close();
         }
 
+        private void buttonXDIR_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
+            OpenFileDialog1.Filter = "Excel Files (xls)|*.xls";
+
+            OpenFileDialog1.FilterIndex = 2;
+            OpenFileDialog1.RestoreDirectory = true;          
+            if( OpenFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK )
+            {
+                textBoxFile.Text = OpenFileDialog1.FileName;
+            }
+
+        }
     }
 }
