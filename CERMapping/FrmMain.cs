@@ -163,6 +163,11 @@ namespace CERMapping
         private CmdSetAdjustData m_SetAdjustData;
         //校正
         private CmdAdjust m_Adjust;
+        //添加内检测到中线对齐点
+        public ToolNewIMUToCenterlineMapping m_IMUToCenterlineMapping;
+        public CmdSetIMUCentlineData m_SetIMUCenterlineData;
+        public CmdViewIMUCentelineMappingTable m_ViewIMUCentelineMappingTable;
+
 
         private EngineInkEnvironmentClass m_EngineInkEnvironmentClass = new EngineInkEnvironmentClass();
 
@@ -697,6 +702,21 @@ namespace CERMapping
             axToolbarControlSpatialAdjust.AddItem(m_NewDisplacement, -1, -1, false, 0, esriCommandStyles.esriCommandStyleIconOnly);
             axToolbarControlSpatialAdjust.AddItem(m_ViewLinkTable, -1, -1, false, 0, esriCommandStyles.esriCommandStyleIconOnly);
             axToolbarControlSpatialAdjust.AddItem(m_Adjust, -1, -1, false, 0, esriCommandStyles.esriCommandStyleIconOnly);
+            axToolbarControlSpatialAdjust.AddItem(new ToolSplitLine(), -1, -1, false, 0, esriCommandStyles.esriCommandStyleIconOnly);
+          
+            //axToolbarControlSpatialAdjust.AddItem(
+
+            m_SetIMUCenterlineData = new CmdSetIMUCentlineData();
+            axToolbarControlSpatialAdjust.AddItem(m_SetIMUCenterlineData, -1, -1, false, 0, esriCommandStyles.esriCommandStyleIconOnly);            
+          
+            m_IMUToCenterlineMapping = new ToolNewIMUToCenterlineMapping();
+            axToolbarControlSpatialAdjust.AddItem(m_IMUToCenterlineMapping, -1, -1, false, 0, esriCommandStyles.esriCommandStyleIconOnly);
+
+            m_ViewIMUCentelineMappingTable = new CmdViewIMUCentelineMappingTable();
+            axToolbarControlSpatialAdjust.AddItem(m_ViewIMUCentelineMappingTable, -1, -1, false, 0, esriCommandStyles.esriCommandStyleIconOnly);
+             m_SetIMUCenterlineData.NewIMUToCenterlineMappingTool = m_IMUToCenterlineMapping;
+            m_ViewIMUCentelineMappingTable.m_ToolAddControlPoints = m_IMUToCenterlineMapping;
+           
 
             m_SetAdjustData.NewDisplacement = m_NewDisplacement;
             m_NewDisplacement.ListLayers = m_SetAdjustData.ListLayers;
@@ -1734,6 +1754,48 @@ namespace CERMapping
                     gcs.DrawLine(penred, ox, oy - linelength, ox, oy + linelength);
                     gcs.DrawLine(penred, ox + linelength, oy, ox - linelength, oy);
                 }
+            }
+        }
+
+        private void DrawIMUCenterlineMappingPoints()
+        {
+            try
+            {
+                if (m_IMUToCenterlineMapping == null || m_IMUToCenterlineMapping.m_IMUFeatureList == null || m_IMUToCenterlineMapping.m_CenterlinePointFeatureList == null || m_IMUToCenterlineMapping.m_IMUFeatureList.Count != m_IMUToCenterlineMapping.m_CenterlinePointFeatureList.Count)
+                {
+                    return;
+                }
+
+                //pengreen.Width = 2;
+                int linelength = 4;
+                for (int i = 0; i < m_IMUToCenterlineMapping.m_IMUFeatureList.Count; i++)
+                {
+                    //IPoint opt = m_ToolAddControlPoints.OriginPoints.get_Point(i);
+                    IPoint opt = m_IMUToCenterlineMapping.m_IMUFeatureList[i].Shape as IPoint;
+                    IPoint tpt = m_IMUToCenterlineMapping.m_CenterlinePointFeatureList[i].Shape as IPoint;
+                    IMapControl2 mapctrl = axMapCtlMain.Object as IMapControl2;
+
+                    int ox = 0; int oy = 0; int tx = 0; int ty = 0;
+                    mapctrl.FromMapPoint(opt, ref ox, ref oy);
+                    mapctrl.FromMapPoint(tpt, ref tx, ref ty);
+                    gcs.DrawLine(penblue, ox, oy, tx, ty);
+                    gcs.DrawLine(penred, ox - linelength, oy - linelength, ox + linelength, oy + linelength);
+                    gcs.DrawLine(penred, ox + linelength, oy - linelength, ox - linelength, oy + linelength);
+                    gcs.DrawEllipse(penred, ox - linelength, oy - linelength, 2 * linelength, 2 * linelength);
+                    gcs.DrawLine(pengreen, tx - linelength, ty - linelength, tx + linelength, ty + linelength);
+                    gcs.DrawLine(pengreen, tx + linelength, ty - linelength, tx - linelength, ty + linelength);
+                    gcs.DrawEllipse(pengreen, tx - linelength, ty - linelength, 2 * linelength, 2 * linelength);
+
+                    if (i == m_IMUToCenterlineMapping.FrmVectorLinkTable.SeletedIndex)
+                    {
+                        gcs.DrawLine(penyelow, ox, oy, tx, ty);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -8408,6 +8470,8 @@ namespace CERMapping
             //太阳高度角量测点
             DrawSunAltPoints();
 
+            //内检测中线对齐
+            DrawIMUCenterlineMappingPoints();
             try
             {
                 if (dock3D.Selected)
@@ -8660,6 +8724,7 @@ namespace CERMapping
             IPageLayoutControl pPagelayoutControl = axPageLayoutCtlMain.Object as IPageLayoutControl;
             FrmGeneratePDFReport frm = new FrmGeneratePDFReport(pMapcontrol, pPagelayoutControl);
             frm.ShowDialog();
+            //frm.Show();
         
         }
 

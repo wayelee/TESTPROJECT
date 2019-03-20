@@ -95,6 +95,9 @@
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="ESRI.ArcGIS.TrackingAnalyst, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -185,6 +188,8 @@
     <Compile Include="CmdViewLinkTabale.cs" />
     <Compile Include="CmdViewLinkTable.cs" />
     <Compile Include="CmdZoomToLayer.cs" />
+    <Compile Include="CmdSetIMUCentlineData.cs" />
+    <Compile Include="CmdViewIMUCentelineMappingTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolAddControlPoints.cs" />
     <Compile Include="ToolAddCraterOnTIN.cs" />
@@ -198,6 +203,7 @@
     <Compile Include="ToolEditFeatures.cs" />
     <Compile Include="ToolExtractCraterSample.cs" />
     <Compile Include="ToolModifyTINNode.cs" />
+    <Compile Include="ToolNewIMUToCenterlineMapping.cs" />
     <Compile Include="ToolNewDisplacement.cs" />
     <Compile Include="ToolRasterEdit.cs" />
     <Compile Include="ToolRasterShift.cs" />
@@ -263,6 +269,10 @@
     <EmbeddedResource Include="ToolDeleteNodeByArea.cur" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CmdViewIMUCentelineMappingTable.bmp" />
+    <EmbeddedResource Include="CmdSetIMUCentlineData.bmp" />
+    <EmbeddedResource Include="ToolNewIMUToCenterlineMapping.bmp" />
+    <EmbeddedResource Include="ToolNewIMUToCenterlineMapping.cur" />
     <EmbeddedResource Include="ToolRasterEdit.cur" />
     <EmbeddedResource Include="ToolRasterEdit.bmp" />
     <EmbeddedResource Include="ToolCreateParallel.cur" />

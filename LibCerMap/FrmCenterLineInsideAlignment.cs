@@ -460,7 +460,7 @@ namespace LibCerMap
         private void buttonXDIR_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
-            OpenFileDialog1.Filter = "Excel Files (xls)|*.xls";
+            OpenFileDialog1.Filter = "Excel文件(*.xls) | *.xls";
 
             OpenFileDialog1.FilterIndex = 2;
             OpenFileDialog1.RestoreDirectory = true;          

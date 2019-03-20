@@ -226,11 +226,23 @@
     <Compile Include="ClsSiftMatching.cs" />
     <Compile Include="ClsZfDatabase.cs" />
     <Compile Include="ControlsSynchronizer.cs" />
+    <Compile Include="FrmIMUCenterlineMappingTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmIMUCenterlineMappingTable.Designer.cs">
+      <DependentUpon>FrmIMUCenterlineMappingTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormChart.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormChart.Designer.cs">
       <DependentUpon>FormChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCenterLineInsideLayerSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCenterLineInsideLayerSetting.Designer.cs">
+      <DependentUpon>FrmCenterLineInsideLayerSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmCenterLineWeldAlignment.cs">
       <SubType>Form</SubType>
@@ -1030,8 +1042,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmIMUCenterlineMappingTable.resx">
+      <DependentUpon>FrmIMUCenterlineMappingTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormChart.resx">
       <DependentUpon>FormChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCenterLineInsideLayerSetting.resx">
+      <DependentUpon>FrmCenterLineInsideLayerSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCenterLineWeldAlignment.resx">
       <DependentUpon>FrmCenterLineWeldAlignment.cs</DependentUpon>
