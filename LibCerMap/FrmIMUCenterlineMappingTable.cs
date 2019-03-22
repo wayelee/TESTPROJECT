@@ -33,6 +33,9 @@ namespace LibCerMap
         public List<IFeature> IMUFeatureList;
         public List<IFeature> CenterlinePointFeatureList;
 
+        public IFeatureLayer IMULayer;
+        public IFeatureLayer CenterlinePointLayer;
+        public IFeatureLayer CenterlineLinarLayer;
 
         public int SeletedIndex
         {
@@ -213,6 +216,9 @@ namespace LibCerMap
 
                 fieldname = dataTable1.Columns[4].Caption;
                 row[4] = pCenterlinePointFeature.Value[pCenterlinePointFeature.Fields.FindField(fieldname)];
+
+                row[5] = pIMUFeature.OID;
+                row[6] = pCenterlinePointFeature.OID;
                 //row[1] = m_OriginPoints.get_Point(i).X;
                 //row[2] = m_OriginPoints.get_Point(i).Y;
                 //row[3] = m_TargetPoints.get_Point(i).X;
@@ -275,6 +281,226 @@ namespace LibCerMap
                 {
                     m_pMapCtr.FlashShape(ppl, 3, 100);
                 }
+            }
+        }
+       
+        public void UpdateLayerName()
+        {
+            if (IMULayer != null)
+            {
+                labelIMU.Text = IMULayer.Name;
+            }
+            if (CenterlinePointLayer != null)
+            {
+                labelCenterlinePoint.Text = CenterlinePointLayer.Name;
+            }
+            if (CenterlineLinarLayer != null)
+            {
+                labelCenterline.Text = CenterlineLinarLayer.Name;
+            }
+        }
+
+        private void buttonXOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(IMUFeatureList.Count < 2)
+                {
+                    MessageBox.Show("最少需要2个特征点");
+                    return;
+                }
+                
+                IQueryFilter pQF = null;
+                IFeatureClass pLineFC = CenterlinePointLayer.FeatureClass;
+                DataTable CenterlinePointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pLineFC as ITable, pQF);
+                IFeatureClass pPointFC = IMULayer.FeatureClass;
+
+                DataTable IMUTable;       
+                IMUTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, pQF);
+
+                Dictionary<DataRow, DataRow> MatchedDataRowPair = new Dictionary<DataRow, DataRow>();
+                  List<IFeature> sortedIMUList = (from IFeature f in IMUFeatureList
+                                    select f).OrderBy(x => x.get_Value(x.Fields.FindField(EvConfig.IMUMoveDistanceField))).ToList();
+
+                 List<IFeature> sortedCenterlinePointList = (from IFeature f in CenterlinePointFeatureList
+                                                select f).OrderBy(x => x.get_Value(x.Fields.FindField(EvConfig.CenterlineMeasureField))).ToList();
+
+               
+                DataView dv = CenterlinePointTable.DefaultView;
+                // dv.Sort = "里程（m） ASC";
+                dv.Sort = EvConfig.CenterlineMeasureField + " ASC";
+                CenterlinePointTable = dv.ToTable();
+                dv = IMUTable.DefaultView;
+                // dv.Sort = "记录距离__ ASC";
+                dv.Sort = EvConfig.IMUMoveDistanceField + " ASC";
+                IMUTable = dv.ToTable();
+
+                
+               // double centerlineLength = endM - beginM;
+                if (!IMUTable.Columns.Contains("X"))
+                    IMUTable.Columns.Add("X", System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("Y"))
+                    IMUTable.Columns.Add("Y", System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("Z"))
+                    IMUTable.Columns.Add("Z", System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("里程差"))
+                    IMUTable.Columns.Add("里程差", System.Type.GetType("System.Double"));
+                if (!IMUTable.Columns.Contains("对齐里程"))
+                    IMUTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
+
+                for (int i = 0; i < IMUFeatureList.Count; i++)
+                {
+                    int oid1 = sortedIMUList[i].OID;
+                    int oid2 = sortedCenterlinePointList[i].OID;
+                    DataRow IMURow = IMUTable.AsEnumerable().First(x => Convert.ToInt16(x[0]) == oid1);
+                    DataRow CenterlineRow = CenterlinePointTable.AsEnumerable().First(x => Convert.ToInt16(x[0]) == oid2);
+                    MatchedDataRowPair.Add(IMURow, CenterlineRow);
+                }
+
+
+                foreach(DataRow r in IMUTable.Rows)
+                {
+                    r["对齐里程"] = DBNull.Value;
+                    r["里程差"] = DBNull.Value;
+
+                }
+
+                double endIMUM = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1][EvConfig.IMUMoveDistanceField]);
+                double beginIMUM = Convert.ToDouble(IMUTable.Rows[0][EvConfig.IMUMoveDistanceField]);
+                double IMULength = endIMUM - beginIMUM;
+
+                double CenterlineBeginM = Convert.ToDouble( CenterlinePointTable.Rows[0][EvConfig.CenterlineMeasureField]);
+                double CenterlineEndM = Convert.ToDouble(CenterlinePointTable.AsEnumerable().Last()[EvConfig.CenterlineMeasureField]);
+
+                foreach (DataRow r in MatchedDataRowPair.Keys)
+                {
+                    r["对齐里程"] = MatchedDataRowPair[r][EvConfig.CenterlineMeasureField];
+                    r["里程差"] = 0;
+                }
+
+                //List<DataRow> WantouPointList = (from DataRow r in IMUTable.Rows
+                //                                 where r["类型"].ToString().Contains("弯头")
+                //                                 select r).ToList();
+                //List<DataRow> GuandianPointList = (from DataRow r in CenterlinePointTable.Rows
+                //                                   where r["测点属性"].ToString().Contains("拐点")
+                //                                   select r).ToList();
+
+                DataTable alignmentPointTable = IMUTable;
+
+                double beginM =0;
+                double endM=0;
+                 var query = (from r in alignmentPointTable.AsEnumerable()
+                                   where r["对齐里程"] != DBNull.Value
+                                   select r).ToList();
+                    if (query.Count > 0)
+                    {
+                        DataRow r = query[0];
+                        if(IMUTable.Rows[0]["对齐里程"] != DBNull.Value)
+                        {
+                            beginM = Convert.ToDouble( IMUTable.Rows[0]["对齐里程"]);
+                        }
+                        else
+                        {
+                            beginM = Convert.ToDouble(r["对齐里程"]) -
+                           (Convert.ToDouble(r[EvConfig.IMUMoveDistanceField]) - Convert.ToDouble(alignmentPointTable.Rows[0][EvConfig.IMUMoveDistanceField]));
+                            alignmentPointTable.Rows[0]["对齐里程"] = beginM;
+                        }
+                       
+
+                        int idx = alignmentPointTable.Rows.Count - 1;
+                        r = query[query.Count - 1];
+
+                        if (IMUTable.AsEnumerable().Last()["对齐里程"] != DBNull.Value)
+                        {
+                            endM = Convert.ToDouble(IMUTable.AsEnumerable().Last()["对齐里程"]);
+                        }
+                        else
+                        {
+                            endM = Convert.ToDouble(r["对齐里程"]) +
+                          (Convert.ToDouble(alignmentPointTable.Rows[idx][EvConfig.IMUMoveDistanceField]) - Convert.ToDouble(r[EvConfig.IMUMoveDistanceField]));
+                            alignmentPointTable.Rows[idx]["对齐里程"] = endM;
+                        }
+                    }
+
+                if(beginM < CenterlineBeginM)
+                {
+                    beginM = CenterlineBeginM;
+                }
+                if(endM > CenterlineEndM)
+                {
+                    endM = CenterlineEndM;
+                }
+
+
+                    DataRow PrevRowWithM = null;
+                    for (int i = 0; i < IMUTable.Rows.Count; i++)
+                    {
+                        DataRow r = IMUTable.Rows[i];
+                        if (r["对齐里程"] != DBNull.Value)
+                        {
+                            PrevRowWithM = r;
+                        }
+                        else
+                        {
+                            DataRow NextRowWithM = null;
+                            for (int j = i + 1; j < IMUTable.Rows.Count; j++)
+                            {
+                                DataRow r2 = IMUTable.Rows[j];
+                                if (r2["对齐里程"] != DBNull.Value)
+                                {
+                                    NextRowWithM = r2;
+                                    break;
+                                }
+                            }
+                            if (PrevRowWithM == null || NextRowWithM == null)
+                            {
+                                break;
+                            }
+                            double BeginJiluM = Convert.ToDouble(PrevRowWithM[EvConfig.IMUMoveDistanceField]);
+                            double endJiluM = Convert.ToDouble(NextRowWithM[EvConfig.IMUMoveDistanceField]);
+                            double BeginAM = Convert.ToDouble(PrevRowWithM["对齐里程"]);
+                            double endAM = Convert.ToDouble(NextRowWithM["对齐里程"]);
+                            double currentJiluM = Convert.ToDouble(r[EvConfig.IMUMoveDistanceField]);
+                            r["对齐里程"] = (currentJiluM - BeginJiluM) * (endAM - BeginAM) / (endJiluM - BeginJiluM) + BeginAM;
+                        }
+                    }
+
+                    IFeatureLayer pLinearlayer = CenterlineLinarLayer;
+                     
+                    IFeatureCursor pcursor = pLinearlayer.FeatureClass.Search(null, false);
+                    IFeature pFeature = pcursor.NextFeature();
+                    IPolyline pline = pFeature.Shape as IPolyline;
+                    IMSegmentation mSegment = pline as IMSegmentation;
+                    double maxM = mSegment.MMax;
+                    double minM = mSegment.MMin;
+
+                    //if (beginM > maxM || beginM < minM || endM > maxM || endM < minM)
+                    //{
+                    //    MessageBox.Show("输入的起始或终点里程值超出中线里程范围!");
+                    //    return;
+                    //}
+
+                    for (int i = 0; i < IMUTable.Rows.Count; i++)
+                    {
+                        DataRow r = IMUTable.Rows[i];
+                        double M = Convert.ToDouble(r["对齐里程"]);
+
+                        IGeometryCollection ptcollection = mSegment.GetPointsAtM(M, 0);
+                        IPoint pt = ptcollection.get_Geometry(0) as IPoint;
+                        r["X"] = pt.X;
+                        r["Y"] = pt.Y;
+                        r["Z"] = pt.Z;
+                    }
+
+
+                    FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(IMUTable);
+                    frm.CenterlinePointTable = CenterlinePointTable;
+                    frm.setResultType("内检测对齐中线报告");
+                    frm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

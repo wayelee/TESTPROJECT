@@ -97,7 +97,7 @@ namespace LibEngineCmd
         //指示是否为线的起点
         private bool bFlag = true;
         //连接点表
-        private FrmIMUCenterlineMappingTable m_FrmVectorLinkTable = new FrmIMUCenterlineMappingTable();
+        public FrmIMUCenterlineMappingTable m_FrmVectorLinkTable = new FrmIMUCenterlineMappingTable();
         private IGraphicsLayer m_pIGraphicsLayer = null;
 
         
@@ -356,14 +356,31 @@ namespace LibEngineCmd
                         {
                             CenterlinePointFeature = pFeature;
 
+                          
+
+                            if (m_CenterlinePointFeatureList.Count > 0)
+                            {
+                                double newIMUM = Convert.ToDouble(IMUFeature.Value[m_IMUFeatureList[0].Fields.FindField("记录距离")]);
+                                double newCenterlineM = Convert.ToDouble(CenterlinePointFeature.Value[m_CenterlinePointFeatureList[0].Fields.FindField("里程")]);
+                                for(int i = 0; i< m_CenterlinePointFeatureList.Count; i++)
+                                {
+                                    double previewIMUM = Convert.ToDouble(m_IMUFeatureList[i].Value[m_IMUFeatureList[0].Fields.FindField("记录距离")]);
+                                    double previewCentlineM = Convert.ToDouble(m_CenterlinePointFeatureList[i].Value[m_CenterlinePointFeatureList[0].Fields.FindField("里程")]);
+                                     
+                                    if((newIMUM - previewIMUM) * (newCenterlineM - previewCentlineM) <= 0)
+                                    {
+                                        MessageBox.Show("特征点不能交叉匹配.");
+                                        return;
+                                    }  
+                                }
+                            }
+                            
                             m_IMUFeatureList.Add(IMUFeature);
                             m_CenterlinePointFeatureList.Add(CenterlinePointFeature);
-
-
                             bFlag = true;
                             IPolyline pPline = m_NewLineFeedback.Stop();
                             m_FrmVectorLinkTable.RefreshDataTable();
-                           
+                                                       
                         }
                     }
                     m_MapControl.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewAll, null, null);

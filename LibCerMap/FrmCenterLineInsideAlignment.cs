@@ -192,7 +192,7 @@ namespace LibCerMap
 
                 double endIMUM = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1][EvConfig.IMUMoveDistanceField]);
                 double beginIMUM = Convert.ToDouble(IMUTable.Rows[0][EvConfig.IMUMoveDistanceField]);
-                double IMULength = endIMUM - beginM;
+                double IMULength = endIMUM - beginIMUM;
 
                 List<DataRow> WantouPointList = (from DataRow r in IMUTable.Rows
                                                  where r["类型"].ToString().Contains("弯头")

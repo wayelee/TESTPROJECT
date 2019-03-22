@@ -186,6 +186,12 @@ namespace LibEngineCmd
                     m_NewIMUToCenterlineMapping.pIMULayer = this.pIMULayer;
                     m_NewIMUToCenterlineMapping.pCenterlineLayer = this.pCenterlineLayer;
                     m_NewIMUToCenterlineMapping.pCenterlinePointLayer = this.pCenterlinePointLayer;
+
+                    m_NewIMUToCenterlineMapping.FrmVectorLinkTable.IMULayer = this.pIMULayer;
+                    m_NewIMUToCenterlineMapping.FrmVectorLinkTable.CenterlinePointLayer = this.pCenterlinePointLayer;
+                    m_NewIMUToCenterlineMapping.FrmVectorLinkTable.CenterlineLinarLayer = this.pCenterlineLayer;
+
+                    m_NewIMUToCenterlineMapping.FrmVectorLinkTable.UpdateLayerName();
                 }
             }
 
