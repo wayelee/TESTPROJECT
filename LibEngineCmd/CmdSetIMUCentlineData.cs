@@ -177,6 +177,14 @@ namespace LibEngineCmd
             m_FrmSetCenterLineInsideData = new FrmCenterLineInsideLayerSetting(pMapCtr);
             if (m_FrmSetCenterLineInsideData.ShowDialog() == DialogResult.OK)
             {
+
+                if (m_NewIMUToCenterlineMapping.FrmVectorLinkTable.IMUFeatureList != null && m_NewIMUToCenterlineMapping.FrmVectorLinkTable.IMUFeatureList.Count > 0)
+                {
+                    if (MessageBox.Show("更新图层将清空的已添加特征点，是否继续?", "", MessageBoxButtons.YesNo) == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
                 pIMULayer = m_FrmSetCenterLineInsideData.pIMULayer;
                 pCenterlineLayer = m_FrmSetCenterLineInsideData.pCenterlineLayer;
                 pCenterlinePointLayer = m_FrmSetCenterLineInsideData.pCenterlinePointLayer;
@@ -190,7 +198,7 @@ namespace LibEngineCmd
                     m_NewIMUToCenterlineMapping.FrmVectorLinkTable.IMULayer = this.pIMULayer;
                     m_NewIMUToCenterlineMapping.FrmVectorLinkTable.CenterlinePointLayer = this.pCenterlinePointLayer;
                     m_NewIMUToCenterlineMapping.FrmVectorLinkTable.CenterlineLinarLayer = this.pCenterlineLayer;
-
+                    m_NewIMUToCenterlineMapping.FrmVectorLinkTable.ClearMappingPoints();
                     m_NewIMUToCenterlineMapping.FrmVectorLinkTable.UpdateLayerName();
                 }
             }

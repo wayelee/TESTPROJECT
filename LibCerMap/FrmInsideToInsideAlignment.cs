@@ -703,8 +703,16 @@ namespace LibCerMap
         // format 12:00,  to minute. 0 ~ 720
         private double ShizhongFangweiToMinutes(string timestring)
         {
-            DateTime tm = DateTime.Parse(timestring);
-            return tm.Hour * 60.0 + tm.Minute;
+            DateTime tm ;
+            if (DateTime.TryParse(timestring, out tm))
+            {
+                return tm.Hour * 60.0 + tm.Minute;
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
         private void comboBoxExCenterlineLayer_SelectedIndexChanged(object sender, EventArgs e)
         {

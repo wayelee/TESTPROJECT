@@ -13,12 +13,12 @@ namespace LibCerMap
     public partial class FormChart : Form
     {
         public DevExpress.XtraCharts.ChartControl ChartContrl;
-        public System.Windows.Forms.DataVisualization.Charting.Chart chartcontrol2;
+        public DevExpress.XtraCharts.ChartControl chartcontrol3;
         public FormChart()
         {
             InitializeComponent();
             ChartContrl = this.chartControl1;
-            chartcontrol2 = this.chart1;
+            chartcontrol3 = this.chartControl3;
         }
         public void ChartControlToImage()
         {

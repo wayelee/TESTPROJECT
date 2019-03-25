@@ -19,10 +19,11 @@ using System.Windows.Forms.DataVisualization.Charting;
 namespace LibCerMap
 {
     public partial class FrmIMUAlignmentresult : OfficeForm
-    {
+    {         
         private DataTable sourcetable;
         private string m_ResultType;
         private string TempImagePath;
+
         //内检测对齐中线
         public DataTable CenterlinePointTable;
         public DataTable InsidePointTable;
@@ -318,8 +319,14 @@ namespace LibCerMap
             BookMarkName = "tbMeasureDifference";
             FormChart fm = new FormChart();
             CreateInsidPointCenterlineAlignmentDifferenceStatisticsImage(fm.ChartContrl);
-            fm.ShowDialog();
+           // fm.ShowDialog();
             ExportImageToWordBookMark(BookMarkName, doc, app);
+
+            BookMarkName = "tbMeasureAlignmentStatics";
+            CreateInsidPointCenterlineAlignmentStatisticsImage(fm.chartcontrol3);            
+            ExportImageToWordBookMark(BookMarkName, doc, app);
+
+            MessageBox.Show("导出成功");
             }
              
             catch (SystemException ex)
@@ -396,6 +403,13 @@ namespace LibCerMap
                 BookMarkName = "tbtaAnomanyDepthChange";
                 CreateInsideToInsideMatchedAnomanyDepthChangeImage(fm.ChartContrl);
                 ExportImageToWordBookMark(BookMarkName, doc, app);
+
+
+                BookMarkName = "tbtaAnomanyStatisticsImage";
+                CreateInsideToInsideAlignmentStatisticsImage(fm.chartcontrol3);
+                ExportImageToWordBookMark(BookMarkName, doc, app);
+
+
                 MessageBox.Show("报告生成完毕");
                
             }
@@ -682,7 +696,61 @@ namespace LibCerMap
 
         }
 
+        //内检测对其到中线对齐情况统计图
+        private void CreateInsidPointCenterlineAlignmentStatisticsImage(ChartControl control)
+        {
+            DataTable stable = InsidePointTable;
+            DataTable BaseTable = CenterlinePointTable;
+            ChartControl chartControl1 = control;
+            double BegMeasure = BaseTable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.CenterlineMeasureField]));
+            double endMeasure = BaseTable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.CenterlineMeasureField]));
+            //chartControl1.Series.Clear();
+          //  DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("中线点", ViewType.Bar);
+            DevExpress.XtraCharts.Series seriesNotAligned = chartControl1.Series[1];
+            seriesNotAligned.Name = "未对齐内检测点";
+            seriesNotAligned.ShowInLegend = true;
 
+            DevExpress.XtraCharts.Series seriesAligned = chartControl1.Series[2];
+            seriesAligned.Name = "对齐内检测点";
+            foreach (DataRow r in sourcetable.Rows)
+            {
+                double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
+                double z = 4;
+                if (r["里程差"] == DBNull.Value)
+                {                  
+                    seriesNotAligned.Points.Add(new SeriesPoint(m, z));
+                }
+                else
+                {
+                    seriesAligned.Points.Add(new SeriesPoint(m, z));
+                }
+            }
+
+
+            DevExpress.XtraCharts.Series seriesCenterline = chartControl1.Series[0];
+            seriesCenterline.Name = "中线点";
+            seriesCenterline.ShowInLegend = true;
+            foreach (DataRow r in CenterlinePointTable.Rows)
+            {
+                double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField])), 2);
+                double z = 4;
+                seriesCenterline.Points.Add(new SeriesPoint(m, z));
+            }
+            XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
+            diagram.SecondaryAxesX[0].WholeRange.MinValue = diagram.AxisX.WholeRange.MinValue;
+            diagram.SecondaryAxesX[0].WholeRange.MaxValue = diagram.AxisX.WholeRange.MaxValue;
+        
+ 
+            Image image = null;
+            ImageFormat format = ImageFormat.Jpeg;
+            // Create an image of the chart. 
+            using (MemoryStream s = new MemoryStream())
+            {
+                chartControl1.ExportToImage(s, format);
+                image = Image.FromStream(s);
+            }
+            control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
+        }
 
         // 两次内检测base内检测表
         private DataTable CreateInsideToInsiddeBaseStatisticsTable()
@@ -796,6 +864,71 @@ namespace LibCerMap
             dt.Rows.Add(dr);
             return dt;
         }
+        
+        //两次内检测对齐统计图
+        private void CreateInsideToInsideAlignmentStatisticsImage(ChartControl control)
+        {
+            DataTable stable = AlignmentPointTable;
+            DataTable BaseTable = BasePointTable;
+            ChartControl chartControl1 = control;
+            double BegMeasure = BaseTable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
+            double endMeasure = BaseTable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
+            //chartControl1.Series.Clear();
+            //  DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("中线点", ViewType.Bar);
+            DevExpress.XtraCharts.Series seriesNotAligned = chartControl1.Series[1];
+            seriesNotAligned.Name = "未对齐内检测点";
+            seriesNotAligned.ShowInLegend = true;
+
+            DevExpress.XtraCharts.Series seriesAligned = chartControl1.Series[2];
+            seriesAligned.Name = "对齐内检测点";
+            foreach (DataRow r in sourcetable.Rows)
+            {
+                double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
+                double z = 4;
+                if (r["对齐基准点里程"] == DBNull.Value)
+                {
+                    seriesNotAligned.Points.Add(new SeriesPoint(m, z));
+                }
+                else
+                {
+                    seriesAligned.Points.Add(new SeriesPoint(m, z));
+                }
+            }
+
+
+            DevExpress.XtraCharts.Series seriesCenterline = chartControl1.Series[0];
+            seriesCenterline.Name = "基础内检测点";
+            seriesCenterline.ShowInLegend = true;
+            foreach (DataRow r in BasePointTable.Rows)
+            {
+                double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
+                double z = 4;
+                seriesCenterline.Points.Add(new SeriesPoint(m, z));
+            }
+            XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
+            double minvalue = Math.Min(Convert.ToDouble(diagram.SecondaryAxesX[0].WholeRange.MinValue),
+                Convert.ToDouble(diagram.AxisX.WholeRange.MinValue));
+
+            double maxvalue = Math.Max(Convert.ToDouble(diagram.SecondaryAxesX[0].WholeRange.MaxValue),
+                Convert.ToDouble(diagram.AxisX.WholeRange.MaxValue));
+
+            diagram.SecondaryAxesX[0].WholeRange.MinValue = minvalue;
+            diagram.SecondaryAxesX[0].WholeRange.MaxValue = maxvalue;
+
+            diagram.AxisX.WholeRange.MinValue = minvalue;
+            diagram.AxisX.WholeRange.MaxValue = maxvalue;
+
+            Image image = null;
+            ImageFormat format = ImageFormat.Jpeg;
+            // Create an image of the chart. 
+            using (MemoryStream s = new MemoryStream())
+            {
+                chartControl1.ExportToImage(s, format);
+                image = Image.FromStream(s);
+            }
+            control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
+        }
+
 
         private void CreateInsideToInsideAlignmentDifferenceStatisticsImage(ChartControl control)
         {

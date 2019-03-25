@@ -300,6 +300,12 @@ namespace LibCerMap
             }
         }
 
+        public void ClearMappingPoints()
+        {
+            IMUFeatureList.Clear();
+            CenterlinePointFeatureList.Clear();
+            RefreshDataTable();
+        }
         private void buttonXOK_Click(object sender, EventArgs e)
         {
             try
@@ -425,10 +431,13 @@ namespace LibCerMap
                 if(beginM < CenterlineBeginM)
                 {
                     beginM = CenterlineBeginM;
+                    alignmentPointTable.Rows[0]["对齐里程"] = beginM;
                 }
                 if(endM > CenterlineEndM)
                 {
+                    int idx = alignmentPointTable.Rows.Count - 1;
                     endM = CenterlineEndM;
+                    alignmentPointTable.Rows[idx]["对齐里程"] = endM;
                 }
 
 
