@@ -31,9 +31,13 @@
             this.btOK = new DevComponents.DotNetBar.ButtonX();
             this.btCancel = new DevComponents.DotNetBar.ButtonX();
             this.gPanelLine = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.radioButtonFile = new System.Windows.Forms.RadioButton();
+            this.radioButtonLayer = new System.Windows.Forms.RadioButton();
+            this.textBoxFile = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxExCenterlineLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.comboBoxMeasureField = new System.Windows.Forms.ComboBox();
+            this.buttonXSelect = new DevComponents.DotNetBar.ButtonX();
             this.gPanelPoint = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxBaseMeasureField = new System.Windows.Forms.ComboBox();
@@ -59,7 +63,7 @@
             // 
             this.btOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btOK.Location = new System.Drawing.Point(225, 315);
+            this.btOK.Location = new System.Drawing.Point(225, 393);
             this.btOK.Name = "btOK";
             this.btOK.Size = new System.Drawing.Size(75, 25);
             this.btOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -71,7 +75,7 @@
             // 
             this.btCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btCancel.Location = new System.Drawing.Point(306, 315);
+            this.btCancel.Location = new System.Drawing.Point(306, 393);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 25);
             this.btCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -84,13 +88,15 @@
             this.gPanelLine.BackColor = System.Drawing.Color.Transparent;
             this.gPanelLine.CanvasColor = System.Drawing.SystemColors.Control;
             this.gPanelLine.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.gPanelLine.Controls.Add(this.textBoxFile);
             this.gPanelLine.Controls.Add(this.label5);
             this.gPanelLine.Controls.Add(this.comboBoxExCenterlineLayer);
             this.gPanelLine.Controls.Add(this.comboBoxMeasureField);
+            this.gPanelLine.Controls.Add(this.buttonXSelect);
             this.gPanelLine.DisabledBackColor = System.Drawing.Color.Empty;
             this.gPanelLine.Location = new System.Drawing.Point(12, 116);
             this.gPanelLine.Name = "gPanelLine";
-            this.gPanelLine.Size = new System.Drawing.Size(369, 98);
+            this.gPanelLine.Size = new System.Drawing.Size(350, 158);
             // 
             // 
             // 
@@ -118,12 +124,41 @@
             // 
             this.gPanelLine.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.gPanelLine.TabIndex = 3;
-            this.gPanelLine.Text = "选择对齐内检测点图层";
+            this.gPanelLine.Text = "选择对齐内检测点";
+            // 
+            // radioButtonFile
+            // 
+            this.radioButtonFile.AutoSize = true;
+            this.radioButtonFile.Location = new System.Drawing.Point(368, 201);
+            this.radioButtonFile.Name = "radioButtonFile";
+            this.radioButtonFile.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonFile.TabIndex = 10;
+            this.radioButtonFile.Text = "从文件获取";
+            this.radioButtonFile.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonLayer
+            // 
+            this.radioButtonLayer.AutoSize = true;
+            this.radioButtonLayer.Checked = true;
+            this.radioButtonLayer.Location = new System.Drawing.Point(368, 154);
+            this.radioButtonLayer.Name = "radioButtonLayer";
+            this.radioButtonLayer.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonLayer.TabIndex = 10;
+            this.radioButtonLayer.TabStop = true;
+            this.radioButtonLayer.Text = "从图层获取";
+            this.radioButtonLayer.UseVisualStyleBackColor = true;
+            // 
+            // textBoxFile
+            // 
+            this.textBoxFile.Location = new System.Drawing.Point(22, 66);
+            this.textBoxFile.Name = "textBoxFile";
+            this.textBoxFile.Size = new System.Drawing.Size(273, 20);
+            this.textBoxFile.TabIndex = 9;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 55);
+            this.label5.Location = new System.Drawing.Point(19, 104);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(127, 13);
             this.label5.TabIndex = 8;
@@ -138,18 +173,33 @@
             this.comboBoxExCenterlineLayer.ItemHeight = 14;
             this.comboBoxExCenterlineLayer.Location = new System.Drawing.Point(22, 19);
             this.comboBoxExCenterlineLayer.Name = "comboBoxExCenterlineLayer";
-            this.comboBoxExCenterlineLayer.Size = new System.Drawing.Size(314, 20);
+            this.comboBoxExCenterlineLayer.Size = new System.Drawing.Size(273, 20);
             this.comboBoxExCenterlineLayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.comboBoxExCenterlineLayer.TabIndex = 1;
             this.comboBoxExCenterlineLayer.SelectedIndexChanged += new System.EventHandler(this.comboBoxExCenterlineLayer_SelectedIndexChanged);
             // 
             // comboBoxMeasureField
             // 
+            this.comboBoxMeasureField.Enabled = false;
             this.comboBoxMeasureField.FormattingEnabled = true;
-            this.comboBoxMeasureField.Location = new System.Drawing.Point(161, 52);
+            this.comboBoxMeasureField.Items.AddRange(new object[] {
+            "记录距离"});
+            this.comboBoxMeasureField.Location = new System.Drawing.Point(152, 96);
             this.comboBoxMeasureField.Name = "comboBoxMeasureField";
-            this.comboBoxMeasureField.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxMeasureField.Size = new System.Drawing.Size(119, 21);
             this.comboBoxMeasureField.TabIndex = 7;
+            // 
+            // buttonXSelect
+            // 
+            this.buttonXSelect.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXSelect.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXSelect.Location = new System.Drawing.Point(301, 66);
+            this.buttonXSelect.Name = "buttonXSelect";
+            this.buttonXSelect.Size = new System.Drawing.Size(34, 25);
+            this.buttonXSelect.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXSelect.TabIndex = 0;
+            this.buttonXSelect.Text = "...";
+            this.buttonXSelect.Click += new System.EventHandler(this.buttonXSelect_Click);
             // 
             // gPanelPoint
             // 
@@ -162,7 +212,7 @@
             this.gPanelPoint.DisabledBackColor = System.Drawing.Color.Empty;
             this.gPanelPoint.Location = new System.Drawing.Point(12, 13);
             this.gPanelPoint.Name = "gPanelPoint";
-            this.gPanelPoint.Size = new System.Drawing.Size(369, 97);
+            this.gPanelPoint.Size = new System.Drawing.Size(350, 97);
             // 
             // 
             // 
@@ -206,7 +256,7 @@
             this.comboBoxBaseMeasureField.FormattingEnabled = true;
             this.comboBoxBaseMeasureField.Location = new System.Drawing.Point(161, 48);
             this.comboBoxBaseMeasureField.Name = "comboBoxBaseMeasureField";
-            this.comboBoxBaseMeasureField.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxBaseMeasureField.Size = new System.Drawing.Size(134, 21);
             this.comboBoxBaseMeasureField.TabIndex = 7;
             // 
             // cboBoxPointLayer
@@ -218,14 +268,14 @@
             this.cboBoxPointLayer.ItemHeight = 14;
             this.cboBoxPointLayer.Location = new System.Drawing.Point(22, 17);
             this.cboBoxPointLayer.Name = "cboBoxPointLayer";
-            this.cboBoxPointLayer.Size = new System.Drawing.Size(314, 20);
+            this.cboBoxPointLayer.Size = new System.Drawing.Size(273, 20);
             this.cboBoxPointLayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboBoxPointLayer.TabIndex = 1;
             this.cboBoxPointLayer.SelectedIndexChanged += new System.EventHandler(this.cboBoxPointLayer_SelectedIndexChanged);
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(15, 236);
+            this.numericUpDown1.Location = new System.Drawing.Point(15, 314);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             99999999,
             0,
@@ -243,7 +293,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 217);
+            this.label1.Location = new System.Drawing.Point(12, 295);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 6;
@@ -251,7 +301,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(148, 236);
+            this.numericUpDown2.Location = new System.Drawing.Point(148, 314);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             99999999,
             0,
@@ -269,7 +319,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(145, 220);
+            this.label2.Location = new System.Drawing.Point(145, 298);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 6;
@@ -277,7 +327,7 @@
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(15, 276);
+            this.numericUpDown3.Location = new System.Drawing.Point(15, 354);
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(106, 20);
             this.numericUpDown3.TabIndex = 5;
@@ -290,7 +340,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 259);
+            this.label3.Location = new System.Drawing.Point(12, 337);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 6;
@@ -298,7 +348,7 @@
             // 
             // numericUpDown4
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(148, 276);
+            this.numericUpDown4.Location = new System.Drawing.Point(148, 354);
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(106, 20);
             this.numericUpDown4.TabIndex = 5;
@@ -311,7 +361,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(145, 259);
+            this.label6.Location = new System.Drawing.Point(145, 337);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 13);
             this.label6.TabIndex = 6;
@@ -320,7 +370,7 @@
             // checkBoxFixInputValue
             // 
             this.checkBoxFixInputValue.AutoSize = true;
-            this.checkBoxFixInputValue.Location = new System.Drawing.Point(271, 237);
+            this.checkBoxFixInputValue.Location = new System.Drawing.Point(271, 315);
             this.checkBoxFixInputValue.Name = "checkBoxFixInputValue";
             this.checkBoxFixInputValue.Size = new System.Drawing.Size(110, 17);
             this.checkBoxFixInputValue.TabIndex = 7;
@@ -331,7 +381,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 352);
+            this.ClientSize = new System.Drawing.Size(455, 436);
+            this.Controls.Add(this.radioButtonLayer);
+            this.Controls.Add(this.radioButtonFile);
             this.Controls.Add(this.checkBoxFixInputValue);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
@@ -388,5 +440,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDown4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBoxFixInputValue;
+        private System.Windows.Forms.RadioButton radioButtonFile;
+        private System.Windows.Forms.RadioButton radioButtonLayer;
+        private System.Windows.Forms.TextBox textBoxFile;
+        private DevComponents.DotNetBar.ButtonX buttonXSelect;
     }
 }

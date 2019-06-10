@@ -19,6 +19,7 @@ using System.Drawing.Text;
 using stdole;
 using DevComponents.DotNetBar;
 using AOFunctions.GDB;
+using System.Data.OleDb;
 
 namespace LibCerMap
 {
@@ -131,7 +132,27 @@ namespace LibCerMap
                 IFeatureCursor pLineCursor = pLineFC.Search(null, false);                
                 IFeature pLineFeature = pLineCursor.NextFeature();
                 IQueryFilter qf1 = null;
-                DataTable ptable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, qf1);
+                DataTable ptable;
+                    
+                if(radioButtonLayer.Checked)
+                {
+                    ptable =  AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, qf1);
+                }
+                else
+                {
+                    string strCon = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + this.textBoxFile.Text + ";Extended Properties=Excel 8.0";
+                    OleDbConnection conn = new OleDbConnection(strCon);
+                    string sql1 = "select * from [Sheet1$]";
+                    conn.Open();
+                    OleDbDataAdapter myCommand = new OleDbDataAdapter(sql1, strCon);
+                    DataSet ds = new DataSet();
+                    myCommand.Fill(ds);
+                    conn.Close();
+                    ptable = ds.Tables[0];
+                    ptable.Columns[EvConfig.IMUMoveDistanceField].DataType = System.Type.GetType("System.Double");
+                }   
+
+
                 if (!ptable.Columns.Contains("X"))
                     ptable.Columns.Add("X", System.Type.GetType("System.Double"));
                 if (!ptable.Columns.Contains("Y"))
@@ -264,6 +285,19 @@ namespace LibCerMap
         private void btCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonXSelect_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
+            OpenFileDialog1.Filter = "Excel文件(*.xls) | *.xls";
+
+            OpenFileDialog1.FilterIndex = 2;
+            OpenFileDialog1.RestoreDirectory = true;
+            if (OpenFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textBoxFile.Text = OpenFileDialog1.FileName;
+            }
         }
 
     }

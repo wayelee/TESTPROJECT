@@ -606,6 +606,18 @@
     <Compile Include="FrmSiftMatching.Designer.cs">
       <DependentUpon>FrmSiftMatching.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSingleChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSingleChart.Designer.cs">
+      <DependentUpon>FrmSingleChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSingleTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSingleTable.Designer.cs">
+      <DependentUpon>FrmSingleTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSkylinePara.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -979,6 +991,18 @@
     <Compile Include="FrmXmlEditor.Designer.cs">
       <DependentUpon>FrmXmlEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmYichangBianHuaFenXi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmYichangBianHuaFenXi.Designer.cs">
+      <DependentUpon>FrmYichangBianHuaFenXi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmYichangToleranceSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmYichangToleranceSetting.Designer.cs">
+      <DependentUpon>FrmYichangToleranceSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="IsNumberic.cs" />
     <Compile Include="ListBoxICon.cs">
       <SubType>Component</SubType>
@@ -1225,6 +1249,12 @@
     <EmbeddedResource Include="FrmSiftMatching.resx">
       <DependentUpon>FrmSiftMatching.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmSingleChart.resx">
+      <DependentUpon>FrmSingleChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSingleTable.resx">
+      <DependentUpon>FrmSingleTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmSkylinePara.resx">
       <DependentUpon>FrmSkylinePara.cs</DependentUpon>
     </EmbeddedResource>
@@ -1422,6 +1452,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmManualSetModelPara.resx">
       <DependentUpon>FrmManualSetModelPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmYichangBianHuaFenXi.resx">
+      <DependentUpon>FrmYichangBianHuaFenXi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmYichangToleranceSetting.resx">
+      <DependentUpon>FrmYichangToleranceSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

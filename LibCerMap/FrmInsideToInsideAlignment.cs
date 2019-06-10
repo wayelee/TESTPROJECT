@@ -19,6 +19,7 @@ using System.Drawing.Text;
 using stdole;
 using DevComponents.DotNetBar;
 using AOFunctions.GDB;
+using System.Data.OleDb;
 
 namespace LibCerMap
 {
@@ -64,7 +65,7 @@ namespace LibCerMap
             {
                 comboBoxExCenterlineLayer.SelectedIndex = 0;
             }
-
+            comboBoxMeasureField.SelectedIndex = 0;
         }
       
         //添加点图层按钮
@@ -129,8 +130,29 @@ namespace LibCerMap
                 IFeatureClass pAlignmentPointFC = pCenterlinePointLayer.FeatureClass;
                 IFeatureClass pPointFC = pBasePointLayer.FeatureClass;
                 IQueryFilter pQF = null;
-                DataTable alignmentPointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pAlignmentPointFC as ITable, pQF);
+                DataTable alignmentPointTable ;
+                    
+                    
+                if(radioButtonLayer.Checked)
+                {
+                    alignmentPointTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pAlignmentPointFC as ITable, pQF);
+                }
+                else
+                {
+                    string strCon = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + this.textBoxFile.Text + ";Extended Properties=Excel 8.0";
+                    OleDbConnection conn = new OleDbConnection(strCon);
+                    string sql1 = "select * from [Sheet1$]";
+                    conn.Open();
+                    OleDbDataAdapter myCommand = new OleDbDataAdapter(sql1, strCon);
+                    DataSet ds = new DataSet();
+                    myCommand.Fill(ds);
+                    conn.Close();
+                    alignmentPointTable = ds.Tables[0];
+                    alignmentPointTable.Columns[EvConfig.IMUMoveDistanceField].DataType = System.Type.GetType("System.Double");
+                }                   
                 DataTable baseTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, pQF);
+
+
 
                 //IMUTable => basetable, Centerlinetable => alignmenttable
                 double beginM = (double)numericUpDown1.Value;
@@ -148,7 +170,11 @@ namespace LibCerMap
                 alignmentPointTable = dv.ToTable();
 
                 double centerlineLength = endM - beginM;
+                if (alignmentPointTable.Columns.Contains("里程差"))
+                    alignmentPointTable.Columns.Remove("里程差");
                 alignmentPointTable.Columns.Add("里程差", System.Type.GetType("System.Double"));
+                if (alignmentPointTable.Columns.Contains("对齐里程"))
+                    alignmentPointTable.Columns.Remove("对齐里程");
                 alignmentPointTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
 
                 double endIMUM = Convert.ToDouble(alignmentPointTable.Rows[alignmentPointTable.Rows.Count - 1][AlingMeasureColumn]);
@@ -497,13 +523,19 @@ namespace LibCerMap
                     }
 
                     //double AlimomanyAngle = Convert.ToDouble(IMUr[EvConfig.IMUAngleField]);
-                    double AlimomanyAngle = ShizhongFangweiToMinutes(IMUr[EvConfig.IMUAngleField].ToString());
+                    //double AlimomanyAngle = ShizhongFangweiToMinutes(IMUr[EvConfig.IMUAngleField].ToString());
+                    //List<DataRow> Featurerow = (from r in BaseAnomany
+                    //                            where Math.Abs(Convert.ToDouble(r[baseMeasureColumn]) - ActionIMUM) < Convert.ToDouble(numericUpDown4.Value)
+                    //                            && r[EvConfig.IMUAngleField] != DBNull.Value
+                    //                            && (Math.Abs(ShizhongFangweiToMinutes(r[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle) < 10 ||
+                    //                            720 - Math.Abs(ShizhongFangweiToMinutes(r[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle) < 10)
+                    //                            select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[baseMeasureColumn]) - ActionIMUM)).ToList();
+
+
                     List<DataRow> Featurerow = (from r in BaseAnomany
-                                                where Math.Abs(Convert.ToDouble(r[baseMeasureColumn]) - ActionIMUM) < Convert.ToDouble(numericUpDown4.Value)
-                                                &&  r[EvConfig.IMUAngleField]!= DBNull.Value
-                                                && (Math.Abs(ShizhongFangweiToMinutes(r[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle) < 10 ||
-                                                720 - Math.Abs(ShizhongFangweiToMinutes(r[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle) < 10)
+                                                where Math.Abs(Convert.ToDouble(r[baseMeasureColumn]) - ActionIMUM) < Convert.ToDouble(numericUpDown4.Value)                                               
                                                 select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[baseMeasureColumn]) - ActionIMUM)).ToList();
+
                     if (Featurerow.Count > 0)
                     {
                         DataRow NearestR = Featurerow[0];
@@ -533,9 +565,30 @@ namespace LibCerMap
                     }
                 }
                 #endregion
-
-
+                string addcolumn = "壁厚变化";
+                if (alignmentPointTable.Columns.Contains(addcolumn))
+                {
+                    alignmentPointTable.Columns.Remove(addcolumn);
+                }
+                addcolumn = "长度变化";
+                if (alignmentPointTable.Columns.Contains(addcolumn))
+                {
+                    alignmentPointTable.Columns.Remove(addcolumn);
+                }
+                addcolumn = "宽度变化";
+                if (alignmentPointTable.Columns.Contains(addcolumn))
+                {
+                    alignmentPointTable.Columns.Remove(addcolumn);
+                }
+                addcolumn = "角度变化";
+                if (alignmentPointTable.Columns.Contains(addcolumn))
+                {
+                    alignmentPointTable.Columns.Remove(addcolumn);
+                }
                 alignmentPointTable.Columns.Add("壁厚变化", System.Type.GetType("System.Double"));
+                alignmentPointTable.Columns.Add("长度变化", System.Type.GetType("System.Double"));
+                alignmentPointTable.Columns.Add("宽度变化", System.Type.GetType("System.Double"));
+                alignmentPointTable.Columns.Add("角度变化", System.Type.GetType("System.Double"));
                 #region // 异常增长计算
                 for (int i = 0; i < MatchedDataRowPair.Count; i++)
                 {
@@ -543,13 +596,26 @@ namespace LibCerMap
                     DataRow BaseRow = MatchedDataRowPair.Values.ElementAt(i);
                     try
                     {
-                        IMUr["壁厚变化"] = Convert.ToDouble(IMUr[EvConfig.IMUDepthField]) - Convert.ToDouble(BaseRow[EvConfig.IMUDepthField]); 
+                        if (IMUr[EvConfig.IMUDepthField] != DBNull.Value && BaseRow[EvConfig.IMUDepthField] != DBNull.Value)
+                            IMUr["壁厚变化"] = Convert.ToDouble(IMUr[EvConfig.IMUDepthField]) - Convert.ToDouble(BaseRow[EvConfig.IMUDepthField]);
+                       
+                        if (IMUr[EvConfig.IMULengthField] != DBNull.Value && BaseRow[EvConfig.IMULengthField] != DBNull.Value)
+                            IMUr["长度变化"] = Convert.ToDouble(IMUr[EvConfig.IMULengthField]) - Convert.ToDouble(BaseRow[EvConfig.IMULengthField]);
+
+                        if (IMUr[EvConfig.IMUWidththField] != DBNull.Value && BaseRow[EvConfig.IMUWidththField] != DBNull.Value)
+                            IMUr["宽度变化"] = Convert.ToDouble(IMUr[EvConfig.IMUWidththField]) - Convert.ToDouble(BaseRow[EvConfig.IMUWidththField]);
+
+                        if (IMUr[EvConfig.IMUAngleField] != DBNull.Value && BaseRow[EvConfig.IMUAngleField] != DBNull.Value)
+                        {
+                            double AlimomanyAngle = ShizhongFangweiToMinutes(IMUr[EvConfig.IMUAngleField].ToString());
+                            IMUr["角度变化"] = Math.Min(Math.Abs(ShizhongFangweiToMinutes(BaseRow[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle),
+                            Math.Abs(720 - Math.Abs(ShizhongFangweiToMinutes(BaseRow[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle)));
+                        }
                     }
                     catch
                     {
-                    }                   
+                    }
                 }
-
                 #endregion
                 FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
                 frm.setResultType("两次内检测对齐报告");
@@ -564,6 +630,19 @@ namespace LibCerMap
                 MessageBox.Show(ex.Message);
             }
          
+        }
+
+        private void buttonXSelect_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
+            OpenFileDialog1.Filter = "Excel文件(*.xls) | *.xls";
+
+            OpenFileDialog1.FilterIndex = 2;
+            OpenFileDialog1.RestoreDirectory = true;
+            if (OpenFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textBoxFile.Text = OpenFileDialog1.FileName;
+            }
         }
 
         //从点图层中收集所有点
@@ -717,7 +796,7 @@ namespace LibCerMap
         private void comboBoxExCenterlineLayer_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            comboBoxMeasureField.Items.Clear();
+            //comboBoxMeasureField.Items.Clear();
 
             string pPointFileName = comboBoxExCenterlineLayer.SelectedItem.ToString();
             IFeatureLayer pIMUPointLayer = null;
@@ -732,9 +811,9 @@ namespace LibCerMap
             for (int i = 0; i < pPointFC.Fields.FieldCount; i++)
             {
                 IField fd = pPointFC.Fields.get_Field(i);
-            //    if (fd.Type == esriFieldType.esriFieldTypeDouble)
+                //    if (fd.Type == esriFieldType.esriFieldTypeDouble)
                 {
-                    comboBoxMeasureField.Items.Add(fd.Name);
+               //     comboBoxMeasureField.Items.Add(fd.Name);
                 }
             }
           

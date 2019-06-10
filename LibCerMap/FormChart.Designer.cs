@@ -104,6 +104,8 @@
             xyDiagram2.AxisY.WholeRange.Auto = false;
             xyDiagram2.AxisY.WholeRange.MaxValueSerializable = "10";
             xyDiagram2.AxisY.WholeRange.MinValueSerializable = "0";
+            xyDiagram2.EnableAxisXScrolling = true;
+            xyDiagram2.EnableAxisXZooming = true;
             xyDiagram2.Margins.Bottom = 0;
             xyDiagram2.Margins.Left = 0;
             xyDiagram2.Margins.Right = 0;

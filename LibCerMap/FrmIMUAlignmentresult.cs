@@ -44,10 +44,60 @@ namespace LibCerMap
             gridControl1.DataSource = sourcetable;
             gridControl1.Refresh();
             gridView1.OptionsView.ColumnAutoWidth = false;
+
+
+            if (m_ResultType == "内检测对齐中线报告")
+            {
+                CreateInsidPointCenterlineAlignmentStatisticsImage(this.chartControl3);
+                this.gridControlPrecision.DataSource = CreateInsidPointCenterlineAlignmentStatisticsTable();
+                this.buttonItemNeijianceZhongxian.Visible = true;
+
+            }
+            if (m_ResultType == "两次内检测对齐报告")
+            {
+                CreateInsideToInsideAlignmentStatisticsImage(this.chartControl3);
+                this.gridControlPrecision.DataSource = CreateInsideToInsideAlignmentStatisticsTable();
+                this.buttonItemNeijianceNeijiance.Visible = true;
+            }
+            if (m_ResultType == "焊缝对齐报告")
+            {
+                CreateWeldToCenterlineOffsetTableImage(this.chartControl3);
+                this.gridControlPrecision.DataSource = CreateWeldToCenterlineTable();
+                //this.buttonItemHanfengDuiqi.Visible = true;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Dim ps As New DevExpress.XtraPrinting.PrintingSystem()
+            //    Dim compositeLink As New DevExpress.XtraPrintingLinks.CompositeLink()
+            //    compositeLink.PrintingSystem = ps
+
+            //    For Each C1 As Object In devGridList
+            //        Dim link As New DevExpress.XtraPrinting.PrintableComponentLink()
+            //        link.Component = C1
+            //        compositeLink.Links.Add(link)
+            //    Next
+
+            //    If String.IsNullOrEmpty(file) Then
+            //        compositeLink.ShowPreview()
+            //    Else
+            //        Select Case mode
+            //            Case 1
+            //                compositeLink.ExportToPdf(file)
+            //            Case 2
+            //                compositeLink.ExportToHtml(file)
+            //            Case 3
+            //                compositeLink.CreateDocument()
+            //                compositeLink.CreatePageForEachLink()
+            //                Dim ExportOpt As DevExpress.XtraPrinting.XlsxExportOptions = New DevExpress.XtraPrinting.XlsxExportOptions()
+            //                ExportOpt.ExportMode = DevExpress.XtraPrinting.XlsxExportMode.SingleFilePageByPage
+            //                compositeLink.ExportToXlsx(file, ExportOpt)
+            //        End Select
+            //    End If
+            //End If
+
+
             try
             {
                 SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
@@ -65,6 +115,17 @@ namespace LibCerMap
                 link.Component = gridControl1;
                 link.PrintingSystem = ps;
                 compositeLink.Links.Add(link);
+
+                link = new DevExpress.XtraPrinting.PrintableComponentLink();
+                link.Component = chartControl3;
+                link.PrintingSystem = ps;
+                compositeLink.Links.Add(link);
+
+                link = new DevExpress.XtraPrinting.PrintableComponentLink();
+                link.Component = gridControlPrecision;
+                link.PrintingSystem = ps;
+                compositeLink.Links.Add(link);
+
                 compositeLink.CreateDocument();
                 compositeLink.CreatePageForEachLink();
                 DevExpress.XtraPrinting.XlsxExportOptions ExportOpt = new DevExpress.XtraPrinting.XlsxExportOptions();
@@ -393,7 +454,9 @@ namespace LibCerMap
 
                 BookMarkName = "tbMeasureDifference";
                 FormChart fm = new FormChart();
+               
                 CreateInsideToInsideAlignmentDifferenceStatisticsImage(fm.ChartContrl);
+                //fm.Show();
                 ExportImageToWordBookMark(BookMarkName, doc, app);
 
                 BookMarkName = "tbtaAnomanyDepth";
@@ -739,7 +802,7 @@ namespace LibCerMap
             XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
             diagram.SecondaryAxesX[0].WholeRange.MinValue = diagram.AxisX.WholeRange.MinValue;
             diagram.SecondaryAxesX[0].WholeRange.MaxValue = diagram.AxisX.WholeRange.MaxValue;
-        
+            diagram.SecondaryAxesY[0].Visibility = DevExpress.Utils.DefaultBoolean.False;
  
             Image image = null;
             ImageFormat format = ImageFormat.Jpeg;
@@ -858,9 +921,13 @@ namespace LibCerMap
             dr["特征点平均里程差"] = Math.Round((from DataRow r in stable.Rows
                                          where r["里程差"] != DBNull.Value
                                          select Math.Abs(Convert.ToDouble(r["里程差"]))).Average(), 2);
+            //dr["匹配异常数"] =  (from DataRow r in stable.Rows
+            //                             where r["壁厚变化"] != DBNull.Value
+            //                             select r).ToList().Count;            
             dr["匹配异常数"] =  (from DataRow r in stable.Rows
-                                         where r["壁厚变化"] != DBNull.Value
+                                        where r["异常匹配里程差"] != DBNull.Value
                                          select r).ToList().Count;
+           
             dt.Rows.Add(dr);
             return dt;
         }
@@ -883,15 +950,23 @@ namespace LibCerMap
             seriesAligned.Name = "对齐内检测点";
             foreach (DataRow r in sourcetable.Rows)
             {
-                double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
-                double z = 4;
-                if (r["对齐基准点里程"] == DBNull.Value)
+                try
                 {
-                    seriesNotAligned.Points.Add(new SeriesPoint(m, z));
+                 
+                    double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
+                   
+                    double z = 4;
+                    if (r["对齐基准点里程"] == DBNull.Value)
+                    {
+                        seriesNotAligned.Points.Add(new SeriesPoint(m, z));
+                    }
+                    else
+                    {
+                        seriesAligned.Points.Add(new SeriesPoint(m, z));
+                    }
                 }
-                else
+                catch
                 {
-                    seriesAligned.Points.Add(new SeriesPoint(m, z));
                 }
             }
 
@@ -917,6 +992,7 @@ namespace LibCerMap
 
             diagram.AxisX.WholeRange.MinValue = minvalue;
             diagram.AxisX.WholeRange.MaxValue = maxvalue;
+            diagram.SecondaryAxesY[0].Visibility = DevExpress.Utils.DefaultBoolean.False;
 
             Image image = null;
             ImageFormat format = ImageFormat.Jpeg;
@@ -1176,12 +1252,13 @@ namespace LibCerMap
                 diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisX.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
 
-                // Customize the appearance of the Y-axis title. 
+                // Customize the appearance of the Y-axis title.   
+                diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
                 diagram.AxisY.Title.Alignment = StringAlignment.Center;
                 diagram.AxisY.Title.Text = "距离偏移";
                 diagram.AxisY.Title.TextColor = Color.Black;
-                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True; 
                 diagram.AxisY.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
 
                 //((XYDiagram)chartControl1.Diagram).AxisX.Title.Text = "对齐里程";
@@ -1200,6 +1277,63 @@ namespace LibCerMap
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        //内检测对齐中线， 中线成果点统计
+        private void buttonItemZhongxianTongji_Click(object sender, EventArgs e)
+        {
+            DataTable dt = CreateCenterlinePointStatisticsTable();
+            FrmSingleTable fm = new FrmSingleTable(dt, "中线成果点统计");
+            fm.ShowDialog();
+        }
+        //内检测对齐中线， 内检测点统计
+        private void buttonItemNeijianceTongji_Click(object sender, EventArgs e)
+        {
+            DataTable dt = CreateInsidPointStatisticsTable();
+            FrmSingleTable fm = new FrmSingleTable(dt, "内检测点统计");
+            fm.ShowDialog();
+        }
+        //内检测对齐中线， 特征点里程差
+        private void buttonItemTezhengdianLichengcha_Click(object sender, EventArgs e)
+        {
+
+            FrmSingleChart fm = new FrmSingleChart("特征点里程差统计图");
+            CreateInsidPointCenterlineAlignmentDifferenceStatisticsImage(fm.chartControl);
+            fm.ShowDialog();
+        }
+
+        //两次内检测对齐， 基准内检测统计
+        private void buttonItemBaseNeijianceTongji_Click(object sender, EventArgs e)
+        {
+            DataTable dt = CreateInsideToInsiddeBaseStatisticsTable();
+            FrmSingleTable fm = new FrmSingleTable(dt, "基准内检测点统计");
+            fm.ShowDialog();
+        }
+        //两次内检测对齐，对齐内检测统计
+        private void buttonItemAlignNeijianceTongji_Click(object sender, EventArgs e)
+        {
+             DataTable dt  = CreateInsideToInsiddeAlignmentTableStatisticsTable();
+             FrmSingleTable fm = new FrmSingleTable(dt, "对齐内检测点统计");
+             fm.ShowDialog();
+        }
+        //两次内检测对齐，特征点里程差
+        private void buttonItemTezhendianLicheng_Click(object sender, EventArgs e)
+        {
+            FrmSingleChart fm = new FrmSingleChart("特征点里程差统计");
+            CreateInsideToInsideAlignmentDifferenceStatisticsImage(fm.chartControl);
+            fm.ShowDialog();
+        }
+        //两次内检测对齐，特征点壁厚统计
+        private void buttonItem4_Click(object sender, EventArgs e)
+        {
+            FrmSingleChart fm = new FrmSingleChart("内检测异常壁厚统计");
+            CreateInsideToInsideAnomanyDepthImage(fm.chartControl);
+            fm.ShowDialog();
+        }
+        //两次内检测对齐，特征点变化分析
+        private void buttonItem5_Click(object sender, EventArgs e)
+        {
+            FrmYichangToleranceSetting frm = new FrmYichangToleranceSetting(this.sourcetable);
+            frm.ShowDialog();
         }
 
     }
