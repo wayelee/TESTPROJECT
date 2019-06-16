@@ -28,5 +28,13 @@ namespace LibCerMap
         public static string WeldZField = "高程";
         public static string WeldMField = "里程";
         public static string WeldAlignmentMeasureField = "对齐里程";
+
+        public static string CISGuanDingMaiShen = "管道埋深";
+        public static string CISJingdu = "经度";
+        public static string CISWeidu = "纬度";
+        public static string CISVOff = "VOff";
+        public static string CISVOn = "VOn";
+        public static string CISdb = "db";
+        public static string CISJiaoliudianya = "交流电压";
     }
 }

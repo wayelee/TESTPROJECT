@@ -1,6 +1,6 @@
 ﻿namespace LibCerMap
 {
-    partial class FrmCenterLineWeldAlignment
+    partial class FrmCenterLineWaijianceAlignment
     {
         /// <summary>
         /// Required designer variable.
@@ -105,7 +105,7 @@
             // 
             this.gPanelPoint.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.gPanelPoint.TabIndex = 2;
-            this.gPanelPoint.Text = "选择焊缝点图层";
+            this.gPanelPoint.Text = "选择外检测点图层";
             // 
             // textBoxFile
             // 
@@ -213,7 +213,7 @@
             this.radioButtonFile.Text = "从文件获取";
             this.radioButtonFile.UseVisualStyleBackColor = true;
             // 
-            // FrmCenterLineWeldAlignment
+            // FrmCenterLineWaijianceAlignment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -228,10 +228,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FrmCenterLineWeldAlignment";
+            this.Name = "FrmCenterLineWaijianceAlignment";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "中线-焊缝对齐图层选择";
+            this.Text = "中线-外检测对齐图层选择";
             this.Load += new System.EventHandler(this.FrmPointToLine_Load);
             this.gPanelPoint.ResumeLayout(false);
             this.gPanelPoint.PerformLayout();

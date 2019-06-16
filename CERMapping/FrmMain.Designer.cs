@@ -34,19 +34,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.gridColumn1 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn2 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.dotNetBarManagerMain = new DevComponents.DotNetBar.DotNetBarManager(this.components);
@@ -383,13 +383,6 @@
             this.barContexMenuEditor = new DevComponents.DotNetBar.Bar();
             this.axToolbarCtlMenuEditor = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.controlContainerItem20 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.barTerrain = new DevComponents.DotNetBar.Bar();
-            this.btnRandomTerrain = new DevComponents.DotNetBar.ButtonItem();
-            this.btnRandomTexture = new DevComponents.DotNetBar.ButtonItem();
-            this.btnRandomModel = new DevComponents.DotNetBar.ButtonItem();
-            this.barCustom = new DevComponents.DotNetBar.Bar();
-            this.axToolbarControlCustom = new ESRI.ArcGIS.Controls.AxToolbarControl();
-            this.controlContainerItem19 = new DevComponents.DotNetBar.ControlContainerItem();
             this.barGeoAdjust = new DevComponents.DotNetBar.Bar();
             this.cmbAdjustMethod = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.cbiAffine = new DevComponents.Editors.ComboItem();
@@ -398,12 +391,19 @@
             this.axToolbarControlSpatialAdjust = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.controlContainerItem14 = new DevComponents.DotNetBar.ControlContainerItem();
             this.controlContainerItem13 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.bar3D = new DevComponents.DotNetBar.Bar();
-            this.axToolbarControlScene = new ESRI.ArcGIS.Controls.AxToolbarControl();
-            this.controlContainerItem6 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.barCustom = new DevComponents.DotNetBar.Bar();
+            this.axToolbarControlCustom = new ESRI.ArcGIS.Controls.AxToolbarControl();
+            this.controlContainerItem19 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.barTerrain = new DevComponents.DotNetBar.Bar();
+            this.btnRandomTerrain = new DevComponents.DotNetBar.ButtonItem();
+            this.btnRandomTexture = new DevComponents.DotNetBar.ButtonItem();
+            this.btnRandomModel = new DevComponents.DotNetBar.ButtonItem();
             this.barCommon = new DevComponents.DotNetBar.Bar();
             this.axToolbarControlCommon = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.controlContainerItem3 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.bar3D = new DevComponents.DotNetBar.Bar();
+            this.axToolbarControlScene = new ESRI.ArcGIS.Controls.AxToolbarControl();
+            this.controlContainerItem6 = new DevComponents.DotNetBar.ControlContainerItem();
             this.barSunAlt = new DevComponents.DotNetBar.Bar();
             this.cmbSunAltOriImg = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.txtSunAltXmlFile = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -424,15 +424,15 @@
             this.barLayout = new DevComponents.DotNetBar.Bar();
             this.axToolbarControlLayout = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.controlContainerItem4 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.barEditor = new DevComponents.DotNetBar.Bar();
+            this.axToolbarControlEdit = new ESRI.ArcGIS.Controls.AxToolbarControl();
+            this.controlContainerItem5 = new DevComponents.DotNetBar.ControlContainerItem();
             this.barEffects = new DevComponents.DotNetBar.Bar();
             this.cmBoxEffectsLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.controlContainerItem23 = new DevComponents.DotNetBar.ControlContainerItem();
             this.sliderItemTransparency = new DevComponents.DotNetBar.SliderItem();
             this.sliderItemContrast = new DevComponents.DotNetBar.SliderItem();
             this.sliderItemBrightness = new DevComponents.DotNetBar.SliderItem();
-            this.barEditor = new DevComponents.DotNetBar.Bar();
-            this.axToolbarControlEdit = new ESRI.ArcGIS.Controls.AxToolbarControl();
-            this.controlContainerItem5 = new DevComponents.DotNetBar.ControlContainerItem();
             this.barTinEditor = new DevComponents.DotNetBar.Bar();
             this.axToolbarControlTinEdit = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.cmbTargetTinLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
@@ -552,19 +552,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.barContexMenuEditor)).BeginInit();
             this.barContexMenuEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarCtlMenuEditor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barTerrain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barCustom)).BeginInit();
-            this.barCustom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCustom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barGeoAdjust)).BeginInit();
             this.barGeoAdjust.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlSpatialAdjust)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bar3D)).BeginInit();
-            this.bar3D.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlScene)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barCustom)).BeginInit();
+            this.barCustom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCustom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barTerrain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barCommon)).BeginInit();
             this.barCommon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCommon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bar3D)).BeginInit();
+            this.bar3D.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlScene)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barSunAlt)).BeginInit();
             this.barSunAlt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarSunAltitude)).BeginInit();
@@ -574,11 +574,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.barLayout)).BeginInit();
             this.barLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlLayout)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barEffects)).BeginInit();
-            this.barEffects.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barEditor)).BeginInit();
             this.barEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barEffects)).BeginInit();
+            this.barEffects.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barTinEditor)).BeginInit();
             this.barTinEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlTinEdit)).BeginInit();
@@ -680,38 +680,38 @@
             // 
             this.GridTable.AllowUserToAddRows = false;
             this.GridTable.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GridTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.GridTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridTable.DataMember = "AttributeTable";
             this.GridTable.DataSource = this.dataSettable;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.GridTable.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.GridTable.DefaultCellStyle = dataGridViewCellStyle14;
             this.GridTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GridTable.EnableHeadersVisualStyles = false;
             this.GridTable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.GridTable.Location = new System.Drawing.Point(0, 27);
             this.GridTable.Name = "GridTable";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.GridTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.GridTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.GridTable.RowHeadersWidth = 20;
             this.GridTable.RowTemplate.Height = 23;
             this.GridTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -810,7 +810,7 @@
             this.bindingNavigatorEx2.CountLabel = this.btnNOsel;
             this.bindingNavigatorEx2.CountLabelFormat = "{0} out of {0} isselected";
             this.bindingNavigatorEx2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bindingNavigatorEx2.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.bindingNavigatorEx2.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.bindingNavigatorEx2.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnTable,
             this.buttonItemhide,
@@ -1488,8 +1488,8 @@
             // 
             // grpRandomGen
             // 
-            this.grpRandomGen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpRandomGen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpRandomGen.CanvasColor = System.Drawing.SystemColors.Control;
             this.grpRandomGen.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.grpRandomGen.Controls.Add(this.buttonX1);
@@ -1939,8 +1939,8 @@
             // btnGenerate
             // 
             this.btnGenerate.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGenerate.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnGenerate.Location = new System.Drawing.Point(429, 431);
             this.btnGenerate.Name = "btnGenerate";
@@ -1951,8 +1951,8 @@
             // 
             // grpInputExisting
             // 
-            this.grpInputExisting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpInputExisting.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpInputExisting.CanvasColor = System.Drawing.SystemColors.Control;
             this.grpInputExisting.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
             this.grpInputExisting.Controls.Add(this.labelXCrater);
@@ -2191,14 +2191,14 @@
             // 
             this.dataGridRv.AllowUserToAddRows = false;
             this.dataGridRv.AutoGenerateColumns = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridRv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridRv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridRv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridRv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.序号DataGridViewTextBoxColumn,
@@ -2208,27 +2208,27 @@
             this.dataGridRv.ContextMenuStrip = this.contextMenuStrip3;
             this.dataGridRv.DataMember = "FileRecTable";
             this.dataGridRv.DataSource = this.dataSettable;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridRv.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridRv.DefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridRv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridRv.EnableHeadersVisualStyles = false;
             this.dataGridRv.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dataGridRv.Location = new System.Drawing.Point(0, 27);
             this.dataGridRv.Name = "dataGridRv";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridRv.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridRv.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridRv.RowTemplate.Height = 23;
             this.dataGridRv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridRv.Size = new System.Drawing.Size(300, 5);
@@ -2286,7 +2286,7 @@
             // 
             this.bar1.AntiAlias = true;
             this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bar1.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.bar1.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnStartListen,
             this.btnStopListen,
@@ -2361,14 +2361,14 @@
             // 
             this.datagridzdFile.AllowUserToAddRows = false;
             this.datagridzdFile.AutoGenerateColumns = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.datagridzdFile.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.datagridzdFile.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.datagridzdFile.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagridzdFile.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.iDDataGridViewTextBoxColumn,
@@ -2379,14 +2379,14 @@
             this.uiFileTypesDataGridViewTextBoxColumn});
             this.datagridzdFile.DataMember = "zdFileTable";
             this.datagridzdFile.DataSource = this.dataSettable;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.datagridzdFile.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.datagridzdFile.DefaultCellStyle = dataGridViewCellStyle5;
             this.datagridzdFile.Dock = System.Windows.Forms.DockStyle.Fill;
             this.datagridzdFile.EnableHeadersVisualStyles = false;
             this.datagridzdFile.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
@@ -2394,14 +2394,14 @@
             this.datagridzdFile.MultiSelect = false;
             this.datagridzdFile.Name = "datagridzdFile";
             this.datagridzdFile.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.datagridzdFile.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.datagridzdFile.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.datagridzdFile.RowTemplate.Height = 23;
             this.datagridzdFile.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datagridzdFile.Size = new System.Drawing.Size(300, 0);
@@ -2458,24 +2458,24 @@
             // datagridLocal
             // 
             this.datagridLocal.AllowUserToAddRows = false;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.datagridLocal.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.datagridLocal.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.datagridLocal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagridLocal.ContextMenuStrip = this.contextMenuStrip3;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.datagridLocal.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.datagridLocal.DefaultCellStyle = dataGridViewCellStyle20;
             this.datagridLocal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.datagridLocal.EnableHeadersVisualStyles = false;
             this.datagridLocal.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
@@ -2483,14 +2483,14 @@
             this.datagridLocal.MultiSelect = false;
             this.datagridLocal.Name = "datagridLocal";
             this.datagridLocal.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.datagridLocal.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.datagridLocal.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.datagridLocal.RowTemplate.Height = 23;
             this.datagridLocal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.datagridLocal.Size = new System.Drawing.Size(300, 0);
@@ -2737,7 +2737,7 @@
             this.RichTBoxSQL.Location = new System.Drawing.Point(78, 74);
             this.RichTBoxSQL.Name = "RichTBoxSQL";
             this.RichTBoxSQL.Rtf = "{\\rtf1\\ansi\\ansicpg936\\deff0\\deflang1033\\deflangfe2052{\\fonttbl{\\f0\\fnil\\fcharset" +
-    "0 Microsoft Sans Serif;}}\r\n\\viewkind4\\uc1\\pard\\lang2052\\f0\\fs17\\par\r\n}\r\n";
+                "0 Microsoft Sans Serif;}}\r\n\\viewkind4\\uc1\\pard\\lang2052\\f0\\fs17\\par\r\n}\r\n";
             this.RichTBoxSQL.Size = new System.Drawing.Size(199, 39);
             this.RichTBoxSQL.TabIndex = 6;
             // 
@@ -2822,7 +2822,7 @@
             // 
             this.btnSearch.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSearch.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSearch.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnSearch.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnSearch.Location = new System.Drawing.Point(11, 76);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(50, 60);
@@ -2941,16 +2941,16 @@
             this.dockSite7.ContextMenuStrip = this.contextMenuBar;
             this.dockSite7.Controls.Add(this.menuMain);
             this.dockSite7.Controls.Add(this.barContexMenuEditor);
-            this.dockSite7.Controls.Add(this.barGeoAdjust);
-            this.dockSite7.Controls.Add(this.barCustom);
             this.dockSite7.Controls.Add(this.barTerrain);
-            this.dockSite7.Controls.Add(this.barCommon);
+            this.dockSite7.Controls.Add(this.barCustom);
+            this.dockSite7.Controls.Add(this.barGeoAdjust);
             this.dockSite7.Controls.Add(this.bar3D);
+            this.dockSite7.Controls.Add(this.barCommon);
             this.dockSite7.Controls.Add(this.barSunAlt);
             this.dockSite7.Controls.Add(this.barGeoReference);
             this.dockSite7.Controls.Add(this.barLayout);
-            this.dockSite7.Controls.Add(this.barEditor);
             this.dockSite7.Controls.Add(this.barEffects);
+            this.dockSite7.Controls.Add(this.barEditor);
             this.dockSite7.Controls.Add(this.barTinEditor);
             this.dockSite7.Dock = System.Windows.Forms.DockStyle.Top;
             this.dockSite7.Location = new System.Drawing.Point(0, 0);
@@ -3084,7 +3084,7 @@
             this.menuMain.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
             this.menuMain.Dock = System.Windows.Forms.DockStyle.Top;
             this.menuMain.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.menuMain.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.menuMain.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.menuMain.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.menuFile,
             this.toolcreatfile,
@@ -3536,7 +3536,6 @@
             this.buttonItem38,
             this.buttonItem39});
             this.menuBtnVisibility.Text = "数据统计";
-            this.menuBtnVisibility.Visible = false;
             this.menuBtnVisibility.Click += new System.EventHandler(this.menuBtnVisibility_Click);
             // 
             // buttonItem36
@@ -3691,13 +3690,15 @@
             // buttonItem28
             // 
             this.buttonItem28.Name = "buttonItem28";
-            this.buttonItem28.Text = "两次外检测结果对比";
+            this.buttonItem28.Text = "两次外检测结果对比——隐藏";
+            this.buttonItem28.Visible = false;
             this.buttonItem28.Click += new System.EventHandler(this.buttonItem28_Click);
             // 
             // buttonItem29
             // 
             this.buttonItem29.Name = "buttonItem29";
-            this.buttonItem29.Text = "两次内外检测结果对比";
+            this.buttonItem29.Text = "外检测结果对比分析";
+            this.buttonItem29.Click += new System.EventHandler(this.buttonItem29_Click);
             // 
             // buttonItemWeldAlignToCenterline
             // 
@@ -4001,7 +4002,7 @@
             this.barContexMenuEditor.Controls.Add(this.axToolbarCtlMenuEditor);
             this.barContexMenuEditor.DockLine = 1;
             this.barContexMenuEditor.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barContexMenuEditor.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.barContexMenuEditor.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.barContexMenuEditor.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.barContexMenuEditor.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.controlContainerItem20});
@@ -4029,84 +4030,6 @@
             this.controlContainerItem20.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem20.Name = "controlContainerItem20";
             // 
-            // barTerrain
-            // 
-            this.barTerrain.AccessibleDescription = "DotNetBar Bar (barTerrain)";
-            this.barTerrain.AccessibleName = "DotNetBar Bar";
-            this.barTerrain.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.barTerrain.CanHide = true;
-            this.barTerrain.DockLine = 2;
-            this.barTerrain.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barTerrain.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.barTerrain.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
-            this.barTerrain.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnRandomTerrain,
-            this.btnRandomTexture,
-            this.btnRandomModel});
-            this.barTerrain.Location = new System.Drawing.Point(1517, 61);
-            this.barTerrain.Name = "barTerrain";
-            this.barTerrain.Size = new System.Drawing.Size(0, 27);
-            this.barTerrain.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
-            this.barTerrain.TabIndex = 6;
-            this.barTerrain.TabStop = false;
-            this.barTerrain.Text = "地形纹理生成";
-            this.barTerrain.Visible = false;
-            // 
-            // btnRandomTerrain
-            // 
-            this.btnRandomTerrain.Name = "btnRandomTerrain";
-            this.btnRandomTerrain.Text = "随机地形";
-            this.btnRandomTerrain.Click += new System.EventHandler(this.btnRandomTerrain_Click);
-            // 
-            // btnRandomTexture
-            // 
-            this.btnRandomTexture.Name = "btnRandomTexture";
-            this.btnRandomTexture.Text = "随机纹理";
-            this.btnRandomTexture.Click += new System.EventHandler(this.btnRandomTexture_Click);
-            // 
-            // btnRandomModel
-            // 
-            this.btnRandomModel.Name = "btnRandomModel";
-            this.btnRandomModel.Text = "随机加入模型";
-            this.btnRandomModel.Click += new System.EventHandler(this.btnRandomModel_Click);
-            // 
-            // barCustom
-            // 
-            this.barCustom.AccessibleDescription = "DotNetBar Bar (barCustom)";
-            this.barCustom.AccessibleName = "DotNetBar Bar";
-            this.barCustom.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.barCustom.CanHide = true;
-            this.barCustom.Controls.Add(this.axToolbarControlCustom);
-            this.barCustom.DockLine = 2;
-            this.barCustom.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barCustom.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.barCustom.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
-            this.barCustom.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.controlContainerItem19});
-            this.barCustom.Location = new System.Drawing.Point(538, 61);
-            this.barCustom.Name = "barCustom";
-            this.barCustom.Size = new System.Drawing.Size(977, 33);
-            this.barCustom.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
-            this.barCustom.TabIndex = 11;
-            this.barCustom.TabStop = false;
-            this.barCustom.Text = "自定义工具栏";
-            this.barCustom.Visible = false;
-            // 
-            // axToolbarControlCustom
-            // 
-            this.axToolbarControlCustom.Location = new System.Drawing.Point(10, 2);
-            this.axToolbarControlCustom.Name = "axToolbarControlCustom";
-            this.axToolbarControlCustom.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlCustom.OcxState")));
-            this.axToolbarControlCustom.Size = new System.Drawing.Size(964, 28);
-            this.axToolbarControlCustom.TabIndex = 2;
-            // 
-            // controlContainerItem19
-            // 
-            this.controlContainerItem19.AllowItemResize = false;
-            this.controlContainerItem19.Control = this.axToolbarControlCustom;
-            this.controlContainerItem19.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem19.Name = "controlContainerItem19";
-            // 
             // barGeoAdjust
             // 
             this.barGeoAdjust.AccessibleDescription = "DotNetBar Bar (barGeoAdjust)";
@@ -4119,14 +4042,14 @@
             this.barGeoAdjust.Controls.Add(this.axToolbarControlSpatialAdjust);
             this.barGeoAdjust.DockLine = 2;
             this.barGeoAdjust.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barGeoAdjust.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.barGeoAdjust.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.barGeoAdjust.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.barGeoAdjust.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.controlContainerItem14,
             this.controlContainerItem13});
-            this.barGeoAdjust.Location = new System.Drawing.Point(0, 61);
+            this.barGeoAdjust.Location = new System.Drawing.Point(1195, 61);
             this.barGeoAdjust.Name = "barGeoAdjust";
-            this.barGeoAdjust.Size = new System.Drawing.Size(536, 33);
+            this.barGeoAdjust.Size = new System.Drawing.Size(0, 28);
             this.barGeoAdjust.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barGeoAdjust.TabIndex = 8;
             this.barGeoAdjust.TabStop = false;
@@ -4168,7 +4091,7 @@
             this.axToolbarControlSpatialAdjust.Location = new System.Drawing.Point(135, 2);
             this.axToolbarControlSpatialAdjust.Name = "axToolbarControlSpatialAdjust";
             this.axToolbarControlSpatialAdjust.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlSpatialAdjust.OcxState")));
-            this.axToolbarControlSpatialAdjust.Size = new System.Drawing.Size(239, 28);
+            this.axToolbarControlSpatialAdjust.Size = new System.Drawing.Size(398, 28);
             this.axToolbarControlSpatialAdjust.TabIndex = 1;
             // 
             // controlContainerItem14
@@ -4185,6 +4108,120 @@
             this.controlContainerItem13.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem13.Name = "controlContainerItem13";
             // 
+            // barCustom
+            // 
+            this.barCustom.AccessibleDescription = "DotNetBar Bar (barCustom)";
+            this.barCustom.AccessibleName = "DotNetBar Bar";
+            this.barCustom.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.barCustom.CanHide = true;
+            this.barCustom.Controls.Add(this.axToolbarControlCustom);
+            this.barCustom.DockLine = 2;
+            this.barCustom.DockSide = DevComponents.DotNetBar.eDockSide.Top;
+            this.barCustom.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.barCustom.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
+            this.barCustom.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.controlContainerItem19});
+            this.barCustom.Location = new System.Drawing.Point(216, 61);
+            this.barCustom.Name = "barCustom";
+            this.barCustom.Size = new System.Drawing.Size(977, 33);
+            this.barCustom.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
+            this.barCustom.TabIndex = 11;
+            this.barCustom.TabStop = false;
+            this.barCustom.Text = "自定义工具栏";
+            this.barCustom.Visible = false;
+            // 
+            // axToolbarControlCustom
+            // 
+            this.axToolbarControlCustom.Location = new System.Drawing.Point(10, 2);
+            this.axToolbarControlCustom.Name = "axToolbarControlCustom";
+            this.axToolbarControlCustom.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlCustom.OcxState")));
+            this.axToolbarControlCustom.Size = new System.Drawing.Size(964, 28);
+            this.axToolbarControlCustom.TabIndex = 2;
+            // 
+            // controlContainerItem19
+            // 
+            this.controlContainerItem19.AllowItemResize = false;
+            this.controlContainerItem19.Control = this.axToolbarControlCustom;
+            this.controlContainerItem19.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem19.Name = "controlContainerItem19";
+            // 
+            // barTerrain
+            // 
+            this.barTerrain.AccessibleDescription = "DotNetBar Bar (barTerrain)";
+            this.barTerrain.AccessibleName = "DotNetBar Bar";
+            this.barTerrain.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.barTerrain.CanHide = true;
+            this.barTerrain.DockLine = 2;
+            this.barTerrain.DockSide = DevComponents.DotNetBar.eDockSide.Top;
+            this.barTerrain.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.barTerrain.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
+            this.barTerrain.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnRandomTerrain,
+            this.btnRandomTexture,
+            this.btnRandomModel});
+            this.barTerrain.Location = new System.Drawing.Point(0, 61);
+            this.barTerrain.Name = "barTerrain";
+            this.barTerrain.Size = new System.Drawing.Size(214, 27);
+            this.barTerrain.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
+            this.barTerrain.TabIndex = 6;
+            this.barTerrain.TabStop = false;
+            this.barTerrain.Text = "地形纹理生成";
+            this.barTerrain.Visible = false;
+            // 
+            // btnRandomTerrain
+            // 
+            this.btnRandomTerrain.Name = "btnRandomTerrain";
+            this.btnRandomTerrain.Text = "随机地形";
+            this.btnRandomTerrain.Click += new System.EventHandler(this.btnRandomTerrain_Click);
+            // 
+            // btnRandomTexture
+            // 
+            this.btnRandomTexture.Name = "btnRandomTexture";
+            this.btnRandomTexture.Text = "随机纹理";
+            this.btnRandomTexture.Click += new System.EventHandler(this.btnRandomTexture_Click);
+            // 
+            // btnRandomModel
+            // 
+            this.btnRandomModel.Name = "btnRandomModel";
+            this.btnRandomModel.Text = "随机加入模型";
+            this.btnRandomModel.Click += new System.EventHandler(this.btnRandomModel_Click);
+            // 
+            // barCommon
+            // 
+            this.barCommon.AccessibleDescription = "DotNetBar Bar (barCommon)";
+            this.barCommon.AccessibleName = "DotNetBar Bar";
+            this.barCommon.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.barCommon.CanHide = true;
+            this.barCommon.Controls.Add(this.axToolbarControlCommon);
+            this.barCommon.DockLine = 3;
+            this.barCommon.DockSide = DevComponents.DotNetBar.eDockSide.Top;
+            this.barCommon.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.barCommon.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
+            this.barCommon.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.controlContainerItem3});
+            this.barCommon.Location = new System.Drawing.Point(510, 95);
+            this.barCommon.Name = "barCommon";
+            this.barCommon.Size = new System.Drawing.Size(716, 33);
+            this.barCommon.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
+            this.barCommon.TabIndex = 1;
+            this.barCommon.TabStop = false;
+            this.barCommon.Text = "工具";
+            // 
+            // axToolbarControlCommon
+            // 
+            this.axToolbarControlCommon.Location = new System.Drawing.Point(10, 2);
+            this.axToolbarControlCommon.Name = "axToolbarControlCommon";
+            this.axToolbarControlCommon.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlCommon.OcxState")));
+            this.axToolbarControlCommon.Size = new System.Drawing.Size(703, 28);
+            this.axToolbarControlCommon.TabIndex = 0;
+            // 
+            // controlContainerItem3
+            // 
+            this.controlContainerItem3.AllowItemResize = false;
+            this.controlContainerItem3.Control = this.axToolbarControlCommon;
+            this.controlContainerItem3.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem3.Name = "controlContainerItem3";
+            // 
             // bar3D
             // 
             this.bar3D.AccessibleDescription = "DotNetBar Bar (bar3D)";
@@ -4196,11 +4233,11 @@
             this.bar3D.Controls.Add(this.axToolbarControlScene);
             this.bar3D.DockLine = 3;
             this.bar3D.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.bar3D.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.bar3D.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.bar3D.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.bar3D.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.controlContainerItem6});
-            this.bar3D.Location = new System.Drawing.Point(718, 95);
+            this.bar3D.Location = new System.Drawing.Point(0, 95);
             this.bar3D.Name = "bar3D";
             this.bar3D.Size = new System.Drawing.Size(508, 33);
             this.bar3D.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
@@ -4225,42 +4262,6 @@
             this.controlContainerItem6.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem6.Name = "controlContainerItem6";
             // 
-            // barCommon
-            // 
-            this.barCommon.AccessibleDescription = "DotNetBar Bar (barCommon)";
-            this.barCommon.AccessibleName = "DotNetBar Bar";
-            this.barCommon.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.barCommon.CanHide = true;
-            this.barCommon.Controls.Add(this.axToolbarControlCommon);
-            this.barCommon.DockLine = 3;
-            this.barCommon.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barCommon.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.barCommon.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
-            this.barCommon.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.controlContainerItem3});
-            this.barCommon.Location = new System.Drawing.Point(0, 95);
-            this.barCommon.Name = "barCommon";
-            this.barCommon.Size = new System.Drawing.Size(716, 33);
-            this.barCommon.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
-            this.barCommon.TabIndex = 1;
-            this.barCommon.TabStop = false;
-            this.barCommon.Text = "工具";
-            // 
-            // axToolbarControlCommon
-            // 
-            this.axToolbarControlCommon.Location = new System.Drawing.Point(10, 2);
-            this.axToolbarControlCommon.Name = "axToolbarControlCommon";
-            this.axToolbarControlCommon.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlCommon.OcxState")));
-            this.axToolbarControlCommon.Size = new System.Drawing.Size(703, 28);
-            this.axToolbarControlCommon.TabIndex = 0;
-            // 
-            // controlContainerItem3
-            // 
-            this.controlContainerItem3.AllowItemResize = false;
-            this.controlContainerItem3.Control = this.axToolbarControlCommon;
-            this.controlContainerItem3.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem3.Name = "controlContainerItem3";
-            // 
             // barSunAlt
             // 
             this.barSunAlt.AccessibleDescription = "DotNetBar Bar (barSunAlt)";
@@ -4273,7 +4274,7 @@
             this.barSunAlt.Controls.Add(this.axToolbarSunAltitude);
             this.barSunAlt.DockLine = 4;
             this.barSunAlt.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barSunAlt.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.barSunAlt.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.barSunAlt.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.barSunAlt.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.controlContainerItem16,
@@ -4381,7 +4382,7 @@
             this.barGeoReference.DockLine = 4;
             this.barGeoReference.DockOffset = 369;
             this.barGeoReference.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barGeoReference.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.barGeoReference.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.barGeoReference.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.barGeoReference.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.lblTargetRasterLayer,
@@ -4463,7 +4464,7 @@
             this.barLayout.Controls.Add(this.axToolbarControlLayout);
             this.barLayout.DockLine = 5;
             this.barLayout.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barLayout.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.barLayout.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.barLayout.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.barLayout.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.controlContainerItem4});
@@ -4491,6 +4492,43 @@
             this.controlContainerItem4.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem4.Name = "controlContainerItem4";
             // 
+            // barEditor
+            // 
+            this.barEditor.AccessibleDescription = "DotNetBar Bar (barEditor)";
+            this.barEditor.AccessibleName = "DotNetBar Bar";
+            this.barEditor.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
+            this.barEditor.CanHide = true;
+            this.barEditor.Controls.Add(this.axToolbarControlEdit);
+            this.barEditor.DockLine = 6;
+            this.barEditor.DockSide = DevComponents.DotNetBar.eDockSide.Top;
+            this.barEditor.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
+            this.barEditor.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
+            this.barEditor.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.controlContainerItem5});
+            this.barEditor.Location = new System.Drawing.Point(733, 197);
+            this.barEditor.Name = "barEditor";
+            this.barEditor.Size = new System.Drawing.Size(833, 33);
+            this.barEditor.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
+            this.barEditor.TabIndex = 3;
+            this.barEditor.TabStop = false;
+            this.barEditor.Text = "编辑";
+            this.barEditor.Visible = false;
+            // 
+            // axToolbarControlEdit
+            // 
+            this.axToolbarControlEdit.Location = new System.Drawing.Point(10, 2);
+            this.axToolbarControlEdit.Name = "axToolbarControlEdit";
+            this.axToolbarControlEdit.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlEdit.OcxState")));
+            this.axToolbarControlEdit.Size = new System.Drawing.Size(820, 28);
+            this.axToolbarControlEdit.TabIndex = 1;
+            // 
+            // controlContainerItem5
+            // 
+            this.controlContainerItem5.AllowItemResize = false;
+            this.controlContainerItem5.Control = this.axToolbarControlEdit;
+            this.controlContainerItem5.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem5.Name = "controlContainerItem5";
+            // 
             // barEffects
             // 
             this.barEffects.AccessibleDescription = "DotNetBar Bar (barEffects)";
@@ -4500,16 +4538,16 @@
             this.barEffects.Controls.Add(this.cmBoxEffectsLayer);
             this.barEffects.DockLine = 6;
             this.barEffects.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barEffects.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.barEffects.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.barEffects.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.barEffects.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.controlContainerItem23,
             this.sliderItemTransparency,
             this.sliderItemContrast,
             this.sliderItemBrightness});
-            this.barEffects.Location = new System.Drawing.Point(835, 197);
+            this.barEffects.Location = new System.Drawing.Point(0, 197);
             this.barEffects.Name = "barEffects";
-            this.barEffects.Size = new System.Drawing.Size(310, 28);
+            this.barEffects.Size = new System.Drawing.Size(731, 28);
             this.barEffects.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barEffects.TabIndex = 10;
             this.barEffects.TabStop = false;
@@ -4564,43 +4602,6 @@
             this.sliderItemBrightness.Value = 0;
             this.sliderItemBrightness.ValueChanged += new System.EventHandler(this.sliderItemBrightness_ValueChanged);
             // 
-            // barEditor
-            // 
-            this.barEditor.AccessibleDescription = "DotNetBar Bar (barEditor)";
-            this.barEditor.AccessibleName = "DotNetBar Bar";
-            this.barEditor.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.barEditor.CanHide = true;
-            this.barEditor.Controls.Add(this.axToolbarControlEdit);
-            this.barEditor.DockLine = 6;
-            this.barEditor.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barEditor.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.barEditor.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
-            this.barEditor.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.controlContainerItem5});
-            this.barEditor.Location = new System.Drawing.Point(0, 197);
-            this.barEditor.Name = "barEditor";
-            this.barEditor.Size = new System.Drawing.Size(833, 33);
-            this.barEditor.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
-            this.barEditor.TabIndex = 3;
-            this.barEditor.TabStop = false;
-            this.barEditor.Text = "编辑";
-            this.barEditor.Visible = false;
-            // 
-            // axToolbarControlEdit
-            // 
-            this.axToolbarControlEdit.Location = new System.Drawing.Point(10, 2);
-            this.axToolbarControlEdit.Name = "axToolbarControlEdit";
-            this.axToolbarControlEdit.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControlEdit.OcxState")));
-            this.axToolbarControlEdit.Size = new System.Drawing.Size(820, 28);
-            this.axToolbarControlEdit.TabIndex = 1;
-            // 
-            // controlContainerItem5
-            // 
-            this.controlContainerItem5.AllowItemResize = false;
-            this.controlContainerItem5.Control = this.axToolbarControlEdit;
-            this.controlContainerItem5.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem5.Name = "controlContainerItem5";
-            // 
             // barTinEditor
             // 
             this.barTinEditor.AccessibleDescription = "DotNetBar Bar (barTinEditor)";
@@ -4613,7 +4614,7 @@
             this.barTinEditor.Controls.Add(this.comboBoxExNonCrater);
             this.barTinEditor.DockLine = 7;
             this.barTinEditor.DockSide = DevComponents.DotNetBar.eDockSide.Top;
-            this.barTinEditor.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.barTinEditor.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.barTinEditor.GrabHandleStyle = DevComponents.DotNetBar.eGrabHandleStyle.Office2003;
             this.barTinEditor.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.buttonItemAddTin,
@@ -4872,7 +4873,7 @@
             this.barStatus.AntiAlias = true;
             this.barStatus.Controls.Add(this.progressBarXMain);
             this.barStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barStatus.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.barStatus.Font = new System.Drawing.Font("Microsoft YaHei", 9F);
             this.barStatus.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.lblInfo});
             this.barStatus.Location = new System.Drawing.Point(0, 603);
@@ -5100,19 +5101,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.barContexMenuEditor)).EndInit();
             this.barContexMenuEditor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarCtlMenuEditor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barTerrain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barCustom)).EndInit();
-            this.barCustom.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCustom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barGeoAdjust)).EndInit();
             this.barGeoAdjust.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlSpatialAdjust)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bar3D)).EndInit();
-            this.bar3D.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlScene)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barCustom)).EndInit();
+            this.barCustom.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCustom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barTerrain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barCommon)).EndInit();
             this.barCommon.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlCommon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bar3D)).EndInit();
+            this.bar3D.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlScene)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barSunAlt)).EndInit();
             this.barSunAlt.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarSunAltitude)).EndInit();
@@ -5122,11 +5123,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.barLayout)).EndInit();
             this.barLayout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlLayout)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barEffects)).EndInit();
-            this.barEffects.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barEditor)).EndInit();
             this.barEditor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barEffects)).EndInit();
+            this.barEffects.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.barTinEditor)).EndInit();
             this.barTinEditor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControlTinEdit)).EndInit();

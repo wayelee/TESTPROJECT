@@ -65,6 +65,20 @@ namespace LibCerMap
                 this.gridControlPrecision.DataSource = CreateWeldToCenterlineTable();
                 //this.buttonItemHanfengDuiqi.Visible = true;
             }
+            if (m_ResultType == "外检测对齐中线报告")
+            {
+                CreateWaijianceToCenterlineOffsetTableImage(this.chartControl3);
+                buttonReport.Visible = false;              
+                this.bar1.Visible = false;
+            }
+            if (m_ResultType == "两次外检测对齐报告")
+            {                
+                buttonReport.Visible = false;
+                buttonItemWaijiance.Visible = true;
+                this.barChart.Visible = false;
+                this.bar1.Visible = false;
+            }
+    
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1221,6 +1235,7 @@ namespace LibCerMap
             {
                 DataTable stable = sourcetable;
                 ChartControl chartControl1 = control;
+                
                 double BegMeasure = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.WeldAlignmentMeasureField]));
                 double endMeasure = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.WeldAlignmentMeasureField]));
                 chartControl1.Series.Clear();
@@ -1278,6 +1293,136 @@ namespace LibCerMap
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void CreateWaijianceToCenterlineOffsetTableImage(ChartControl control)
+        {
+            try
+            {
+                DataTable stable = sourcetable;
+                ChartControl chartControl1 = control;
+
+                double BegMeasure = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.WeldAlignmentMeasureField]));
+                double endMeasure = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.WeldAlignmentMeasureField]));
+                chartControl1.Series.Clear();
+                DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("外检测对齐", ViewType.Bar);
+                series.ShowInLegend = false;
+                foreach (DataRow r in stable.Rows)
+                {
+                    double m; double z;
+                    if (r["距离偏移"] == DBNull.Value)
+                        continue;
+                    m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.WeldAlignmentMeasureField])), 2);
+                    z = Math.Round(Math.Abs(Convert.ToDouble(r["距离偏移"])), 2);
+                    series.Points.Add(new SeriesPoint(m, z));
+                }
+
+                // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+
+                chartControl1.Series.Add(series);
+                chartControl1.Titles.Clear();
+                ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+                ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+
+                XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
+                // Customize the appearance of the X-axis title. 
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Alignment = StringAlignment.Center;
+                diagram.AxisX.Title.Text = "外检测数据里程";
+                diagram.AxisX.Title.TextColor = Color.Black;
+                diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                // Customize the appearance of the Y-axis title.   
+                diagram.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Alignment = StringAlignment.Center;
+                diagram.AxisY.Title.Text = "距离偏移";
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                //((XYDiagram)chartControl1.Diagram).AxisX.Title.Text = "对齐里程";
+                //((XYDiagram)chartControl1.Diagram).AxisY.Title.Text = "特征点里程差";
+                Image image = null;
+                ImageFormat format = ImageFormat.Jpeg;
+                // Create an image of the chart. 
+                using (MemoryStream s = new MemoryStream())
+                {
+                    chartControl1.ExportToImage(s, format);
+                    image = Image.FromStream(s);
+                }
+                control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
+            }
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CreateWaijianceToWaijianceMatchedAttrChangeImage(ChartControl control, string attrName)
+        {
+            try
+            {
+                string colname = attrName + "变化";
+                DataTable stable = sourcetable;
+                ChartControl chartControl1 = control;
+                double BegMeasure = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+                double endMeasure = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+                chartControl1.Series.Clear();
+                DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series(attrName, ViewType.Bar);
+                series.ShowInLegend = false;
+                foreach (DataRow r in stable.Rows)
+                {
+                    double m; double z;
+                    if (r[colname] == DBNull.Value)
+                        continue;
+                    m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
+                    z = Math.Round(Math.Abs(Convert.ToDouble(r[colname])), 2);
+                    series.Points.Add(new SeriesPoint(m, z));
+                }
+
+                // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+
+                chartControl1.Series.Add(series);
+                chartControl1.Titles.Clear();
+                ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+                ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+
+                XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
+                // Customize the appearance of the X-axis title. 
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Alignment = StringAlignment.Center;
+                diagram.AxisX.Title.Text = "对齐里程";
+                diagram.AxisX.Title.TextColor = Color.Black;
+                diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                // Customize the appearance of the Y-axis title. 
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Alignment = StringAlignment.Center;
+                diagram.AxisY.Title.Text = colname;
+                diagram.AxisY.Title.TextColor = Color.Black;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Font = new Font("Tahoma", 9, FontStyle.Regular);
+
+                //((XYDiagram)chartControl1.Diagram).AxisX.Title.Text = "对齐里程";
+                //((XYDiagram)chartControl1.Diagram).AxisY.Title.Text = "特征点里程差";
+                Image image = null;
+                ImageFormat format = ImageFormat.Jpeg;
+                // Create an image of the chart. 
+                using (MemoryStream s = new MemoryStream())
+                {
+                    chartControl1.ExportToImage(s, format);
+                    image = Image.FromStream(s);
+                }
+                control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
+            }
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         //内检测对齐中线， 中线成果点统计
         private void buttonItemZhongxianTongji_Click(object sender, EventArgs e)
         {
@@ -1334,6 +1479,82 @@ namespace LibCerMap
         {
             FrmYichangToleranceSetting frm = new FrmYichangToleranceSetting(this.sourcetable);
             frm.ShowDialog();
+        }
+
+        private void buttonItemWaijiance_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonItemDB_Click(object sender, EventArgs e)
+        {
+            if (sourcetable.Columns.Contains(EvConfig.CISdb + "变化"))
+            {
+                FrmSingleChart fm = new FrmSingleChart(EvConfig.CISdb + "变化");
+                CreateWaijianceToWaijianceMatchedAttrChangeImage(fm.chartControl, EvConfig.CISdb);
+                fm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("没有" + EvConfig.CISdb + "变化" + "列");
+            }
+
+        }
+
+        private void buttonItemGuandaomanshen_Click(object sender, EventArgs e)
+        {
+            if (sourcetable.Columns.Contains(EvConfig.CISGuanDingMaiShen + "变化"))
+            {
+                FrmSingleChart fm = new FrmSingleChart(EvConfig.CISGuanDingMaiShen + "变化");
+                CreateWaijianceToWaijianceMatchedAttrChangeImage(fm.chartControl, EvConfig.CISGuanDingMaiShen);
+                fm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("没有" + EvConfig.CISGuanDingMaiShen + "变化" + "列");
+            }
+        }
+
+        private void buttonItemVOn_Click(object sender, EventArgs e)
+        {
+            if (sourcetable.Columns.Contains(EvConfig.CISVOn + "变化"))
+            {
+                FrmSingleChart fm = new FrmSingleChart(EvConfig.CISVOn + "变化");
+                CreateWaijianceToWaijianceMatchedAttrChangeImage(fm.chartControl, EvConfig.CISVOn);
+                fm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("没有" + EvConfig.CISVOn + "变化" + "列");
+            }
+        }
+
+        private void buttonItemJiaoliudianya_Click(object sender, EventArgs e)
+        {
+            if (sourcetable.Columns.Contains(EvConfig.CISJiaoliudianya + "变化"))
+            {
+                FrmSingleChart fm = new FrmSingleChart(EvConfig.CISJiaoliudianya + "变化");
+                CreateWaijianceToWaijianceMatchedAttrChangeImage(fm.chartControl, EvConfig.CISJiaoliudianya);
+                fm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("没有" + EvConfig.CISJiaoliudianya + "变化" + "列");
+            }
+        }
+
+        private void buttonItemVOff_Click(object sender, EventArgs e)
+        {
+            if (sourcetable.Columns.Contains(EvConfig.CISVOff + "变化"))
+            {
+                FrmSingleChart fm = new FrmSingleChart(EvConfig.CISVOff + "变化");
+                CreateWaijianceToWaijianceMatchedAttrChangeImage(fm.chartControl, EvConfig.CISVOff);
+                fm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("没有" + EvConfig.CISVOff + "变化" + "列");
+            }
         }
 
     }

@@ -23,14 +23,14 @@ using System.Data.OleDb;
 
 namespace LibCerMap
 {
-    public partial class FrmCenterLineWeldAlignment : OfficeForm
+    public partial class FrmCenterLineWaijianceAlignment : OfficeForm
     {
         //点图层的投影信息
         ISpatialReference psf = null;
 
         IMapControl3 pMapcontrol;
 
-        public FrmCenterLineWeldAlignment(IMapControl3 mapcontrol)
+        public FrmCenterLineWaijianceAlignment(IMapControl3 mapcontrol)
         {
             InitializeComponent();
             this.EnableGlass = false;
@@ -177,32 +177,25 @@ namespace LibCerMap
                 int idx = 0;
                 for (int i = 0; i < ptable.Rows.Count; i++)
                 {
-                    try
-                    {
-                        DataRow r = ptable.Rows[i];
-                        IPoint pt = new PointClass();
-                        pt.X = Convert.ToDouble(r[EvConfig.WeldXField]);
-                        pt.Y = Convert.ToDouble(r[EvConfig.WeldYField]);
-                        pt.SpatialReference = wgs84;
-                        IPoint ptInLine = pPO.ReturnNearestPoint(pt, esriSegmentExtension.esriNoExtension);
-                        r["X"] = ptInLine.X;
-                        r["Y"] = ptInLine.Y;
-                        r["对齐里程"] = ptInLine.M;
-                        r["Z"] = ptInLine.Z;
-
-                        r["距离偏移"] = Math.Round(DataAlignment.DataAlignment.CalculateDistanceBetween84TwoPoints(pt, ptInLine), 2);
-                    }
-                    catch
-                    {
-                    }
-                  
+                    DataRow r = ptable.Rows[i];
+                    IPoint pt = new PointClass();
+                    pt.X = Convert.ToDouble(r[EvConfig.WeldXField]);
+                    pt.Y = Convert.ToDouble(r[EvConfig.WeldYField]);
+                    pt.SpatialReference = wgs84;
+                    IPoint ptInLine = pPO.ReturnNearestPoint(pt, esriSegmentExtension.esriNoExtension);
+                    r["X"] = ptInLine.X;
+                    r["Y"] = ptInLine.Y;
+                    r["对齐里程"] = ptInLine.M;
+                    r["Z"] = ptInLine.Z;
+                    
+                    r["距离偏移"] = Math.Round( DataAlignment.DataAlignment.CalculateDistanceBetween84TwoPoints(pt, ptInLine),2);
                 }
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(spatialReferenceFactory);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(pLineCursor);
 
 
                 FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(ptable);
-                frm.setResultType("焊缝对齐报告");
+                frm.setResultType("外检测对齐中线报告");
                 frm.ShowDialog();
                    
             }

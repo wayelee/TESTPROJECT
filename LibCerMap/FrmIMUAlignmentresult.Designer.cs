@@ -67,14 +67,20 @@
             this.buttonItemNeijianceTongji = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemTezhengdianLichengcha = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemNeijianceNeijiance = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItemHanfengDuiqi = new DevComponents.DotNetBar.ButtonItem();
-            this.dockSite3 = new DevComponents.DotNetBar.DockSite();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.buttonItemBaseNeijianceTongji = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemAlignNeijianceTongji = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemTezhendianLicheng = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem4 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem5 = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemHanfengDuiqi = new DevComponents.DotNetBar.ButtonItem();
+            this.dockSite3 = new DevComponents.DotNetBar.DockSite();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonItemWaijiance = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemDB = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemGuandaomanshen = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemVOn = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemVOff = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemJiaoliudianya = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.dockSite4.SuspendLayout();
@@ -427,7 +433,8 @@
             this.bar2.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.buttonItemNeijianceZhongxian,
             this.buttonItemNeijianceNeijiance,
-            this.buttonItemHanfengDuiqi});
+            this.buttonItemHanfengDuiqi,
+            this.buttonItemWaijiance});
             this.bar2.Location = new System.Drawing.Point(0, 0);
             this.bar2.MenuBar = true;
             this.bar2.Name = "bar2";
@@ -478,35 +485,6 @@
             this.buttonItemNeijianceNeijiance.Text = "其他统计结果";
             this.buttonItemNeijianceNeijiance.Visible = false;
             // 
-            // buttonItemHanfengDuiqi
-            // 
-            this.buttonItemHanfengDuiqi.Name = "buttonItemHanfengDuiqi";
-            this.buttonItemHanfengDuiqi.Text = "其他统计结果";
-            this.buttonItemHanfengDuiqi.Visible = false;
-            // 
-            // dockSite3
-            // 
-            this.dockSite3.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
-            this.dockSite3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dockSite3.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer();
-            this.dockSite3.Location = new System.Drawing.Point(0, 26);
-            this.dockSite3.Name = "dockSite3";
-            this.dockSite3.Size = new System.Drawing.Size(1025, 0);
-            this.dockSite3.TabIndex = 6;
-            this.dockSite3.TabStop = false;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.buttonExportToShapeFIle);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.buttonReport);
-            this.panel1.Controls.Add(this.gridControl1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 26);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1025, 197);
-            this.panel1.TabIndex = 12;
-            // 
             // buttonItemBaseNeijianceTongji
             // 
             this.buttonItemBaseNeijianceTongji.Name = "buttonItemBaseNeijianceTongji";
@@ -536,6 +514,78 @@
             this.buttonItem5.Name = "buttonItem5";
             this.buttonItem5.Text = "匹配异常变化分析";
             this.buttonItem5.Click += new System.EventHandler(this.buttonItem5_Click);
+            // 
+            // buttonItemHanfengDuiqi
+            // 
+            this.buttonItemHanfengDuiqi.Name = "buttonItemHanfengDuiqi";
+            this.buttonItemHanfengDuiqi.Text = "其他统计结果";
+            this.buttonItemHanfengDuiqi.Visible = false;
+            // 
+            // dockSite3
+            // 
+            this.dockSite3.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
+            this.dockSite3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dockSite3.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer();
+            this.dockSite3.Location = new System.Drawing.Point(0, 26);
+            this.dockSite3.Name = "dockSite3";
+            this.dockSite3.Size = new System.Drawing.Size(1025, 0);
+            this.dockSite3.TabIndex = 6;
+            this.dockSite3.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.buttonExportToShapeFIle);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.buttonReport);
+            this.panel1.Controls.Add(this.gridControl1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 26);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1025, 197);
+            this.panel1.TabIndex = 12;
+            // 
+            // buttonItemWaijiance
+            // 
+            this.buttonItemWaijiance.Name = "buttonItemWaijiance";
+            this.buttonItemWaijiance.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItemDB,
+            this.buttonItemGuandaomanshen,
+            this.buttonItemVOn,
+            this.buttonItemVOff,
+            this.buttonItemJiaoliudianya});
+            this.buttonItemWaijiance.Text = "其他统计结果";
+            this.buttonItemWaijiance.Visible = false;
+            this.buttonItemWaijiance.Click += new System.EventHandler(this.buttonItemWaijiance_Click);
+            // 
+            // buttonItemDB
+            // 
+            this.buttonItemDB.Name = "buttonItemDB";
+            this.buttonItemDB.Text = "db值变化分析";
+            this.buttonItemDB.Click += new System.EventHandler(this.buttonItemDB_Click);
+            // 
+            // buttonItemGuandaomanshen
+            // 
+            this.buttonItemGuandaomanshen.Name = "buttonItemGuandaomanshen";
+            this.buttonItemGuandaomanshen.Text = "管道埋深变化分析";
+            this.buttonItemGuandaomanshen.Click += new System.EventHandler(this.buttonItemGuandaomanshen_Click);
+            // 
+            // buttonItemVOn
+            // 
+            this.buttonItemVOn.Name = "buttonItemVOn";
+            this.buttonItemVOn.Text = "VOn值变化分析";
+            this.buttonItemVOn.Click += new System.EventHandler(this.buttonItemVOn_Click);
+            // 
+            // buttonItemVOff
+            // 
+            this.buttonItemVOff.Name = "buttonItemVOff";
+            this.buttonItemVOff.Text = "VOff值变化分析";
+            this.buttonItemVOff.Click += new System.EventHandler(this.buttonItemVOff_Click);
+            // 
+            // buttonItemJiaoliudianya
+            // 
+            this.buttonItemJiaoliudianya.Name = "buttonItemJiaoliudianya";
+            this.buttonItemJiaoliudianya.Text = "交流电压变化分析";
+            this.buttonItemJiaoliudianya.Click += new System.EventHandler(this.buttonItemJiaoliudianya_Click);
             // 
             // FrmIMUAlignmentresult
             // 
@@ -622,5 +672,11 @@
         private DevComponents.DotNetBar.ButtonItem buttonItemTezhendianLicheng;
         private DevComponents.DotNetBar.ButtonItem buttonItem4;
         private DevComponents.DotNetBar.ButtonItem buttonItem5;
+        private DevComponents.DotNetBar.ButtonItem buttonItemWaijiance;
+        private DevComponents.DotNetBar.ButtonItem buttonItemDB;
+        private DevComponents.DotNetBar.ButtonItem buttonItemGuandaomanshen;
+        private DevComponents.DotNetBar.ButtonItem buttonItemVOn;
+        private DevComponents.DotNetBar.ButtonItem buttonItemVOff;
+        private DevComponents.DotNetBar.ButtonItem buttonItemJiaoliudianya;
     }
 }

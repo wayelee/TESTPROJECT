@@ -8678,14 +8678,16 @@ namespace CERMapping
 
         private void buttonItem13_Click(object sender, EventArgs e)
         {
-            FrmDuiqiWaiZhong frmwaizhong = new FrmDuiqiWaiZhong(this.axMapCtlMain, this.axTOCCtlLayer);
-            frmwaizhong.ShowDialog();
+            IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
+            FrmCenterLineWeldAlignment frm = new FrmCenterLineWeldAlignment(pMapcontrol);
+            frm.ShowDialog();
         }
 
         private void buttonItem27_Click(object sender, EventArgs e)
-        {
-            FrmDuiqiWaiZhong frmwaizhong = new FrmDuiqiWaiZhong(this.axMapCtlMain, this.axTOCCtlLayer);
-            frmwaizhong.ShowDialog();
+        {            
+            IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
+            FrmCenterLineWaijianceAlignment frm = new FrmCenterLineWaijianceAlignment(pMapcontrol);
+            frm.ShowDialog();
         }
 
         private void buttonItem26_Click(object sender, EventArgs e)
@@ -8741,6 +8743,13 @@ namespace CERMapping
             IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
             FrmCenterLineWeldAlignment frm = new FrmCenterLineWeldAlignment(pMapcontrol);
             frm.ShowDialog();
+        }
+
+        private void buttonItem29_Click(object sender, EventArgs e)
+        {
+             IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
+             FrmWaijianceToWaijianceAlignment frm = new FrmWaijianceToWaijianceAlignment(pMapcontrol);
+             frm.ShowDialog();
         }       
 
    

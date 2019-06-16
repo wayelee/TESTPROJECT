@@ -226,6 +226,18 @@
     <Compile Include="ClsSiftMatching.cs" />
     <Compile Include="ClsZfDatabase.cs" />
     <Compile Include="ControlsSynchronizer.cs" />
+    <Compile Include="FrmWaijianceToWaijianceAlignment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWaijianceToWaijianceAlignment.Designer.cs">
+      <DependentUpon>FrmWaijianceToWaijianceAlignment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCenterLineWaijianceAlignment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCenterLineWaijianceAlignment.Designer.cs">
+      <DependentUpon>FrmCenterLineWaijianceAlignment.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmIMUCenterlineMappingTable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1066,6 +1078,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FrmWaijianceToWaijianceAlignment.resx">
+      <DependentUpon>FrmWaijianceToWaijianceAlignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCenterLineWaijianceAlignment.resx">
+      <DependentUpon>FrmCenterLineWaijianceAlignment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmIMUCenterlineMappingTable.resx">
       <DependentUpon>FrmIMUCenterlineMappingTable.cs</DependentUpon>
     </EmbeddedResource>

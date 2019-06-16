@@ -148,6 +148,11 @@ namespace LibCerMap
                     myCommand.Fill(ds);
                     conn.Close();
                     alignmentPointTable = ds.Tables[0];
+                   if(!alignmentPointTable.Columns.Contains("记录距离"))
+                    {
+                        MessageBox.Show("'记录距离' 不存在!");
+                        return;
+                    }
                     alignmentPointTable.Columns[EvConfig.IMUMoveDistanceField].DataType = System.Type.GetType("System.Double");
                 }                   
                 DataTable baseTable = AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, pQF);
