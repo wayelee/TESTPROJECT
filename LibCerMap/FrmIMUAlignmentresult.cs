@@ -244,7 +244,15 @@ namespace LibCerMap
             string shapefilename = System.IO.Path.GetFileName(filepath);
             DataSet ds = new DataSet();
             DataTable dt = gridControl1.DataSource as DataTable;
-            ds.Tables.Add(dt);
+            if (dt.DataSet != null)
+            {
+                ds = dt.DataSet;
+            }
+            else
+            {
+                ds.Tables.Add(dt);
+            }
+           
 
             ClsGDBDataCommon cdc = new ClsGDBDataCommon();
             //cdc.OpenFromShapefile(filefolder);
