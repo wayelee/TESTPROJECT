@@ -965,11 +965,11 @@ namespace LibCerMap
             //chartControl1.Series.Clear();
             //  DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("中线点", ViewType.Bar);
             DevExpress.XtraCharts.Series seriesNotAligned = chartControl1.Series[1];
-            seriesNotAligned.Name = "未对齐内检测点";
+            seriesNotAligned.Name = "未对齐焊缝";
             seriesNotAligned.ShowInLegend = true;
 
             DevExpress.XtraCharts.Series seriesAligned = chartControl1.Series[2];
-            seriesAligned.Name = "对齐内检测点";
+            seriesAligned.Name = "对齐内焊缝";
             foreach (DataRow r in sourcetable.Rows)
             {
                 try
@@ -978,11 +978,11 @@ namespace LibCerMap
                     double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
                    
                     double z = 4;
-                    if (r["对齐基准点里程"] == DBNull.Value)
+                    if (r["对齐基准点里程"] == DBNull.Value && r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("焊缝"))
                     {
                         seriesNotAligned.Points.Add(new SeriesPoint(m, z));
                     }
-                    else
+                    else if (r["对齐基准点里程"] != DBNull.Value && r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("焊缝"))
                     {
                         seriesAligned.Points.Add(new SeriesPoint(m, z));
                     }
