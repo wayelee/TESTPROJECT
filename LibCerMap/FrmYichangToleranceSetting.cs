@@ -59,7 +59,7 @@ namespace LibCerMap
                 double BegMeasure = stable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
                 double endMeasure = stable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
                 chartControl1.Series.Clear();
-                DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series(ColumnName, ViewType.Bar);
+                DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series(ColumnName, ViewType.RangeBar);
                 series.ShowInLegend = false;
                 foreach (DataRow r in stable.Rows)
                 {
@@ -68,7 +68,7 @@ namespace LibCerMap
                         continue;
                     m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
                     z = Math.Round(Math.Abs(Convert.ToDouble(r[ColumnName])), 2);
-                    series.Points.Add(new SeriesPoint(m, z));
+                    series.Points.Add(new SeriesPoint(m, z,-1));
                 }
 
                 // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();

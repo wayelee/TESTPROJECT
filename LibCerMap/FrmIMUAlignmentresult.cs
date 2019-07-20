@@ -969,7 +969,7 @@ namespace LibCerMap
             seriesNotAligned.ShowInLegend = true;
 
             DevExpress.XtraCharts.Series seriesAligned = chartControl1.Series[2];
-            seriesAligned.Name = "对齐内焊缝";
+            seriesAligned.Name = "对齐焊缝";
             foreach (DataRow r in sourcetable.Rows)
             {
                 try

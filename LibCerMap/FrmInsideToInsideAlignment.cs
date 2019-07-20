@@ -590,9 +590,48 @@ namespace LibCerMap
                 {
                     alignmentPointTable.Columns.Remove(addcolumn);
                 }
+                addcolumn = "壁厚变化率";
+                if (alignmentPointTable.Columns.Contains(addcolumn))
+                {
+                    alignmentPointTable.Columns.Remove(addcolumn);
+                }
+                addcolumn = "长度变化率";
+                if (alignmentPointTable.Columns.Contains(addcolumn))
+                {
+                    alignmentPointTable.Columns.Remove(addcolumn);
+                }
+                addcolumn = "宽度变化率";
+                if (alignmentPointTable.Columns.Contains(addcolumn))
+                {
+                    alignmentPointTable.Columns.Remove(addcolumn);
+                }
+                int baseYear = 0;
+                int alignYear = 0;
+                try
+                {
+                    if (baseTable.Columns.Contains(EvConfig.IMUInspectionYearField))
+                    {
+                        baseYear = Convert.ToInt16( baseTable.Rows[0][EvConfig.IMUInspectionYearField]);
+                    }
+                    if (alignmentPointTable.Columns.Contains(EvConfig.IMUInspectionYearField))
+                    {
+                        alignYear = Convert.ToInt16(alignmentPointTable.Rows[0][EvConfig.IMUInspectionYearField]);
+                    }
+                }
+                catch
+                {
+
+                }
+               
+
+
+
                 alignmentPointTable.Columns.Add("壁厚变化", System.Type.GetType("System.Double"));
                 alignmentPointTable.Columns.Add("长度变化", System.Type.GetType("System.Double"));
                 alignmentPointTable.Columns.Add("宽度变化", System.Type.GetType("System.Double"));
+                alignmentPointTable.Columns.Add("壁厚变化率", System.Type.GetType("System.Double"));
+                alignmentPointTable.Columns.Add("长度变化率", System.Type.GetType("System.Double"));
+                alignmentPointTable.Columns.Add("宽度变化率", System.Type.GetType("System.Double")); 
                 alignmentPointTable.Columns.Add("角度变化", System.Type.GetType("System.Double"));
                 #region // 异常增长计算
                 for (int i = 0; i < MatchedDataRowPair.Count; i++)
@@ -616,11 +655,21 @@ namespace LibCerMap
                             IMUr["角度变化"] = Math.Min(Math.Abs(ShizhongFangweiToMinutes(BaseRow[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle),
                             Math.Abs(720 - Math.Abs(ShizhongFangweiToMinutes(BaseRow[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle)));
                         }
+                        if (baseYear != 0 && alignYear != 0 && baseYear - alignYear != 0)
+                        {
+                            IMUr["壁厚变化率"] = Convert.ToDouble(IMUr["壁厚变化"]) / (alignYear - baseYear);
+                            IMUr["长度变化率"] = Convert.ToDouble(IMUr["长度变化"]) / (alignYear - baseYear);
+                            IMUr["宽度变化率"] = Convert.ToDouble(IMUr["宽度变化"]) / (alignYear - baseYear);
+                        }
+
                     }
                     catch
                     {
                     }
                 }
+
+
+
                 #endregion
                 FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
                 frm.setResultType("两次内检测对齐报告");

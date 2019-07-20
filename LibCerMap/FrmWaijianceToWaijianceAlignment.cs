@@ -62,42 +62,49 @@ namespace LibCerMap
 
         private void btOK_Click(object sender, EventArgs e)
         {
-            string strCon = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + this.textBoxFile.Text + ";Extended Properties=Excel 8.0";
-            OleDbConnection conn = new OleDbConnection(strCon);
-            string sql1 = "select * from [Sheet1$]";
-            conn.Open();
-            OleDbDataAdapter myCommand = new OleDbDataAdapter(sql1, strCon);
-            DataSet ds = new DataSet();
-            myCommand.Fill(ds);
-            conn.Close();
-             DataTable alignmentPointTable = ds.Tables[0];
-            if (!alignmentPointTable.Columns.Contains("对齐里程"))
+            try
             {
-                MessageBox.Show("对齐外检测表的'对齐里程' 不存在!");
-                return;
+                string strCon = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + this.textBoxFile.Text + ";Extended Properties=Excel 8.0";
+                OleDbConnection conn = new OleDbConnection(strCon);
+                string sql1 = "select * from [Sheet1$]";
+                conn.Open();
+                OleDbDataAdapter myCommand = new OleDbDataAdapter(sql1, strCon);
+                DataSet ds = new DataSet();
+                myCommand.Fill(ds);
+                conn.Close();
+                DataTable alignmentPointTable = ds.Tables[0];
+                if (!alignmentPointTable.Columns.Contains("对齐里程"))
+                {
+                    MessageBox.Show("对齐外检测表的'对齐里程' 不存在!");
+                    return;
+                }
+                alignmentPointTable.Columns["对齐里程"].DataType = System.Type.GetType("System.Double");
+
+
+                strCon = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + this.textBoxFileBase.Text + ";Extended Properties=Excel 8.0";
+                conn = new OleDbConnection(strCon);
+                sql1 = "select * from [Sheet1$]";
+                conn.Open();
+                myCommand = new OleDbDataAdapter(sql1, strCon);
+                ds = new DataSet();
+                myCommand.Fill(ds);
+                conn.Close();
+                DataTable basetable = ds.Tables[0];
+
+                double tolerance = Convert.ToDouble(numericUpDown1.Value);
+                string measurevcol = "对齐里程";
+                MatchWaijianceTable(basetable, ref alignmentPointTable, measurevcol, tolerance);
+
+                FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
+                frm.setResultType("两次外检测对齐报告");
+                frm.BasePointTable = basetable;
+                frm.AlignmentPointTable = alignmentPointTable;
+                frm.ShowDialog();
             }
-            alignmentPointTable.Columns["对齐里程"].DataType = System.Type.GetType("System.Double");
-
-
-            strCon = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + this.textBoxFileBase.Text + ";Extended Properties=Excel 8.0";
-            conn = new OleDbConnection(strCon);
-            sql1 = "select * from [Sheet1$]";
-            conn.Open();
-            myCommand = new OleDbDataAdapter(sql1, strCon);
-            ds = new DataSet();
-            myCommand.Fill(ds);
-            conn.Close();
-            DataTable basetable = ds.Tables[0];
-
-            double tolerance = Convert.ToDouble(numericUpDown1.Value);
-            string measurevcol = "对齐里程";
-            MatchWaijianceTable(basetable, ref alignmentPointTable, measurevcol, tolerance);
-
-            FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
-            frm.setResultType("两次外检测对齐报告");
-            frm.BasePointTable = basetable;
-            frm.AlignmentPointTable = alignmentPointTable;
-            frm.ShowDialog();
+            catch(System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void buttonXSelect_Click(object sender, EventArgs e)
