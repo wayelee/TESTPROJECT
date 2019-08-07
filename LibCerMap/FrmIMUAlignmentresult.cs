@@ -49,6 +49,7 @@ namespace LibCerMap
             if (m_ResultType == "内检测对齐中线报告")
             {
                 CreateInsidPointCenterlineAlignmentStatisticsImage(this.chartControl3);
+                this.chartControl3.CustomDrawSeriesPoint += this.chartControl3_CustomDrawSeriesPoint;
                 this.gridControlPrecision.DataSource = CreateInsidPointCenterlineAlignmentStatisticsTable();
                 this.buttonItemNeijianceZhongxian.Visible = true;
 
@@ -56,12 +57,13 @@ namespace LibCerMap
             if (m_ResultType == "两次内检测对齐报告")
             {
                 CreateInsideToInsideAlignmentStatisticsImage(this.chartControl3);
+                this.chartControl3.CustomDrawSeriesPoint += this.chartControl3_CustomDrawSeriesPoint;
                 this.gridControlPrecision.DataSource = CreateInsideToInsideAlignmentStatisticsTable();
                 this.buttonItemNeijianceNeijiance.Visible = true;
             }
             if (m_ResultType == "焊缝对齐报告")
             {
-                CreateWeldToCenterlineOffsetTableImage(this.chartControl3);
+                CreateWeldToCenterlineOffsetTableImage(this.chartControl3); 
                 this.gridControlPrecision.DataSource = CreateWeldToCenterlineTable();
                 //this.buttonItemHanfengDuiqi.Visible = true;
             }
@@ -802,12 +804,16 @@ namespace LibCerMap
                 double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
                 double z = 4;
                 if (r["里程差"] == DBNull.Value)
-                {                  
-                    seriesNotAligned.Points.Add(new SeriesPoint(m, z));
+                {
+                    SeriesPoint spt = new SeriesPoint(m, z);
+                    spt.Tag = sourcetable.Rows.IndexOf(r);
+                    seriesNotAligned.Points.Add(spt);
                 }
                 else
                 {
-                    seriesAligned.Points.Add(new SeriesPoint(m, z));
+                    SeriesPoint spt = new SeriesPoint(m, z);
+                    spt.Tag = sourcetable.Rows.IndexOf(r);
+                    seriesAligned.Points.Add(spt);
                 }
             }
 
@@ -965,11 +971,11 @@ namespace LibCerMap
             //chartControl1.Series.Clear();
             //  DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("中线点", ViewType.Bar);
             DevExpress.XtraCharts.Series seriesNotAligned = chartControl1.Series[1];
-            seriesNotAligned.Name = "未对齐焊缝";
+            seriesNotAligned.Name = "未对齐内检测点";
             seriesNotAligned.ShowInLegend = true;
 
             DevExpress.XtraCharts.Series seriesAligned = chartControl1.Series[2];
-            seriesAligned.Name = "对齐焊缝";
+            seriesAligned.Name = "对齐内检测点";
             foreach (DataRow r in sourcetable.Rows)
             {
                 try
@@ -978,13 +984,17 @@ namespace LibCerMap
                     double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
                    
                     double z = 4;
-                    if (r["对齐基准点里程"] == DBNull.Value && r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("焊缝"))
+                    if (r["对齐基准点里程"] == DBNull.Value )
                     {
-                        seriesNotAligned.Points.Add(new SeriesPoint(m, z));
+                        SeriesPoint spt = new SeriesPoint(m, z);
+                        spt.Tag = sourcetable.Rows.IndexOf(r);
+                        seriesNotAligned.Points.Add(spt);
                     }
-                    else if (r["对齐基准点里程"] != DBNull.Value && r[EvConfig.IMUPointTypeField] != DBNull.Value && r[EvConfig.IMUPointTypeField].ToString().Contains("焊缝"))
+                    else if (r["对齐基准点里程"] != DBNull.Value )
                     {
-                        seriesAligned.Points.Add(new SeriesPoint(m, z));
+                        SeriesPoint spt = new SeriesPoint(m, z);
+                        spt.Tag = sourcetable.Rows.IndexOf(r);
+                        seriesAligned.Points.Add(spt);
                     }
                 }
                 catch
@@ -1256,7 +1266,9 @@ namespace LibCerMap
                         continue;
                     m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.WeldAlignmentMeasureField])), 2);
                     z = Math.Round(Math.Abs(Convert.ToDouble(r["距离偏移"])), 2);
-                    series.Points.Add(new SeriesPoint(m, z));
+                    SeriesPoint spt = new SeriesPoint(m, z);
+                    spt.Tag = stable.Rows.IndexOf(r);
+                    series.Points.Add(spt);
                 }
 
                 // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -1321,7 +1333,9 @@ namespace LibCerMap
                         continue;
                     m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.WeldAlignmentMeasureField])), 2);
                     z = Math.Round(Math.Abs(Convert.ToDouble(r["距离偏移"])), 2);
-                    series.Points.Add(new SeriesPoint(m, z));
+                    SeriesPoint spt = new SeriesPoint(m, z);
+                    spt.Tag = stable.Rows.IndexOf(r);
+                    series.Points.Add(spt);                     
                 }
 
                 // System.Windows.Forms.DataVisualization.Charting.Chart chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -1563,6 +1577,51 @@ namespace LibCerMap
             {
                 MessageBox.Show("没有" + EvConfig.CISVOff + "变化" + "列");
             }
+        }
+
+        private void gridView1_RowCountChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chartControl3_CustomDrawSeriesPoint(object sender, CustomDrawSeriesPointEventArgs e)
+        {
+            DevExpress.XtraCharts.BarDrawOptions drawOptions = e.SeriesDrawOptions as DevExpress.XtraCharts.BarDrawOptions;
+            if (drawOptions == null)
+                return;
+            ChartControl ctcontrol = sender as ChartControl;
+            //if (ctcontrol.SelectedItems.Contains(e.SeriesPoint))
+            //{
+            //    drawOptions.Color = Color.FromArgb(0, 255, 255);
+            //}
+            //else
+            //{
+            //    if (e.SeriesPoint[0] < (int)((DevExpress.XtraCharts.XYDiagram)ctcontrol.Diagram).Tag)
+            //    {
+            //        drawOptions.Color = Color.FromArgb(255, 0, 0);
+            //    }
+            //    else
+            //    {
+            //        drawOptions.Color = Color.DarkGreen;
+            //    }
+            //}
+            // 第一个series是基准点
+            if (e.Series.Equals(ctcontrol.Series[0]))
+                return;
+            if (e.SeriesPoint.Tag != null)
+            {
+                int DataSourceidx = (int)(e.SeriesPoint.Tag);
+                int GridRowHandle = gridView1.GetRowHandle(DataSourceidx);
+                if (GridRowHandle < 0)
+                {
+                    drawOptions.Color = Color.FromArgb(0, 255, 255, 255);
+                }
+                else
+                {
+                    return;
+                }
+            }
+           
         }
 
     }
