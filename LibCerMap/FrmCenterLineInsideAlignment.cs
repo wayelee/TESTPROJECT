@@ -119,6 +119,8 @@ namespace LibCerMap
             }
         }
 
+       
+
         private void btOK_Click(object sender, EventArgs e)
         {
             try
@@ -194,20 +196,37 @@ namespace LibCerMap
                 double beginIMUM = Convert.ToDouble(IMUTable.Rows[0][EvConfig.IMUMoveDistanceField]);
                 double IMULength = endIMUM - beginIMUM;
 
-                List<DataRow> WantouPointList = (from DataRow r in IMUTable.Rows
-                                                 where r["类型"].ToString().Contains("弯头")
-                                                 select r).ToList();
-                List<DataRow> GuandianPointList = (from DataRow r in CenterlinePointTable.Rows
-                                                   where r["测点属性"].ToString().Contains("拐点")
-                                                   select r).ToList();
+                Dictionary<string, string> TypeMatchDic = new Dictionary<string,string>();
+                TypeMatchDic.Add("阀门", "阀门");
+                TypeMatchDic.Add("弯头", "弯头");
+                TypeMatchDic.Add("三通", "三通");
+                TypeMatchDic.Add("地面标记", "地面标记");
+                TypeMatchDic.Add("开挖点", "管道缺陷");
+
+                //List<DataRow> WantouPointList = (from DataRow r in IMUTable.Rows
+                //                                 where r["类型"].ToString().Contains("弯头")
+                //                                 select r).ToList();
+                //List<DataRow> GuandianPointList = (from DataRow r in CenterlinePointTable.Rows
+                //                                   where r["测点属性"].ToString().Contains("拐点")
+                //                                   select r).ToList();
+
+                List<DataRow> NeijianceControlPointList = (from DataRow r in IMUTable.Rows
+                                                           where r["类型"]!=DBNull.Value && IsNeiJianCeDianControlPointType(r["类型"].ToString(), TypeMatchDic)
+                                                           select r).ToList();
+
+                List<DataRow> ZhongXianControlPointList = (from DataRow r in CenterlinePointTable.Rows
+                                                           where r["测点属性"] != DBNull.Value && IsZhongXianDianControlPointType( r["测点属性"].ToString(), TypeMatchDic)
+                                                           select r).ToList();
+            
 
                 Dictionary<DataRow, DataRow> MatchedDataRowPair = new Dictionary<DataRow, DataRow>();
-                for (int i = 0; i < WantouPointList.Count; i++)
+                for (int i = 0; i < NeijianceControlPointList.Count; i++)
                 {
-                    DataRow IMUr = WantouPointList[i];
+                    DataRow IMUr = NeijianceControlPointList[i];
                     double ActionIMUM = (Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField]) - beginIMUM) * centerlineLength / IMULength + beginM;
-                    List<DataRow> Featurerow = (from r in GuandianPointList
-                                                where Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField]) - ActionIMUM) < Convert.ToDouble(numericUpDown3.Value)
+                    List<DataRow> Featurerow = (from r in ZhongXianControlPointList
+                                                where Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField]) - ActionIMUM) < Convert.ToDouble(numericUpDown3.Value) &&
+                                                 IsZhongXianNejianceCouldMatch(r["测点属性"].ToString(), IMUr["类型"].ToString(), TypeMatchDic)
                                                 select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.CenterlineMeasureField]) - ActionIMUM)).ToList();
                     if (Featurerow.Count > 0)
                     {
@@ -345,6 +364,40 @@ namespace LibCerMap
                 MessageBox.Show(ex.Message);
             }
          
+        }
+
+        private bool IsZhongXianDianControlPointType(string pointtype, Dictionary<string, string> TypeMatchDic)
+        {
+            foreach (string controlpointtype in TypeMatchDic.Keys)
+            {
+                if (pointtype.Contains(controlpointtype))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool IsNeiJianCeDianControlPointType(string pointtype, Dictionary<string, string> TypeMatchDic)
+        {
+            foreach (string controlpointtype in TypeMatchDic.Values)
+            {
+                if (pointtype.Contains(controlpointtype))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool IsZhongXianNejianceCouldMatch(string zhongxiandianType, string neijiancedianType, Dictionary<string, string> TypeMatchDic)
+        {
+            foreach (string TypeKey in TypeMatchDic.Keys)
+            {
+                if (zhongxiandianType.Contains(TypeKey) && neijiancedianType.Contains(TypeMatchDic[TypeKey]))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         //从点图层中收集所有点
