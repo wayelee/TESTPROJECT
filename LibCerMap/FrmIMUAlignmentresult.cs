@@ -709,10 +709,17 @@ namespace LibCerMap
             dr["匹配特征点数"] = (from DataRow r in stable.Rows
                             where r["里程差"] != DBNull.Value
                             select r).Count();
-             
-            dr["特征点平均里程差"] = Math.Round((from DataRow r in stable.Rows
-                                         where r["里程差"] != DBNull.Value
-                                         select Math.Abs(Convert.ToDouble(r["里程差"]))).Average(), 2);
+            try
+            {
+                dr["特征点平均里程差"] = Math.Round((from DataRow r in stable.Rows
+                                             where r["里程差"] != DBNull.Value
+                                             select Math.Abs(Convert.ToDouble(r["里程差"]))).Average(), 2);
+            }
+            catch
+            {
+
+            }
+            
             dt.Rows.Add(dr);
             return dt;
         }
@@ -745,6 +752,12 @@ namespace LibCerMap
                 chartControl1.Titles.Clear();
                 ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
                 ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+                if (series.Points.Count > 0)
+                {
+                    double maxY = (from SeriesPoint pt in series.Points
+                                  select pt.Values[0]).Max();
+                    ((XYDiagram)chartControl1.Diagram).AxisY.VisualRange.SetMinMaxValues(0, maxY * 1.5);
+                }
 
                 XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
                 // Customize the appearance of the X-axis title. 
@@ -1066,6 +1079,12 @@ namespace LibCerMap
                 chartControl1.Titles.Clear();
                 ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
                 ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+                if (series.Points.Count > 0)
+                {
+                    double maxY = (from SeriesPoint pt in series.Points
+                                   select pt.Values[0]).Max();
+                    ((XYDiagram)chartControl1.Diagram).AxisY.VisualRange.SetMinMaxValues(0, maxY * 1.5);
+                }
 
                 XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
                 // Customize the appearance of the X-axis title. 
@@ -1131,6 +1150,12 @@ namespace LibCerMap
                 chartControl1.Titles.Clear();
                 ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
                 ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+                if (series.Points.Count > 0)
+                {
+                    double maxY = (from SeriesPoint pt in series.Points
+                                   select pt.Values[0]).Max();
+                    ((XYDiagram)chartControl1.Diagram).AxisY.VisualRange.SetMinMaxValues(0, maxY * 1.5);
+                }
 
                 XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
                 // Customize the appearance of the X-axis title. 
@@ -1409,6 +1434,12 @@ namespace LibCerMap
                 chartControl1.Titles.Clear();
                 ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
                 ((XYDiagram)chartControl1.Diagram).AxisX.VisualRange.SetMinMaxValues(BegMeasure, endMeasure);
+                if (series.Points.Count > 0)
+                {
+                    double maxY = (from SeriesPoint pt in series.Points
+                                   select pt.Values[0]).Max();
+                    ((XYDiagram)chartControl1.Diagram).AxisY.VisualRange.SetMinMaxValues(0, maxY * 1.5);
+                }
 
                 XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
                 // Customize the appearance of the X-axis title. 
