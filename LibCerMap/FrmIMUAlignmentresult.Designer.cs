@@ -85,6 +85,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelCount = new System.Windows.Forms.Label();
+            this.buttonItemInsideInsideDiff = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.dockSite4.SuspendLayout();
@@ -488,7 +489,8 @@
             this.buttonItemAlignNeijianceTongji,
             this.buttonItemTezhendianLicheng,
             this.buttonItem4,
-            this.buttonItem5});
+            this.buttonItem5,
+            this.buttonItemInsideInsideDiff});
             this.buttonItemNeijianceNeijiance.Text = "其他统计结果";
             this.buttonItemNeijianceNeijiance.Visible = false;
             // 
@@ -639,6 +641,12 @@
             this.labelCount.TabIndex = 0;
             this.labelCount.Text = "label1";
             // 
+            // buttonItemInsideInsideDiff
+            // 
+            this.buttonItemInsideInsideDiff.Name = "buttonItemInsideInsideDiff";
+            this.buttonItemInsideInsideDiff.Text = "两次数据对比";
+            this.buttonItemInsideInsideDiff.Click += new System.EventHandler(this.buttonItemInsideInsideDiff_Click);
+            // 
             // FrmIMUAlignmentresult
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -737,5 +745,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labelCount;
         private System.Windows.Forms.Button buttonSave;
+        private DevComponents.DotNetBar.ButtonItem buttonItemInsideInsideDiff;
     }
 }

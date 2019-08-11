@@ -859,6 +859,7 @@ namespace LibCerMap
             }
             control.ExportToImage(this.TempImagePath, ImageFormat.Jpeg);
         }
+        
 
         // 两次内检测base内检测表
         private DataTable CreateInsideToInsiddeBaseStatisticsTable()
@@ -976,7 +977,57 @@ namespace LibCerMap
             dt.Rows.Add(dr);
             return dt;
         }
-        
+        // 两次内检测对比表
+        private DataTable CreateInsideToInsideDifferenceStaticticsTable()
+        {           
+            DataTable dt = new DataTable();
+            dt.Columns.Add("大类");
+            dt.Columns.Add("小类");
+            string byear = "第一次内检测年份";
+            string ayear = "第二次内检测年份";
+            try
+            {
+                  byear = BasePointTable.AsEnumerable().Where(x => x[EvConfig.IMUInspectionYearField] != DBNull.Value).ToList().First()[EvConfig.IMUInspectionYearField].ToString();     
+            }
+            catch
+            {
+            }
+            try
+            {
+                  ayear = AlignmentPointTable.AsEnumerable().Where(x => x[EvConfig.IMUInspectionYearField] != DBNull.Value).ToList().First()[EvConfig.IMUInspectionYearField].ToString();        
+            }
+            catch
+            {
+            }
+            dt.Columns.Add(byear);
+            dt.Columns.Add(ayear);
+            GenerateDifferenceRow("管道定位", "地面参考点", ref dt);
+            GenerateDifferenceRow("管道定位", "环向焊缝", ref dt);
+
+            GenerateDifferenceRow("缺陷", "凹陷", ref dt);
+            GenerateDifferenceRow("缺陷", "环向焊缝缺陷", ref dt);
+            GenerateDifferenceRow("缺陷", "直焊缝缺陷", ref dt);
+            GenerateDifferenceRow("缺陷", "金属腐蚀", ref dt);
+            GenerateDifferenceRow("缺陷", "外接金属物", ref dt);
+            GenerateDifferenceRow("缺陷", "制造缺陷", ref dt);
+
+            GenerateDifferenceRow("设备", "阀门", ref dt);
+            GenerateDifferenceRow("设备", "绝缘接头", ref dt);
+            GenerateDifferenceRow("设备", "开孔", ref dt);
+            GenerateDifferenceRow("设备", "三通", ref dt);
+            GenerateDifferenceRow("设备", "套管", ref dt);
+            GenerateDifferenceRow("设备", "弯头", ref dt);
+            return dt;            
+        }
+        private void GenerateDifferenceRow(string c1, string c2, ref DataTable dt)
+        {
+            DataRow r = dt.NewRow();
+            r[0] = c1;
+            r[1] = c2;
+            r[2] = (BasePointTable.AsEnumerable().Where(x => x[EvConfig.IMUPointTypeField] != null && x[EvConfig.IMUPointTypeField].ToString().Contains(c2))).Count();
+            r[3] = (AlignmentPointTable.AsEnumerable().Where(x => x[EvConfig.IMUPointTypeField] != null && x[EvConfig.IMUPointTypeField].ToString().Contains(c2))).Count();
+            dt.Rows.Add(r);
+        }
         //两次内检测对齐统计图
         private void CreateInsideToInsideAlignmentStatisticsImage(ChartControl control)
         {
@@ -1537,6 +1588,13 @@ namespace LibCerMap
             FrmYichangToleranceSetting frm = new FrmYichangToleranceSetting(this.sourcetable);
             frm.ShowDialog();
         }
+        //两次类检测对齐，数据对比
+        private void buttonItemInsideInsideDiff_Click(object sender, EventArgs e)
+        {           
+            DataTable dt = CreateInsideToInsideDifferenceStaticticsTable();
+            FrmSingleTable fm = new FrmSingleTable(dt, "两次内检测数据对比");
+            fm.ShowDialog();
+        }
 
         private void buttonItemWaijiance_Click(object sender, EventArgs e)
         {
@@ -1835,6 +1893,8 @@ namespace LibCerMap
             }
              
         }
+
+        
     }
 
 }
