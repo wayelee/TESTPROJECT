@@ -413,6 +413,7 @@ namespace LibCerMap
             ((XYDiagram)chartControl1.Diagram).AxisX.WholeRange.SetMinMaxValues(BegMeasure, endMeasure);
 
 
+            int ProfileMapHight = 8;
 
             #endregion
             
@@ -436,7 +437,7 @@ namespace LibCerMap
                     LastBottomLeftPoint.X = (int)x;
                     LastBottomLeftPoint.Y = (int)y;
 
-                    chartControl1.Size = new System.Drawing.Size((int)(framgeo.Width * pageUnitToInchUnitScale * defaultDPI), (int)(framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
+                    chartControl1.Size = new System.Drawing.Size((int)(framgeo.Width * pageUnitToInchUnitScale * defaultDPI), (int)(ProfileMapHight * pageUnitToInchUnitScale * defaultDPI));
 
                     Image img = null;
                     Bitmap bmp = null;
@@ -464,7 +465,7 @@ namespace LibCerMap
 
                             Pen defaultPen = new Pen(Color.Black);
                             defaultPen.Width = 1;
-                            graph.DrawImage(bmp, new RectangleF((float)x, (float)y, (float)framgeo.Width * pageUnitToInchUnitScale * defaultDPI, (float)framgeo.Height * pageUnitToInchUnitScale * defaultDPI));
+                            graph.DrawImage(bmp, new RectangleF((float)x, (float)y, (float)framgeo.Width * pageUnitToInchUnitScale * defaultDPI, (float)ProfileMapHight * pageUnitToInchUnitScale * defaultDPI));
 
                             // draw map head.
                             RectangleF MapheadRect = new RectangleF((float)(int)(defaultDPI * framgeo.XMin * pageUnitToInchUnitScale - BandHeadWidth),
@@ -485,12 +486,12 @@ namespace LibCerMap
                             graph.DrawString("地图", textfont, new SolidBrush(Color.Black), rF, psf);
                             graph.RestoreGraphicsState();
 
-
+                            
                             // draw chart head
                             RectangleF ChartheadRect = new RectangleF((float)(int)(defaultDPI * framgeo.XMin * pageUnitToInchUnitScale - BandHeadWidth),
                               (float)(int)(defaultDPI * (layerOutPageSize.Height - framgeo.LowerLeft.Y) * pageUnitToInchUnitScale + 1),
                              (float)(int)(BandHeadWidth),
-                             (float)(int)(defaultDPI * framgeo.Height * pageUnitToInchUnitScale));
+                             (float)(int)(defaultDPI * ProfileMapHight * pageUnitToInchUnitScale));
                             graph.DrawRectangle(defaultPen, ChartheadRect);
                             //draw head text
                             rF = new RectangleF(0, 0, (float)ChartheadRect.Height, (float)BandHeadWidth);
