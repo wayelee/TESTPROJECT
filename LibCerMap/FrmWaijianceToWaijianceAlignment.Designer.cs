@@ -224,7 +224,7 @@
             this.Name = "FrmWaijianceToWaijianceAlignment";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "两次内检测对齐图层选择";
+            this.Text = "两次外检测对齐数据选择";
             this.Load += new System.EventHandler(this.FrmPointToLine_Load);
             this.gPanelPoint.ResumeLayout(false);
             this.gPanelPoint.PerformLayout();

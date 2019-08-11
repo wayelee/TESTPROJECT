@@ -8750,6 +8750,18 @@ namespace CERMapping
              IMapControl3 pMapcontrol = axMapCtlMain.Object as IMapControl3;
              FrmWaijianceToWaijianceAlignment frm = new FrmWaijianceToWaijianceAlignment(pMapcontrol);
              frm.ShowDialog();
+        }
+
+        private void buttonItemOpenMatchResult_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "对齐结果文件 (*.rst)|*.rst";             
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult();
+                frm.LoadMatchResult(dlg.FileName);
+                frm.ShowDialog();
+            }
         }       
 
    

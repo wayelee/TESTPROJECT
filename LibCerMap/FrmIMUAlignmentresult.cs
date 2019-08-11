@@ -38,7 +38,11 @@ namespace LibCerMap
             sourcetable = tb;
             TempImagePath = ClsGDBDataCommon.GetParentPathofExe() + @"Resource\BMP\TempImage.jpg";
         }
-
+        public FrmIMUAlignmentresult()
+        {
+            InitializeComponent();         
+            TempImagePath = ClsGDBDataCommon.GetParentPathofExe() + @"Resource\BMP\TempImage.jpg";
+        }
         private void FrmIMUAlignmentresult_Load(object sender, EventArgs e)
         {
             gridControl1.DataSource = sourcetable;
@@ -1612,7 +1616,7 @@ namespace LibCerMap
 
         private void gridView1_RowCountChanged(object sender, EventArgs e)
         {
-
+            labelCount.Text = "记录数：" + gridView1.RowCount;
         }
 
         private void chartControl3_CustomDrawSeriesPoint(object sender, CustomDrawSeriesPointEventArgs e)
@@ -1655,6 +1659,182 @@ namespace LibCerMap
            
         }
 
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "对齐结果文件 (*.rst)|*.rst";
+            try
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(dlg.FileName))
+                    {
+                        file.Write(m_ResultType);
+                    }
+                    string folder = System.IO.Path.GetDirectoryName(dlg.FileName);
+                    string filename;
+                    //filename = dlg.FileName + ".GV1";
+                    //using (MemoryStream stream = new MemoryStream())
+                    //{
+                    //    stream.Seek(0, SeekOrigin.Begin);
+                    //    gridView1.SaveLayoutToStream(stream);
+                    //    using (System.IO.FileStream file = new System.IO.FileStream(filename, FileMode.OpenOrCreate))
+                    //    {
+                    //        //stream.CopyTo(file);
+                    //        file.Write(stream.ToArray(), 0, stream.ToArray().Length);
+                    //        file.Flush();
+
+                    //    }
+                    //}
+                    //filename = dlg.FileName + ".ct";
+                    //using (MemoryStream stream = new MemoryStream())
+                    //{
+                    //    stream.Seek(0, SeekOrigin.Begin);
+                    //    chartControl3.SaveToStream(stream);
+                    //    using (System.IO.FileStream file = new System.IO.FileStream(filename, FileMode.OpenOrCreate))
+                    //    {
+                    //        //stream.CopyTo(file);
+                    //        file.Write(stream.ToArray(), 0, stream.ToArray().Length);
+                    //        file.Flush();
+                    //    }
+
+                    //}
+                    //filename = dlg.FileName + ".gv2";
+                    //using (MemoryStream stream = new MemoryStream())
+                    //{
+                    //    stream.Seek(0, SeekOrigin.Begin);
+                    //    gridView1.SaveLayoutToStream(stream);
+                    //    using (System.IO.FileStream file = new System.IO.FileStream(filename, FileMode.OpenOrCreate))
+                    //    {
+                    //        //stream.CopyTo(file);
+                    //        file.Write(stream.ToArray(), 0, stream.ToArray().Length);
+                    //        file.Flush();
+                    //    }
+                    //}
+                    filename = dlg.FileName + ".stb";
+                    if (File.Exists(filename))
+                    {
+                        File.Delete(filename);
+                    }
+                    DataSet ds  ;
+                    if (sourcetable.DataSet != null)
+                    {
+                        ds = sourcetable.DataSet;
+                    }
+                    else
+                    {
+                        ds = new DataSet();
+                        ds.Tables.Add(sourcetable);    
+                    }
+                    if (m_ResultType == "内检测对齐中线报告")
+                    {
+                        ds.Tables.Add(CenterlinePointTable);                        
+                    }
+                    if (m_ResultType == "两次内检测对齐报告")
+                    {
+                        
+                      //  ds.Tables.Add(AlignmentPointTable.Copy());
+                        ds.Tables.Add(BasePointTable.Copy());
+                    }
+                    if (m_ResultType == "焊缝对齐报告")
+                    {
+                        
+                    }
+                    if (m_ResultType == "外检测对齐中线报告")
+                    {
+                      //  ds.Tables.Add(AlignmentPointTable.Copy());
+                        ds.Tables.Add(BasePointTable.Copy());
+                    }
+                    if (m_ResultType == "两次外检测对齐报告")
+                    {
+                        
+                    }
+                    
+                    
+                    ds.WriteXml(filename);
+                    MessageBox.Show("保存成功！");
+
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void LoadDataforGridView1(string file)
+        {
+            gridView1.RestoreLayoutFromXml(file);
+        }
+        private void LoadChartControl(string file)
+        {
+            chartControl3.LoadFromFile(file);
+        }
+        private void LoadDataforGridView2(string file)
+        {
+            gridView2.RestoreLayoutFromXml(file);
+        }
+        public void LoadMatchResult(string file)
+        {
+            try
+            {
+                string filename;
+                using(StreamReader sr = new StreamReader(file))
+                {
+                    string t = sr.ReadLine();
+                    m_ResultType = t;
+                }
+                filename = file + ".stb";
+                DataSet ds = new DataSet();
+                ds.ReadXml(filename);
+                sourcetable = ds.Tables[0];
+                if (sourcetable.Columns.Contains("里程差") == false)
+                    sourcetable.Columns.Add("里程差");
+                //gridControl1.DataSource = sourcetable;
+                //filename = file + ".GV1";
+                ////LoadDataforGridView1(file);
+
+                //filename = file + ".ct";
+                //LoadChartControl(filename);
+                //filename = file + ".gv2";
+                //LoadDataforGridView2(filename);
+
+                if (m_ResultType == "内检测对齐中线报告")
+                {
+                    CenterlinePointTable = ds.Tables[1];
+                    InsidePointTable = sourcetable;
+                    
+                    //ds.Tables.Add(CenterlinePointTable);
+                }
+                if (m_ResultType == "两次内检测对齐报告")
+                {
+                    //ds.Tables.Add(AlignmentPointTable);
+                    //ds.Tables.Add(BasePointTable);
+                   // AlignmentPointTable = ds.Tables[1];
+                    BasePointTable = ds.Tables[1];
+                }
+                if (m_ResultType == "焊缝对齐报告")
+                {
+
+                }
+                if (m_ResultType == "外检测对齐中线报告")
+                {
+                    //ds.Tables.Add(AlignmentPointTable);
+                    //ds.Tables.Add(BasePointTable);
+                   // AlignmentPointTable = ds.Tables[1];
+                    BasePointTable = ds.Tables[1];
+                }
+                if (m_ResultType == "两次外检测对齐报告")
+                {
+
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+             
+        }
     }
 
 }
