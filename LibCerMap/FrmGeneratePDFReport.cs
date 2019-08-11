@@ -45,8 +45,8 @@ namespace LibCerMap
             pPageLayoutControl = pagelayoutcontrol;
         }
 
-        private void FrmPointToLine_Load(object sender, EventArgs e)
-        {
+        private void FrmPointToLine_Load(object sender, EventArgs e)            
+        {            
             for (int i = 0; i < pMapcontrol.LayerCount; i++)
             {
                 ILayer pLayer = null;
@@ -81,7 +81,8 @@ namespace LibCerMap
             {
                 comboBoxExCenterline.SelectedIndex = 0;
             }
-
+            labelNeirong.Font = new System.Drawing.Font("仿宋", 4F);
+            labelbiaotou.Font = new System.Drawing.Font("仿宋", 6F);
         }
 
         //添加点图层按钮
@@ -404,14 +405,20 @@ namespace LibCerMap
             chartControl1.Series.Add(series);
             chartControl1.Series.Add(series2);
             ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Clear();
+            ((XYDiagram)chartControl1.Diagram).SecondaryAxesX.Clear();
             ((XYDiagram)chartControl1.Diagram).SecondaryAxesY.Add(myAxisY);
             ((LineSeriesView)series2.View).AxisY = myAxisY;
-            myAxisY.Tickmarks.Visible = false;
+            ((LineSeriesView)series.View).AxisY = ((XYDiagram)chartControl1.Diagram).AxisY;
+            series.ChangeView(ViewType.Line);
+            ((XYDiagram)chartControl1.Diagram).AxisY.WholeRange.Auto = true;
+            myAxisY.WholeRange.Auto = true;
+            series2.ChangeView(ViewType.Line);
+            myAxisY.Tickmarks.Visible = true;
             myAxisY.Tickmarks.MinorVisible = false;
             ((XYDiagram)chartControl1.Diagram).AxisX.WholeRange.AutoSideMargins = false;
             ((XYDiagram)chartControl1.Diagram).AxisX.WholeRange.SideMarginsValue = 0;
             ((XYDiagram)chartControl1.Diagram).AxisX.WholeRange.SetMinMaxValues(BegMeasure, endMeasure);
-
+            series.ArgumentScaleType = ScaleType.Numerical;
 
             int ProfileMapHight = 8;
 
@@ -515,8 +522,8 @@ namespace LibCerMap
                                 b.BandName = fieldname;
                                 b.pdfGC = pGraphics;
                                 b.BandWidth = (int)bandwidth;
-                                b.headFont = new System.Drawing.Font("仿宋", 6F);
-                                b.ContentFont = new System.Drawing.Font("仿宋", 4F);
+                                b.headFont = labelbiaotou.Font;
+                                b.ContentFont = labelNeirong.Font;
                                 System.Drawing.Point pt = new System.Drawing.Point();
                                 pt.X = LastBottomLeftPoint.X;
                                 pt.Y = LastBottomLeftPoint.Y;
@@ -807,6 +814,26 @@ namespace LibCerMap
                     pdfGC.RestoreGraphicsState();
                 }
 
+            }
+        }
+
+        private void buttonXHeadFont_Click(object sender, EventArgs e)
+        {
+            FontDialog dlg = new FontDialog();
+            dlg.Font = labelbiaotou.Font;
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                labelbiaotou.Font = dlg.Font;
+            }
+        }
+
+        private void buttonX1ContentFont_Click(object sender, EventArgs e)
+        {
+            FontDialog dlg = new FontDialog();
+            dlg.Font = labelNeirong.Font;
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                labelNeirong.Font = dlg.Font;
             }
         }
     }

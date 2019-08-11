@@ -28,20 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY1 = new DevExpress.XtraCharts.SecondaryAxisY();
-            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView1 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView2 = new DevExpress.XtraCharts.LineSeriesView();
-            DevExpress.XtraCharts.LineSeriesView lineSeriesView3 = new DevExpress.XtraCharts.LineSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram4 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.SecondaryAxisX secondaryAxisX4 = new DevExpress.XtraCharts.SecondaryAxisX();
+            DevExpress.XtraCharts.SecondaryAxisY secondaryAxisY4 = new DevExpress.XtraCharts.SecondaryAxisY();
+            DevExpress.XtraCharts.Series series10 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView10 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
+            DevExpress.XtraCharts.Series series11 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView11 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
+            DevExpress.XtraCharts.Series series12 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView12 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
+            DevExpress.XtraCharts.LineSeriesView lineSeriesView4 = new DevExpress.XtraCharts.LineSeriesView();
             this.btOK = new DevComponents.DotNetBar.ButtonX();
             this.btCancel = new DevComponents.DotNetBar.ButtonX();
             this.gPanelLine = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.comboBoxExIMULayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.gPanelPoint = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.cboBoxPointLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
-            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             this.buttonXAdd = new DevComponents.DotNetBar.ButtonX();
             this.buttonXRemove = new DevComponents.DotNetBar.ButtonX();
             this.label1 = new System.Windows.Forms.Label();
@@ -67,16 +69,13 @@
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.comboBoxExCenterline = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.checkBoxRotateMap = new System.Windows.Forms.CheckBox();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.buttonXHeadFont = new DevComponents.DotNetBar.ButtonX();
+            this.buttonX1ContentFont = new DevComponents.DotNetBar.ButtonX();
+            this.labelbiaotou = new System.Windows.Forms.Label();
+            this.labelNeirong = new System.Windows.Forms.Label();
             this.gPanelLine.SuspendLayout();
             this.gPanelPoint.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure2)).BeginInit();
@@ -84,13 +83,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSegmentLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlap)).BeginInit();
             this.groupPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisX4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).BeginInit();
             this.SuspendLayout();
             // 
             // btOK
             // 
             this.btOK.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btOK.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btOK.Location = new System.Drawing.Point(611, 483);
+            this.btOK.Location = new System.Drawing.Point(569, 439);
             this.btOK.Name = "btOK";
             this.btOK.Size = new System.Drawing.Size(75, 25);
             this.btOK.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -102,7 +112,7 @@
             // 
             this.btCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btCancel.Location = new System.Drawing.Point(692, 483);
+            this.btCancel.Location = new System.Drawing.Point(650, 439);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 25);
             this.btCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -215,46 +225,6 @@
             this.cboBoxPointLayer.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboBoxPointLayer.TabIndex = 1;
             this.cboBoxPointLayer.SelectedIndexChanged += new System.EventHandler(this.cboBoxPointLayer_SelectedIndexChanged);
-            // 
-            // chartControl1
-            // 
-            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisY.Label.Visible = false;
-            xyDiagram1.AxisY.Tickmarks.MinorVisible = false;
-            xyDiagram1.AxisY.Tickmarks.Visible = false;
-            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
-            xyDiagram1.Margins.Bottom = 0;
-            xyDiagram1.Margins.Left = 0;
-            xyDiagram1.Margins.Right = 0;
-            xyDiagram1.Margins.Top = 0;
-            xyDiagram1.PaneDistance = 0;
-            secondaryAxisY1.AxisID = 0;
-            secondaryAxisY1.Label.Visible = false;
-            secondaryAxisY1.Name = "Secondary AxisY 1";
-            secondaryAxisY1.Tickmarks.MinorVisible = false;
-            secondaryAxisY1.Tickmarks.Visible = false;
-            secondaryAxisY1.VisibleInPanesSerializable = "-1";
-            xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
-            secondaryAxisY1});
-            this.chartControl1.Diagram = xyDiagram1;
-            this.chartControl1.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Center;
-            this.chartControl1.Legend.Name = "Default Legend";
-            this.chartControl1.Location = new System.Drawing.Point(421, 276);
-            this.chartControl1.Name = "chartControl1";
-            this.chartControl1.Padding.Left = 0;
-            this.chartControl1.Padding.Right = 0;
-            series1.Name = "Series 1";
-            series1.View = lineSeriesView1;
-            series2.Name = "Series 2";
-            series2.View = lineSeriesView2;
-            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series1,
-        series2};
-            this.chartControl1.SeriesTemplate.View = lineSeriesView3;
-            this.chartControl1.Size = new System.Drawing.Size(369, 179);
-            this.chartControl1.TabIndex = 5;
-            this.chartControl1.Visible = false;
-            this.chartControl1.CustomDrawAxisLabel += new DevExpress.XtraCharts.CustomDrawAxisLabelEventHandler(this.chartControl1_CustomDrawAxisLabel);
             // 
             // buttonXAdd
             // 
@@ -576,11 +546,122 @@
             this.checkBoxRotateMap.Text = "自动旋转地图";
             this.checkBoxRotateMap.UseVisualStyleBackColor = true;
             // 
+            // chartControl1
+            // 
+            xyDiagram4.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram4.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram4.AxisY.Tickmarks.MinorVisible = false;
+            xyDiagram4.AxisY.Tickmarks.Visible = false;
+            xyDiagram4.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram4.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram4.AxisY.WholeRange.Auto = false;
+            xyDiagram4.AxisY.WholeRange.MaxValueSerializable = "10";
+            xyDiagram4.AxisY.WholeRange.MinValueSerializable = "0";
+            xyDiagram4.EnableAxisXScrolling = true;
+            xyDiagram4.EnableAxisXZooming = true;
+            xyDiagram4.Margins.Bottom = 0;
+            xyDiagram4.Margins.Left = 0;
+            xyDiagram4.Margins.Right = 0;
+            xyDiagram4.Margins.Top = 0;
+            xyDiagram4.PaneDistance = 0;
+            secondaryAxisX4.AxisID = 0;
+            secondaryAxisX4.Name = "Secondary AxisX 1";
+            secondaryAxisX4.VisibleInPanesSerializable = "-1";
+            xyDiagram4.SecondaryAxesX.AddRange(new DevExpress.XtraCharts.SecondaryAxisX[] {
+            secondaryAxisX4});
+            secondaryAxisY4.AxisID = 0;
+            secondaryAxisY4.Name = "Secondary AxisY 1";
+            secondaryAxisY4.Reverse = true;
+            secondaryAxisY4.Tickmarks.MinorVisible = false;
+            secondaryAxisY4.Tickmarks.Visible = false;
+            secondaryAxisY4.VisibleInPanesSerializable = "-1";
+            secondaryAxisY4.WholeRange.Auto = false;
+            secondaryAxisY4.WholeRange.MaxValueSerializable = "10";
+            secondaryAxisY4.WholeRange.MinValueSerializable = "0";
+            xyDiagram4.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
+            secondaryAxisY4});
+            this.chartControl1.Diagram = xyDiagram4;
+            this.chartControl1.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Center;
+            this.chartControl1.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
+            this.chartControl1.Legend.Direction = DevExpress.XtraCharts.LegendDirection.LeftToRight;
+            this.chartControl1.Legend.Name = "Default Legend";
+            this.chartControl1.Location = new System.Drawing.Point(262, 353);
+            this.chartControl1.Name = "chartControl1";
+            series10.Name = "Series 2";
+            sideBySideBarSeriesView10.AxisXName = "Secondary AxisX 1";
+            sideBySideBarSeriesView10.AxisYName = "Secondary AxisY 1";
+            sideBySideBarSeriesView10.BarWidth = 0.01D;
+            sideBySideBarSeriesView10.Color = System.Drawing.Color.Lime;
+            series10.View = sideBySideBarSeriesView10;
+            series11.Name = "Series 1";
+            sideBySideBarSeriesView11.BarWidth = 0.01D;
+            sideBySideBarSeriesView11.Color = System.Drawing.Color.Blue;
+            series11.View = sideBySideBarSeriesView11;
+            series12.Name = "Series 3";
+            sideBySideBarSeriesView12.BarWidth = 0.01D;
+            sideBySideBarSeriesView12.Color = System.Drawing.Color.Red;
+            series12.View = sideBySideBarSeriesView12;
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+        series10,
+        series11,
+        series12};
+            this.chartControl1.SeriesTemplate.View = lineSeriesView4;
+            this.chartControl1.Size = new System.Drawing.Size(279, 135);
+            this.chartControl1.TabIndex = 15;
+            this.chartControl1.Visible = false;
+            // 
+            // buttonXHeadFont
+            // 
+            this.buttonXHeadFont.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonXHeadFont.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonXHeadFont.Location = new System.Drawing.Point(428, 293);
+            this.buttonXHeadFont.Name = "buttonXHeadFont";
+            this.buttonXHeadFont.Size = new System.Drawing.Size(66, 23);
+            this.buttonXHeadFont.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonXHeadFont.TabIndex = 16;
+            this.buttonXHeadFont.Text = "表头字体";
+            this.buttonXHeadFont.Click += new System.EventHandler(this.buttonXHeadFont_Click);
+            // 
+            // buttonX1ContentFont
+            // 
+            this.buttonX1ContentFont.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.buttonX1ContentFont.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.buttonX1ContentFont.Location = new System.Drawing.Point(428, 322);
+            this.buttonX1ContentFont.Name = "buttonX1ContentFont";
+            this.buttonX1ContentFont.Size = new System.Drawing.Size(66, 23);
+            this.buttonX1ContentFont.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.buttonX1ContentFont.TabIndex = 16;
+            this.buttonX1ContentFont.Text = "内容字体";
+            this.buttonX1ContentFont.Click += new System.EventHandler(this.buttonX1ContentFont_Click);
+            // 
+            // labelbiaotou
+            // 
+            this.labelbiaotou.AutoSize = true;
+            this.labelbiaotou.Location = new System.Drawing.Point(519, 303);
+            this.labelbiaotou.Name = "labelbiaotou";
+            this.labelbiaotou.Size = new System.Drawing.Size(31, 13);
+            this.labelbiaotou.TabIndex = 17;
+            this.labelbiaotou.Text = "表头";
+            // 
+            // labelNeirong
+            // 
+            this.labelNeirong.AutoSize = true;
+            this.labelNeirong.Location = new System.Drawing.Point(519, 323);
+            this.labelNeirong.Name = "labelNeirong";
+            this.labelNeirong.Size = new System.Drawing.Size(31, 13);
+            this.labelNeirong.TabIndex = 18;
+            this.labelNeirong.Text = "内容";
+            // 
             // FrmGeneratePDFReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 520);
+            this.Controls.Add(this.labelNeirong);
+            this.Controls.Add(this.labelbiaotou);
+            this.Controls.Add(this.buttonX1ContentFont);
+            this.Controls.Add(this.buttonXHeadFont);
+            this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.checkBoxRotateMap);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
@@ -604,7 +685,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonXRemove);
             this.Controls.Add(this.buttonXAdd);
-            this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.gPanelLine);
             this.Controls.Add(this.btCancel);
@@ -621,14 +701,6 @@
             this.Load += new System.EventHandler(this.FrmPointToLine_Load);
             this.gPanelLine.ResumeLayout(false);
             this.gPanelPoint.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(lineSeriesView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEndMeasure1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBeginMeasure2)).EndInit();
@@ -636,6 +708,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSegmentLength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownOverlap)).EndInit();
             this.groupPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisX4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(secondaryAxisY4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(lineSeriesView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -649,7 +732,6 @@
         private DevComponents.DotNetBar.Controls.GroupPanel gPanelPoint;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cboBoxPointLayer;
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExIMULayer;
-        private DevExpress.XtraCharts.ChartControl chartControl1;
         private DevComponents.DotNetBar.ButtonX buttonXAdd;
         private DevComponents.DotNetBar.ButtonX buttonXRemove;
         private System.Windows.Forms.Label label1;
@@ -675,5 +757,10 @@
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private DevComponents.DotNetBar.Controls.ComboBoxEx comboBoxExCenterline;
         private System.Windows.Forms.CheckBox checkBoxRotateMap;
+        private DevExpress.XtraCharts.ChartControl chartControl1;
+        private DevComponents.DotNetBar.ButtonX buttonXHeadFont;
+        private DevComponents.DotNetBar.ButtonX buttonX1ContentFont;
+        private System.Windows.Forms.Label labelbiaotou;
+        private System.Windows.Forms.Label labelNeirong;
     }
 }
