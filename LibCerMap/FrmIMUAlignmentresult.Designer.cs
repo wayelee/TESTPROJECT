@@ -72,6 +72,7 @@
             this.buttonItemTezhendianLicheng = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem4 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem5 = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItemInsideInsideDiff = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemHanfengDuiqi = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemWaijiance = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItemDB = new DevComponents.DotNetBar.ButtonItem();
@@ -85,7 +86,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelCount = new System.Windows.Forms.Label();
-            this.buttonItemInsideInsideDiff = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.dockSite4.SuspendLayout();
@@ -524,6 +524,12 @@
             this.buttonItem5.Text = "匹配异常变化分析";
             this.buttonItem5.Click += new System.EventHandler(this.buttonItem5_Click);
             // 
+            // buttonItemInsideInsideDiff
+            // 
+            this.buttonItemInsideInsideDiff.Name = "buttonItemInsideInsideDiff";
+            this.buttonItemInsideInsideDiff.Text = "两次数据对比";
+            this.buttonItemInsideInsideDiff.Click += new System.EventHandler(this.buttonItemInsideInsideDiff_Click);
+            // 
             // buttonItemHanfengDuiqi
             // 
             this.buttonItemHanfengDuiqi.Name = "buttonItemHanfengDuiqi";
@@ -599,7 +605,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.Location = new System.Drawing.Point(680, 0);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
@@ -640,12 +646,6 @@
             this.labelCount.Size = new System.Drawing.Size(35, 13);
             this.labelCount.TabIndex = 0;
             this.labelCount.Text = "label1";
-            // 
-            // buttonItemInsideInsideDiff
-            // 
-            this.buttonItemInsideInsideDiff.Name = "buttonItemInsideInsideDiff";
-            this.buttonItemInsideInsideDiff.Text = "两次数据对比";
-            this.buttonItemInsideInsideDiff.Click += new System.EventHandler(this.buttonItemInsideInsideDiff_Click);
             // 
             // FrmIMUAlignmentresult
             // 

@@ -198,7 +198,7 @@ namespace LibCerMap
 
                 Dictionary<string, string> TypeMatchDic = new Dictionary<string,string>();
                 TypeMatchDic.Add("阀门", "阀门");
-                TypeMatchDic.Add("弯头", "弯头");
+                TypeMatchDic.Add("拐点", "弯头");
                 TypeMatchDic.Add("三通", "三通");
                 TypeMatchDic.Add("地面标记", "地面标记");
                 TypeMatchDic.Add("开挖点", "管道缺陷");
