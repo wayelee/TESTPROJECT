@@ -192,6 +192,11 @@ namespace LibCerMap
                 if (!IMUTable.Columns.Contains("对齐里程"))
                     IMUTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
 
+                foreach (DataRow r in IMUTable.Rows)
+                {
+                    r["对齐里程"] = DBNull.Value;
+                }
+
                 double endIMUM = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1][EvConfig.IMUMoveDistanceField]);
                 double beginIMUM = Convert.ToDouble(IMUTable.Rows[0][EvConfig.IMUMoveDistanceField]);
                 double IMULength = endIMUM - beginIMUM;
@@ -220,102 +225,118 @@ namespace LibCerMap
             
 
                 Dictionary<DataRow, DataRow> MatchedDataRowPair = new Dictionary<DataRow, DataRow>();
-                for (int i = 0; i < NeijianceControlPointList.Count; i++)
+                int LastMatchedPointsCount = -1;
+
+                while (true)
                 {
-                    DataRow IMUr = NeijianceControlPointList[i];
-                    double ActionIMUM = (Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField]) - beginIMUM) * centerlineLength / IMULength + beginM;
-                    List<DataRow> Featurerow = (from r in ZhongXianControlPointList
-                                                where Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField]) - ActionIMUM) < Convert.ToDouble(numericUpDown3.Value) &&
-                                                 IsZhongXianNejianceCouldMatch(r["测点属性"].ToString(), IMUr["类型"].ToString(), TypeMatchDic)
-                                                select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.CenterlineMeasureField]) - ActionIMUM)).ToList();
-                    if (Featurerow.Count > 0)
+                    MatchedDataRowPair.Clear();
+                    for (int i = 0; i < NeijianceControlPointList.Count; i++)
                     {
-                        DataRow NearestR = Featurerow[0];
-                        if (MatchedDataRowPair.Values.Contains(NearestR) == false)
+                        DataRow IMUr = NeijianceControlPointList[i];
+                        double ActionIMUM = (Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField]) - beginIMUM) * centerlineLength / IMULength + beginM;
+                        if (IMUr["对齐里程"] != DBNull.Value)
                         {
-                            IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
-                            MatchedDataRowPair.Add(IMUr, NearestR);
+                            ActionIMUM = Convert.ToDouble(IMUr["对齐里程"]);
                         }
-                        else
+                        List<DataRow> Featurerow = (from r in ZhongXianControlPointList
+                                                    where Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField]) - ActionIMUM) < Convert.ToDouble(numericUpDown3.Value) &&
+                                                     IsZhongXianNejianceCouldMatch(r["测点属性"].ToString(), IMUr["类型"].ToString(), TypeMatchDic)
+                                                    select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.CenterlineMeasureField]) - ActionIMUM)).ToList();
+                        if (Featurerow.Count > 0)
                         {
-                           DataRow mathcedIMUr = (from DataRow k in MatchedDataRowPair.Keys
-                                                 where MatchedDataRowPair[k].Equals(NearestR)
-                                                 select k).ToList().First();
-                           double dis = Math.Abs(Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM);
-                           double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
-                           if (dis < olddis)
-                           {
-                               MatchedDataRowPair.Remove(mathcedIMUr);
-                               IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
-                               MatchedDataRowPair.Add(IMUr, NearestR);
-                           }
-                           else
-                           {
-                               continue;
-                           }
+                            DataRow NearestR = Featurerow[0];
+                            if (MatchedDataRowPair.Values.Contains(NearestR) == false)
+                            {
+                                IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
+                                MatchedDataRowPair.Add(IMUr, NearestR);
+                            }
+                            else
+                            {
+                                DataRow mathcedIMUr = (from DataRow k in MatchedDataRowPair.Keys
+                                                       where MatchedDataRowPair[k].Equals(NearestR)
+                                                       select k).ToList().First();
+                                double dis = Math.Abs(Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM);
+                                double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
+                                if (dis < olddis)
+                                {
+                                    MatchedDataRowPair.Remove(mathcedIMUr);
+                                    mathcedIMUr["里程差"] = DBNull.Value;
+                                    IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
+                                    MatchedDataRowPair.Add(IMUr, NearestR);
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
                         }
                     }
-                }
 
-                foreach (DataRow r in MatchedDataRowPair.Keys)
-                {
-                    r["对齐里程"] = MatchedDataRowPair[r][EvConfig.CenterlineMeasureField];
-                }
-                IMUTable.Rows[0]["对齐里程"] = beginM;
-                IMUTable.Rows[IMUTable.Rows.Count -1]["对齐里程"] = endM;
-
-                DataRow PrevRowWithM = null;
-                for (int i = 0; i < IMUTable.Rows.Count; i++)
-                {
-                    DataRow r = IMUTable.Rows[i];
-                    if (r["对齐里程"] != DBNull.Value)
+                    if (MatchedDataRowPair.Count <= LastMatchedPointsCount)
                     {
-                        PrevRowWithM = r;
+                        break;
                     }
                     else
                     {
-                        DataRow NextRowWithM = null;
-                        for (int j = i + 1; j < IMUTable.Rows.Count; j++)
+                        LastMatchedPointsCount = MatchedDataRowPair.Count;
+                    }
+
+
+                    foreach (DataRow r in MatchedDataRowPair.Keys)
+                    {
+                        r["对齐里程"] = MatchedDataRowPair[r][EvConfig.CenterlineMeasureField];
+                    }
+                    //未匹配上的点里程设置为null
+                    foreach (DataRow r in IMUTable.Rows)
+                    {
+                        if (!MatchedDataRowPair.ContainsKey(r))
                         {
-                            DataRow r2 = IMUTable.Rows[j];
-                            if (r2["对齐里程"] != DBNull.Value)
+                            r["对齐里程"] = DBNull.Value;
+                        }
+                    }
+                    IMUTable.Rows[0]["对齐里程"] = beginM;
+                    IMUTable.Rows[IMUTable.Rows.Count - 1]["对齐里程"] = endM;
+
+
+
+                    DataRow PrevRowWithM = null;
+                    for (int i = 0; i < IMUTable.Rows.Count; i++)
+                    {
+                        DataRow r = IMUTable.Rows[i];
+                        if (r["对齐里程"] != DBNull.Value)
+                        {
+                            PrevRowWithM = r;
+                        }
+                        else
+                        {
+                            DataRow NextRowWithM = null;
+                            for (int j = i + 1; j < IMUTable.Rows.Count; j++)
                             {
-                                NextRowWithM = r2;
+                                DataRow r2 = IMUTable.Rows[j];
+                                if (r2["对齐里程"] != DBNull.Value)
+                                {
+                                    NextRowWithM = r2;
+                                    break;
+                                }
+                            }
+                            if (PrevRowWithM == null || NextRowWithM == null)
+                            {
                                 break;
                             }
+                            double BeginJiluM = Convert.ToDouble(PrevRowWithM[EvConfig.IMUMoveDistanceField]);
+                            double endJiluM = Convert.ToDouble(NextRowWithM[EvConfig.IMUMoveDistanceField]);
+                            double BeginAM = Convert.ToDouble(PrevRowWithM["对齐里程"]);
+                            double endAM = Convert.ToDouble(NextRowWithM["对齐里程"]);
+                            double currentJiluM = Convert.ToDouble(r[EvConfig.IMUMoveDistanceField]);
+                            r["对齐里程"] = (currentJiluM - BeginJiluM) * (endAM - BeginAM) / (endJiluM - BeginJiluM) + BeginAM;
                         }
-                        if (PrevRowWithM == null || NextRowWithM == null)
-                        {
-                            break;
-                        }
-                        double BeginJiluM = Convert.ToDouble(PrevRowWithM[EvConfig.IMUMoveDistanceField]);
-                        double endJiluM = Convert.ToDouble(NextRowWithM[EvConfig.IMUMoveDistanceField]);
-                        double BeginAM = Convert.ToDouble(PrevRowWithM["对齐里程"]);
-                        double endAM = Convert.ToDouble(NextRowWithM["对齐里程"]);
-                        double currentJiluM = Convert.ToDouble(r[EvConfig.IMUMoveDistanceField]);
-                        r["对齐里程"] = (currentJiluM - BeginJiluM) * (endAM - BeginAM) / (endJiluM - BeginJiluM) + BeginAM;                    
                     }
-                }
-                
-                    //for (int i = 0; i < CenterlinePointTable.Rows.Count; i++)
-                    //{
-                    //    DataRow r = CenterlinePointTable.Rows[i];
-                    //    double cM = Convert.ToDouble(r["里程（m）"]);
-                    //    if (cM < beginM)
-                    //    {
-                    //        continue;
-                    //    }
-                    //    if (cM > endM)
-                    //    {
-                    //        break;
-                    //    }
-                    //    for (int j = 0; j < IMUTable.Rows.Count; j++)
-                    //    {
-                    //        DataRow IMUr = IMUTable.Rows[j];
-                    //        double ActionIMUM = (Convert.ToDouble(IMUr["记录距离__"]) - beginIMUM) * centerlineLength / IMULength + beginM;
 
-                    //    }
-                    //}
+                }
+            
+
+
+                
                 IFeatureLayer pLinearlayer = null;
                 string pCenterlineLinearName = comboBoxExCenterlineLinearLayer.SelectedItem.ToString();
                  for (int i = 0; i < pMapcontrol.LayerCount; i++)
