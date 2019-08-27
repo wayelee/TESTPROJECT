@@ -416,6 +416,10 @@ namespace LibCerMap
                 {
                     DataRow r = IMUTable.Rows[i];
                     double M = Convert.ToDouble(r["对齐里程"]);
+                    if (M < mSegment.MMin)
+                        M = mSegment.MMin;
+                    if (M > mSegment.MMax)
+                        M = mSegment.MMax;
 
                     IGeometryCollection ptcollection = mSegment.GetPointsAtM(M, 0);
                     IPoint pt = ptcollection.get_Geometry(0) as IPoint;
