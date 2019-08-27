@@ -55,8 +55,8 @@ namespace DataAlignment
             double dis = pGS.GetDistanceGeodesic(wgs84, pt1, pt2, (ILinearUnit)meterUnit);
             IZAware z1 = pt1 as IZAware;
             IZAware z2 = pt2 as IZAware;
-
-            if (z1.ZAware && z2.ZAware)
+            
+            if (pt1.Z != double.NaN && pt2.Z != double.NaN)
             {
                 double deltaZ = Math.Abs(pt1.Z - pt2.Z);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(pGS);
