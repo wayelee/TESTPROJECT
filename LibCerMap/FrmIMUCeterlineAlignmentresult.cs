@@ -15,10 +15,13 @@ using MSWord = Microsoft.Office.Interop.Word;
 using DevExpress.XtraCharts;
 using System.Drawing.Imaging;
 using System.Windows.Forms.DataVisualization.Charting;
+using Point = System.Drawing.Point;
+using System.Dynamic;
+using System.Collections;
 
 namespace LibCerMap
 {
-    public partial class FrmIMUAlignmentresult : OfficeForm
+    public partial class FrmIMUCeterlineAlignmentresult : OfficeForm
     {         
         private DataTable sourcetable;
         private string m_ResultType;
@@ -27,28 +30,208 @@ namespace LibCerMap
         //内检测对齐中线
         public DataTable CenterlinePointTable;
         public DataTable InsidePointTable;
+        public double InsideCenterlineTolerance;
+        public ILayer CenterlineLayer;
 
         // 两次内检测对齐
         public DataTable BasePointTable;
         public DataTable AlignmentPointTable;
+        private List<ToolStripItem> ToolList = new List<ToolStripItem>();
 
-        public FrmIMUAlignmentresult(DataTable tb)
+
+        private Dictionary<DataRow, DataRow> MatchedRowList = new Dictionary<DataRow, DataRow>();
+        private List<DataRow> MatchedRowListSelection = new List<DataRow>();
+        private ChartZoomScrollHelper chartZoomHelper;
+
+        public FrmIMUCeterlineAlignmentresult(DataTable tb, Dictionary<DataRow, DataRow> matchrow )
         {
             InitializeComponent();
             sourcetable = tb;
+            MatchedRowList = matchrow;
             TempImagePath = ClsGDBDataCommon.GetParentPathofExe() + @"Resource\BMP\TempImage.jpg";
+            chartZoomHelper = new ChartZoomScrollHelper(chartControl3);
         }
-        public FrmIMUAlignmentresult()
+        public FrmIMUCeterlineAlignmentresult()
         {
             InitializeComponent();         
             TempImagePath = ClsGDBDataCommon.GetParentPathofExe() + @"Resource\BMP\TempImage.jpg";
+        } 
+      
+        private void ToolButton_Click(object sender, EventArgs e)
+        {
+            ToolStripButton b = sender as ToolStripButton;
+            b.CheckState = CheckState.Checked;
+            foreach (ToolStripButton tb in ToolList)
+            {
+                if (!tb.Equals(b))
+                {
+                    tb.CheckState = CheckState.Unchecked;
+                }
+            }
+            if (sender.Equals(toolStripButtonManualMatch) )
+            {
+                chartZoomHelper.CurrentTool = ChartControlToolTypeEnum.ManualMatch;
+            }
+            if (sender.Equals(toolStripButtonSelect)  )
+            {
+                chartZoomHelper.CurrentTool = ChartControlToolTypeEnum.SelectPair;
+            }
         }
+
+        public static IEnumerable GetData(List<DataRow> RowList)
+        {
+            foreach (DataRow data in RowList.AsEnumerable())
+            {
+                yield return GetElement(data, data.Table.Columns);
+            }
+        }
+        static object GetElement(DataRow dataRow, DataColumnCollection columns)
+        {
+            var element = (IDictionary<string, object>)new ExpandoObject();
+            foreach (DataColumn column in columns)
+            {
+                element.Add(column.ColumnName, dataRow[column.ColumnName]);
+            }
+            return element;
+        }
+
+        private bool PointHitChartData(Point pt, SeriesPoint datapt, Axis2D xAxis, Axis2D yAxis)
+        {
+            ControlCoordinates cod;
+             ControlCoordinates cod2;
+            XYDiagram diagram = (XYDiagram)chartControl3.Diagram;
+            cod = diagram.DiagramToPoint(datapt.Argument, datapt.Values[0], xAxis, yAxis);
+            cod2 = diagram.DiagramToPoint(datapt.Argument, 0, xAxis, yAxis);
+            if (Math.Abs(cod.Point.X - pt.X) <=5 && (pt.Y - cod2.Point.Y) * (pt.Y - cod.Point.Y) <=0 )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }             
+        }
+
+        private DataRow GetHitDataRow(Point FirstPoint, DevExpress.XtraCharts.Series ss, Axis2D xAxis, Axis2D yAxis)
+        {
+            XYDiagram diagram = (XYDiagram)chartControl3.Diagram; 
+            
+            if (ss.Points.Any(x => PointHitChartData(FirstPoint, x as SeriesPoint ,xAxis, yAxis)))
+            {
+                SeriesPoint pt = ss.Points.Where(x => PointHitChartData(FirstPoint, x as SeriesPoint ,xAxis, yAxis)).First() as SeriesPoint;
+                //centerline table
+               if( ss.Equals(chartControl3.Series[0]))
+                {
+                    return CenterlinePointTable.Rows[(int)pt.Tag];
+                }
+               if (ss.Equals(chartControl3.Series[1]))
+               {
+                   return sourcetable.Rows[(int)pt.Tag];
+               }
+            }
+            return null;
+        }
+
+        private bool ValidManuallySelectMatchRow(DataRow IMURow, DataRow Centerlinerow)
+        {
+            if (MatchedRowList.Count > 0)
+            {
+                double newIMUM = Convert.ToDouble(IMURow[EvConfig.IMUMoveDistanceField]);
+                double newCenterlineM = Convert.ToDouble(Centerlinerow[EvConfig.CenterlineMeasureField]);
+                for (int i = 0; i < MatchedRowList.Count; i++)
+                {
+                    double previewIMUM = Convert.ToDouble(MatchedRowList.Keys.ElementAt(i)[EvConfig.IMUMoveDistanceField]);
+                    double previewCentlineM = Convert.ToDouble(MatchedRowList.Values.ElementAt(i)[EvConfig.CenterlineMeasureField]);
+
+                    if ((newIMUM - previewIMUM) * (newCenterlineM - previewCentlineM) <= 0)
+                    {
+                        MessageBox.Show("特征点不能交叉匹配.");
+                        return false;
+                    }
+                }
+            }
+            return true;
+
+        }
+        private void ChartControl3_MouseDragCompleted(object sender, Point FirstPoint, Point SecondPoint)
+        {
+           
+            if (chartZoomHelper.CurrentTool == ChartControlToolTypeEnum.ManualMatch)
+            {
+                 XYDiagram diagram = (XYDiagram)chartControl3.Diagram;
+                 if (GetHitDataRow(FirstPoint, chartControl3.Series[0], diagram.AxisX, diagram.SecondaryAxesY[0]) != null &&
+                     GetHitDataRow(SecondPoint, chartControl3.Series[1], diagram.AxisX, diagram.AxisY) != null)
+                 {
+                     DataRow centerlinerow = GetHitDataRow(FirstPoint, chartControl3.Series[0], diagram.AxisX, diagram.SecondaryAxesY[0]);
+                     DataRow IMURow = GetHitDataRow(SecondPoint, chartControl3.Series[1], diagram.AxisX, diagram.AxisY);
+                     if (MatchedRowList.Keys.Contains(IMURow) == false && MatchedRowList.Values.Contains(centerlinerow) == false)
+                     {
+                         if (ValidManuallySelectMatchRow(IMURow, centerlinerow))
+                         {
+                             MatchedRowList.Add(IMURow, centerlinerow);
+                         }                            
+                     }
+                     
+                 }
+                 if (GetHitDataRow(SecondPoint, chartControl3.Series[0], diagram.AxisX, diagram.SecondaryAxesY[0]) != null &&
+                      GetHitDataRow(FirstPoint, chartControl3.Series[1], diagram.AxisX, diagram.AxisY) != null)
+                 {
+                     DataRow centerlinerow = GetHitDataRow(SecondPoint, chartControl3.Series[0], diagram.AxisX, diagram.SecondaryAxesY[0]);
+                     DataRow IMURow = GetHitDataRow(FirstPoint, chartControl3.Series[1], diagram.AxisX, diagram.AxisY);
+                     if (MatchedRowList.Keys.Contains(IMURow) == false && MatchedRowList.Values.Contains(centerlinerow)== false)
+                     {
+                         if (ValidManuallySelectMatchRow(IMURow, centerlinerow))
+                         {
+                             MatchedRowList.Add(IMURow, centerlinerow);
+                         }
+                            
+                     }
+                 }
+                
+            }
+            if (chartZoomHelper.CurrentTool == ChartControlToolTypeEnum.SelectPair)
+            {
+                MatchedRowListSelection.Clear();
+                DiagramCoordinates cod;
+                XYDiagram diagram = (XYDiagram)chartControl3.Diagram;
+                if (FirstPoint != null && SecondPoint != null)
+                {
+                    // int minX = Math.Min(FirstPoint.Value.X, SecondPoint.Value.X);
+                    cod = diagram.PointToDiagram(new Point(FirstPoint.X, FirstPoint.Y));
+                    double x1 = cod.NumericalArgument;
+
+                    // int maxX = Math.Max(FirstPoint.Value.X, SecondPoint.Value.X);
+                    cod = diagram.PointToDiagram(new Point(SecondPoint.X, SecondPoint.Y));
+                    double x2 = cod.NumericalArgument;
+                    double maxM = Math.Max(x1, x2);
+                    double minM = Math.Min(x1, x2);
+                    MatchedRowListSelection.AddRange(sourcetable.AsEnumerable().Where(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]) > minM &&
+                      Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]) < maxM));
+                }
+            }
+        }
+
         private void FrmIMUAlignmentresult_Load(object sender, EventArgs e)
         {
+            ToolList.Add(toolStripButtonManualMatch);
+            ToolList.Add(toolStripButtonSelect);
+            foreach(ToolStripButton b in ToolList)
+            { 
+                b.Click += ToolButton_Click;
+            }
+
+             
             gridControl1.DataSource = sourcetable;
             gridControl1.Refresh();
+            gridControlCenterline.DataSource = CenterlinePointTable;
+            gridControlCenterline.Refresh();
             gridView1.OptionsView.ColumnAutoWidth = false;
+            gridViewCenterline.OptionsView.ColumnAutoWidth = false;
 
+            //gridControlMatch.DataSource = GetData( MatchedRowList.Keys.ToList());
+            //gridControlMatch.Refresh();
+
+            chartZoomHelper.MouseDragCompleted += this.ChartControl3_MouseDragCompleted;
 
             if (m_ResultType == "内检测对齐中线报告")
             {
@@ -1015,13 +1198,15 @@ namespace LibCerMap
             DevExpress.XtraCharts.Series seriesNotAligned = chartControl1.Series[1];
             seriesNotAligned.Name = "未对齐内检测点";
             seriesNotAligned.ShowInLegend = true;
+            seriesNotAligned.Points.Clear();
 
             DevExpress.XtraCharts.Series seriesAligned = chartControl1.Series[2];
             seriesAligned.Name = "对齐内检测点";
+            seriesAligned.Points.Clear();
             foreach (DataRow r in sourcetable.Rows)
             {
                 double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
-                double z = 4;
+                double z = 3;
                 if (r["里程差"] == DBNull.Value)
                 {
                     SeriesPoint spt = new SeriesPoint(m, z);
@@ -1040,11 +1225,14 @@ namespace LibCerMap
             DevExpress.XtraCharts.Series seriesCenterline = chartControl1.Series[0];
             seriesCenterline.Name = "中线点";
             seriesCenterline.ShowInLegend = true;
+            seriesCenterline.Points.Clear();
             foreach (DataRow r in CenterlinePointTable.Rows)
             {
                 double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField])), 2);
-                double z = 4;
-                seriesCenterline.Points.Add(new SeriesPoint(m, z));
+                double z = 3;
+                SeriesPoint spt = new SeriesPoint(m, z);
+                spt.Tag = CenterlinePointTable.Rows.IndexOf(r);
+                seriesCenterline.Points.Add(spt);
             }
             XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
             diagram.SecondaryAxesX[0].WholeRange.MinValue = diagram.AxisX.WholeRange.MinValue;
@@ -1877,6 +2065,7 @@ namespace LibCerMap
         private void gridView1_RowCountChanged(object sender, EventArgs e)
         {
             labelCount.Text = "记录数：" + gridView1.RowCount;
+            chartControl3.Invalidate();
         }
 
         private void chartControl3_CustomDrawSeriesPoint(object sender, CustomDrawSeriesPointEventArgs e)
@@ -1902,18 +2091,37 @@ namespace LibCerMap
             //}
             // 第一个series是基准点
             if (e.Series.Equals(ctcontrol.Series[0]))
-                return;
-            if (e.SeriesPoint.Tag != null)
-            {
-                int DataSourceidx = (int)(e.SeriesPoint.Tag);
-                int GridRowHandle = gridView1.GetRowHandle(DataSourceidx);
-                if (GridRowHandle < 0)
+            {                
+                if (e.SeriesPoint.Tag != null)
                 {
-                    drawOptions.Color = Color.FromArgb(0, 255, 255, 255);
+                    int DataSourceidx = (int)(e.SeriesPoint.Tag);
+                    int GridRowHandle = gridViewCenterline.GetRowHandle(DataSourceidx);
+                    if (GridRowHandle < 0)
+                    {
+                        drawOptions.Color = Color.FromArgb(0, 255, 255, 255);
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-                else
+                
+            }
+               
+            if (!e.Series.Equals(ctcontrol.Series[0]))
+            {
+                if (e.SeriesPoint.Tag != null)
                 {
-                    return;
+                    int DataSourceidx = (int)(e.SeriesPoint.Tag);
+                    int GridRowHandle = gridView1.GetRowHandle(DataSourceidx);
+                    if (GridRowHandle < 0)
+                    {
+                        drawOptions.Color = Color.FromArgb(0, 255, 255, 255);
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
            
@@ -2096,7 +2304,528 @@ namespace LibCerMap
              
         }
 
+        private void chartControl3_CustomPaint(object sender, DevExpress.XtraCharts.CustomPaintEventArgs e)
+        {
+            DevExpress.XtraCharts.Series centerlineSeries = chartControl3.Series[0];
+            DevExpress.XtraCharts.Series AlignedSeries = chartControl3.Series[2];
+            DevExpress.XtraCharts.Series UnAlignedSeries = chartControl3.Series[1];
+            XYDiagram diagram = (XYDiagram)chartControl3.Diagram;
+            ControlCoordinates cod;
+            ControlCoordinates cod2;
+
+            var unAlignedSeriesPoints = UnAlignedSeries.Points.Where(x => MatchedRowList.Keys.Contains(sourcetable.Rows[(int)x.Tag])).ToList();
+
+            // manunally selected
+            foreach (SeriesPoint pt in unAlignedSeriesPoints)
+            {
+                float x = Convert.ToSingle(pt.Argument);
+                float y = Convert.ToSingle(pt.Values[0]);
+                cod = diagram.DiagramToPoint(x, y);
+
+                int rowidx = (int)pt.Tag;
+                DataRow r = sourcetable.Rows[rowidx];
+                DataRow cRow = MatchedRowList[r];
+                int centerlinePointindx = CenterlinePointTable.Rows.IndexOf(cRow);
+
+                SeriesPoint pt2 = centerlineSeries.Points[centerlinePointindx];
+                float x1 = Convert.ToSingle(pt2.Argument);
+                float y1 = Convert.ToSingle(pt2.Values[0]);
+                cod2 = diagram.DiagramToPoint(x1, y1, diagram.SecondaryAxesX[0], diagram.SecondaryAxesY[0]);
+                if (MatchedRowListSelection.Contains(r))
+                {
+                    e.Graphics.DrawLine(Pens.LightSeaGreen, cod.Point.X, cod.Point.Y, cod2.Point.X, cod2.Point.Y);
+                }
+                else
+                {
+                    e.Graphics.DrawLine(Pens.Black, cod.Point.X, cod.Point.Y, cod2.Point.X, cod2.Point.Y);
+                }
+
+            }
+
+            foreach (SeriesPoint pt in AlignedSeries.Points)
+            {
+                float x = Convert.ToSingle(pt.Argument);
+                float y = Convert.ToSingle(pt.Values[0]);
+                cod = diagram.DiagramToPoint(x, y);
+
+                int rowidx = (int)pt.Tag;
+                DataRow r = sourcetable.Rows[rowidx];
+                if (!MatchedRowList.ContainsKey(r))
+                    continue;
+                DataRow cRow = MatchedRowList[r];
+                int centerlinePointindx = CenterlinePointTable.Rows.IndexOf(cRow);
+
+                SeriesPoint pt2 = centerlineSeries.Points[centerlinePointindx];
+                float x1 = Convert.ToSingle(pt2.Argument);
+                float y1 = Convert.ToSingle(pt2.Values[0]);
+                cod2 = diagram.DiagramToPoint(x1, y1, diagram.SecondaryAxesX[0], diagram.SecondaryAxesY[0]);
+                if (MatchedRowListSelection.Contains(r))
+                {
+                    e.Graphics.DrawLine(Pens.LightSeaGreen, cod.Point.X, cod.Point.Y, cod2.Point.X, cod2.Point.Y);
+                }
+                else
+                {
+                    e.Graphics.DrawLine(Pens.Black, cod.Point.X, cod.Point.Y, cod2.Point.X, cod2.Point.Y);
+                }
+            }
+
+            
+
+            
+           
+        }
+
+        private void toolStripButtonDelete_Click(object sender, EventArgs e)
+        {
+            for (int i = MatchedRowList.Count - 1; i >= 0; i--)
+            {
+                DataRow imuR = MatchedRowList.Keys.ElementAt(i);
+                if (MatchedRowListSelection.Contains(imuR))
+                {
+                    MatchedRowList.Remove(imuR);
+                    chartControl3.Invalidate();
+                }
+            }
+        }
+
+        private void toolStripButtonRun_Click(object sender, EventArgs e)
+        {
+            //DataTable CenterlinePointTable = this.CenterlinePointTable;
+            DataTable IMUTable = sourcetable;
+            double endM = IMUTable.AsEnumerable().Max(x => Convert.ToDouble( x[EvConfig.IMUAlignmentMeasureField]));
+            double beginM = IMUTable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]));
+
+            double centerlineLength = endM - beginM;
+            if (!IMUTable.Columns.Contains("X"))
+                IMUTable.Columns.Add("X", System.Type.GetType("System.Double"));
+            if (!IMUTable.Columns.Contains("Y"))
+                IMUTable.Columns.Add("Y", System.Type.GetType("System.Double"));
+            if (!IMUTable.Columns.Contains("Z"))
+                IMUTable.Columns.Add("Z", System.Type.GetType("System.Double"));
+            if (!IMUTable.Columns.Contains("里程差"))
+                IMUTable.Columns.Add("里程差", System.Type.GetType("System.Double"));
+            if (!IMUTable.Columns.Contains("对齐里程"))
+                IMUTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
+
+            double endIMUM = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1][EvConfig.IMUMoveDistanceField]);
+            double beginIMUM = Convert.ToDouble(IMUTable.Rows[0][EvConfig.IMUMoveDistanceField]);
+            double IMULength = endIMUM - beginIMUM;
+
+            foreach (DataRow r in IMUTable.Rows)
+            {
+                if (MatchedRowList.ContainsKey(r))
+                {
+                    r["对齐里程"] = MatchedRowList[r][EvConfig.CenterlineMeasureField];
+                }
+                else
+                {
+                    r["对齐里程"] = DBNull.Value;
+                }
+               
+            }
+            //IMUTable.Rows[IMUTable.Rows.Count - 1][EvConfig.IMUAlignmentMeasureField] = endM;
+            //IMUTable.Rows[0][EvConfig.IMUAlignmentMeasureField] = beginM;
+            
+
+            Dictionary<string, string> TypeMatchDic = new Dictionary<string, string>();
+            //key 中线点属性， value 内检测点属性
+            TypeMatchDic.Add("阀门", "阀门");
+            TypeMatchDic.Add("拐点", "弯头");
+            TypeMatchDic.Add("三通", "三通");
+            TypeMatchDic.Add("地面标记", "地面标记");
+            TypeMatchDic.Add("开挖点", "开挖点");
+
+            //Dictionary<string, string> SpecialMatchDic = new Dictionary<string, string>();
+            //SpecialMatchDic.Add("阀门", "阀门");
+            //SpecialMatchDic.Add("三通", "三通");
+            //SpecialMatchDic.Add("地面标记", "地面标记");
+            //SpecialMatchDic.Add("开挖点", "开挖点");
+            ////根据特殊控制点强制对齐
+
+            //if (!FrmCenterLineInsideAlignment.PreMatchBySpecialControlPoint(SpecialMatchDic, IMUTable, CenterlinePointTable))
+            //{
+            //    return;
+            //}
+            Dictionary<DataRow, DataRow> ManualSelectedRowPayer = new Dictionary<DataRow, DataRow>();
+            foreach (DataRow imur in MatchedRowList.Keys)
+            {
+                ManualSelectedRowPayer.Add(imur, MatchedRowList[imur]);
+            }
+            Dictionary<DataRow, DataRow> MatchedDataRowPair = MatchedRowList;
+            int LastMatchedPointsCount = -1;
+
+            List<DataRow> NeijianceControlPointList = (from DataRow r in IMUTable.Rows
+                                                       where (r["类型"] != DBNull.Value && FrmCenterLineInsideAlignment.IsNeiJianCeDianControlPointType(r["类型"].ToString(), TypeMatchDic))
+                                                       || ManualSelectedRowPayer.ContainsKey(r)
+                                                       select r).ToList();
+            //手动选定特征点不用做匹配
+            List<DataRow> ZhongXianControlPointList = (from DataRow r in CenterlinePointTable.Rows
+                                                       where r["测点属性"] != DBNull.Value && FrmCenterLineInsideAlignment.IsZhongXianDianControlPointType(r["测点属性"].ToString(), TypeMatchDic)
+                                                       && ManualSelectedRowPayer.ContainsValue(r) == false
+                                                       select r).ToList();
+
+
+           
+
+
+          
+
+
+
+            while (true)
+            {
+                int matchedrowCount = IMUTable.AsEnumerable().Where(x => x["对齐里程"] != DBNull.Value).Count();
+                MatchedDataRowPair.Clear();
+                for (int i = 0; i < NeijianceControlPointList.Count; i++)
+                {
+                    DataRow IMUr = NeijianceControlPointList[i];
+
+                    double beforeM  ;
+                    double beforeD ;
+                    double nextM;
+                    double nextD;
+
+                    double ActionIMUM = (Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField]) - beginIMUM) * centerlineLength / IMULength + beginM;
+
+                    // 手动匹配的点直接添加
+                    if (ManualSelectedRowPayer.ContainsKey(IMUr))
+                    {
+                        IMUr["里程差"] = 0;
+                        MatchedDataRowPair.Add(IMUr, ManualSelectedRowPayer[IMUr]);
+                        continue;
+                    }
+
+                    if (IMUr["对齐里程"] != DBNull.Value)                    
+                    {
+                        ActionIMUM = Convert.ToDouble(IMUr["对齐里程"]);
+                    }
+                    else
+                    {
+                        // 还没找到对齐点通过整体长度计算里程
+                        if (matchedrowCount == 0)
+                        {
+                            ActionIMUM = (Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField]) - beginIMUM) * centerlineLength / IMULength + beginM;
+                        }
+                        //找到了对齐点，用最近对齐点计算里程
+                        else
+                        {
+                            DataRow beforeMatchedRow = IMUTable.AsEnumerable().Where(x => x["对齐里程"] != DBNull.Value &&
+                                Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]) < Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField])).Last();
+                              beforeM = Convert.ToDouble(beforeMatchedRow["对齐里程"]);
+                              beforeD = Convert.ToDouble(beforeMatchedRow[EvConfig.IMUMoveDistanceField]);
+
+                             DataRow nextMatchedRow;
+                              
+                             if (IMUTable.AsEnumerable().Any(x => x["对齐里程"] != DBNull.Value &&
+                                 Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]) > Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField])))
+                             {
+                                 nextMatchedRow = IMUTable.AsEnumerable().Where(x => x["对齐里程"] != DBNull.Value &&
+                               Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]) > Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField])).First();
+                                 nextM = Convert.ToDouble(nextMatchedRow["对齐里程"]);
+                                 nextD = Convert.ToDouble(nextMatchedRow[EvConfig.IMUMoveDistanceField]);
+                             }
+                             else
+                             {
+                                 nextM = endM;
+                                 nextD = Convert.ToDouble(IMUTable.Rows[IMUTable.Rows.Count - 1][EvConfig.IMUMoveDistanceField]);
+                             }
+
+                          
+                            
+
+                            double currentD = Convert.ToDouble(IMUr[EvConfig.IMUMoveDistanceField]);
+                            ActionIMUM = (currentD - beforeD) * (nextM - beforeM) / (nextD - beforeD) + beforeM;
+                        }
+                    }
+                    List<DataRow> Featurerow = (from r in ZhongXianControlPointList
+                                                where Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField]) - ActionIMUM) < InsideCenterlineTolerance &&
+                                                 FrmCenterLineInsideAlignment.IsZhongXianNejianceCouldMatch(r["测点属性"].ToString(), IMUr["类型"].ToString(), TypeMatchDic)
+                                                select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.CenterlineMeasureField]) - ActionIMUM)).ToList();
+                    if (Featurerow.Count > 0)
+                    {
+                        DataRow NearestR = Featurerow[0];
+                        if (MatchedDataRowPair.Values.Contains(NearestR) == false)
+                        {
+                            IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
+                            MatchedDataRowPair.Add(IMUr, NearestR);
+                        }
+                        else
+                        {
+                            DataRow mathcedIMUr = (from DataRow k in MatchedDataRowPair.Keys
+                                                   where MatchedDataRowPair[k].Equals(NearestR)
+                                                   select k).ToList().First();
+                            double dis = Math.Abs(Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM);
+                            double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
+                            if (dis < olddis)
+                            {
+                                MatchedDataRowPair.Remove(mathcedIMUr);
+                                mathcedIMUr["里程差"] = DBNull.Value;
+                                IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
+                                MatchedDataRowPair.Add(IMUr, NearestR);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
+
+                if (MatchedDataRowPair.Count <= LastMatchedPointsCount)
+                {
+                    break;
+                }
+                else
+                {
+                    LastMatchedPointsCount = MatchedDataRowPair.Count;
+                }
+
+
+                foreach (DataRow r in MatchedDataRowPair.Keys)
+                {
+                    r["对齐里程"] = MatchedDataRowPair[r][EvConfig.CenterlineMeasureField];
+                }
+                //未匹配上的点里程设置为null
+                foreach (DataRow r in IMUTable.Rows)
+                {
+                    if (!MatchedDataRowPair.ContainsKey(r))
+                    {
+                        r["对齐里程"] = DBNull.Value;
+                    }
+                }
+                //更新起始点和终点对齐里程
+                if (IMUTable.AsEnumerable().Where(x => x["对齐里程"] != DBNull.Value).Count() > 0)
+                {
+                    DataRow begrow = IMUTable.Rows[0];
+                    DataRow endrow = IMUTable.Rows[IMUTable.Rows.Count - 1];
+                    DataRow fistMatchRow = IMUTable.AsEnumerable().Where(x => x["对齐里程"] != DBNull.Value).First();
+                    DataRow lastMatchRow = IMUTable.AsEnumerable().Where(x => x["对齐里程"] != DBNull.Value).Last();
+                    //根据匹配控制点和 记录距离计算终点和起点的对齐里程
+                    if (begrow["对齐里程"] == DBNull.Value)
+                    {
+                        begrow["对齐里程"] = Convert.ToDouble(fistMatchRow["对齐里程"]) - (Convert.ToDouble(fistMatchRow[EvConfig.IMUMoveDistanceField])
+                            - Convert.ToDouble(begrow[EvConfig.IMUMoveDistanceField]));
+                    }
+                    if (endrow["对齐里程"] == DBNull.Value)
+                    {
+                        endrow["对齐里程"] = Convert.ToDouble(lastMatchRow["对齐里程"]) + (Convert.ToDouble(endrow[EvConfig.IMUMoveDistanceField])
+                           - Convert.ToDouble(lastMatchRow[EvConfig.IMUMoveDistanceField]));
+                    }
+                }
+                 
+            }
+            FrmCenterLineInsideAlignment.CalculateNullMeasureBasedOnControlpointMeasure(ref IMUTable); 
+
+            IFeatureLayer pLinearlayer = this.CenterlineLayer as IFeatureLayer;
+            
+            IFeatureCursor pcursor = pLinearlayer.FeatureClass.Search(null, false);
+            IFeature pFeature = pcursor.NextFeature();
+            IPolyline pline = pFeature.Shape as IPolyline;
+            IMSegmentation mSegment = pline as IMSegmentation;
+            double maxM = mSegment.MMax;
+            double minM = mSegment.MMin;
+
+            if (beginM > maxM || beginM < minM || endM > maxM || endM < minM)
+            {
+                MessageBox.Show("输入的起始或终点里程值超出中线里程范围!");
+                return;
+            }
+
+            for (int i = 0; i < IMUTable.Rows.Count; i++)
+            {
+                DataRow r = IMUTable.Rows[i];
+                double M = Convert.ToDouble(r["对齐里程"]);
+                if (M < mSegment.MMin)
+                    M = mSegment.MMin;
+                if (M > mSegment.MMax)
+                    M = mSegment.MMax;
+
+                IGeometryCollection ptcollection = mSegment.GetPointsAtM(M, 0);
+                IPoint pt = ptcollection.get_Geometry(0) as IPoint;
+                r["X"] = pt.X;
+                r["Y"] = pt.Y;
+                r["Z"] = pt.Z;
+
+            }
+
+            CreateInsidPointCenterlineAlignmentStatisticsImage(this.chartControl3);
+        }
+
         
+        
+    }
+    public enum ChartControlToolTypeEnum
+    {
+        ManualMatch,
+        SelectPair,
+
+    }
+
+    public class ChartZoomScrollHelper
+    {
+        private readonly ChartControl chartControl;
+        public ChartControlToolTypeEnum CurrentTool;
+        #region Properties
+        public ViewType CurrentViewType { get; set; }
+        public Point FirstPoint { get; private set; }
+        public Point SecondPoint { get; private set; }
+        public bool HoldMouse = false;
+        #endregion
+        public delegate void ChartControlSelectedItemManunalyChanged(object sender, ChartControl chart);
+        public event ChartControlSelectedItemManunalyChanged SelectedItemManunalyChanged;
+
+        public delegate void ChartMouseDragCompleted(object sender, Point FirstPoint, Point SencondPoint);
+        public event ChartMouseDragCompleted MouseDragCompleted;
+        
+        public ChartZoomScrollHelper(ChartControl chart)
+        {
+            chartControl = chart;
+            chartControl.CustomPaint += chartControl1_CustomPaint;
+            chartControl.MouseDown += chartControl1_MouseDown;
+            chartControl.MouseMove += chartControl1_MouseMove;
+            chartControl.MouseUp += chartControl1_MouseUp;
+
+        }
+        private void chartControl1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            HoldMouse = true;
+            XYDiagram diagram = (XYDiagram)chartControl.Diagram;
+            DiagramCoordinates dcd = diagram.PointToDiagram(e.Location);
+            if (dcd.NumericalValue <= 0 || dcd.NumericalValue > ((double)diagram.AxisY.VisualRange.MaxValue))
+            {
+                return;
+            }
+            FirstPoint = e.Location;
+
+        }
+
+        private void chartControl1_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            HoldMouse = false;
+
+            if (ShouldZoom(e))
+            {
+                DiagramCoordinates cod;
+                XYDiagram diagram = (XYDiagram)chartControl.Diagram;
+                if (FirstPoint != null && SecondPoint != null)
+                {
+                    // int minX = Math.Min(FirstPoint.Value.X, SecondPoint.Value.X);
+                    cod = diagram.PointToDiagram(new Point(FirstPoint.X, FirstPoint.Y));
+                    double x1 = cod.NumericalArgument;
+
+                    // int maxX = Math.Max(FirstPoint.Value.X, SecondPoint.Value.X);
+                    cod = diagram.PointToDiagram(new Point(SecondPoint.X, SecondPoint.Y));
+                    double x2 = cod.NumericalArgument;
+
+                    double maxM = Math.Max(x1, x2);
+                    double minM = Math.Min(x1, x2);
+
+                     
+                    
+                }
+                
+            }
+            if (FirstPoint != Point.Empty && SecondPoint != Point.Empty)
+            {
+                MouseDragCompleted(chartControl, FirstPoint, SecondPoint);
+            }
+            SecondPoint = Point.Empty;
+            FirstPoint = Point.Empty;
+
+        }
+
+        private void CalcArgVisualRange(XYDiagram diagram, out object argMin, out object argMax)
+        {
+            int minX = Math.Min(FirstPoint.X, SecondPoint.X);
+            int maxX = Math.Max(FirstPoint.X, SecondPoint.X);
+            argMin = diagram.PointToDiagram(new Point(minX, SecondPoint.Y)).NumericalArgument;
+            argMax = diagram.PointToDiagram(new Point(maxX, SecondPoint.Y)).NumericalArgument;
+        }
+
+        private void chartControl1_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            SecondPoint = e.Location;
+
+            if (ShouldScroll())
+            {
+                if (FirstPoint != null && SecondPoint != null)
+                {
+                    XYDiagram diagram = (XYDiagram)chartControl.Diagram;
+
+                    double argMin = diagram.PointToDiagram(new Point(FirstPoint.X, SecondPoint.Y)).NumericalArgument;
+                    double argMax = diagram.PointToDiagram(new Point(SecondPoint.X, SecondPoint.Y)).NumericalArgument;
+                    double diff = -(argMax - argMin);
+                    double newMin = (double)diagram.AxisX.VisualRange.MinValue + diff;
+                    double newMax = (double)diagram.AxisX.VisualRange.MaxValue + diff;
+                    if ((newMin >= (double)diagram.AxisX.WholeRange.MinValue) && newMax <= (double)diagram.AxisX.WholeRange.MaxValue)
+                        diagram.AxisX.VisualRange.SetMinMaxValues(newMin, newMax);
+                }
+                FirstPoint = SecondPoint;
+            }
+        }
+        private void chartControl1_CustomPaint(object sender, DevExpress.XtraCharts.CustomPaintEventArgs e)
+        {
+            if (ShouldZoom())
+                DrawZoomBox(e);
+            if (ManualMatch())
+                DrawConnectLine(e);
+                
+
+        }
+       
+
+        private bool ManualMatch()
+        {
+            return CurrentTool == ChartControlToolTypeEnum.ManualMatch && FirstPoint != null && Control.MouseButtons == MouseButtons.Left;
+        }
+       
+        private void DrawConnectLine(DevExpress.XtraCharts.CustomPaintEventArgs e)
+        {
+            XYDiagram diagram = (XYDiagram)chartControl.Diagram;
+            if (FirstPoint == Point.Empty || SecondPoint == Point.Empty)
+                return;
+            ControlCoordinates cod;
+            ControlCoordinates cod2;
+            if (FirstPoint == null || SecondPoint == null)
+                return;             
+            cod = diagram.DiagramToPoint(FirstPoint.X, FirstPoint.Y);
+           
+            cod2 = diagram.DiagramToPoint(SecondPoint.X, SecondPoint.Y);
+            int minY = cod.Point.Y;
+            e.Graphics.DrawLine(Pens.Purple, FirstPoint.X, FirstPoint.Y, SecondPoint.X, SecondPoint.Y); 
+        }
+        private void DrawZoomBox(DevExpress.XtraCharts.CustomPaintEventArgs e)
+        {
+            XYDiagram diagram = (XYDiagram)chartControl.Diagram;
+            ControlCoordinates cod;
+            if (FirstPoint == Point.Empty || SecondPoint == Point.Empty)
+                return;
+
+            int minX = Math.Min(FirstPoint.X, SecondPoint.X);
+            //int minY = Math.Min(FirstPoint.Value.Y, SecondPoint.Value.Y);
+            cod = diagram.DiagramToPoint(0, 0, diagram.AxisX, diagram.AxisY);
+            int maxY = cod.Point.Y;
+            int maxX = Math.Max(FirstPoint.X, SecondPoint.X);
+            //int maxY = Math.Max(FirstPoint.Value.Y, SecondPoint.Value.Y);
+            cod = diagram.DiagramToPoint(0, 0, diagram.SecondaryAxesX[0], diagram.SecondaryAxesY[0]);
+            int minY = cod.Point.Y;
+            e.Graphics.DrawRectangle(Pens.Black, minX, minY, maxX - minX, maxY - minY);
+        }
+        private bool ShouldScroll()
+        {
+            return FirstPoint != null && Control.MouseButtons == MouseButtons.Right;
+        }
+        private bool ShouldZoom()
+        {
+            return CurrentTool == ChartControlToolTypeEnum.SelectPair && FirstPoint != null && Control.MouseButtons == MouseButtons.Left;
+        }
+        private bool ShouldZoom(MouseEventArgs e)
+        {
+            return FirstPoint != null && e.Button == MouseButtons.Left;
+        }
+
+       
+
     }
 
 }

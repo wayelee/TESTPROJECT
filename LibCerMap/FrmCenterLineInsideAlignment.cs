@@ -430,7 +430,9 @@ namespace LibCerMap
                 }
 
 
-                FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(IMUTable);
+                FrmIMUCeterlineAlignmentresult frm = new FrmIMUCeterlineAlignmentresult(IMUTable , MatchedDataRowPair);
+                frm.InsideCenterlineTolerance = Convert.ToDouble(numericUpDown3.Value);
+                frm.CenterlineLayer = pLinearlayer;
                 frm.CenterlinePointTable = CenterlinePointTable;
                 frm.setResultType("内检测对齐中线报告");
                 frm.ShowDialog();
@@ -493,7 +495,7 @@ namespace LibCerMap
             return true;
         }
         //根据特征点匹配对齐里程计算其他店对齐里程
-        private void CalculateNullMeasureBasedOnControlpointMeasure(ref DataTable IMUTable)
+        static public void CalculateNullMeasureBasedOnControlpointMeasure(ref DataTable IMUTable)
         {
             DataRow PrevRowWithM = null;
             for (int i = 0; i < IMUTable.Rows.Count; i++)
@@ -529,7 +531,7 @@ namespace LibCerMap
             }
         }
 
-        private bool IsZhongXianDianControlPointType(string pointtype, Dictionary<string, string> TypeMatchDic)
+        static public bool IsZhongXianDianControlPointType(string pointtype, Dictionary<string, string> TypeMatchDic)
         {
             foreach (string controlpointtype in TypeMatchDic.Keys)
             {
@@ -540,7 +542,7 @@ namespace LibCerMap
             }
             return false;
         }
-        private bool IsNeiJianCeDianControlPointType(string pointtype, Dictionary<string, string> TypeMatchDic)
+        static public bool IsNeiJianCeDianControlPointType(string pointtype, Dictionary<string, string> TypeMatchDic)
         {
             foreach (string controlpointtype in TypeMatchDic.Values)
             {
@@ -551,7 +553,7 @@ namespace LibCerMap
             }
             return false;
         }
-        private bool IsZhongXianNejianceCouldMatch(string zhongxiandianType, string neijiancedianType, Dictionary<string, string> TypeMatchDic)
+        static public bool IsZhongXianNejianceCouldMatch(string zhongxiandianType, string neijiancedianType, Dictionary<string, string> TypeMatchDic)
         {
             foreach (string TypeKey in TypeMatchDic.Keys)
             {
