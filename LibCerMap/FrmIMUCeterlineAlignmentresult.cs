@@ -352,7 +352,7 @@ namespace LibCerMap
                 return;
             DataTable dt = gridControl1.DataSource as DataTable;
             IFeatureClass pfc = CreateShapeFile(di.FileName);
-
+            IFeatureCursor pfCursor = pfc.Insert(true);
             CustomizedControls.StatusForm frm = new CustomizedControls.StatusForm();
             frm.StartPosition = FormStartPosition.CenterScreen;
             frm.Show();
@@ -365,7 +365,8 @@ namespace LibCerMap
                     frm.Status = "生成点" + idx.ToString() + "/" + dt.Rows.Count.ToString();
                     frm.Progress = Convert.ToInt16(Convert.ToDouble(idx) / dt.Rows.Count * 100);
                     Application.DoEvents();
-                    IFeature pF = pfc.CreateFeature();
+                    IFeatureBuffer pF = pfc.CreateFeatureBuffer();
+                    //IFeature pF = pfc.CreateFeature();
                     for (int i = 0; i < dt.Columns.Count; i++)
                     {
                         if (dt.Columns[i].ColumnName == "FID")
@@ -399,7 +400,7 @@ namespace LibCerMap
                     pt.Z = Convert.ToDouble(r["Z"]);
                     pt.M = Convert.ToDouble(r["对齐里程"]);
                     pF.Shape = pt;
-                    pF.Store();
+                    pfCursor.InsertFeature(pF);
                     idx++;
                 }
 
@@ -2625,11 +2626,11 @@ namespace LibCerMap
             double maxM = mSegment.MMax;
             double minM = mSegment.MMin;
 
-            if (beginM > maxM || beginM < minM || endM > maxM || endM < minM)
-            {
-                MessageBox.Show("输入的起始或终点里程值超出中线里程范围!");
-                return;
-            }
+            //if (beginM > maxM || beginM < minM || endM > maxM || endM < minM)
+            //{
+            //    MessageBox.Show("输入的起始或终点里程值超出中线里程范围!");
+            //    return;
+            //}
 
             for (int i = 0; i < IMUTable.Rows.Count; i++)
             {
