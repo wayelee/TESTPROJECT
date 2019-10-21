@@ -112,10 +112,15 @@ namespace LibCerMap
         {
             try
             {
-                string pPointFileName = cboBoxPointLayer.SelectedItem.ToString();
-                string pCenterlinName = comboBoxExCenterlineLinearLayer.SelectedItem.ToString();
                 IFeatureLayer pPointLayer = null;
                 IFeatureLayer pCenterlineLayer = null;
+                string pPointFileName = "";
+                if (cboBoxPointLayer.SelectedIndex > 0)
+                {
+                    pPointFileName = cboBoxPointLayer.SelectedItem.ToString();
+                }  
+                string pCenterlinName = comboBoxExCenterlineLinearLayer.SelectedItem.ToString();     
+              
                 for (int i = 0; i < pMapcontrol.LayerCount; i++)
                 {
                     if (pPointFileName == pMapcontrol.get_Layer(i).Name)
@@ -127,15 +132,19 @@ namespace LibCerMap
                         pCenterlineLayer = pMapcontrol.get_Layer(i) as IFeatureLayer;
                     }
                 }
+             
                 IFeatureClass pLineFC = pCenterlineLayer.FeatureClass;
-                IFeatureClass pPointFC = pPointLayer.FeatureClass;
-                IFeatureCursor pLineCursor = pLineFC.Search(null, false);                
+             
+                IFeatureCursor pLineCursor = pLineFC.Search(null, false);
+               
                 IFeature pLineFeature = pLineCursor.NextFeature();
+               
                 IQueryFilter qf1 = null;
                 DataTable ptable;
                     
                 if(radioButtonLayer.Checked)
                 {
+                    IFeatureClass pPointFC = pPointLayer.FeatureClass;
                     ptable =  AOFunctions.GDB.ITableUtil.GetDataTableFromITable(pPointFC as ITable, qf1);
                 }
                 else
