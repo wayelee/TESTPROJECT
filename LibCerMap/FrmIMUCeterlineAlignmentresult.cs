@@ -2650,6 +2650,9 @@ namespace LibCerMap
             }
 
             CreateInsidPointCenterlineAlignmentStatisticsImage(this.chartControl3);
+
+            this.gridControlPrecision.DataSource = CreateInsidPointCenterlineAlignmentStatisticsTable();
+            this.gridControlPrecision.MainView.RefreshData();
         }
 
         
