@@ -307,6 +307,7 @@
             secondaryAxisY1.WholeRange.MinValueSerializable = "0";
             xyDiagram1.SecondaryAxesY.AddRange(new DevExpress.XtraCharts.SecondaryAxisY[] {
             secondaryAxisY1});
+            xyDiagram1.ZoomingOptions.AxisXMaxZoomPercent = 1000000D;
             this.chartControl3.Diagram = xyDiagram1;
             this.chartControl3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chartControl3.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Center;
