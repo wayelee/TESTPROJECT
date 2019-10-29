@@ -505,6 +505,8 @@ namespace LibCerMap
                 //alignmentPointTable.Columns.Remove("对齐基准点里程差");
                 #endregion
 
+
+
                 #region //匹配异常
 
                 List<DataRow> AlimAnomany = (from DataRow r in alignmentPointTable.Rows
@@ -515,7 +517,8 @@ namespace LibCerMap
                                                    select r).ToList();
 
                 alignmentPointTable.Columns.Add("异常匹配里程差", System.Type.GetType("System.Double"));
-                MatchedDataRowPair.Clear();
+                Dictionary<DataRow, DataRow> anomalyMatchedDataRowPair = new Dictionary<DataRow, DataRow>();
+                //MatchedDataRowPair.Clear();
                 for (int i = 0; i < AlimAnomany.Count; i++)
                 {
                     DataRow IMUr = AlimAnomany[i];
@@ -544,23 +547,23 @@ namespace LibCerMap
                     if (Featurerow.Count > 0)
                     {
                         DataRow NearestR = Featurerow[0];
-                        if (MatchedDataRowPair.Values.Contains(NearestR) == false)
+                        if (anomalyMatchedDataRowPair.Values.Contains(NearestR) == false)
                         {
                             IMUr["异常匹配里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
-                            MatchedDataRowPair.Add(IMUr, NearestR);
+                            anomalyMatchedDataRowPair.Add(IMUr, NearestR);
                         }
                         else
                         {
-                            DataRow mathcedIMUr = (from DataRow k in MatchedDataRowPair.Keys
-                                                   where MatchedDataRowPair[k].Equals(NearestR)
+                            DataRow mathcedIMUr = (from DataRow k in anomalyMatchedDataRowPair.Keys
+                                                   where anomalyMatchedDataRowPair[k].Equals(NearestR)
                                                    select k).ToList().First();
                             double dis = Math.Abs(Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM);
                             double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["异常匹配里程差"]));
                             if (dis < olddis)
                             {
-                                MatchedDataRowPair.Remove(mathcedIMUr);
+                                anomalyMatchedDataRowPair.Remove(mathcedIMUr);
                                 IMUr["异常匹配里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
-                                MatchedDataRowPair.Add(IMUr, NearestR);
+                                anomalyMatchedDataRowPair.Add(IMUr, NearestR);
                             }
                             else
                             {
@@ -634,10 +637,10 @@ namespace LibCerMap
                 alignmentPointTable.Columns.Add("宽度变化率", System.Type.GetType("System.Double")); 
                 alignmentPointTable.Columns.Add("角度变化", System.Type.GetType("System.Double"));
                 #region // 异常增长计算
-                for (int i = 0; i < MatchedDataRowPair.Count; i++)
+                for (int i = 0; i < anomalyMatchedDataRowPair.Count; i++)
                 {
-                    DataRow IMUr = MatchedDataRowPair.Keys.ElementAt(i);
-                    DataRow BaseRow = MatchedDataRowPair.Values.ElementAt(i);
+                    DataRow IMUr = anomalyMatchedDataRowPair.Keys.ElementAt(i);
+                    DataRow BaseRow = anomalyMatchedDataRowPair.Values.ElementAt(i);
                     try
                     {
                         if (IMUr[EvConfig.IMUDepthField] != DBNull.Value && BaseRow[EvConfig.IMUDepthField] != DBNull.Value)
@@ -671,10 +674,19 @@ namespace LibCerMap
 
 
                 #endregion
-                FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
+                FrmIMUToIMUAlignmentresult frm = new FrmIMUToIMUAlignmentresult(alignmentPointTable, MatchedDataRowPair);
+                //FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
                 frm.setResultType("两次内检测对齐报告");
                 frm.BasePointTable = baseTable;
                 frm.AlignmentPointTable = alignmentPointTable;
+                frm.InsideToInsideTolerance = Convert.ToDouble(numericUpDown4.Value);
+                frm.CenterlinePointTable = baseTable; 
+                frm.ShowDialog();
+
+                //frm.InsideCenterlineTolerance = Convert.ToDouble(numericUpDown4.Value);
+                //frm.CenterlineLayer = pLinearlayer;
+                //frm.CenterlinePointTable = CenterlinePointTable;
+                //frm.setResultType("内检测对齐中线报告");
                 frm.ShowDialog();
 
                    

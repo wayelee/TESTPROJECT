@@ -21,7 +21,7 @@ using System.Collections;
 
 namespace LibCerMap
 {
-    public partial class FrmIMUCeterlineAlignmentresult : OfficeForm
+    public partial class FrmIMUToIMUAlignmentresult : OfficeForm
     {         
         private DataTable sourcetable;
         private string m_ResultType;
@@ -36,6 +36,7 @@ namespace LibCerMap
         // 两次内检测对齐
         public DataTable BasePointTable;
         public DataTable AlignmentPointTable;
+        public double InsideToInsideTolerance;
         private List<ToolStripItem> ToolList = new List<ToolStripItem>();
 
 
@@ -43,7 +44,7 @@ namespace LibCerMap
         private List<DataRow> MatchedRowListSelection = new List<DataRow>();
         private ChartZoomScrollHelper chartZoomHelper;
 
-        public FrmIMUCeterlineAlignmentresult(DataTable tb, Dictionary<DataRow, DataRow> matchrow )
+        public FrmIMUToIMUAlignmentresult(DataTable tb, Dictionary<DataRow, DataRow> matchrow )
         {
             InitializeComponent();
             sourcetable = tb;
@@ -51,7 +52,7 @@ namespace LibCerMap
             TempImagePath = ClsGDBDataCommon.GetParentPathofExe() + @"Resource\BMP\TempImage.jpg";
             chartZoomHelper = new ChartZoomScrollHelper(chartControl3);
         }
-        public FrmIMUCeterlineAlignmentresult()
+        public FrmIMUToIMUAlignmentresult()
         {
             InitializeComponent();         
             TempImagePath = ClsGDBDataCommon.GetParentPathofExe() + @"Resource\BMP\TempImage.jpg";
@@ -141,11 +142,11 @@ namespace LibCerMap
             if (MatchedRowList.Count > 0)
             {
                 double newIMUM = Convert.ToDouble(IMURow[EvConfig.IMUMoveDistanceField]);
-                double newCenterlineM = Convert.ToDouble(Centerlinerow[EvConfig.CenterlineMeasureField]);
+                double newCenterlineM = Convert.ToDouble(Centerlinerow[EvConfig.IMUAlignmentMeasureField]);
                 for (int i = 0; i < MatchedRowList.Count; i++)
                 {
                     double previewIMUM = Convert.ToDouble(MatchedRowList.Keys.ElementAt(i)[EvConfig.IMUMoveDistanceField]);
-                    double previewCentlineM = Convert.ToDouble(MatchedRowList.Values.ElementAt(i)[EvConfig.CenterlineMeasureField]);
+                    double previewCentlineM = Convert.ToDouble(MatchedRowList.Values.ElementAt(i)[EvConfig.IMUAlignmentMeasureField]);
 
                     if ((newIMUM - previewIMUM) * (newCenterlineM - previewCentlineM) <= 0)
                     {
@@ -191,9 +192,8 @@ namespace LibCerMap
                             
                      }
                  }
-
                  if (GetHitDataRow(FirstPoint, chartControl3.Series[0], diagram.AxisX, diagram.SecondaryAxesY[0]) != null &&
-                      GetHitDataRow(SecondPoint, chartControl3.Series[2], diagram.AxisX, diagram.AxisY) != null)
+                       GetHitDataRow(SecondPoint, chartControl3.Series[2], diagram.AxisX, diagram.AxisY) != null)
                  {
                      DataRow centerlinerow = GetHitDataRow(FirstPoint, chartControl3.Series[0], diagram.AxisX, diagram.SecondaryAxesY[0]);
                      DataRow IMURow = GetHitDataRow(SecondPoint, chartControl3.Series[2], diagram.AxisX, diagram.AxisY);
@@ -220,7 +220,6 @@ namespace LibCerMap
 
                      }
                  }
-
                 
             }
             if (chartZoomHelper.CurrentTool == ChartControlToolTypeEnum.SelectPair)
@@ -1254,8 +1253,8 @@ namespace LibCerMap
         //内检测对其到中线对齐情况统计图
         private void CreateInsidPointCenterlineAlignmentStatisticsImage(ChartControl control)
         {
-            DataTable stable = InsidePointTable;
-            DataTable BaseTable = CenterlinePointTable;
+            DataTable stable = AlignmentPointTable;
+            DataTable BaseTable = BasePointTable;
             ChartControl chartControl1 = control;
             double BegMeasure = BaseTable.AsEnumerable().Min(x => Convert.ToDouble(x[EvConfig.CenterlineMeasureField]));
             double endMeasure = BaseTable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.CenterlineMeasureField]));
@@ -1499,7 +1498,9 @@ namespace LibCerMap
             seriesNotAligned.ShowInLegend = true;
 
             DevExpress.XtraCharts.Series seriesAligned = chartControl1.Series[2];
-            seriesAligned.Name = "对齐内检测点";
+            seriesAligned.Name = "对齐内检测点"; 
+
+
             foreach (DataRow r in sourcetable.Rows)
             {
                 try
@@ -1507,14 +1508,14 @@ namespace LibCerMap
                  
                     double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
                    
-                    double z = 4;
-                    if (r["对齐基准点里程"] == DBNull.Value )
+                    double z = 3;
+                    if (r["对齐基准点里程"] == DBNull.Value)
                     {
                         SeriesPoint spt = new SeriesPoint(m, z);
                         spt.Tag = sourcetable.Rows.IndexOf(r);
                         seriesNotAligned.Points.Add(spt);
                     }
-                    else if (r["对齐基准点里程"] != DBNull.Value )
+                    else if (r["对齐基准点里程"] != DBNull.Value)
                     {
                         SeriesPoint spt = new SeriesPoint(m, z);
                         spt.Tag = sourcetable.Rows.IndexOf(r);
@@ -1533,8 +1534,10 @@ namespace LibCerMap
             foreach (DataRow r in BasePointTable.Rows)
             {
                 double m = Math.Round(Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField])), 2);
-                double z = 4;
-                seriesCenterline.Points.Add(new SeriesPoint(m, z));
+                double z = 3;
+                SeriesPoint spt = new SeriesPoint(m, z);
+                spt.Tag = BasePointTable.Rows.IndexOf(r);
+                seriesCenterline.Points.Add(spt);
             }
             XYDiagram diagram = ((XYDiagram)chartControl1.Diagram);
             double minvalue = Math.Min(Convert.ToDouble(diagram.SecondaryAxesX[0].WholeRange.MinValue),
@@ -2324,22 +2327,8 @@ namespace LibCerMap
                 sourcetable = ds.Tables[0];
                 if (sourcetable.Columns.Contains("里程差") == false)
                     sourcetable.Columns.Add("里程差");
-                //gridControl1.DataSource = sourcetable;
-                //filename = file + ".GV1";
-                ////LoadDataforGridView1(file);
-
-                //filename = file + ".ct";
-                //LoadChartControl(filename);
-                //filename = file + ".gv2";
-                //LoadDataforGridView2(filename);
-
-                if (m_ResultType == "内检测对齐中线报告")
-                {
-                    CenterlinePointTable = ds.Tables[1];
-                    InsidePointTable = sourcetable;
-                    
-                    //ds.Tables.Add(CenterlinePointTable);
-                }
+              
+ 
                 if (m_ResultType == "两次内检测对齐报告")
                 {
                     //ds.Tables.Add(AlignmentPointTable);
@@ -2347,21 +2336,7 @@ namespace LibCerMap
                    // AlignmentPointTable = ds.Tables[1];
                     BasePointTable = ds.Tables[1];
                 }
-                if (m_ResultType == "焊缝对齐报告")
-                {
-
-                }
-                if (m_ResultType == "外检测对齐中线报告")
-                {
-                    //ds.Tables.Add(AlignmentPointTable);
-                    //ds.Tables.Add(BasePointTable);
-                   // AlignmentPointTable = ds.Tables[1];
-                    BasePointTable = ds.Tables[1];
-                }
-                if (m_ResultType == "两次外检测对齐报告")
-                {
-
-                }
+                
             }
             catch(Exception ex)
             {
@@ -2391,7 +2366,7 @@ namespace LibCerMap
                 int rowidx = (int)pt.Tag;
                 DataRow r = sourcetable.Rows[rowidx];
                 DataRow cRow = MatchedRowList[r];
-                int centerlinePointindx = CenterlinePointTable.Rows.IndexOf(cRow);
+                int centerlinePointindx = this.BasePointTable.Rows.IndexOf(cRow);
 
                 SeriesPoint pt2 = centerlineSeries.Points[centerlinePointindx];
                 float x1 = Convert.ToSingle(pt2.Argument);
@@ -2419,7 +2394,7 @@ namespace LibCerMap
                 if (!MatchedRowList.ContainsKey(r))
                     continue;
                 DataRow cRow = MatchedRowList[r];
-                int centerlinePointindx = CenterlinePointTable.Rows.IndexOf(cRow);
+                int centerlinePointindx = this.BasePointTable.Rows.IndexOf(cRow);
 
                 SeriesPoint pt2 = centerlineSeries.Points[centerlinePointindx];
                 float x1 = Convert.ToSingle(pt2.Argument);
@@ -2723,178 +2698,6 @@ namespace LibCerMap
         
         
     }
-    public enum ChartControlToolTypeEnum
-    {
-        ManualMatch,
-        SelectPair,
-
-    }
-
-    public class ChartZoomScrollHelper
-    {
-        private readonly ChartControl chartControl;
-        public ChartControlToolTypeEnum CurrentTool;
-        #region Properties
-        public ViewType CurrentViewType { get; set; }
-        public Point FirstPoint { get; private set; }
-        public Point SecondPoint { get; private set; }
-        public bool HoldMouse = false;
-        #endregion
-        public delegate void ChartControlSelectedItemManunalyChanged(object sender, ChartControl chart);
-        public event ChartControlSelectedItemManunalyChanged SelectedItemManunalyChanged;
-
-        public delegate void ChartMouseDragCompleted(object sender, Point FirstPoint, Point SencondPoint);
-        public event ChartMouseDragCompleted MouseDragCompleted;
-        
-        public ChartZoomScrollHelper(ChartControl chart)
-        {
-            chartControl = chart;
-            chartControl.CustomPaint += chartControl1_CustomPaint;
-            chartControl.MouseDown += chartControl1_MouseDown;
-            chartControl.MouseMove += chartControl1_MouseMove;
-            chartControl.MouseUp += chartControl1_MouseUp;
-
-        }
-        private void chartControl1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            HoldMouse = true;
-            XYDiagram diagram = (XYDiagram)chartControl.Diagram;
-            DiagramCoordinates dcd = diagram.PointToDiagram(e.Location);
-            if (dcd.NumericalValue <= 0 || dcd.NumericalValue > ((double)diagram.AxisY.VisualRange.MaxValue))
-            {
-                return;
-            }
-            FirstPoint = e.Location;
-
-        }
-
-        private void chartControl1_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            HoldMouse = false;
-
-            if (ShouldZoom(e))
-            {
-                DiagramCoordinates cod;
-                XYDiagram diagram = (XYDiagram)chartControl.Diagram;
-                if (FirstPoint != null && SecondPoint != null)
-                {
-                    // int minX = Math.Min(FirstPoint.Value.X, SecondPoint.Value.X);
-                    cod = diagram.PointToDiagram(new Point(FirstPoint.X, FirstPoint.Y));
-                    double x1 = cod.NumericalArgument;
-
-                    // int maxX = Math.Max(FirstPoint.Value.X, SecondPoint.Value.X);
-                    cod = diagram.PointToDiagram(new Point(SecondPoint.X, SecondPoint.Y));
-                    double x2 = cod.NumericalArgument;
-
-                    double maxM = Math.Max(x1, x2);
-                    double minM = Math.Min(x1, x2);
-
-                     
-                    
-                }
-                
-            }
-            if (FirstPoint != Point.Empty && SecondPoint != Point.Empty)
-            {
-                MouseDragCompleted(chartControl, FirstPoint, SecondPoint);
-            }
-            SecondPoint = Point.Empty;
-            FirstPoint = Point.Empty;
-
-        }
-
-        private void CalcArgVisualRange(XYDiagram diagram, out object argMin, out object argMax)
-        {
-            int minX = Math.Min(FirstPoint.X, SecondPoint.X);
-            int maxX = Math.Max(FirstPoint.X, SecondPoint.X);
-            argMin = diagram.PointToDiagram(new Point(minX, SecondPoint.Y)).NumericalArgument;
-            argMax = diagram.PointToDiagram(new Point(maxX, SecondPoint.Y)).NumericalArgument;
-        }
-
-        private void chartControl1_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            SecondPoint = e.Location;
-
-            if (ShouldScroll())
-            {
-                if (FirstPoint != null && SecondPoint != null)
-                {
-                    XYDiagram diagram = (XYDiagram)chartControl.Diagram;
-
-                    double argMin = diagram.PointToDiagram(new Point(FirstPoint.X, SecondPoint.Y)).NumericalArgument;
-                    double argMax = diagram.PointToDiagram(new Point(SecondPoint.X, SecondPoint.Y)).NumericalArgument;
-                    double diff = -(argMax - argMin);
-                    double newMin = (double)diagram.AxisX.VisualRange.MinValue + diff;
-                    double newMax = (double)diagram.AxisX.VisualRange.MaxValue + diff;
-                    if ((newMin >= (double)diagram.AxisX.WholeRange.MinValue) && newMax <= (double)diagram.AxisX.WholeRange.MaxValue)
-                        diagram.AxisX.VisualRange.SetMinMaxValues(newMin, newMax);
-                }
-                FirstPoint = SecondPoint;
-            }
-        }
-        private void chartControl1_CustomPaint(object sender, DevExpress.XtraCharts.CustomPaintEventArgs e)
-        {
-            if (ShouldZoom())
-                DrawZoomBox(e);
-            if (ManualMatch())
-                DrawConnectLine(e);
-                
-
-        }
-       
-
-        private bool ManualMatch()
-        {
-            return CurrentTool == ChartControlToolTypeEnum.ManualMatch && FirstPoint != null && Control.MouseButtons == MouseButtons.Left;
-        }
-       
-        private void DrawConnectLine(DevExpress.XtraCharts.CustomPaintEventArgs e)
-        {
-            XYDiagram diagram = (XYDiagram)chartControl.Diagram;
-            if (FirstPoint == Point.Empty || SecondPoint == Point.Empty)
-                return;
-            ControlCoordinates cod;
-            ControlCoordinates cod2;
-            if (FirstPoint == null || SecondPoint == null)
-                return;             
-            cod = diagram.DiagramToPoint(FirstPoint.X, FirstPoint.Y);
-           
-            cod2 = diagram.DiagramToPoint(SecondPoint.X, SecondPoint.Y);
-            int minY = cod.Point.Y;
-            e.Graphics.DrawLine(Pens.Purple, FirstPoint.X, FirstPoint.Y, SecondPoint.X, SecondPoint.Y); 
-        }
-        private void DrawZoomBox(DevExpress.XtraCharts.CustomPaintEventArgs e)
-        {
-            XYDiagram diagram = (XYDiagram)chartControl.Diagram;
-            ControlCoordinates cod;
-            if (FirstPoint == Point.Empty || SecondPoint == Point.Empty)
-                return;
-
-            int minX = Math.Min(FirstPoint.X, SecondPoint.X);
-            //int minY = Math.Min(FirstPoint.Value.Y, SecondPoint.Value.Y);
-            cod = diagram.DiagramToPoint(0, 0, diagram.AxisX, diagram.AxisY);
-            int maxY = cod.Point.Y;
-            int maxX = Math.Max(FirstPoint.X, SecondPoint.X);
-            //int maxY = Math.Max(FirstPoint.Value.Y, SecondPoint.Value.Y);
-            cod = diagram.DiagramToPoint(0, 0, diagram.SecondaryAxesX[0], diagram.SecondaryAxesY[0]);
-            int minY = cod.Point.Y;
-            e.Graphics.DrawRectangle(Pens.Black, minX, minY, maxX - minX, maxY - minY);
-        }
-        private bool ShouldScroll()
-        {
-            return FirstPoint != null && Control.MouseButtons == MouseButtons.Right;
-        }
-        private bool ShouldZoom()
-        {
-            return CurrentTool == ChartControlToolTypeEnum.SelectPair && FirstPoint != null && Control.MouseButtons == MouseButtons.Left;
-        }
-        private bool ShouldZoom(MouseEventArgs e)
-        {
-            return FirstPoint != null && e.Button == MouseButtons.Left;
-        }
-
-       
-
-    }
+     
 
 }
