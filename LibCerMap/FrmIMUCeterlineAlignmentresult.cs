@@ -2713,7 +2713,7 @@ namespace LibCerMap
                 r["Z"] = pt.Z;
 
             }
-
+            MatchedRowList = MatchedDataRowPair;
             CreateInsidPointCenterlineAlignmentStatisticsImage(this.chartControl3);
 
             this.gridControlPrecision.DataSource = CreateInsidPointCenterlineAlignmentStatisticsTable();

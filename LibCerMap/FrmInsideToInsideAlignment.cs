@@ -687,7 +687,7 @@ namespace LibCerMap
                 //frm.CenterlineLayer = pLinearlayer;
                 //frm.CenterlinePointTable = CenterlinePointTable;
                 //frm.setResultType("内检测对齐中线报告");
-                frm.ShowDialog();
+                //frm.ShowDialog();
 
                    
             }

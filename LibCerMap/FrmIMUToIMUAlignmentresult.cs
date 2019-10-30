@@ -1493,6 +1493,9 @@ namespace LibCerMap
             double endMeasure = BaseTable.AsEnumerable().Max(x => Convert.ToDouble(x[EvConfig.IMUMoveDistanceField]));
             //chartControl1.Series.Clear();
             //  DevExpress.XtraCharts.Series series = new DevExpress.XtraCharts.Series("中线点", ViewType.Bar);
+            chartControl1.Series[0].Points.Clear();
+            chartControl1.Series[1].Points.Clear();
+            chartControl1.Series[2].Points.Clear();
             DevExpress.XtraCharts.Series seriesNotAligned = chartControl1.Series[1];
             seriesNotAligned.Name = "未对齐内检测点";
             seriesNotAligned.ShowInLegend = true;
@@ -2443,8 +2446,8 @@ namespace LibCerMap
                 IMUTable.Columns.Add("Y", System.Type.GetType("System.Double"));
             if (!IMUTable.Columns.Contains("Z"))
                 IMUTable.Columns.Add("Z", System.Type.GetType("System.Double"));
-            if (!IMUTable.Columns.Contains("里程差"))
-                IMUTable.Columns.Add("里程差", System.Type.GetType("System.Double"));
+            if (!IMUTable.Columns.Contains("对齐基准点里程差"))
+                IMUTable.Columns.Add("对齐基准点里程差", System.Type.GetType("System.Double"));
             if (!IMUTable.Columns.Contains("对齐里程"))
                 IMUTable.Columns.Add("对齐里程", System.Type.GetType("System.Double"));
 
@@ -2456,7 +2459,7 @@ namespace LibCerMap
             {
                 if (MatchedRowList.ContainsKey(r))
                 {
-                    r["对齐里程"] = MatchedRowList[r][EvConfig.CenterlineMeasureField];
+                    r["对齐里程"] = MatchedRowList[r][EvConfig.IMUAlignmentMeasureField];
                 }
                 else
                 {
@@ -2468,25 +2471,15 @@ namespace LibCerMap
             //IMUTable.Rows[0][EvConfig.IMUAlignmentMeasureField] = beginM;
             
 
-            Dictionary<string, string> TypeMatchDic = new Dictionary<string, string>();
-            //key 中线点属性， value 内检测点属性
-            TypeMatchDic.Add("阀门", "阀门");
-            TypeMatchDic.Add("拐点", "弯头");
-            TypeMatchDic.Add("三通", "三通");
-            TypeMatchDic.Add("地面标记", "地面标记");
-            TypeMatchDic.Add("开挖点", "开挖点");
+            //Dictionary<string, string> TypeMatchDic = new Dictionary<string, string>();
+            ////key 中线点属性， value 内检测点属性
+            //TypeMatchDic.Add("阀门", "阀门");
+            //TypeMatchDic.Add("拐点", "弯头");
+            //TypeMatchDic.Add("三通", "三通");
+            //TypeMatchDic.Add("地面标记", "地面标记");
+            //TypeMatchDic.Add("开挖点", "开挖点");
 
-            //Dictionary<string, string> SpecialMatchDic = new Dictionary<string, string>();
-            //SpecialMatchDic.Add("阀门", "阀门");
-            //SpecialMatchDic.Add("三通", "三通");
-            //SpecialMatchDic.Add("地面标记", "地面标记");
-            //SpecialMatchDic.Add("开挖点", "开挖点");
-            ////根据特殊控制点强制对齐
-
-            //if (!FrmCenterLineInsideAlignment.PreMatchBySpecialControlPoint(SpecialMatchDic, IMUTable, CenterlinePointTable))
-            //{
-            //    return;
-            //}
+          
             Dictionary<DataRow, DataRow> ManualSelectedRowPayer = new Dictionary<DataRow, DataRow>();
             foreach (DataRow imur in MatchedRowList.Keys)
             {
@@ -2496,12 +2489,12 @@ namespace LibCerMap
             int LastMatchedPointsCount = -1;
 
             List<DataRow> NeijianceControlPointList = (from DataRow r in IMUTable.Rows
-                                                       where (r["类型"] != DBNull.Value && FrmCenterLineInsideAlignment.IsNeiJianCeDianControlPointType(r["类型"].ToString(), TypeMatchDic))
+                                                       where (r["类型"] != DBNull.Value && r["类型"].ToString().Contains("弯头") && r["类型"].ToString().Contains("环向焊缝"))
                                                        || ManualSelectedRowPayer.ContainsKey(r)
                                                        select r).ToList();
             //手动选定特征点不用做匹配
             List<DataRow> ZhongXianControlPointList = (from DataRow r in CenterlinePointTable.Rows
-                                                       where r["测点属性"] != DBNull.Value && FrmCenterLineInsideAlignment.IsZhongXianDianControlPointType(r["测点属性"].ToString(), TypeMatchDic)
+                                                       where (r["类型"] != DBNull.Value && r["类型"].ToString().Contains("弯头") && r["类型"].ToString().Contains("环向焊缝"))
                                                        && ManualSelectedRowPayer.ContainsValue(r) == false
                                                        select r).ToList();
 
@@ -2531,7 +2524,7 @@ namespace LibCerMap
                     // 手动匹配的点直接添加
                     if (ManualSelectedRowPayer.ContainsKey(IMUr))
                     {
-                        IMUr["里程差"] = 0;
+                        IMUr["对齐基准点里程差"] = 0;
                         MatchedDataRowPair.Add(IMUr, ManualSelectedRowPayer[IMUr]);
                         continue;
                     }
@@ -2578,16 +2571,23 @@ namespace LibCerMap
                             ActionIMUM = (currentD - beforeD) * (nextM - beforeM) / (nextD - beforeD) + beforeM;
                         }
                     }
+                    //List<DataRow> Featurerow = (from r in ZhongXianControlPointList
+                    //                            where Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM) < InsideToInsideTolerance &&
+                    //                             FrmCenterLineInsideAlignment.IsZhongXianNejianceCouldMatch(r["测点属性"].ToString(), IMUr["类型"].ToString(), TypeMatchDic)
+                    //                            select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.CenterlineMeasureField]) - ActionIMUM)).ToList();
+
                     List<DataRow> Featurerow = (from r in ZhongXianControlPointList
-                                                where Math.Abs(Convert.ToDouble(r[EvConfig.CenterlineMeasureField]) - ActionIMUM) < InsideCenterlineTolerance &&
-                                                 FrmCenterLineInsideAlignment.IsZhongXianNejianceCouldMatch(r["测点属性"].ToString(), IMUr["类型"].ToString(), TypeMatchDic)
-                                                select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.CenterlineMeasureField]) - ActionIMUM)).ToList();
+                                                where Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM) < InsideToInsideTolerance &&
+                                               ((r["类型"].ToString().Contains("弯头") && IMUr["类型"].ToString().Contains("弯头")) ||
+                                              (r["类型"].ToString().Contains("环向焊缝") && IMUr["类型"].ToString().Contains("环向焊缝"))
+                                              )
+                                                select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM)).ToList();
                     if (Featurerow.Count > 0)
                     {
                         DataRow NearestR = Featurerow[0];
                         if (MatchedDataRowPair.Values.Contains(NearestR) == false)
                         {
-                            IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
+                            IMUr["对齐基准点里程差"] = Convert.ToDouble(NearestR[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM;
                             MatchedDataRowPair.Add(IMUr, NearestR);
                         }
                         else
@@ -2595,13 +2595,13 @@ namespace LibCerMap
                             DataRow mathcedIMUr = (from DataRow k in MatchedDataRowPair.Keys
                                                    where MatchedDataRowPair[k].Equals(NearestR)
                                                    select k).ToList().First();
-                            double dis = Math.Abs(Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM);
-                            double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["里程差"]));
+                            double dis = Math.Abs(Convert.ToDouble(NearestR[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM);
+                            double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["对齐基准点里程差"]));
                             if (dis < olddis)
                             {
                                 MatchedDataRowPair.Remove(mathcedIMUr);
-                                mathcedIMUr["里程差"] = DBNull.Value;
-                                IMUr["里程差"] = Convert.ToDouble(NearestR[EvConfig.CenterlineMeasureField]) - ActionIMUM;
+                                mathcedIMUr["对齐基准点里程差"] = DBNull.Value;
+                                IMUr["对齐基准点里程差"] = Convert.ToDouble(NearestR[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM;
                                 MatchedDataRowPair.Add(IMUr, NearestR);
                             }
                             else
@@ -2624,7 +2624,7 @@ namespace LibCerMap
 
                 foreach (DataRow r in MatchedDataRowPair.Keys)
                 {
-                    r["对齐里程"] = MatchedDataRowPair[r][EvConfig.CenterlineMeasureField];
+                    r["对齐里程"] = MatchedDataRowPair[r][EvConfig.IMUAlignmentMeasureField];
                 }
                 //未匹配上的点里程设置为null
                 foreach (DataRow r in IMUTable.Rows)
@@ -2655,44 +2655,194 @@ namespace LibCerMap
                 }
                  
             }
-            FrmCenterLineInsideAlignment.CalculateNullMeasureBasedOnControlpointMeasure(ref IMUTable); 
 
-            IFeatureLayer pLinearlayer = this.CenterlineLayer as IFeatureLayer;
-            
-            IFeatureCursor pcursor = pLinearlayer.FeatureClass.Search(null, false);
-            IFeature pFeature = pcursor.NextFeature();
-            IPolyline pline = pFeature.Shape as IPolyline;
-            IMSegmentation mSegment = pline as IMSegmentation;
-            double maxM = mSegment.MMax;
-            double minM = mSegment.MMin;
 
-            //if (beginM > maxM || beginM < minM || endM > maxM || endM < minM)
-            //{
-            //    MessageBox.Show("输入的起始或终点里程值超出中线里程范围!");
-            //    return;
-            //}
+            #region //匹配异常
 
-            for (int i = 0; i < IMUTable.Rows.Count; i++)
+            List<DataRow> AlimAnomany = (from DataRow r in IMUTable.Rows
+                                         where r["类型"].ToString().Contains("异常")
+                                         select r).ToList();
+            List<DataRow> BaseAnomany = (from DataRow r in CenterlinePointTable.Rows
+                                         where r["类型"].ToString().Contains("异常")
+                                         select r).ToList();
+
+            //alignmentPointTable.Columns.Add("异常匹配里程差", System.Type.GetType("System.Double"));
+            Dictionary<DataRow, DataRow> anomalyMatchedDataRowPair = new Dictionary<DataRow, DataRow>();
+            //MatchedDataRowPair.Clear();
+            for (int i = 0; i < AlimAnomany.Count; i++)
             {
-                DataRow r = IMUTable.Rows[i];
-                double M = Convert.ToDouble(r["对齐里程"]);
-                if (M < mSegment.MMin)
-                    M = mSegment.MMin;
-                if (M > mSegment.MMax)
-                    M = mSegment.MMax;
+                DataRow IMUr = AlimAnomany[i];
+                if (IMUr["对齐里程"] == DBNull.Value)
+                    continue;
+                double ActionIMUM = Convert.ToDouble(IMUr["对齐里程"]);
+                if (IMUr[EvConfig.IMUAngleField] == DBNull.Value)
+                {
+                    continue;
+                } 
 
-                IGeometryCollection ptcollection = mSegment.GetPointsAtM(M, 0);
-                IPoint pt = ptcollection.get_Geometry(0) as IPoint;
-                r["X"] = pt.X;
-                r["Y"] = pt.Y;
-                r["Z"] = pt.Z;
+                List<DataRow> Featurerow = (from r in BaseAnomany
+                                            where Math.Abs(Convert.ToDouble(r[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM) < InsideToInsideTolerance
+                                            select r).OrderBy(x => Math.Abs(Convert.ToDouble(x[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM)).ToList();
+
+                if (Featurerow.Count > 0)
+                {
+                    DataRow NearestR = Featurerow[0];
+                    if (anomalyMatchedDataRowPair.Values.Contains(NearestR) == false)
+                    {
+                        IMUr["异常匹配里程差"] = Convert.ToDouble(NearestR[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM;
+                        anomalyMatchedDataRowPair.Add(IMUr, NearestR);
+                    }
+                    else
+                    {
+                        DataRow mathcedIMUr = (from DataRow k in anomalyMatchedDataRowPair.Keys
+                                               where anomalyMatchedDataRowPair[k].Equals(NearestR)
+                                               select k).ToList().First();
+                        double dis = Math.Abs(Convert.ToDouble(NearestR[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM);
+                        double olddis = Math.Abs(Convert.ToDouble(mathcedIMUr["异常匹配里程差"]));
+                        if (dis < olddis)
+                        {
+                            anomalyMatchedDataRowPair.Remove(mathcedIMUr);
+                            IMUr["异常匹配里程差"] = Convert.ToDouble(NearestR[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM;
+                            anomalyMatchedDataRowPair.Add(IMUr, NearestR);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            DataTable alignmentPointTable = IMUTable;
+            string addcolumn = "壁厚变化";
+            if (alignmentPointTable.Columns.Contains(addcolumn))
+            {
+                alignmentPointTable.Columns.Remove(addcolumn);
+            }
+            addcolumn = "长度变化";
+            if (alignmentPointTable.Columns.Contains(addcolumn))
+            {
+                alignmentPointTable.Columns.Remove(addcolumn);
+            }
+            addcolumn = "宽度变化";
+            if (alignmentPointTable.Columns.Contains(addcolumn))
+            {
+                alignmentPointTable.Columns.Remove(addcolumn);
+            }
+            addcolumn = "角度变化";
+            if (alignmentPointTable.Columns.Contains(addcolumn))
+            {
+                alignmentPointTable.Columns.Remove(addcolumn);
+            }
+            addcolumn = "壁厚变化率";
+            if (alignmentPointTable.Columns.Contains(addcolumn))
+            {
+                alignmentPointTable.Columns.Remove(addcolumn);
+            }
+            addcolumn = "长度变化率";
+            if (alignmentPointTable.Columns.Contains(addcolumn))
+            {
+                alignmentPointTable.Columns.Remove(addcolumn);
+            }
+            addcolumn = "宽度变化率";
+            if (alignmentPointTable.Columns.Contains(addcolumn))
+            {
+                alignmentPointTable.Columns.Remove(addcolumn);
+            }
+            DataTable baseTable = CenterlinePointTable;
+            int baseYear = 0;
+            int alignYear = 0;
+            try
+            {
+                if (baseTable.Columns.Contains(EvConfig.IMUInspectionYearField))
+                {
+                    baseYear = Convert.ToInt16(baseTable.Rows[0][EvConfig.IMUInspectionYearField]);
+                }
+                if (alignmentPointTable.Columns.Contains(EvConfig.IMUInspectionYearField))
+                {
+                    alignYear = Convert.ToInt16(alignmentPointTable.Rows[0][EvConfig.IMUInspectionYearField]);
+                }
+            }
+            catch
+            {
 
             }
 
-            CreateInsidPointCenterlineAlignmentStatisticsImage(this.chartControl3);
 
-            this.gridControlPrecision.DataSource = CreateInsidPointCenterlineAlignmentStatisticsTable();
+
+
+            alignmentPointTable.Columns.Add("壁厚变化", System.Type.GetType("System.Double"));
+            alignmentPointTable.Columns.Add("长度变化", System.Type.GetType("System.Double"));
+            alignmentPointTable.Columns.Add("宽度变化", System.Type.GetType("System.Double"));
+            alignmentPointTable.Columns.Add("壁厚变化率", System.Type.GetType("System.Double"));
+            alignmentPointTable.Columns.Add("长度变化率", System.Type.GetType("System.Double"));
+            alignmentPointTable.Columns.Add("宽度变化率", System.Type.GetType("System.Double"));
+            alignmentPointTable.Columns.Add("角度变化", System.Type.GetType("System.Double"));
+
+            #region // 异常增长计算
+            for (int i = 0; i < anomalyMatchedDataRowPair.Count; i++)
+            {
+                DataRow IMUr = anomalyMatchedDataRowPair.Keys.ElementAt(i);
+                DataRow BaseRow = anomalyMatchedDataRowPair.Values.ElementAt(i);
+                try
+                {
+                    if (IMUr[EvConfig.IMUDepthField] != DBNull.Value && BaseRow[EvConfig.IMUDepthField] != DBNull.Value)
+                        IMUr["壁厚变化"] = Convert.ToDouble(IMUr[EvConfig.IMUDepthField]) - Convert.ToDouble(BaseRow[EvConfig.IMUDepthField]);
+
+                    if (IMUr[EvConfig.IMULengthField] != DBNull.Value && BaseRow[EvConfig.IMULengthField] != DBNull.Value)
+                        IMUr["长度变化"] = Convert.ToDouble(IMUr[EvConfig.IMULengthField]) - Convert.ToDouble(BaseRow[EvConfig.IMULengthField]);
+
+                    if (IMUr[EvConfig.IMUWidththField] != DBNull.Value && BaseRow[EvConfig.IMUWidththField] != DBNull.Value)
+                        IMUr["宽度变化"] = Convert.ToDouble(IMUr[EvConfig.IMUWidththField]) - Convert.ToDouble(BaseRow[EvConfig.IMUWidththField]);
+
+                    if (IMUr[EvConfig.IMUAngleField] != DBNull.Value && BaseRow[EvConfig.IMUAngleField] != DBNull.Value)
+                    {
+                        double AlimomanyAngle = ShizhongFangweiToMinutes(IMUr[EvConfig.IMUAngleField].ToString());
+                        IMUr["角度变化"] = Math.Min(Math.Abs(ShizhongFangweiToMinutes(BaseRow[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle),
+                        Math.Abs(720 - Math.Abs(ShizhongFangweiToMinutes(BaseRow[EvConfig.IMUAngleField].ToString()) - AlimomanyAngle)));
+                    }
+                    if (baseYear != 0 && alignYear != 0 && baseYear - alignYear != 0)
+                    {
+                        IMUr["壁厚变化率"] = Convert.ToDouble(IMUr["壁厚变化"]) / (alignYear - baseYear);
+                        IMUr["长度变化率"] = Convert.ToDouble(IMUr["长度变化"]) / (alignYear - baseYear);
+                        IMUr["宽度变化率"] = Convert.ToDouble(IMUr["宽度变化"]) / (alignYear - baseYear);
+                    }
+
+                }
+                catch
+                {
+                }
+            }
+
+
+
+            #endregion
+            MatchedRowList = MatchedDataRowPair;
+            FrmCenterLineInsideAlignment.CalculateNullMeasureBasedOnControlpointMeasure(ref IMUTable);
+
+         
+
+            //FrmIMUToIMUAlignmentresult frm = new FrmIMUToIMUAlignmentresult(alignmentPointTable, MatchedDataRowPair);
+            //FrmIMUAlignmentresult frm = new FrmIMUAlignmentresult(alignmentPointTable);
+
+            CreateInsideToInsideAlignmentStatisticsImage(this.chartControl3); 
+            this.gridControlPrecision.DataSource = CreateInsideToInsideAlignmentStatisticsTable();
             this.gridControlPrecision.MainView.RefreshData();
+        }
+        // format 12:00,  to minute. 0 ~ 720
+        private double ShizhongFangweiToMinutes(string timestring)
+        {
+            DateTime tm;
+            if (DateTime.TryParse(timestring, out tm))
+            {
+                return tm.Hour * 60.0 + tm.Minute;
+            }
+            else
+            {
+                return 0;
+            }
+
         }
 
         
