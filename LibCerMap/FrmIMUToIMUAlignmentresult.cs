@@ -2510,6 +2510,12 @@ namespace LibCerMap
             {
                 int matchedrowCount = IMUTable.AsEnumerable().Where(x => x["对齐里程"] != DBNull.Value).Count();
                 MatchedDataRowPair.Clear();
+                foreach (DataRow IMUr in IMUTable.Rows)
+                {
+                    IMUr["对齐基准点里程差"] = DBNull.Value;
+                    IMUr["对齐基准点类型"] = DBNull.Value;
+                    IMUr["对齐基准点里程"] = DBNull.Value;
+                }
                 for (int i = 0; i < NeijianceControlPointList.Count; i++)
                 {
                     DataRow IMUr = NeijianceControlPointList[i];
@@ -2525,6 +2531,8 @@ namespace LibCerMap
                     if (ManualSelectedRowPayer.ContainsKey(IMUr))
                     {
                         IMUr["对齐基准点里程差"] = 0;
+                        IMUr["对齐基准点里程"] = ManualSelectedRowPayer[IMUr][EvConfig.IMUAlignmentMeasureField];
+                        IMUr["对齐基准点类型"] = ManualSelectedRowPayer[IMUr][EvConfig.IMUPointTypeField];
                         MatchedDataRowPair.Add(IMUr, ManualSelectedRowPayer[IMUr]);
                         continue;
                     }
@@ -2588,6 +2596,8 @@ namespace LibCerMap
                         if (MatchedDataRowPair.Values.Contains(NearestR) == false)
                         {
                             IMUr["对齐基准点里程差"] = Convert.ToDouble(NearestR[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM;
+                            IMUr["对齐基准点里程"] = NearestR[EvConfig.IMUAlignmentMeasureField];
+                            IMUr["对齐基准点类型"] = NearestR["类型"];
                             MatchedDataRowPair.Add(IMUr, NearestR);
                         }
                         else
@@ -2602,6 +2612,8 @@ namespace LibCerMap
                                 MatchedDataRowPair.Remove(mathcedIMUr);
                                 mathcedIMUr["对齐基准点里程差"] = DBNull.Value;
                                 IMUr["对齐基准点里程差"] = Convert.ToDouble(NearestR[EvConfig.IMUAlignmentMeasureField]) - ActionIMUM;
+                                IMUr["对齐基准点里程"] = NearestR[EvConfig.IMUAlignmentMeasureField];
+                                IMUr["对齐基准点类型"] = NearestR["类型"];
                                 MatchedDataRowPair.Add(IMUr, NearestR);
                             }
                             else

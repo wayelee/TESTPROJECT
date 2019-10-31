@@ -328,6 +328,12 @@ namespace LibCerMap
                     MatchedDataRowPair.Clear();
                     foreach (DataRow IMUr in alignmentPointTable.Rows)
                     {
+                        IMUr["对齐基准点里程差"] = DBNull.Value;
+                        IMUr["对齐基准点类型"] = DBNull.Value;
+                        IMUr["对齐基准点里程"] = DBNull.Value;
+                    }
+                    foreach (DataRow IMUr in alignmentPointTable.Rows)
+                    {
                         if (!IMUr["类型"].ToString().Contains("弯头") && !IMUr["类型"].ToString().Contains("环向焊缝") )
                         {
                             continue;
@@ -371,6 +377,7 @@ namespace LibCerMap
                                 if (dis < olddis)
                                 {
                                     MatchedDataRowPair.Remove(mathcedIMUr);
+                                    mathcedIMUr["对齐基准点里程差"] = DBNull.Value;
                                     IMUr["对齐基准点里程差"] = Convert.ToDouble(NearestR[baseMeasureColumn]) - ActionIMUM;
                                     IMUr["对齐基准点里程"] = NearestR[baseMeasureColumn];
                                     IMUr["对齐基准点类型"] = NearestR["类型"];
@@ -504,7 +511,7 @@ namespace LibCerMap
                 }
                 //alignmentPointTable.Columns.Remove("对齐基准点里程差");
                 #endregion
-
+                int ct = alignmentPointTable.AsEnumerable().Where(x => x["对齐基准点里程差"] != DBNull.Value).Count();
 
 
                 #region //匹配异常
