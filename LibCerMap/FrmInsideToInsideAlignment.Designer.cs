@@ -31,13 +31,13 @@
             this.btOK = new DevComponents.DotNetBar.ButtonX();
             this.btCancel = new DevComponents.DotNetBar.ButtonX();
             this.gPanelLine = new DevComponents.DotNetBar.Controls.GroupPanel();
-            this.radioButtonFile = new System.Windows.Forms.RadioButton();
-            this.radioButtonLayer = new System.Windows.Forms.RadioButton();
             this.textBoxFile = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxExCenterlineLayer = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.comboBoxMeasureField = new System.Windows.Forms.ComboBox();
             this.buttonXSelect = new DevComponents.DotNetBar.ButtonX();
+            this.radioButtonFile = new System.Windows.Forms.RadioButton();
+            this.radioButtonLayer = new System.Windows.Forms.RadioButton();
             this.gPanelPoint = new DevComponents.DotNetBar.Controls.GroupPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxBaseMeasureField = new System.Windows.Forms.ComboBox();
@@ -126,28 +126,6 @@
             this.gPanelLine.TabIndex = 3;
             this.gPanelLine.Text = "选择对齐内检测点";
             // 
-            // radioButtonFile
-            // 
-            this.radioButtonFile.AutoSize = true;
-            this.radioButtonFile.Location = new System.Drawing.Point(368, 201);
-            this.radioButtonFile.Name = "radioButtonFile";
-            this.radioButtonFile.Size = new System.Drawing.Size(85, 17);
-            this.radioButtonFile.TabIndex = 10;
-            this.radioButtonFile.Text = "从文件获取";
-            this.radioButtonFile.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonLayer
-            // 
-            this.radioButtonLayer.AutoSize = true;
-            this.radioButtonLayer.Checked = true;
-            this.radioButtonLayer.Location = new System.Drawing.Point(368, 154);
-            this.radioButtonLayer.Name = "radioButtonLayer";
-            this.radioButtonLayer.Size = new System.Drawing.Size(85, 17);
-            this.radioButtonLayer.TabIndex = 10;
-            this.radioButtonLayer.TabStop = true;
-            this.radioButtonLayer.Text = "从图层获取";
-            this.radioButtonLayer.UseVisualStyleBackColor = true;
-            // 
             // textBoxFile
             // 
             this.textBoxFile.Location = new System.Drawing.Point(22, 66);
@@ -200,6 +178,28 @@
             this.buttonXSelect.TabIndex = 0;
             this.buttonXSelect.Text = "...";
             this.buttonXSelect.Click += new System.EventHandler(this.buttonXSelect_Click);
+            // 
+            // radioButtonFile
+            // 
+            this.radioButtonFile.AutoSize = true;
+            this.radioButtonFile.Location = new System.Drawing.Point(368, 201);
+            this.radioButtonFile.Name = "radioButtonFile";
+            this.radioButtonFile.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonFile.TabIndex = 10;
+            this.radioButtonFile.Text = "从文件获取";
+            this.radioButtonFile.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonLayer
+            // 
+            this.radioButtonLayer.AutoSize = true;
+            this.radioButtonLayer.Checked = true;
+            this.radioButtonLayer.Location = new System.Drawing.Point(368, 154);
+            this.radioButtonLayer.Name = "radioButtonLayer";
+            this.radioButtonLayer.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonLayer.TabIndex = 10;
+            this.radioButtonLayer.TabStop = true;
+            this.radioButtonLayer.Text = "从图层获取";
+            this.radioButtonLayer.UseVisualStyleBackColor = true;
             // 
             // gPanelPoint
             // 

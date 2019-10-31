@@ -135,7 +135,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(950, 0);
+            this.button1.Location = new System.Drawing.Point(942, 7);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -146,7 +146,7 @@
             // buttonExportToShapeFIle
             // 
             this.buttonExportToShapeFIle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonExportToShapeFIle.Location = new System.Drawing.Point(842, 0);
+            this.buttonExportToShapeFIle.Location = new System.Drawing.Point(833, 7);
             this.buttonExportToShapeFIle.Name = "buttonExportToShapeFIle";
             this.buttonExportToShapeFIle.Size = new System.Drawing.Size(102, 23);
             this.buttonExportToShapeFIle.TabIndex = 2;
@@ -157,7 +157,7 @@
             // buttonReport
             // 
             this.buttonReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonReport.Location = new System.Drawing.Point(761, 0);
+            this.buttonReport.Location = new System.Drawing.Point(667, 8);
             this.buttonReport.Name = "buttonReport";
             this.buttonReport.Size = new System.Drawing.Size(75, 23);
             this.buttonReport.TabIndex = 3;
@@ -606,7 +606,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(680, 0);
+            this.buttonSave.Location = new System.Drawing.Point(750, 8);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 5;
